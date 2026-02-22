@@ -38,7 +38,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.CREATIVE_SPIKE, "Creative Spike")
 			addBlock(ModBlocks.CREATIVE_HARVEST, "Creative Harvest")
 			addBlock(ModBlocks.ENDER_PORCUPINE, "Ender Porcupine")
-			addBlock(ModBlocks.INDEXER, "Inder")
+			addBlock(ModBlocks.INDEXER, "Indexer")
 			addBlock(ModBlocks.CRUSHER, "Crusher")
 			addBlock(ModBlocks.FURNACE, "Furnace")
 			addBlock(ModBlocks.ENCHANTER, "Enchanter")
