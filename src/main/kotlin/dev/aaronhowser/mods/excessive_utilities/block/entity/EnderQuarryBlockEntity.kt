@@ -58,7 +58,10 @@ class EnderQuarryBlockEntity(
 	 * It will always stay less than the max boundary and more than the min boundary.
 	 */
 	var targetPos: BlockPos? = null
-		private set
+		private set(value) {
+			field = value
+			setChanged()
+		}
 
 	var boundaryType: BoundaryType? = null
 		private set
@@ -137,25 +140,27 @@ class EnderQuarryBlockEntity(
 		val min = minBoundary ?: return
 		val max = maxBoundary ?: return
 
-		var newX = currentTarget.x
-		var newY = currentTarget.y
-		var newZ = currentTarget.z
+		val nextTarget = currentTarget.mutable()
 
-		if (newX < max.x - 1) {
-			newX++
-		} else if (newZ < max.z - 1) {
-			newX = min.x + 1
-			newZ++
-		} else if (newY > level.minBuildHeight + 1) {
-			newX = min.x + 1
-			newZ = min.z + 1
-			newY--
-		} else {
-			targetPos = null
-			return
+		fun moveToNextSpot() {
+			if (nextTarget.x < max.x - 1) {
+				nextTarget.move(1, 0, 0)
+			} else if (nextTarget.z < max.z - 1) {
+				nextTarget.move(0, 0, 1)
+				nextTarget.x = min.x + 1
+			} else if (nextTarget.y > level.minBuildHeight + 1) {
+				nextTarget.move(0, -1, 0)
+			} else {
+				targetPos = null
+				return
+			}
 		}
 
-		targetPos = BlockPos(newX, newY, newZ)
+		while (targetPos != null && canQuarryMineBlock(level, nextTarget)) {
+			moveToNextSpot()
+		}
+
+		targetPos = nextTarget
 	}
 
 	fun checkBoundaries(level: ServerLevel): Boolean {
