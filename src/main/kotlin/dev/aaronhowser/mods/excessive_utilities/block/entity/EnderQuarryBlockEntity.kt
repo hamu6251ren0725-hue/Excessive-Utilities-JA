@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import com.mojang.authlib.GameProfile
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
@@ -28,15 +29,18 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.storage.loot.LootParams
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams
+import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.common.util.FakePlayer
 import net.neoforged.neoforge.common.util.FakePlayerFactory
 import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.energy.IEnergyStorage
+import net.neoforged.neoforge.items.ItemHandlerHelper
 import java.lang.ref.WeakReference
 import java.util.*
 
 //TODO:
 // Block States for inactive, active, and finished
+// Make sure it works while the markers are unloaded, and make it load the chunk the target is in
 class EnderQuarryBlockEntity(
 	pos: BlockPos,
 	state: BlockState
@@ -126,6 +130,26 @@ class EnderQuarryBlockEntity(
 
 	private fun mineBlock(level: ServerLevel, target: BlockPos) {
 		val drops = gatherDrops(level, target)
+	}
+
+	private fun placeDrops(level: ServerLevel, drops: List<ItemStack>) {
+		val leftoverStacks = mutableListOf<ItemStack>()
+
+		val itemHandler = level.getCapability(
+			Capabilities.ItemHandler.BLOCK,
+			blockPos.relative(Direction.UP),
+			Direction.DOWN
+		)
+
+		if (itemHandler != null) {
+			for (drop in drops) {
+				val leftover = ItemHandlerHelper.insertItemStacked(itemHandler, drop, false)
+				if (leftover.isNotEmpty()) {
+					leftoverStacks.add(leftover)
+				}
+			}
+		}
+
 	}
 
 	private fun gatherDrops(level: ServerLevel, target: BlockPos): List<ItemStack> {
