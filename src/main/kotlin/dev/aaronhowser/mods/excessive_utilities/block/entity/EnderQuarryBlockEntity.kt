@@ -83,19 +83,10 @@ class EnderQuarryBlockEntity(
 		if (target == null) {
 			if (!checkBoundaries(level)) {
 				trySetBoundaries(level)
-				return
 			}
 
-			target = targetPos
-		}
-
-		while (target != null && !canQuarryMineBlock(level, target)) {
-			if (minBoundary == null || maxBoundary == null) return
-
 			advanceTargetPos(level)
-			target = targetPos ?: return
-			progressThroughBlock = 0.0
-			feProgress = 0.0
+			target = targetPos
 		}
 
 		if (target == null) return
@@ -107,6 +98,8 @@ class EnderQuarryBlockEntity(
 			progressThroughBlock -= 1.0
 			mineBlock(level, target)
 		}
+
+		advanceTargetPos(level)
 	}
 
 	private fun mineBlock(level: ServerLevel, target: BlockPos) {
@@ -140,27 +133,30 @@ class EnderQuarryBlockEntity(
 		val min = minBoundary ?: return
 		val max = maxBoundary ?: return
 
-		val nextTarget = currentTarget.mutable()
+		fun getNextPos(currentPos: BlockPos): BlockPos? {
+			return when {
+				currentPos.x < max.x - 1 ->
+					currentPos.offset(1, 0, 0)
 
-		fun moveToNextSpot() {
-			if (nextTarget.x < max.x - 1) {
-				nextTarget.move(1, 0, 0)
-			} else if (nextTarget.z < max.z - 1) {
-				nextTarget.move(0, 0, 1)
-				nextTarget.x = min.x + 1
-			} else if (nextTarget.y > level.minBuildHeight + 1) {
-				nextTarget.move(0, -1, 0)
-			} else {
-				targetPos = null
-				return
+				currentPos.z < max.z - 1 ->
+					BlockPos(min.x + 1, currentPos.y, currentPos.z + 1)
+
+				currentPos.y > level.minBuildHeight + 1 ->
+					currentPos.offset(0, -1, 0)
+
+				else -> null
 			}
 		}
 
-		while (targetPos != null && canQuarryMineBlock(level, nextTarget)) {
-			moveToNextSpot()
-		}
+		var nextPos = getNextPos(currentTarget)
+		while (nextPos != null) {
+			if (canQuarryMineBlock(level, nextPos)) {
+				targetPos = nextPos
+				return
+			}
 
-		targetPos = nextTarget
+			nextPos = getNextPos(nextPos)
+		}
 	}
 
 	fun checkBoundaries(level: ServerLevel): Boolean {
