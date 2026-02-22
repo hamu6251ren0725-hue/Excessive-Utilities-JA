@@ -79,6 +79,7 @@ class ServerConfig(
 		feGenerators()
 		enderQuarry()
 		rings()
+		enderQuarryFePerBlock()
 	}
 
 	private fun enderQuarryFePerBlock() {
