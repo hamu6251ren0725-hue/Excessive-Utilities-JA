@@ -28,7 +28,7 @@ class ResonatorBlock : GpDrainBlock(Properties.ofFullCopy(Blocks.COAL_BLOCK)) {
 		if (!state.isBlock(newState.block)) {
 			val be = level.getBlockEntity(pos)
 			if (be is ContainerContainer) {
-				Containers.dropContents(level, pos, be.getContainer())
+				be.dropContents(level, pos)
 			}
 		}
 		super.onRemove(state, level, pos, newState, movedByPiston)

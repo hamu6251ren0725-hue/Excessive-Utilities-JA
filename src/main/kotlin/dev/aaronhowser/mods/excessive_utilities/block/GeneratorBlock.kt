@@ -145,8 +145,7 @@ class GeneratorBlock(
 		if (!state.isBlock(newState.block)) {
 			val be = level.getBlockEntity(pos)
 			if (be is ContainerContainer) {
-				val container = be.getContainer()
-				if (container != null) Containers.dropContents(level, pos, container)
+				be.dropContents(level, pos)
 			}
 		}
 

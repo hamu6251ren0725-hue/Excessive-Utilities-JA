@@ -58,7 +58,7 @@ class SlightlyLargerChestBlock : Block(Properties.ofFullCopy(Blocks.CHEST)), Ent
 		if (!state.isBlock(newState.block)) {
 			val be = level.getBlockEntity(pos)
 			if (be is ContainerContainer) {
-				Containers.dropContents(level, pos, be.getContainer())
+				be.dropContents(level, pos)
 			}
 		}
 		super.onRemove(state, level, pos, newState, movedByPiston)

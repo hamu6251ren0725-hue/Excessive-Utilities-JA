@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.block
 
 import dev.aaronhowser.mods.excessive_utilities.block.entity.ChandelierBlockEntity
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
@@ -16,7 +17,7 @@ class ChandelierBlock : Block(Properties.ofFullCopy(Blocks.TORCH)), EntityBlock 
 	}
 
 	override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
-		return level.getBlockState(pos.above()).isSolid
+		return canSupportCenter(level, pos.above(), Direction.DOWN)
 	}
 
 }
