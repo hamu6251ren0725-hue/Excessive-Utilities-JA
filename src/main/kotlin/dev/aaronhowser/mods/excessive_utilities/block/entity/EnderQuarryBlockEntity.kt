@@ -142,7 +142,7 @@ class EnderQuarryBlockEntity(
 					BlockPos(min.x + 1, currentPos.y, currentPos.z + 1)
 
 				currentPos.y > level.minBuildHeight + 1 ->
-					currentPos.offset(0, -1, 0)
+					BlockPos(min.x + 1, currentPos.y - 1, min.z + 1)
 
 				else -> null
 			}
@@ -154,7 +154,6 @@ class EnderQuarryBlockEntity(
 				targetPos = nextPos
 				return
 			}
-
 			nextPos = getNextPos(nextPos)
 		}
 	}
