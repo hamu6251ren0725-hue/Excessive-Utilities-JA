@@ -18,12 +18,16 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.Mth
 import net.minecraft.util.StringRepresentable
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.FenceBlock
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.storage.loot.LootParams
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams
 import net.neoforged.neoforge.common.util.FakePlayer
 import net.neoforged.neoforge.common.util.FakePlayerFactory
 import net.neoforged.neoforge.energy.EnergyStorage
@@ -121,7 +125,44 @@ class EnderQuarryBlockEntity(
 	}
 
 	private fun mineBlock(level: ServerLevel, target: BlockPos) {
-		level.setBlock(target, Blocks.COBBLESTONE.defaultBlockState(), Block.UPDATE_ALL)
+		val targetState = level.getBlockState(target)
+
+		var tool = ItemStack.EMPTY
+
+		if (targetState.requiresCorrectToolForDrops()) {
+			val pickaxe = Items.NETHERITE_PICKAXE.defaultInstance
+			if (pickaxe.isCorrectToolForDrops(targetState)) {
+				tool = pickaxe
+			} else {
+				val shovel = Items.NETHERITE_SHOVEL.defaultInstance
+				if (shovel.isCorrectToolForDrops(targetState)) {
+					tool = shovel
+				} else {
+					val axe = Items.NETHERITE_AXE.defaultInstance
+					if (axe.isCorrectToolForDrops(targetState)) {
+						tool = axe
+					}
+				}
+			}
+		}
+
+		val lootParams = LootParams.Builder(level)
+			.withParameter(LootContextParams.ORIGIN, target.center)
+			.withParameter(LootContextParams.TOOL, tool)
+			.withParameter(LootContextParams.BLOCK_STATE, targetState)
+
+		val player = fakePlayer?.get()
+		if (player != null) {
+			lootParams.withParameter(LootContextParams.THIS_ENTITY, player)
+		}
+
+		val be = level.getBlockEntity(target)
+		if (be != null) {
+			lootParams.withParameter(LootContextParams.BLOCK_ENTITY, be)
+		}
+
+		val drops = targetState.getDrops(lootParams)
+
 	}
 
 	/**
@@ -423,6 +464,7 @@ class EnderQuarryBlockEntity(
 		val fakePlayer = FakePlayerFactory.get(level, gameProfile)
 
 		fakePlayer.isSilent = true
+		fakePlayer.setPos(blockPos.bottomCenter)
 		fakePlayer.setOnGround(true)
 
 		this.fakePlayer = WeakReference(fakePlayer)
