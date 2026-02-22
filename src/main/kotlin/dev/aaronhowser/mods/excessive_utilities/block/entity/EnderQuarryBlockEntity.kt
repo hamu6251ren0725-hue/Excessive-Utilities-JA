@@ -51,28 +51,14 @@ class EnderQuarryBlockEntity(
 	var boundaryType: BoundaryType? = null
 		private set
 
-	private fun initFakePlayer() {
-		val level = level as? ServerLevel ?: return
-
-		if (this.uuid == null) {
-			this.uuid = UUID.randomUUID()
-			setChanged()
-		}
-
-		val gameProfile = GameProfile(this.uuid, "EU_EnderQuarry")
-		val fakePlayer = FakePlayerFactory.get(level, gameProfile)
-
-		fakePlayer.isSilent = true
-		fakePlayer.setOnGround(true)
-
-		this.fakePlayer = WeakReference(fakePlayer)
-		setChanged()
-	}
-
 	fun tick() {
 		if (fakePlayer?.get() == null) {
 			initFakePlayer()
 		}
+	}
+
+	fun progressMine(level: ServerLevel) {
+
 	}
 
 	fun checkBoundaries(level: ServerLevel): Boolean {
@@ -303,6 +289,24 @@ class EnderQuarryBlockEntity(
 
 		targetPos = min.offset(1, 0, 1)
 		return true
+	}
+
+	private fun initFakePlayer() {
+		val level = level as? ServerLevel ?: return
+
+		if (this.uuid == null) {
+			this.uuid = UUID.randomUUID()
+			setChanged()
+		}
+
+		val gameProfile = GameProfile(this.uuid, "EU_EnderQuarry")
+		val fakePlayer = FakePlayerFactory.get(level, gameProfile)
+
+		fakePlayer.isSilent = true
+		fakePlayer.setOnGround(true)
+
+		this.fakePlayer = WeakReference(fakePlayer)
+		setChanged()
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
