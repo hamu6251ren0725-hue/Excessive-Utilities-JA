@@ -358,6 +358,7 @@ class EnderQuarryBlockEntity(
 		maxBoundary = max
 
 		targetPos = min.offset(1, 0, 1)
+		advanceTargetPos(level)
 		return true
 	}
 
@@ -502,8 +503,8 @@ class EnderQuarryBlockEntity(
 			}
 		}
 
-		fun getEnergyCapability(transmitter: EnderQuarryBlockEntity, direction: Direction?): IEnergyStorage {
-			return transmitter.energyStorage
+		fun getEnergyCapability(quarry: EnderQuarryBlockEntity, direction: Direction?): IEnergyStorage {
+			return quarry.energyStorage
 		}
 	}
 
