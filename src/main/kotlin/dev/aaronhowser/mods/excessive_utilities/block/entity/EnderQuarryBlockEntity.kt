@@ -97,9 +97,8 @@ class EnderQuarryBlockEntity(
 		while (progressThroughBlock >= 1.0) {
 			progressThroughBlock -= 1.0
 			mineBlock(level, target)
+			advanceTargetPos(level)
 		}
-
-		advanceTargetPos(level)
 	}
 
 	private fun mineBlock(level: ServerLevel, target: BlockPos) {
