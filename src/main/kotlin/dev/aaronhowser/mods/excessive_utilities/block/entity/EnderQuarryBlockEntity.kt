@@ -125,16 +125,35 @@ class EnderQuarryBlockEntity(
 		return true
 	}
 
+	// Start at minBoundary +1 to X and Z
+	// Go +X until maxBoundary - 1
+	// +Z, go back to minBoundary + 1 X
+	// Repeat until maxBoundary - 1 Z, then +X until maxBoundary - 1 X
+	// Then go down one Y and repeat the whole process until minBuildHeight is reached
 	private fun advanceTargetPos(level: ServerLevel) {
 		val currentTarget = targetPos ?: return
 		val min = minBoundary ?: return
 		val max = maxBoundary ?: return
 
-		if (currentTarget.y > level.minBuildHeight) {
-			targetPos = currentTarget.below()
+		var newX = currentTarget.x
+		var newY = currentTarget.y
+		var newZ = currentTarget.z
+
+		if (newX < max.x - 1) {
+			newX++
+		} else if (newZ < max.z - 1) {
+			newX = min.x + 1
+			newZ++
+		} else if (newY > level.minBuildHeight + 1) {
+			newX = min.x + 1
+			newZ = min.z + 1
+			newY--
+		} else {
+			targetPos = null
 			return
 		}
 
+		targetPos = BlockPos(newX, newY, newZ)
 	}
 
 	fun checkBoundaries(level: ServerLevel): Boolean {
