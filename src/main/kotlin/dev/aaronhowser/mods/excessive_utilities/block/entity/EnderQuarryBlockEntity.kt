@@ -39,10 +39,10 @@ class EnderQuarryBlockEntity(
 	private var uuid: UUID? = null
 	private var fakePlayer: WeakReference<FakePlayer>? = null
 
-	var minPos: BlockPos? = null
+	var minBoundary: BlockPos? = null
 		private set
 
-	var maxPos: BlockPos? = null
+	var maxBoundary: BlockPos? = null
 		private set
 
 	var targetPos: BlockPos? = null
@@ -57,13 +57,16 @@ class EnderQuarryBlockEntity(
 		}
 	}
 
-	fun progressMine(level: ServerLevel) {
+	var progressThroughBlock = 0.0
+	var feProgress = 0.0
 
+	fun progressMine(level: ServerLevel) {
+		val target = targetPos
 	}
 
 	fun checkBoundaries(level: ServerLevel): Boolean {
-		val min = minPos ?: return false
-		val max = maxPos ?: return false
+		val min = minBoundary ?: return false
+		val max = maxBoundary ?: return false
 		val type = boundaryType ?: return false
 
 		val y = blockPos.y
@@ -133,8 +136,8 @@ class EnderQuarryBlockEntity(
 			}
 		}
 
-		minPos = null
-		maxPos = null
+		minBoundary = null
+		maxBoundary = null
 		targetPos = null
 		boundaryType = null
 
@@ -235,8 +238,8 @@ class EnderQuarryBlockEntity(
 		val min = BlockPos(minX, y, minZ)
 		val max = BlockPos(maxX, y, maxZ)
 
-		minPos = min
-		maxPos = max
+		minBoundary = min
+		maxBoundary = max
 
 		targetPos = min.offset(1, 0, 1)
 		return true
@@ -284,8 +287,8 @@ class EnderQuarryBlockEntity(
 		val min = BlockPos(minX, y, minZ)
 		val max = BlockPos(maxX, y, maxZ)
 
-		minPos = min
-		maxPos = max
+		minBoundary = min
+		maxBoundary = max
 
 		targetPos = min.offset(1, 0, 1)
 		return true
@@ -314,12 +317,12 @@ class EnderQuarryBlockEntity(
 
 		tag.putInt(STORED_ENERGY_NBT, energyStorage.energyStored)
 
-		val min = minPos
-		val max = maxPos
+		val min = minBoundary
+		val max = maxBoundary
 
 		if (min != null && max != null) {
-			tag.putLong(MIN_POS_NBT, min.asLong())
-			tag.putLong(MAX_POS_NBT, max.asLong())
+			tag.putLong(MIN_BOUNDARY_NBT, min.asLong())
+			tag.putLong(MAX_BOUNDARY_NBT, max.asLong())
 		}
 
 		val target = targetPos
@@ -341,9 +344,9 @@ class EnderQuarryBlockEntity(
 			energyStorage.deserializeNBT(registries, storedEnergyTag)
 		}
 
-		if (tag.contains(MIN_POS_NBT) && tag.contains(MAX_POS_NBT)) {
-			minPos = BlockPos.of(tag.getLong(MIN_POS_NBT))
-			maxPos = BlockPos.of(tag.getLong(MAX_POS_NBT))
+		if (tag.contains(MIN_BOUNDARY_NBT) && tag.contains(MAX_BOUNDARY_NBT)) {
+			minBoundary = BlockPos.of(tag.getLong(MIN_BOUNDARY_NBT))
+			maxBoundary = BlockPos.of(tag.getLong(MAX_BOUNDARY_NBT))
 		}
 
 		if (tag.contains(TARGET_POS_NBT)) {
@@ -366,12 +369,11 @@ class EnderQuarryBlockEntity(
 	}
 
 	companion object {
-		const val MIN_POS_NBT = "MinPos"
-		const val MAX_POS_NBT = "MaxPos"
+		const val MIN_BOUNDARY_NBT = "MinBoundary"
+		const val MAX_BOUNDARY_NBT = "MaxBoundary"
 		const val TARGET_POS_NBT = "TargetPos"
 		const val STORED_ENERGY_NBT = "StoredEnergy"
 		const val BOUNDARY_TYPE_NBT = "BoundaryType"
-		const val BOUNDARY_CHECKED_NBT = "BoundariesChecked"
 	}
 
 	enum class BoundaryType(val id: String) : StringRepresentable {

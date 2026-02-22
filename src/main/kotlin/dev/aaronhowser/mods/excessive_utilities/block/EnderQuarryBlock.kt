@@ -32,8 +32,8 @@ class EnderQuarryBlock : Block(Properties.ofFullCopy(Blocks.OBSIDIAN)), EntityBl
 		if (level is ServerLevel && be is EnderQuarryBlockEntity) {
 			be.trySetBoundaries(level)
 
-			player.tell("Min Position: ${be.minPos ?: "Not Set"}")
-			player.tell("Max Position: ${be.maxPos ?: "Not Set"}")
+			player.tell("Min Position: ${be.minBoundary ?: "Not Set"}")
+			player.tell("Max Position: ${be.maxBoundary ?: "Not Set"}")
 		}
 
 		return InteractionResult.SUCCESS
