@@ -130,6 +130,16 @@ class EnderQuarryBlockEntity(
 
 	private fun mineBlock(level: ServerLevel, target: BlockPos) {
 		val drops = gatherDrops(level, target)
+		placeDrops(level, drops)
+
+
+		val hasWorldHoleUpgrade = false
+		if (hasWorldHoleUpgrade) {
+			level.removeBlock(target, false)
+		} else {
+			level.setBlock(target, Blocks.COBBLESTONE.defaultBlockState(), Block.UPDATE_ALL)
+		}
+
 	}
 
 	private fun placeDrops(level: ServerLevel, drops: List<ItemStack>) {
