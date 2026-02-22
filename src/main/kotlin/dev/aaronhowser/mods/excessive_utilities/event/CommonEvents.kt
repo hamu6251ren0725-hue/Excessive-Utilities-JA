@@ -128,6 +128,12 @@ object CommonEvents {
 			MagmaticGeneratorBlockEntity::getFluidCapability
 		)
 
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ModBlockEntityTypes.ENDER_QUARRY.get(),
+			EnderQuarryBlockEntity::getEnergyCapability
+		)
+
 	}
 
 	@SubscribeEvent

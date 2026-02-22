@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.common.util.FakePlayer
 import net.neoforged.neoforge.common.util.FakePlayerFactory
 import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.energy.IEnergyStorage
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -499,6 +500,10 @@ class EnderQuarryBlockEntity(
 			if (level is ServerLevel) {
 				blockEntity.serverTick(level)
 			}
+		}
+
+		fun getEnergyCapability(transmitter: EnderQuarryBlockEntity, direction: Direction?): IEnergyStorage {
+			return transmitter.energyStorage
 		}
 	}
 
