@@ -59,6 +59,8 @@ class EnderQuarryBlockEntity(
 	 */
 	var targetPos: BlockPos? = null
 		private set(value) {
+			if (field == value) return
+
 			field = value
 			setChanged()
 		}
@@ -148,13 +150,17 @@ class EnderQuarryBlockEntity(
 		}
 
 		var nextPos = getNextPos(currentTarget)
+
 		while (nextPos != null) {
 			if (canQuarryMineBlock(level, nextPos)) {
 				targetPos = nextPos
 				return
 			}
+
 			nextPos = getNextPos(nextPos)
 		}
+
+		targetPos = null
 	}
 
 	fun checkBoundaries(level: ServerLevel): Boolean {
