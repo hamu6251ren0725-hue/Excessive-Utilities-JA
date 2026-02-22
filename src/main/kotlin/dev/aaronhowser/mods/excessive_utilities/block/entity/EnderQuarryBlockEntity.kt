@@ -87,6 +87,8 @@ class EnderQuarryBlockEntity(
 		}
 
 		while (target != null && !canQuarryMineBlock(level, target)) {
+			if (minBoundary == null || maxBoundary == null) return
+
 			advanceTargetPos(level)
 			target = targetPos ?: return
 			progressThroughBlock = 0.0
