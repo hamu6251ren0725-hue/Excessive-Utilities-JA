@@ -25,7 +25,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:deepslate"
+          "name": "minecraft:cobbled_deepslate"
         }
       ],
       "rolls": 1.0

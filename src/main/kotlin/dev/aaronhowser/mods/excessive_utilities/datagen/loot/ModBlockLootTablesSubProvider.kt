@@ -47,7 +47,7 @@ class ModBlockLootTablesSubProvider(
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1f))
-						.add(LootItem.lootTableItem(Items.STONE))
+						.add(LootItem.lootTableItem(Items.COBBLESTONE))
 				)
 		)
 
@@ -63,7 +63,7 @@ class ModBlockLootTablesSubProvider(
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1f))
-						.add(LootItem.lootTableItem(Items.DEEPSLATE))
+						.add(LootItem.lootTableItem(Items.COBBLED_DEEPSLATE))
 				)
 		)
 
