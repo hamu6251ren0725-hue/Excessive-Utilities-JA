@@ -21,4 +21,16 @@ enum class EnderQuarryUpgradeType(
 	;
 
 	override fun getSerializedName(): String = id
+
+	fun getIncompatibleUpgrades(): List<EnderQuarryUpgradeType> {
+		val drops = listOf(SILK_TOUCH, FORTUNE_ONE, FORTUNE_TWO, FORTUNE_THREE)
+		val speed = listOf(SPEED_ONE, SPEED_TWO, SPEED_THREE)
+
+		return when (this) {
+			in drops -> drops
+			in speed -> speed
+			else -> listOf(this)
+		}
+	}
+
 }

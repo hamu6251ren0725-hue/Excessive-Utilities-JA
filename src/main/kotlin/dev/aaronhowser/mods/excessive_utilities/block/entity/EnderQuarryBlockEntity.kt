@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 import com.mojang.authlib.GameProfile
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.excessive_utilities.block.base.EnderQuarryUpgradeType
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
@@ -52,10 +53,12 @@ class EnderQuarryBlockEntity(
 	private var fakePlayer: WeakReference<FakePlayer>? = null
 
 	private val upgradePositions: MutableSet<BlockPos> = mutableSetOf()
-	private val upgrades: MutableSet<EnderQuarryUpgradeBlockEntity> = mutableSetOf()
+	private val upgrades: MutableSet<EnderQuarryUpgradeType> = mutableSetOf()
 
-	fun addUpgrade(upgrade: EnderQuarryUpgradeBlockEntity) {
+	fun addUpgrade(upgrade: EnderQuarryUpgradeBlockEntity): Boolean {
 		val type = upgrade.upgradeType
+		if (type in upgrades) return false
+
 	}
 
 	/**
