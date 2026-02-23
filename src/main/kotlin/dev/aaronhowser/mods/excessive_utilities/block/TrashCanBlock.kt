@@ -23,6 +23,7 @@ class TrashCanBlock(
 		val id: String
 	) : StringRepresentable {
 		ITEM("ITEM"),
+		CHEST("CHEST"),
 		FLUID("FLUID"),
 		ENERGY("ENERGY")
 		;
