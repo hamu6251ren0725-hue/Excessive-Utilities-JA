@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-23T10:19:04.4611487	Loot Tables
+// 1.21.1	2026-02-23T10:42:38.1513111	Loot Tables
 d31df4f9b468081e14a6755a2facd5cb7bded7d3 data/excessive_utilities/loot_table/blocks/advanced_filing_cabinet.json
 dfd3eb1c14ba5a4b83fdae1b1844caadf489ebdb data/excessive_utilities/loot_table/blocks/advanced_observer.json
 b055a9a7538aafe8d17289edbaab51c7759d0a94 data/excessive_utilities/loot_table/blocks/angel_block.json
@@ -33,6 +33,7 @@ bf055ea0ba6439072d5dc78927de18242f9aeb1c data/excessive_utilities/loot_table/blo
 b10be53e9add5cd773409b9aa7282bd9fc2b76a5 data/excessive_utilities/loot_table/blocks/cursed_earth.json
 0c122d84eca71c6875ea307fd54d901ada6d763a data/excessive_utilities/loot_table/blocks/dark_ineffable_glass.json
 137bc2792e7facb94b701bc806b95829df0239fa data/excessive_utilities/loot_table/blocks/death_generator.json
+1318e0162198998ee659ba3a5ac4d85e17e279e3 data/excessive_utilities/loot_table/blocks/deepslate_moon_stone_ore.json
 217c380a0073cced78415bfdcc913905e110a6d9 data/excessive_utilities/loot_table/blocks/deep_dark_portal.json
 a6f8dee0bf2e54617d29df17d5822e0b56e6aa94 data/excessive_utilities/loot_table/blocks/dehostilifier.json
 4c9cd2da8ae86dc082361de70fae05056e86a6dc data/excessive_utilities/loot_table/blocks/dehumidifier.json

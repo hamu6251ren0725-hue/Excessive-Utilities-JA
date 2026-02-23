@@ -65,7 +65,9 @@ object ModBlocks : AaronBlockRegistry() {
 	val SCANNER =
 		basicBlock("scanner")
 	val MOON_STORE_ORE: DeferredBlock<MoonStoreOreBlock> =
-		registerBlock("moon_store_ore", ::MoonStoreOreBlock)
+		registerBlock("moon_store_ore") { MoonStoreOreBlock(Blocks.IRON_ORE) }
+	val DEEPSLATE_MOON_STONE_ORE: DeferredBlock<MoonStoreOreBlock> =
+		registerBlock("deepslate_moon_stone_ore") { MoonStoreOreBlock(Blocks.DEEPSLATE_IRON_ORE) }
 
 	// Redstone stuff
 

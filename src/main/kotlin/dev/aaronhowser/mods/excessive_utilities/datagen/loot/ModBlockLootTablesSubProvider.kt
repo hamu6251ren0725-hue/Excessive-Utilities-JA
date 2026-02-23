@@ -12,21 +12,25 @@ class ModBlockLootTablesSubProvider(
 	provider: HolderLookup.Provider
 ) : BlockLootSubProvider(setOf(), FeatureFlags.REGISTRY.allFlags(), provider) {
 
-	private val noDropSelfBlocks: Set<Block> = buildSet {
-
-	}
-
 	override fun getKnownBlocks(): Iterable<Block> {
 		return ModBlocks.BLOCK_REGISTRY.entries.map(DeferredHolder<Block, out Block>::get)
 	}
 
 	override fun generate() {
-		val dropSelfBlocks = this.knownBlocks - this.noDropSelfBlocks
+		val noDropSelfBlocks: Set<Block> = buildSet {
+//			add(ModBlocks.MOON_STORE_ORE.get())
+		}
+
+		val dropSelfBlocks = knownBlocks - noDropSelfBlocks
 
 		for (block in dropSelfBlocks) {
 			dropSelf(block)
 		}
 
+//		add(
+//			ModBlocks.MOON_STORE_ORE.get(),
+//
+//		)
 
 	}
 

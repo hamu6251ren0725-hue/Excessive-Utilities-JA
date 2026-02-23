@@ -38,53 +38,60 @@ class ModBlockStateProvider(
 	}
 
 	private fun moonStoneOre() {
-		val block = ModBlocks.MOON_STORE_ORE.get()
-		val name = name(block)
+		val ores = mapOf(
+			ModBlocks.MOON_STORE_ORE.get() to "stone",
+			ModBlocks.DEEPSLATE_MOON_STONE_ORE.get() to "deepslate"
+		)
 
-		val dayModel = models()
-			.cubeAll(name + "_day", mcLoc("block/stone"))
+		for ((block, baseTexture) in ores) {
+			val name = name(block)
 
-		val nightModel = models()
-			.withExistingParent(name + "_night", mcLoc("block/block"))
-			.texture("stone", mcLoc("block/stone"))
-			.texture("overlay", modLoc("block/moon_stone_ore_overlay"))
-			.texture("particle", mcLoc("block/stone"))
-			.renderType(RenderType.cutout().name)
+			val dayModel = models()
+				.cubeAll(name + "_day", mcLoc("block/$baseTexture"))
 
-			.element()
-			.from(0f, 0f, 0f)
-			.to(16f, 16f, 16f)
-			.allFaces { dir, fb ->
-				fb.texture("#stone")
-				fb.cullface(dir)
-				fb.uvs(0f, 0f, 16f, 16f)
-			}
-			.end()
+			val nightModel = models()
+				.withExistingParent(name + "_night", mcLoc("block/block"))
+				.texture("stone", mcLoc("block/$baseTexture"))
+				.texture("overlay", modLoc("block/moon_stone_ore_overlay"))
+				.texture("particle", mcLoc("block/stone"))
+				.renderType(RenderType.cutout().name)
 
-			.element()
-			.from(0f, 0f, 0f)
-			.to(16f, 16f, 16f)
-			.allFaces { dir, fb ->
-				fb.texture("#overlay")
-				fb.cullface(dir)
-				fb.uvs(0f, 0f, 16f, 16f)
-			}
-			.emissivity(8, 8)
-			.end()
+				.element()
+				.from(0f, 0f, 0f)
+				.to(16f, 16f, 16f)
+				.allFaces { dir, fb ->
+					fb.texture("#stone")
+					fb.cullface(dir)
+					fb.uvs(0f, 0f, 16f, 16f)
+				}
+				.end()
 
-		getVariantBuilder(block)
-			.forAllStates {
-				val isVisible = it.getValue(MoonStoreOreBlock.VISIBLE)
+				.element()
+				.from(0f, 0f, 0f)
+				.to(16f, 16f, 16f)
+				.allFaces { dir, fb ->
+					fb.texture("#overlay")
+					fb.cullface(dir)
+					fb.uvs(0f, 0f, 16f, 16f)
+				}
+				.emissivity(8, 8)
+				.end()
 
-				val modelFile = if (isVisible) nightModel else dayModel
+			getVariantBuilder(block)
+				.forAllStates {
+					val isVisible = it.getValue(MoonStoreOreBlock.VISIBLE)
 
-				ConfiguredModel
-					.builder()
-					.modelFile(modelFile)
-					.build()
-			}
+					val modelFile = if (isVisible) nightModel else dayModel
 
-		simpleBlockItem(block, nightModel)
+					ConfiguredModel
+						.builder()
+						.modelFile(modelFile)
+						.build()
+				}
+
+			simpleBlockItem(block, nightModel)
+		}
+
 	}
 
 	private fun filingCabinets() {
