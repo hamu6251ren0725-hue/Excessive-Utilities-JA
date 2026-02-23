@@ -291,7 +291,8 @@ class EnderQuarryBlockEntity(
 		val unbreakable = state.getDestroySpeed(level, target) < 0
 		if (unbreakable) return false
 
-		return true
+		val fakePlayer = fakePlayer?.get() ?: return false
+		return level.mayInteract(fakePlayer, target)
 	}
 
 	// Start at minBoundary +1 to X and Z
