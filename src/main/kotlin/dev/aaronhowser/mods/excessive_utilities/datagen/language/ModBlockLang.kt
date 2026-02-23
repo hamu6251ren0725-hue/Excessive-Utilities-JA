@@ -46,7 +46,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.MAGICAL_SNOW_GLOBE, "Magical Snow Globe")
 			addBlock(ModBlocks.MECHANICAL_MINER, "Mechanical Miner")
 			addBlock(ModBlocks.MECHANICAL_USER, "Mechanical User")
-			addBlock(ModBlocks.POWER_OVERLOAD, "Power Overload")
 			addBlock(ModBlocks.QUANTUM_QUARRY, "Quantum Quarry")
 			addBlock(ModBlocks.QUANTUM_QUARRY_ACTUATOR, "Quantum Quarry Actuator")
 			addBlock(ModBlocks.RED_ORCHID, "Red Orchid")

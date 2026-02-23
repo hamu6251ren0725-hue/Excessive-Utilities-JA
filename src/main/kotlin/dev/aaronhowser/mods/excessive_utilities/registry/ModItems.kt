@@ -51,7 +51,7 @@ object ModItems : AaronItemRegistry() {
 		basic("division_sigil")
 	val UNSTABLE_INGOT: DeferredItem<UnstableIngotItem> =
 		register("unstable_ingot", ::UnstableIngotItem, UnstableIngotItem.STABLE_PROPERTIES)
-	val SEMI_UNSTABLE_NUGGET =
+	val SEMI_UNSTABLE_NUGGET: DeferredItem<Item> =
 		basic("semi_unstable_nugget")
 	val KLEIN_BOTTLE: DeferredItem<Item> =
 		basic("klein_bottle")

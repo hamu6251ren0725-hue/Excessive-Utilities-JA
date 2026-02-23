@@ -60,8 +60,6 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("indexer")
 	val MAGICAL_SNOW_GLOBE =
 		registerBlockWithoutItem("magical_snow_globe") { Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OBSIDIAN)) }
-	val POWER_OVERLOAD =
-		basicBlock("power_overload")
 	val RESTURBED_MOB_SPAWNER =
 		basicBlock("resturbed_mob_spawner")
 	val SCANNER =
