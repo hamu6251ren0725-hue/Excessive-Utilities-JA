@@ -415,6 +415,10 @@ class ServerConfig(
 			)
 			.defineEnum("soulFragmentResetOnDeath", SoulDebt.OnDeathConfig.KEEP)
 
+		healingAxeHealthTransferAmount = builder
+			.comment("The amount of health that the Healing Axe will transfer between you and the entity you hit.")
+			.defineInRange("healingAxeHealthTransferAmount", 4.0, 0.0, Double.MAX_VALUE)
+
 	}
 
 	private fun heatingCoil() {
