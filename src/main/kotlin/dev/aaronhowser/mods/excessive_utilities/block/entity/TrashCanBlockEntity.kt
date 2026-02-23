@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
+import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -13,7 +14,8 @@ class TrashCanBlockEntity(
 	state: BlockState
 ) : BlockEntity(ModBlockEntityTypes.ENDER_QUARRY.get(), pos, state) {
 
-	private var filterStack: ItemStack = ItemStack.EMPTY
+	private val filterContainer = ImprovedSimpleContainer(this, 1)
+	val filterStack: ItemStack get() = filterContainer.getItem(FILTER_SLOT)
 
 	private val itemHandler: IItemHandler =
 		object : IItemHandler {
