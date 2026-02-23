@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
@@ -126,6 +127,22 @@ class FilingCabinetBlockEntity(
 		}
 
 	fun getItemHandler(direction: Direction): IItemHandler = itemHandler
+
+	fun dropAllItems() {
+		val level = level ?: return
+		val item = storedItem ?: return
+
+		for ((data, count) in storedEntries) {
+			val stack = recreateStack(item, data)
+			stack.count = count
+
+			Block.popResource(level, worldPosition, stack)
+		}
+
+		storedItem = null
+		storedEntries.clear()
+		setChanged()
+	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
