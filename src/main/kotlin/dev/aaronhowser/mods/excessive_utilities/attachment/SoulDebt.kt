@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.attachment
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModAttachmentTypes
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -52,12 +53,14 @@ data class SoulDebt(
 
 			val modifier = AttributeModifier(
 				ATTRIBUTE_MODIFIER_NAME,
-				netSoulFragments.toDouble(),
+				netSoulFragments.toDouble() * ServerConfig.CONFIG.soulFragmentHealth.get(),
 				AttributeModifier.Operation.ADD_VALUE
 			)
 
 			maxHealthAttribute.addPermanentModifier(modifier)
 		}
 	}
+
+	enum class OnDeathConfig { KEEP, RESET, REMOVE_NEGATIVE }
 
 }

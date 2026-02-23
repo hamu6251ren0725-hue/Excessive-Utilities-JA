@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.config
 
+import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair
 
@@ -13,6 +14,8 @@ class ServerConfig(
 	lateinit var flatFluidTransferNodeSpeed: ModConfigSpec.IntValue
 	lateinit var peacefulTableOnlyInPeaceful: ModConfigSpec.BooleanValue
 	lateinit var peacefulTableChancePerTick: ModConfigSpec.DoubleValue
+	lateinit var soulFragmentHealth: ModConfigSpec.DoubleValue
+	lateinit var soulFragmentResetOnDeath: ModConfigSpec.EnumValue<SoulDebt.OnDeathConfig>
 
 	lateinit var heatingCoilBurnTime: ModConfigSpec.IntValue
 	lateinit var heatingCoilBurnCost: ModConfigSpec.IntValue
@@ -387,6 +390,19 @@ class ServerConfig(
 		peacefulTableChancePerTick = builder
 			.comment("The chance per tick that the Peaceful Table will try to generate a drop.")
 			.defineInRange("peacefulTableChancePerTick", 1.0 / 20 / 30, 0.0, 1.0)
+
+		soulFragmentHealth = builder
+			.comment("The amount of health that each Soul Fragment is worth.")
+			.defineInRange("soulFragmentHealth", 2.0, 0.0, Double.MAX_VALUE)
+
+		soulFragmentResetOnDeath = builder
+			.comment(
+				"What should happen to your Soul Debt/Surplus when you die.",
+				"KEEP: You keep all of your Soul Debt/Surplus",
+				"RESET: You reset to having 0 Soul Debt/Surplus",
+				"REMOVE_NEGATIVE: You keep Soul Surplus, but reset Soul Debt to 0"
+			)
+			.defineEnum("healthPerSoulFragment", SoulDebt.OnDeathConfig.KEEP)
 
 	}
 
