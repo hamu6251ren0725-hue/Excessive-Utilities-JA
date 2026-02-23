@@ -57,6 +57,8 @@ class EnderQuarryBlockEntity(
 
 	private val upgradePositions: MutableSet<BlockPos> = mutableSetOf()
 	fun addUpgrade(upgradeBe: EnderQuarryUpgradeBlockEntity): Boolean {
+		if (upgradeBe.blockPos in upgradePositions) return true
+
 		val currentUpgrades = getUpgrades()
 		val newUpgradeType = upgradeBe.upgradeType
 		for (upgrade in currentUpgrades) {
