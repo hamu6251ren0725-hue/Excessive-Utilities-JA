@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
-class FilingCabinetBlock : Block(Properties.ofFullCopy(Blocks.OAK_WOOD)), EntityBlock {
+class FilingCabinetBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)), EntityBlock {
 
 	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
 		return FilingCabinetBlockEntity(pos, state)
