@@ -32,8 +32,6 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("wireless_fe_transmitter", ::WirelessFeTransmitterBlockEntity, ModBlocks.WIRELESS_FE_TRANSMITTER)
 	val ENCHANTER: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnchanterBlockEntity>> =
 		register("enchanter", ::EnchanterBlockEntity, ModBlocks.ENCHANTER)
-	val CREATIVE_HARVEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<CreativeHarvestBlockEntity>> =
-		register("creative_harvest", ::CreativeHarvestBlockEntity, ModBlocks.CREATIVE_HARVEST)
 	val SLIGHTLY_LARGER_CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<SlightlyLargerChestBlockEntity>> =
 		register("slightly_larger_chest", ::SlightlyLargerChestBlockEntity, ModBlocks.SLIGHTLY_LARGER_CHEST)
 	val MINI_CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<MiniChestBlockEntity>> =
@@ -107,5 +105,10 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("disenchantment_generator", ::DisenchantmentGenerator, ModBlocks.DISENCHANTMENT_GENERATOR)
 	val RAINBOW_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<RainbowGeneratorBlockEntity>> =
 		register("rainbow_generator", ::RainbowGeneratorBlockEntity, ModBlocks.RAINBOW_GENERATOR)
+
+	val CREATIVE_HARVEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<CreativeHarvestBlockEntity>> =
+		register("creative_harvest", ::CreativeHarvestBlockEntity, ModBlocks.CREATIVE_HARVEST)
+	val CREATIVE_ENERGY_SOURCE: DeferredHolder<BlockEntityType<*>, BlockEntityType<CreativeEnergySourceBlockEntity>> =
+		register("creative_energy_source", ::CreativeEnergySourceBlockEntity, ModBlocks.CREATIVE_ENERGY_SOURCE)
 
 }
