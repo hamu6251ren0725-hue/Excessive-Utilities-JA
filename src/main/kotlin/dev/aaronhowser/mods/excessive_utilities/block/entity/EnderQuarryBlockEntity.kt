@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.IntTag
 import net.minecraft.nbt.LongArrayTag
@@ -23,6 +24,7 @@ import net.minecraft.util.Mth
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
@@ -237,6 +239,24 @@ class EnderQuarryBlockEntity(
 					tool = axe
 				}
 			}
+		}
+
+		val upgrades = getUpgrades()
+		val enchantmentRegistry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+
+		if (EnderQuarryUpgradeType.SILK_TOUCH in upgrades) {
+			tool.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.SILK_TOUCH), 1)
+		}
+
+		val fortuneLevel = when {
+			EnderQuarryUpgradeType.FORTUNE_ONE in upgrades -> 1
+			EnderQuarryUpgradeType.FORTUNE_TWO in upgrades -> 2
+			EnderQuarryUpgradeType.FORTUNE_THREE in upgrades -> 3
+			else -> 0
+		}
+
+		if (fortuneLevel > 0) {
+			tool.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.FORTUNE), fortuneLevel)
 		}
 
 		val lootParams = LootParams.Builder(level)
