@@ -917,6 +917,18 @@ class ModRecipeProvider(
 					'W' to ModBlocks.MAGICAL_WOOD.asIngredient(),
 					'C' to ModBlocks.FILING_CABINET.asIngredient()
 				)
+			),
+			shapedRecipe(
+				ModItems.UNSTABLE_INGOT.withComponent(
+					ModDataComponents.COUNTDOWN.get(),
+					20 * 10
+				),
+				"I,S,D",
+				mapOf(
+					'I' to Tags.Items.INGOTS_IRON.asIngredient(),
+					'S' to ModItems.DIVISION_SIGIL.asIngredient(),
+					'D' to Tags.Items.GEMS_DIAMOND.asIngredient()
+				)
 			)
 		)
 
@@ -1536,14 +1548,6 @@ class ModRecipeProvider(
 			ModItems.BEDROCKIUM_INGOT,
 			RecipeCategory.MISC,
 			ModBlocks.BLOCK_OF_BEDROCKIUM
-		)
-
-		nineBlockStorageRecipes(
-			recipeOutput,
-			RecipeCategory.MISC,
-			ModItems.UNSTABLE_INGOT,
-			RecipeCategory.MISC,
-			ModBlocks.BLOCK_OF_UNSTABLE_INGOT
 		)
 
 		shapelessRecipe(

@@ -47,6 +47,8 @@ object ModItems : AaronItemRegistry() {
 		basic("upgrade_base")
 	val OPINIUM_CORE: DeferredItem<OpiniumCoreItem> =
 		register("opinium_core", ::OpiniumCoreItem, OpiniumCoreItem.DEFAULT_PROPERTIES)
+	val DIVISION_SIGIL =
+		basic("division_sigil")
 	val UNSTABLE_INGOT: DeferredItem<UnstableIngotItem> =
 		register("unstable_ingot", ::UnstableIngotItem, UnstableIngotItem.DEFAULT_PROPERTIES)
 	val SEMI_UNSTABLE_NUGGET =
