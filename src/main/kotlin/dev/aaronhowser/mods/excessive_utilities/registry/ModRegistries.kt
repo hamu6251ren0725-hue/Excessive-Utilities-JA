@@ -16,7 +16,8 @@ object ModRegistries {
 			ModRecipeTypes.RECIPE_TYPES_REGISTRY,
 			ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY,
 			ModEntityTypes.ENTITY_TYPE_REGISTRY,
-			ModMenuTypes.MENU_TYPE_REGISTRY
+			ModMenuTypes.MENU_TYPE_REGISTRY,
+			ModAttachmentTypes.ATTACHMENT_TYPES_REGISTRY
 		)
 
 		for (registry in registries) {
