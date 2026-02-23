@@ -6,17 +6,17 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
 data class SoulDebt(
-	val extraHealth: Double
+	val netSoulFragments: Int
 ) {
 
-	constructor() : this(0.0)
+	constructor() : this(0)
 
 	companion object {
 		val CODEC: Codec<SoulDebt> =
-			Codec.DOUBLE.xmap(::SoulDebt, SoulDebt::extraHealth)
+			Codec.INT.xmap(::SoulDebt, SoulDebt::netSoulFragments)
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, SoulDebt> =
-			ByteBufCodecs.DOUBLE.map(::SoulDebt, SoulDebt::extraHealth)
+			ByteBufCodecs.VAR_INT.map(::SoulDebt, SoulDebt::netSoulFragments)
 	}
 
 }
