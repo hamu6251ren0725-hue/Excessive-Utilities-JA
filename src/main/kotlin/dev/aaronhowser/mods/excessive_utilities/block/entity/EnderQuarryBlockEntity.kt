@@ -59,6 +59,13 @@ class EnderQuarryBlockEntity(
 		val type = upgrade.upgradeType
 		if (type in upgrades) return false
 
+		for (incompatible in type.getIncompatibleUpgrades()) {
+			if (incompatible in upgrades) return false
+		}
+
+		upgrades.add(type)
+		upgradePositions.add(upgrade.blockPos)
+		return true
 	}
 
 	/**
