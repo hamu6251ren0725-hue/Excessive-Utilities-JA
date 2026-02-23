@@ -13,6 +13,7 @@ import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.IntTag
+import net.minecraft.nbt.LongArrayTag
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
@@ -553,6 +554,9 @@ class EnderQuarryBlockEntity(
 		if (bType != null) {
 			tag.putString(BOUNDARY_TYPE_NBT, bType.id)
 		}
+
+		val upgradePositionLongs = upgradePositions.map(BlockPos::asLong).toLongArray()
+		tag.put(UPGRADE_POSITIONS_NBT, LongArrayTag(upgradePositionLongs))
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -576,6 +580,13 @@ class EnderQuarryBlockEntity(
 			val bTypeString = tag.getString(BOUNDARY_TYPE_NBT)
 			boundaryType = BoundaryType.entries.firstOrNull { it.id == bTypeString }
 		}
+
+		val upgradePositionsTag = tag.getLongArray(UPGRADE_POSITIONS_NBT)
+		upgradePositions.clear()
+		for (posLong in upgradePositionsTag) {
+			upgradePositions.add(BlockPos.of(posLong))
+		}
+
 	}
 
 	// Syncs with client
@@ -593,6 +604,7 @@ class EnderQuarryBlockEntity(
 		const val TARGET_POS_NBT = "TargetPos"
 		const val STORED_ENERGY_NBT = "StoredEnergy"
 		const val BOUNDARY_TYPE_NBT = "BoundaryType"
+		const val UPGRADE_POSITIONS_NBT = "UpgradePositions"
 
 		fun tick(
 			level: Level,
