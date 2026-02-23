@@ -5,6 +5,8 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProv
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.CraftingMenu
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -22,20 +24,26 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 		if (isStable) return
 
 		val countdown = stack.get(ModDataComponents.COUNTDOWN) ?: return
-		if (countdown > 0) {
-			stack.set(ModDataComponents.COUNTDOWN, countdown - 1)
-			return
+
+		var shouldExplode = countdown <= 0
+
+		if (entity is Player && entity.containerMenu !is CraftingMenu) {
+			shouldExplode = false
 		}
 
-		level.explode(
-			entity,
-			entity.x, entity.y, entity.z,
-			4f,
-			false,
-			Level.ExplosionInteraction.MOB
-		)
+		if (shouldExplode) {
+			level.explode(
+				entity,
+				entity.x, entity.y, entity.z,
+				4f,
+				false,
+				Level.ExplosionInteraction.MOB
+			)
 
-		stack.count = 0
+			stack.count = 0
+		} else {
+			stack.set(ModDataComponents.COUNTDOWN, countdown - 1)
+		}
 	}
 
 	override fun getName(stack: ItemStack): Component {
