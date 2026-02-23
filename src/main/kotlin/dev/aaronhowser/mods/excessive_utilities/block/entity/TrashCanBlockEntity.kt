@@ -1,13 +1,12 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
-import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.ItemStackHandler
+import net.neoforged.neoforge.items.IItemHandler
 
 class TrashCanBlockEntity(
 	pos: BlockPos,
@@ -16,45 +15,24 @@ class TrashCanBlockEntity(
 
 	private var filterStack: ItemStack = ItemStack.EMPTY
 
-	private val itemHandler: ItemStackHandler =
-		object : ItemStackHandler(28) {
-			override fun getStackInSlot(slot: Int): ItemStack {
-				return when (slot) {
-					FILTER_SLOT -> filterStack
-					else -> ItemStack.EMPTY
-				}
-			}
-
-			override fun setStackInSlot(slot: Int, stack: ItemStack) {
-				if (slot == FILTER_SLOT) {
-					filterStack = stack.copy()
-				}
-			}
+	private val itemHandler: IItemHandler =
+		object : IItemHandler {
+			override fun getSlots(): Int = 27
+			override fun getStackInSlot(slot: Int): ItemStack = ItemStack.EMPTY
+			override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack = ItemStack.EMPTY
+			override fun getSlotLimit(slot: Int): Int = 64
+			override fun isItemValid(slot: Int, stack: ItemStack): Boolean = true
 
 			override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-				if (stack.isEmpty) return ItemStack.EMPTY
-				if (slot == FILTER_SLOT) return stack
-				if (!passesFilter(stack)) return stack
-
-				if (!simulate) {
-					setChanged()
-				}
-
-				return ItemStack.EMPTY
-			}
-
-			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-				return if (slot == FILTER_SLOT) {
-					stack.isItem(ModItems.ITEM_FILTER)
+				return if (passesFilter(stack)) {
+					ItemStack.EMPTY
 				} else {
-					passesFilter(stack)
+					stack
 				}
-			}
-
-			override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
-				return ItemStack.EMPTY
 			}
 		}
+
+	fun getItemHandler(direction: Direction?): IItemHandler = itemHandler
 
 	// TODO: Implement filter logic
 	fun passesFilter(stack: ItemStack): Boolean {

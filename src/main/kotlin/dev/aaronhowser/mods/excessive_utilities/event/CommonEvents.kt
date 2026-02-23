@@ -84,6 +84,12 @@ object CommonEvents {
 
 		event.registerBlockEntity(
 			Capabilities.ItemHandler.BLOCK,
+			ModBlockEntityTypes.TRASH_CAN.get(),
+			TrashCanBlockEntity::getItemHandler
+		)
+
+		event.registerBlockEntity(
+			Capabilities.ItemHandler.BLOCK,
 			ModBlockEntityTypes.MINI_CHEST.get(),
 			MiniChestBlockEntity::getItemHandler
 		)
