@@ -5,13 +5,27 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:survives_explosion"
+          "condition": "minecraft:time_check",
+          "value": {
+            "max": 23000.0,
+            "min": 13000.0
+          }
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "excessive_utilities:deepslate_moon_stone_ore"
+          "name": "excessive_utilities:moon_stone"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:deepslate"
         }
       ],
       "rolls": 1.0
