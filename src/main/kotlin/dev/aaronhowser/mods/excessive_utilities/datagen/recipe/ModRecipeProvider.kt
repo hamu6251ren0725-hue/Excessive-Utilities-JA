@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
@@ -23,6 +24,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
@@ -34,7 +36,7 @@ class ModRecipeProvider(
 ) : AaronRecipeProvider(output, lookupProvider) {
 
 	override fun buildRecipes(recipeOutput: RecipeOutput, holderLookup: HolderLookup.Provider) {
-		buildShapedRecipes(recipeOutput)
+		buildShapedRecipes(recipeOutput, holderLookup)
 		buildShapelessRecipes(recipeOutput)
 		buildResonatorRecipes(recipeOutput)
 		buildEnchanterRecipes(recipeOutput)
@@ -43,7 +45,7 @@ class ModRecipeProvider(
 		buildQedRecipes(recipeOutput)
 	}
 
-	private fun buildShapedRecipes(recipeOutput: RecipeOutput) {
+	private fun buildShapedRecipes(recipeOutput: RecipeOutput, holderLookup: HolderLookup.Provider) {
 		val perfectOpiniumCore = OpiniumCoreContentsComponent.getDefaultTiers().last().getStack()
 
 		val recipes = listOf(
@@ -886,6 +888,18 @@ class ModRecipeProvider(
 					'C' to ModItems.SUN_CRYSTAL.asIngredient(),
 					'R' to ModItems.RESONATING_REDSTONE_CRYSTAL.asIngredient()
 				)
+			),
+			shapedRecipe(
+				ModBlocks.ENDER_QUARRY,
+				"OSO,CDC,PXP",
+				mapOf(
+					'O' to ModBlocks.ENDER_INFUSED_OBSIDIAN.asIngredient(),
+					'S' to ItemTags.SAPLINGS.asIngredient(),
+					'C' to ModBlocks.ENDER_CORE.asIngredient(),
+					'D' to ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.asIngredient(),
+					'P' to ModBlocks.ENDER_THERMIC_PUMP.asIngredient(),
+					'X' to Items.DIAMOND_PICKAXE.asIngredient()
+				)
 			)
 		)
 
@@ -966,6 +980,26 @@ class ModRecipeProvider(
 			Tags.Items.INGOTS_NETHERITE.asIngredient(),
 			Tags.Items.STORAGE_BLOCKS_NETHERITE.asIngredient()
 		)
+
+		val enchantments = holderLookup.lookup(Registries.ENCHANTMENT).get()
+
+		val quarryUpgrades = listOf(
+			shapedRecipe(
+				ModBlocks.ENDER_QUARRY_FORTUNE_UPGRADE,
+				" P ,RBR",
+				mapOf(
+					'P' to Items.IRON_PICKAXE.defaultInstance.apply {
+						enchant(enchantments.getOrThrow(Enchantments.FORTUNE), 1)
+					}.asIngredient(),
+					'R' to Tags.Items.DUSTS_REDSTONE.asIngredient(),
+					'B' to ModBlocks.ENDER_QUARRY_UPGRADE_BASE.asIngredient()
+				)
+			)
+		)
+
+		for (recipe in quarryUpgrades) {
+			recipe.save(recipeOutput)
+		}
 
 	}
 
