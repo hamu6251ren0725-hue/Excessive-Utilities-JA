@@ -2,7 +2,16 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponentMap
+import net.minecraft.core.registries.Registries
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.ListTag
+import net.minecraft.nbt.NbtOps
+import net.minecraft.nbt.Tag
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -95,19 +104,70 @@ class FilingCabinetBlockEntity(
 				return stack
 			}
 
-			override fun getSlotLimit(slot: Int): Int {
-				TODO("Not yet implemented")
-			}
+			override fun getSlotLimit(slot: Int): Int = MAX_ITEMS
 
 			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-				TODO("Not yet implemented")
-			}
+				if (storedItem == null) {
+					return true
+				}
 
+				return stack.item == storedItem
+			}
 		}
+
+	fun getItemHandler(direction: Direction): IItemHandler = itemHandler
+
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+
+		val item = storedItem ?: return
+		tag.putString(ITEM_NBT, item.builtInRegistryHolder().key().toString())
+
+		val entriesList = ListTag()
+		for ((data, count) in storedEntries) {
+			val entryTag = CompoundTag()
+			entryTag.putInt(COUNT_NBT, count)
+
+			val dataTag = DataComponentMap.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow()
+			entryTag.put(DATA_NBT, dataTag)
+
+			entriesList.add(entryTag)
+		}
+
+		tag.put(ENTRIES_NBT, entriesList)
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+
+		val itemString = tag.getString(ITEM_NBT)
+		if (itemString.isEmpty()) return
+
+		val itemRk = ResourceKey.create(
+			Registries.ITEM,
+			ResourceLocation.parse(itemString)
+		)
+
+		val item = registries.lookupOrThrow(Registries.ITEM).getOrThrow(itemRk)
+		storedItem = item.value()
+
+		val entriesList = tag.getList(ENTRIES_NBT, Tag.TAG_COMPOUND.toInt())
+		for (i in 0 until entriesList.size) {
+			val tag = entriesList.getCompound(i)
+
+			val count = tag.getInt(COUNT_NBT)
+			val dataTag = tag.getCompound(DATA_NBT)
+
+			val data = DataComponentMap.CODEC.decode(NbtOps.INSTANCE, dataTag).getOrThrow().first
+			storedEntries[data] = count
+		}
+	}
 
 	companion object {
 		const val ITEM_NBT = "StoredItem"
 		const val ENTRIES_NBT = "StoredEntries"
+		const val COUNT_NBT = "Count"
+		const val DATA_NBT = "Data"
 
 		const val MAX_ITEMS = 540
 
