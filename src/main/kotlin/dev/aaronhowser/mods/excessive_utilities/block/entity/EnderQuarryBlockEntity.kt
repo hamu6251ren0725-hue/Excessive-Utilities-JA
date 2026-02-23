@@ -53,20 +53,10 @@ class EnderQuarryBlockEntity(
 	private var fakePlayer: WeakReference<FakePlayer>? = null
 
 	private val upgradePositions: MutableSet<BlockPos> = mutableSetOf()
-	private val upgrades: MutableSet<EnderQuarryUpgradeType> = mutableSetOf()
+	fun addUpgradePosition(pos: BlockPos) = upgradePositions.add(pos)
 
-	fun addUpgrade(upgrade: EnderQuarryUpgradeBlockEntity): Boolean {
-		val type = upgrade.upgradeType
-		if (type in upgrades) return false
-
-		for (incompatible in type.getIncompatibleUpgrades()) {
-			if (incompatible in upgrades) return false
-		}
-
-		upgrades.add(type)
-		upgradePositions.add(upgrade.blockPos)
-		return true
-	}
+	var boundaryType: BoundaryType? = null
+		private set
 
 	/**
 	 * The exclusive minimum position of the mining area.
@@ -92,8 +82,25 @@ class EnderQuarryBlockEntity(
 			setChanged()
 		}
 
-	var boundaryType: BoundaryType? = null
-		private set
+	fun getUpgrades(): Set<EnderQuarryUpgradeType> {
+		val level = level ?: return emptySet()
+		val upgrades = mutableSetOf<EnderQuarryUpgradeType>()
+
+		val iterator = upgradePositions.iterator()
+		while (iterator.hasNext()) {
+			val pos = iterator.next()
+
+			val be = level.getBlockEntity(pos)
+			if (be is EnderQuarryUpgradeBlockEntity) {
+				upgrades.add(be.upgradeType)
+			} else {
+				iterator.remove()
+				setChanged()
+			}
+		}
+
+		return upgrades
+	}
 
 	private fun serverTick(level: ServerLevel) {
 		if (fakePlayer?.get() == null) {
