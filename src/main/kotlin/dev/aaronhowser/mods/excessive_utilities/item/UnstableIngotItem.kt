@@ -20,6 +20,8 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 		slotId: Int,
 		isSelected: Boolean
 	) {
+		if (level.isClientSide) return
+
 		val isStable = !stack.has(ModDataComponents.COUNTDOWN)
 		if (isStable) return
 
@@ -32,14 +34,7 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 		}
 
 		if (shouldExplode) {
-			level.explode(
-				entity,
-				entity.x, entity.y, entity.z,
-				4f,
-				false,
-				Level.ExplosionInteraction.NONE
-			)
-
+			//TODO: Explode
 			stack.count = 0
 		} else {
 			stack.set(ModDataComponents.COUNTDOWN, countdown - 1)
