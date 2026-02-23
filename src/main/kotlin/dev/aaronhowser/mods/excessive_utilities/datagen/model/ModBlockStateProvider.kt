@@ -50,9 +50,8 @@ class ModBlockStateProvider(
 		for ((block, texture) in blocks) {
 			val name = name(block.get())
 			val model = models()
-				.singleTexture(
+				.cubeAll(
 					name,
-					mcLoc("block/block"),
 					modLoc("block/ender_quarry_upgrade/$texture")
 				)
 

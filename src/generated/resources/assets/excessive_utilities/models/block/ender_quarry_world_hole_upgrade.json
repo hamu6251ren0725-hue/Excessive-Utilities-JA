@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/block",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "texture": "excessive_utilities:block/ender_quarry_upgrade/world_hole"
+    "all": "excessive_utilities:block/ender_quarry_upgrade/world_hole"
   }
 }
