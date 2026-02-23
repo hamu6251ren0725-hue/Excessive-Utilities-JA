@@ -20,7 +20,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
-import net.minecraft.util.Mth
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -134,59 +133,48 @@ class EnderQuarryBlockEntity(
 	var feProgress = 0.0
 
 	fun progressMine(level: ServerLevel) {
-		var target = targetPos
-
-		if (target == null) {
-			if (!checkBoundaries(level)) {
-				trySetBoundaries(level)
-			}
-
-			advanceTargetPos(level)
-			target = targetPos
-		}
-
-		if (target == null) return
-
-		val upgrades = getUpgrades()
+		confirmTarget(level) ?: return
 
 		var fePerBlock = ServerConfig.CONFIG.enderQuarryFePerBlock.get()
-
-		for (upgrade in upgrades) {
+		for (upgrade in getUpgrades()) {
 			fePerBlock *= upgrade.feMultiplierGetter.asDouble
 		}
 
 		if (energyStorage.energyStored < fePerBlock) return
 
 		var blocksPerTick = ServerConfig.CONFIG.enderQuarryBlocksPerTick.get()
-
 		when {
-			EnderQuarryUpgradeType.SPEED_ONE in upgrades -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedOneSpeedMultiplier.get()
-			EnderQuarryUpgradeType.SPEED_TWO in upgrades -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedTwoSpeedMultiplier.get()
-			EnderQuarryUpgradeType.SPEED_THREE in upgrades -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedThreeSpeedMultiplier.get()
+			EnderQuarryUpgradeType.SPEED_ONE in getUpgrades() -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedOneSpeedMultiplier.get()
+			EnderQuarryUpgradeType.SPEED_TWO in getUpgrades() -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedTwoSpeedMultiplier.get()
+			EnderQuarryUpgradeType.SPEED_THREE in getUpgrades() -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedThreeSpeedMultiplier.get()
 		}
 
 		progressThroughBlock += blocksPerTick
+		mineBlocks(level, fePerBlock)
+	}
 
-		while (progressThroughBlock >= 1.0) {
-			progressThroughBlock -= 1.0
-			mineBlock(level, target)
+	private fun confirmTarget(level: ServerLevel): BlockPos? {
+		if (targetPos == null) {
+			if (!checkBoundaries(level)) {
+				trySetBoundaries(level)
+			}
+
 			advanceTargetPos(level)
+		}
 
-			feProgress += fePerBlock
-			val feToExtract = Mth.floor(feProgress)
-			if (feToExtract > 0) {
-				energyStorage.extractEnergy(feToExtract, false)
-				feProgress -= feToExtract
-			}
+		return targetPos
+	}
 
-			if (energyStorage.energyStored < fePerBlock) {
-				progressThroughBlock = 0.0
-				break
-			}
+	private fun mineBlocks(level: ServerLevel, fePerBlock: Double) {
+		while (progressThroughBlock > 1.0) {
+			progressThroughBlock -= 1.0
+
+			val target = targetPos ?: break
+
 		}
 	}
 
-	private fun mineBlock(level: ServerLevel, target: BlockPos) {
+	private fun actuallyMineBlock(level: ServerLevel, target: BlockPos) {
 		val drops = gatherDrops(level, target)
 		placeDrops(level, drops)
 
