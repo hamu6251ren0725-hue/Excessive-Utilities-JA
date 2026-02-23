@@ -13,7 +13,7 @@ class ModBlockLootTablesSubProvider(
 ) : BlockLootSubProvider(setOf(), FeatureFlags.REGISTRY.allFlags(), provider) {
 
 	private val noDropSelfBlocks: Set<Block> = buildSet {
-		add(ModBlocks.ANGEL_BLOCK.get())
+
 	}
 
 	override fun getKnownBlocks(): Iterable<Block> {
@@ -27,7 +27,6 @@ class ModBlockLootTablesSubProvider(
 			dropSelf(block)
 		}
 
-		dropOther(ModBlocks.ANGEL_BLOCK.get(), ModItems.ANGEL_BLOCK)
 
 	}
 

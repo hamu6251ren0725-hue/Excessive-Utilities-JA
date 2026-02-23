@@ -55,7 +55,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.SCANNER, "Scanner")
 			addBlock(ModBlocks.WIRELESS_FE_BATTERY, "Wireless FE Battery")
 			addBlock(ModBlocks.WIRELESS_FE_TRANSMITTER, "Wireless FE Transmitter")
-
+			addBlock(ModBlocks.MOON_STORE_ORE, "Moon Store Ore")
 			addBlock(ModBlocks.ENDER_QUARRY_UPGRADE_BASE, "Ender Quarry Upgrade Base")
 			addBlock(ModBlocks.ENDER_QUARRY_FORTUNE_UPGRADE, "Ender Quarry Fortune I Upgrade")
 			addBlock(ModBlocks.ENDER_QUARRY_FORTUNE_TWO_UPGRADE, "Ender Quarry Fortune II Upgrade")
@@ -65,7 +65,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.ENDER_QUARRY_SPEED_TWO_UPGRADE, "Ender Quarry Speed II Upgrade")
 			addBlock(ModBlocks.ENDER_QUARRY_SPEED_THREE_UPGRADE, "Ender Quarry Speed III Upgrade")
 			addBlock(ModBlocks.ENDER_QUARRY_WORLD_HOLE_UPGRADE, "Ender Quarry World Hole Upgrade")
-
 			addBlock(ModBlocks.SLIGHTLY_LARGER_CHEST, "Slightly Larger Chest")
 			addBlock(ModBlocks.MINI_CHEST, "Mini Chest")
 			addBlock(ModBlocks.PLAYER_CHEST, "Player Chest")
@@ -81,7 +80,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.TRASH_CAN_CHEST, "Trash Chest")
 			addBlock(ModBlocks.TRASH_CAN_ENERGY, "Trash Can (Energy)")
 			addBlock(ModBlocks.TRASH_CAN_FLUID, "Trash Can (Fluid)")
-
 			addBlock(ModBlocks.TRANSFER_PIPE, "Transfer Pipe")
 			addBlock(ModBlocks.ITEM_TRANSFER_NODE, "Item Transfer Node")
 			addBlock(ModBlocks.FLUID_TRANSFER_NODE, "Fluid Transfer Node")
@@ -91,7 +89,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.ENERGY_RETRIEVAL_NODE, "Energy Retrieval Node")
 			addBlock(ModBlocks.TRANSFER_FILTER, "Transfer Filter")
 			addBlock(ModBlocks.TRANSFER_PIPE_FILTER, "Transfer Pipe Filter")
-
 			addBlock(ModBlocks.CREATIVE_ENERGY_SOURCE, "Creative Energy Source")
 			addBlock(ModBlocks.SURVIVAL_GENERATOR, "Survivalist Generator")
 			addBlock(ModBlocks.FURNACE_GENERATOR, "Furnace Generator")
@@ -110,7 +107,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.SLIMY_GENERATOR, "Slimy Generator")
 			addBlock(ModBlocks.DEATH_GENERATOR, "Death Generator")
 			addBlock(ModBlocks.RAINBOW_GENERATOR, "Rainbow Generator!")
-
 			addBlock(ModBlocks.MANUAL_MILL, "Manual Mill")
 			addBlock(ModBlocks.WATER_MILL, "Water Mill")
 			addBlock(ModBlocks.WIND_MILL, "Wind Mill")
@@ -120,7 +116,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.LUNAR_PANEL, "Lunar Panel")
 			addBlock(ModBlocks.DRAGON_EGG_MILL, "Dragon Egg Mill")
 			addBlock(ModBlocks.CREATIVE_MILL, "Creative Mill")
-
 			addBlock(ModBlocks.TERRAFORMER, "Terraformer")
 			addBlock(ModBlocks.ANTENNA, "Antenna")
 			addBlock(ModBlocks.COOLER, "Cooler")
@@ -130,7 +125,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.HUMIDIFIER, "Humidifier")
 			addBlock(ModBlocks.MAGIC_ABSORPTION, "Magic Absorption")
 			addBlock(ModBlocks.MAGIC_INFUSER, "Magic Infuser")
-
 			addBlock(ModBlocks.BLOCK_OF_BEDROCKIUM, "Block of Bedrockium")
 			addBlock(ModBlocks.BLOCK_OF_UNSTABLE_INGOT, "Unstable Ingot Block")
 			addBlock(ModBlocks.BORDER_STONE, "Border Stone")
@@ -159,7 +153,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.BLOCK_OF_ENCHANTED_METAL, "Block of Enchanted Metal")
 			addBlock(ModBlocks.POLISHED_STONE, "Polished Stone")
 			addBlock(ModBlocks.CROSSED_STONE, "Crossed Stone")
-
 			addBlock(ModBlocks.CARVED_GLASS, "Carved Glass")
 			addBlock(ModBlocks.EDGED_GLASS, "Edged Glass")
 			addBlock(ModBlocks.GOLDEN_EDGED_GLASS, "Golden Edged Glass")
