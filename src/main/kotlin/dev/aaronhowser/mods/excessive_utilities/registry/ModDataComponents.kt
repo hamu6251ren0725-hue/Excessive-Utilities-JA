@@ -50,5 +50,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		int("charge")
 	val OWNER: DeferredHolder<DataComponentType<*>, DataComponentType<UUID>> =
 		uuid("owner")
+	val COUNTDOWN: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
+		int("countdown")
 
 }

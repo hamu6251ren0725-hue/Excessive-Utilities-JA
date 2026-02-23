@@ -16,6 +16,8 @@ object ModItemLang {
 	const val OPINIUM_CORE_INSPIRING = "item.excessive_utilities.opinium_core.inspiring"
 	const val OPINIUM_CORE_PERFECTED = "item.excessive_utilities.opinium_core.perfected"
 
+	const val MOBIUS_INGOT = "item.excessive_utilities.mobius_ingot"
+
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
 			add(CREATIVE_TAB, "Excessive Utilities")
@@ -37,7 +39,7 @@ object ModItemLang {
 			addItem(ModItems.OPINIUM_CORE, "Opinium Core")
 			addItem(ModItems.UNSTABLE_INGOT, "Unstable Ingot")
 			addItem(ModItems.SEMI_UNSTABLE_NUGGET, "Semi-Unstable Nugget")
-			addItem(ModItems.MOBIUS_INGOT, "Mobius \"Unstable/Stable\" Ingot")
+			add(MOBIUS_INGOT, "Mobius \"Unstable/Stable\" Ingot")
 			addItem(ModItems.KLEIN_BOTTLE, "Klein Bottle")
 
 			addItem(ModItems.ENDER_LILY, "Ender Lily")
