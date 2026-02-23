@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModTooltipLang
@@ -22,7 +23,7 @@ class SoulFragmentItem(properties: Properties) : Item(properties) {
 	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack?> {
 		val stack = player.getItemInHand(usedHand)
 
-		if (!level.isClientSide && !player.isFakePlayer) {
+		if (level.isServerSide && !player.isFakePlayer) {
 			SoulDebt.absorbSoulFragment(player, 1)
 			stack.shrink(1)
 		}

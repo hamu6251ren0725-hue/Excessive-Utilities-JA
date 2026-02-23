@@ -31,15 +31,24 @@ data class SoulDebt(
 			changeSoulFragmentAmount(player, amount)
 		}
 
-		fun removeSoulFragment(player: Player, amount: Int) {
-			changeSoulFragmentAmount(player, -amount)
+		fun removeSoulFragment(player: Player, amount: Int): Boolean {
+			return changeSoulFragmentAmount(player, -amount)
 		}
 
-		fun changeSoulFragmentAmount(player: Player, amount: Int) {
+		fun changeSoulFragmentAmount(player: Player, amount: Int): Boolean {
+			val healthPerFragment = ServerConfig.CONFIG.healthPerSoulFragment.get()
+			val healthMod = amount * healthPerFragment
+
+			val currentMaxHealth = player.getAttributeValue(Attributes.MAX_HEALTH)
+			if (currentMaxHealth + healthMod <= 0) {
+				return false
+			}
+
 			val current = player.getData(ModAttachmentTypes.SOUL_DEBT).netSoulFragments
 			player.setData(ModAttachmentTypes.SOUL_DEBT, SoulDebt(current + amount))
 
 			updateSoulDebt(player)
+			return true
 		}
 
 		fun updateSoulDebt(player: Player) {

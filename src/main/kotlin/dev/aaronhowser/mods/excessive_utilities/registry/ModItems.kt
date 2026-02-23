@@ -67,8 +67,8 @@ object ModItems : AaronItemRegistry() {
 		basic("destruction_pickaxe")
 	val EROSION_SHOVEL =
 		basic("erosion_shovel")
-	val ETHERIC_SWORD =
-		basic("etheric_sword")
+	val ETHERIC_SWORD: DeferredItem<EthericSwordItem> =
+		register("etheric_sword", ::EthericSwordItem, EthericSwordItem.DEFAULT_PROPERTIES)
 	val HEALING_AXE =
 		basic("healing_axe")
 	val REVERSING_HOE: DeferredItem<ReversingHoeItem> =
