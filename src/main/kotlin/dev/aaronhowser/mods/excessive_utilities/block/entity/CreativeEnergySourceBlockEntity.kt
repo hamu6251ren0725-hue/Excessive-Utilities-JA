@@ -2,10 +2,12 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.energy.IEnergyStorage
 
 class CreativeEnergySourceBlockEntity(
@@ -24,7 +26,15 @@ class CreativeEnergySourceBlockEntity(
 		}
 
 	private fun serverTick(level: ServerLevel) {
+		for (dir in Direction.entries) {
+			val energyCap = level.getCapability(
+				Capabilities.EnergyStorage.BLOCK,
+				blockPos.relative(dir),
+				dir.opposite
+			) ?: continue
 
+			energyCap.receiveEnergy(Int.MAX_VALUE, false)
+		}
 	}
 
 	companion object {
@@ -37,6 +47,10 @@ class CreativeEnergySourceBlockEntity(
 			if (level is ServerLevel) {
 				blockEntity.serverTick(level)
 			}
+		}
+
+		fun getEnergyCapability(source: CreativeEnergySourceBlockEntity, direction: Direction?): IEnergyStorage {
+			return source.energyStorage
 		}
 	}
 

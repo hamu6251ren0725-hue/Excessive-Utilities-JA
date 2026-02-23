@@ -134,6 +134,11 @@ object CommonEvents {
 			EnderQuarryBlockEntity::getEnergyCapability
 		)
 
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ModBlockEntityTypes.CREATIVE_ENERGY_SOURCE.get(),
+			CreativeEnergySourceBlockEntity::getEnergyCapability
+		)
 	}
 
 	@SubscribeEvent
