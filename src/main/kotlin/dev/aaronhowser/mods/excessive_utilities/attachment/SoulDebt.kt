@@ -50,7 +50,12 @@ data class SoulDebt(
 
 			if (netSoulFragments == 0) return
 
-			val modifier = AttributeModifier(ATTRIBUTE_MODIFIER_NAME, netSoulFragments.toDouble(), AttributeModifier.Operation.ADD_VALUE)
+			val modifier = AttributeModifier(
+				ATTRIBUTE_MODIFIER_NAME,
+				netSoulFragments.toDouble(),
+				AttributeModifier.Operation.ADD_VALUE
+			)
+
 			maxHealthAttribute.addPermanentModifier(modifier)
 		}
 	}

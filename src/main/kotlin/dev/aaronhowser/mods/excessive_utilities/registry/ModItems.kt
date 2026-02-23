@@ -18,12 +18,8 @@ object ModItems : AaronItemRegistry() {
 
 	val BEDROCKIUM_INGOT: DeferredItem<BedrockiumIngotItem> =
 		register("bedrockium_ingot", ::BedrockiumIngotItem)
-	val SOUL_FRAGMENT: DeferredItem<Item> =
-		basic(
-			"soul_fragment",
-			Item.Properties()
-				.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
-		)
+	val SOUL_FRAGMENT: DeferredItem<SoulFragmentItem> =
+		register("soul_fragment", ::SoulFragmentItem, SoulFragmentItem.DEFAULT_PROPERTIES)
 	val ENDER_SHARD: DeferredItem<Item> =
 		basic("ender_shard")
 	val DEMON_INGOT: DeferredItem<Item> = // TODO: Throw Gold in Lava in the Nether
