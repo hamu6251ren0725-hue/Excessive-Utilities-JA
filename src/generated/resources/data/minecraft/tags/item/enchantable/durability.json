@@ -7,5 +7,7 @@
     "excessive_utilities:reversing_hoe",
     "excessive_utilities:precision_shears"
   ],
-  "values": []
+  "values": [
+    "#c:sickles"
+  ]
 }

@@ -140,6 +140,9 @@ class ModItemTagsProvider(
 			)
 
 		tag(ItemTags.DURABILITY_ENCHANTABLE)
+			.addTag(
+				SICKLES
+			)
 			.remove(
 				ModItems.DESTRUCTION_PICKAXE.get(),
 				ModItems.EROSION_SHOVEL.get(),
@@ -157,6 +160,11 @@ class ModItemTagsProvider(
 				ModItems.GOLDEN_SICKLE,
 				ModItems.DIAMOND_SICKLE,
 				ModItems.NETHERITE_SICKLE,
+			)
+
+		tag(ItemTags.MINING_ENCHANTABLE)
+			.addTag(
+				SICKLES
 			)
 	}
 
