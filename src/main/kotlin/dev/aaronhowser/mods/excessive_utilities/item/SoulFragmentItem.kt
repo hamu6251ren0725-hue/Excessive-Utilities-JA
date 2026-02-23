@@ -39,17 +39,17 @@ class SoulFragmentItem(properties: Properties) : Item(properties) {
 		val player = AaronClientUtil.localPlayer ?: return
 		val netSoulFragments = player.getData(ModAttachmentTypes.SOUL_DEBT).netSoulFragments
 
-		if (netSoulFragments > 0) {
-			tooltipComponents.add(
-				ModTooltipLang.SOUL_SURPLUS
-					.toComponent(netSoulFragments)
-					.withStyle(ChatFormatting.LIGHT_PURPLE)
-			)
-		} else {
+		if (netSoulFragments < 0) {
 			tooltipComponents.add(
 				ModTooltipLang.SOUL_DEBT
 					.toComponent(-netSoulFragments)
 					.withStyle(ChatFormatting.RED)
+			)
+		} else {
+			tooltipComponents.add(
+				ModTooltipLang.SOUL_SURPLUS
+					.toComponent(netSoulFragments)
+					.withStyle(ChatFormatting.LIGHT_PURPLE)
 			)
 		}
 
