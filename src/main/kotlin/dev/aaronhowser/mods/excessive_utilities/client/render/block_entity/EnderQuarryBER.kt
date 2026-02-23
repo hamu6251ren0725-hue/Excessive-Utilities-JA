@@ -23,11 +23,10 @@ class EnderQuarryBER(
 		val gameTime = blockEntity.level?.gameTime ?: 0
 
 		val pos = blockEntity.blockPos
-		val start = target.atY(pos.y)
 
-		val dx = pos.x - start.x
-		val dz = pos.z - start.z
-		val dy = pos.y - start.y
+		val dx = pos.x - target.x
+		val dz = pos.z - target.z
+		val dy = pos.y - target.y
 
 		poseStack.pushPose()
 		poseStack.translate(-dx.toDouble(), -dy.toDouble(), -dz.toDouble())
