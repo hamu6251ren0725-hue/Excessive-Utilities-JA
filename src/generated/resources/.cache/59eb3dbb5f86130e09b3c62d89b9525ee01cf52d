@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-23T03:13:06.8729644	Loot Tables
+// 1.21.1	2026-02-23T10:19:04.4611487	Loot Tables
 d31df4f9b468081e14a6755a2facd5cb7bded7d3 data/excessive_utilities/loot_table/blocks/advanced_filing_cabinet.json
 dfd3eb1c14ba5a4b83fdae1b1844caadf489ebdb data/excessive_utilities/loot_table/blocks/advanced_observer.json
 b055a9a7538aafe8d17289edbaab51c7759d0a94 data/excessive_utilities/loot_table/blocks/angel_block.json
@@ -113,6 +113,7 @@ c87a6178675c86967a2a979e11624ff16b9a4c97 data/excessive_utilities/loot_table/blo
 5a58ba97f2bcb96bff331f63803f77c311a414bb data/excessive_utilities/loot_table/blocks/mechanical_miner.json
 f599f79ecdf4df69cb6fb0469cc33dc64ac0622f data/excessive_utilities/loot_table/blocks/mechanical_user.json
 f4a6f4e2319d93178a8786acd878c87ebdcc33e6 data/excessive_utilities/loot_table/blocks/mini_chest.json
+49b7fc315c0f9c71cf88410443b58cf549f8a627 data/excessive_utilities/loot_table/blocks/moon_store_ore.json
 722fac908187165080be8a3ee6b411d3b620aa91 data/excessive_utilities/loot_table/blocks/netherite_spike.json
 f345af7afe919d3eada284d8ffc36cfd6cb05165 data/excessive_utilities/loot_table/blocks/nether_star_generator.json
 e22be2c8ff9e894ee46bc0fcbd877fb63aaede03 data/excessive_utilities/loot_table/blocks/obsidian_glass.json

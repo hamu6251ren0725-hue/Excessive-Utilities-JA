@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.datagen.model
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.block.MiniChestBlock
+import dev.aaronhowser.mods.excessive_utilities.block.MoonStoreOreBlock
 import dev.aaronhowser.mods.excessive_utilities.block.SlightlyLargerChestBlock
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.client.renderer.RenderType
@@ -33,6 +34,57 @@ class ModBlockStateProvider(
 		enderMarker()
 		enderQuarryUpgrades()
 		filingCabinets()
+		moonStoneOre()
+	}
+
+	private fun moonStoneOre() {
+		val block = ModBlocks.MOON_STORE_ORE.get()
+		val name = name(block)
+
+		val dayModel = models()
+			.cubeAll(name + "_day", mcLoc("block/stone"))
+
+		val nightModel = models()
+			.withExistingParent(name + "_night", mcLoc("block/block"))
+			.texture("stone", mcLoc("block/stone"))
+			.texture("overlay", modLoc("block/moon_stone_ore_overlay"))
+			.texture("particle", mcLoc("block/stone"))
+			.renderType(RenderType.cutout().name)
+
+			.element()
+			.from(0f, 0f, 0f)
+			.to(16f, 16f, 16f)
+			.allFaces { dir, fb ->
+				fb.texture("#stone")
+				fb.cullface(dir)
+				fb.uvs(0f, 0f, 16f, 16f)
+			}
+			.end()
+
+			.element()
+			.from(0f, 0f, 0f)
+			.to(16f, 16f, 16f)
+			.allFaces { dir, fb ->
+				fb.texture("#overlay")
+				fb.cullface(dir)
+				fb.uvs(0f, 0f, 16f, 16f)
+			}
+			.emissivity(8, 8)
+			.end()
+
+		getVariantBuilder(block)
+			.forAllStates {
+				val isVisible = it.getValue(MoonStoreOreBlock.VISIBLE)
+
+				val modelFile = if (isVisible) nightModel else dayModel
+
+				ConfiguredModel
+					.builder()
+					.modelFile(modelFile)
+					.build()
+			}
+
+		simpleBlockItem(block, nightModel)
 	}
 
 	private fun filingCabinets() {
