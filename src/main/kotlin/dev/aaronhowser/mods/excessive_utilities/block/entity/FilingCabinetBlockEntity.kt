@@ -122,7 +122,7 @@ class FilingCabinetBlockEntity(
 		super.saveAdditional(tag, registries)
 
 		val item = storedItem ?: return
-		tag.putString(ITEM_NBT, item.builtInRegistryHolder().key().toString())
+		tag.putString(ITEM_NBT, item.builtInRegistryHolder().key().location().toString())
 
 		val registryOps = RegistryOps.create(NbtOps.INSTANCE, registries)
 
