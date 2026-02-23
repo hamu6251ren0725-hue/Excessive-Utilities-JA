@@ -16,6 +16,7 @@ class ServerConfig(
 	lateinit var peacefulTableChancePerTick: ModConfigSpec.DoubleValue
 	lateinit var healthPerSoulFragment: ModConfigSpec.DoubleValue
 	lateinit var soulFragmentResetOnDeath: ModConfigSpec.EnumValue<SoulDebt.OnDeathConfig>
+	lateinit var healingAxeHealthTransferAmount: ModConfigSpec.DoubleValue
 
 	lateinit var heatingCoilBurnTime: ModConfigSpec.IntValue
 	lateinit var heatingCoilBurnCost: ModConfigSpec.IntValue
