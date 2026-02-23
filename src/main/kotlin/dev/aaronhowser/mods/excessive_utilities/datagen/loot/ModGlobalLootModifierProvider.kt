@@ -54,6 +54,14 @@ class ModGlobalLootModifierProvider(
 			)
 		)
 
+		add(
+			"soul_fragment",
+			AddTableLootModifier(
+				emptyArray(),
+				OtherLootTableSubProvider.SOUL_FRAGMENT
+			)
+		)
+
 	}
 
 }
