@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -29,9 +31,16 @@ class FilingCabinetBlockEntity(
 
 	fun getItemCount(): Int = storedEntries.values.sum()
 
+	val maxAmount: Int
+		get() = if (blockState.isBlock(ModBlocks.FILING_CABINET)) {
+			270
+		} else {
+			540
+		}
+
 	private val itemHandler: IItemHandler =
 		object : IItemHandler {
-			override fun getSlots(): Int = MAX_ITEMS
+			override fun getSlots(): Int = maxAmount
 
 			override fun getStackInSlot(slot: Int): ItemStack {
 				val item = storedItem ?: return ItemStack.EMPTY
@@ -53,7 +62,7 @@ class FilingCabinetBlockEntity(
 				}
 
 				val currentTotalCount = getItemCount()
-				val amountToInsert = stack.count.coerceAtMost(MAX_ITEMS - currentTotalCount)
+				val amountToInsert = stack.count.coerceAtMost(maxAmount - currentTotalCount)
 				if (amountToInsert <= 0) {
 					return stack
 				}
@@ -105,7 +114,7 @@ class FilingCabinetBlockEntity(
 				return stack
 			}
 
-			override fun getSlotLimit(slot: Int): Int = MAX_ITEMS
+			override fun getSlotLimit(slot: Int): Int = maxAmount
 
 			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 				if (storedItem == null) {
@@ -171,8 +180,6 @@ class FilingCabinetBlockEntity(
 		const val ENTRIES_NBT = "StoredEntries"
 		const val COUNT_NBT = "Count"
 		const val DATA_NBT = "Data"
-
-		const val MAX_ITEMS = 540
 
 		private fun recreateStack(item: Item, data: DataComponentPatch): ItemStack {
 			val stack = ItemStack(item)
