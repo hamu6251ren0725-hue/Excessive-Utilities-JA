@@ -24,7 +24,7 @@ class MagmaticGeneratorBlockEntity(
 	val tank: FluidTank =
 		object : FluidTank(1_000_000) {
 			override fun isFluidValid(stack: FluidStack): Boolean {
-				val fuelMap = MagmaticGeneratorFuel.MAP
+				val fuelMap = MagmaticGeneratorFuel.DATA_MAP
 				val fluidFuel = stack.fluid.builtInRegistryHolder().getData(fuelMap)
 
 				return fluidFuel != null
@@ -37,7 +37,7 @@ class MagmaticGeneratorBlockEntity(
 		val fluidInTank = tank.fluid
 		if (fluidInTank.isEmpty) return false
 
-		val fuelMap = MagmaticGeneratorFuel.MAP
+		val fuelMap = MagmaticGeneratorFuel.DATA_MAP
 		val fluidFuel = fluidInTank.fluid.builtInRegistryHolder().getData(fuelMap) ?: return false
 
 		fePerTick = fluidFuel.fePerTick

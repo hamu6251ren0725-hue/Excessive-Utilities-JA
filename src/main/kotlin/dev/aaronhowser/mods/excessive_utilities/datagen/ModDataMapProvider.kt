@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
 import dev.aaronhowser.mods.excessive_utilities.datamap.GeneratorItemFuel
 import dev.aaronhowser.mods.excessive_utilities.datamap.MagmaticGeneratorFuel
+import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.tags.TagKey
@@ -75,10 +78,22 @@ class ModDataMapProvider(
 		addFuel(GeneratorItemFuel.FROSTY, Items.SNOW_BLOCK, 40, 20)
 		addFuel(GeneratorItemFuel.FROSTY, Items.SNOW, 40, 3)
 
-		builder(MagmaticGeneratorFuel.MAP)
+		builder(MagmaticGeneratorFuel.DATA_MAP)
 			.add(
 				Tags.Fluids.LAVA,
 				MagmaticGeneratorFuel(100_000 / 20, 125 * 20),
+				false
+			)
+
+		builder(NetherLavaDunkConversion.DATA_MAP)
+			.add(
+				Tags.Items.INGOTS_GOLD,
+				NetherLavaDunkConversion(ModItems.DEMON_INGOT.getDefaultInstance()),
+				false
+			)
+			.add(
+				Tags.Items.STORAGE_BLOCKS_GOLD,
+				NetherLavaDunkConversion(ModItems.BLOCK_OF_DEMON_METAL.getDefaultInstance()),
 				false
 			)
 	}

@@ -25,7 +25,7 @@ data class MagmaticGeneratorFuel(
 				).apply(instance, ::MagmaticGeneratorFuel)
 			}
 
-		val MAP: DataMapType<Fluid, MagmaticGeneratorFuel> =
+		val DATA_MAP: DataMapType<Fluid, MagmaticGeneratorFuel> =
 			DataMapType
 				.builder(
 					ExcessiveUtilities.modResource("generator_fuel/magmatic"),

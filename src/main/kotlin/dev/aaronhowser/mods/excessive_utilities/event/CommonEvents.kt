@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.excessive_utilities.block.entity.generator.MagmaticG
 import dev.aaronhowser.mods.excessive_utilities.block.entity.trash.EnergyTrashCanBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.entity.trash.FluidTrashCanBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.entity.trash.TrashCanBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
 import dev.aaronhowser.mods.excessive_utilities.datamap.GeneratorItemFuel
 import dev.aaronhowser.mods.excessive_utilities.datamap.MagmaticGeneratorFuel
 import dev.aaronhowser.mods.excessive_utilities.entity.FlatTransferNodeEntity
@@ -197,7 +198,8 @@ object CommonEvents {
 		event.register(GeneratorItemFuel.FROSTY)
 		event.register(GeneratorItemFuel.HALITOSIS)
 		event.register(GeneratorItemFuel.DEATH)
-		event.register(MagmaticGeneratorFuel.MAP)
+		event.register(MagmaticGeneratorFuel.DATA_MAP)
+		event.register(NetherLavaDunkConversion.DATA_MAP)
 	}
 
 	@SubscribeEvent
