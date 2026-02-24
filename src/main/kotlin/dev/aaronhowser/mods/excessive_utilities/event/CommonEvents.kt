@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.event
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isFluid
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import dev.aaronhowser.mods.excessive_utilities.block.AngelBlock
@@ -20,15 +22,22 @@ import dev.aaronhowser.mods.excessive_utilities.item.ErosionShovelItem
 import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
 import dev.aaronhowser.mods.excessive_utilities.packet.ModPacketHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.tags.FluidTags
+import net.minecraft.world.entity.item.ItemEntity
+import net.minecraft.world.level.Level
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
+import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import net.neoforged.neoforge.event.level.BlockDropsEvent
+import net.neoforged.neoforge.event.tick.EntityTickEvent
 import net.neoforged.neoforge.event.tick.ServerTickEvent
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent
@@ -220,6 +229,37 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
 		SoulDebt.onRespawn(event)
+	}
+
+	@SubscribeEvent
+	fun afterEntityTick(event: EntityTickEvent.Post) {
+		val entity = event.entity
+		if (entity is ItemEntity) {
+			makeDemonMetal(entity)
+		}
+	}
+
+	private fun makeDemonMetal(itemEntity: ItemEntity) {
+		val level = itemEntity.level() as? ServerLevel ?: return
+		if (level.dimension() != Level.NETHER) return
+
+		val item = itemEntity.item
+		val output = when {
+			item.isItem(Tags.Items.INGOTS_GOLD) -> ModItems.DEMON_INGOT.get()
+			item.isItem(Tags.Items.STORAGE_BLOCKS_GOLD) -> ModBlocks.BLOCK_OF_DEMON_METAL.asItem()
+			else -> null
+		}
+
+		if (output == null) return
+
+		val pos = itemEntity.blockPosition()
+		val fluidState = level.getFluidState(pos)
+		if (fluidState.isFluid(FluidTags.LAVA)) {
+			val count = item.count
+			val demonStack = output.defaultInstance.copyWithCount(count)
+
+			itemEntity.item = demonStack
+		}
 	}
 
 }
