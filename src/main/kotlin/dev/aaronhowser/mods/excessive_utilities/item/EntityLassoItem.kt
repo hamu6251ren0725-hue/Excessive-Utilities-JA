@@ -32,7 +32,7 @@ class EntityLassoItem(
 		usedHand: InteractionHand
 	): InteractionResult {
 		if (player.isClientSide
-			|| stack.has(ModDataComponents.ENTITY)
+			|| stack.has(ModDataComponents.ENTITY_DATA)
 			|| interactionTarget.isEntity(ModEntityTypeTagsProvider.LASSO_BLACKLIST)
 			|| (!canHoldHostileMobs && interactionTarget is Enemy)
 		) {
@@ -42,7 +42,7 @@ class EntityLassoItem(
 		val entityNbt = interactionTarget.getMinimalTag(stripUniqueness = false)
 		val customNbt = CustomData.of(entityNbt)
 
-		stack.set(ModDataComponents.ENTITY, customNbt)
+		stack.set(ModDataComponents.ENTITY_DATA, customNbt)
 		stack.set(ModDataComponents.ENTITY_TYPE, interactionTarget.type.builtInRegistryHolder())
 
 		interactionTarget.remove(Entity.RemovalReason.DISCARDED)
@@ -52,7 +52,7 @@ class EntityLassoItem(
 
 	override fun useOn(context: UseOnContext): InteractionResult {
 		val stack = context.itemInHand
-		val entityData = stack.get(ModDataComponents.ENTITY) ?: return InteractionResult.PASS
+		val entityData = stack.get(ModDataComponents.ENTITY_DATA) ?: return InteractionResult.PASS
 
 		val level = context.level
 
@@ -82,7 +82,7 @@ class EntityLassoItem(
 		entity.moveTo(posToSpawn.bottomCenter)
 		level.addFreshEntity(entity)
 
-		stack.remove(ModDataComponents.ENTITY)
+		stack.remove(ModDataComponents.ENTITY_DATA)
 		stack.remove(ModDataComponents.ENTITY_TYPE)
 
 		return InteractionResult.SUCCESS
@@ -98,7 +98,7 @@ class EntityLassoItem(
 			holdingEntity: LivingEntity?,
 			int: Int
 		): Float {
-			return if (stack.has(ModDataComponents.ENTITY) || stack.has(ModDataComponents.ENTITY_TYPE)) 1f else 0f
+			return if (stack.has(ModDataComponents.ENTITY_DATA) || stack.has(ModDataComponents.ENTITY_TYPE)) 1f else 0f
 		}
 	}
 
