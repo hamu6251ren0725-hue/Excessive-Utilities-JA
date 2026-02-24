@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.excessive_utilities.entity
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModEnchantmentProvider
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.resources.ResourceKey
@@ -92,6 +95,30 @@ class MagicalBoomerangEntity(
 
 		carryItems()
 		returnToOwner()
+		breakPlants()
+	}
+
+	private fun breakPlants() {
+		val boomereaperangLevel = getEnchantmentLevel(ModEnchantmentProvider.BOOMEREAPERANG)
+		if (boomereaperangLevel <= 0) return
+
+		val aabb = boundingBox.inflate(3.0)
+		val blockPosList = BlockPos.betweenClosed(
+			BlockPos.containing(aabb.minX, aabb.minY, aabb.minZ),
+			BlockPos.containing(aabb.maxX, aabb.maxY, aabb.maxZ)
+		)
+
+		val owner = owner
+		val level = level()
+
+		for (pos in blockPosList) {
+			if (owner is Player && !level.mayInteract(owner, pos)) continue
+
+			val state = level().getBlockState(pos)
+			if (state.isBlock(ModBlockTagsProvider.COLLECTABLE_BY_BOOMEREAPERANG)) {
+				level.destroyBlock(pos, true, owner)
+			}
+		}
 	}
 
 	private fun returnToOwner() {

@@ -258,6 +258,15 @@ class ModBlockTagsProvider(
 				Tags.Blocks.SANDS,
 				Tags.Blocks.GRAVELS
 			)
+
+		tag(COLLECTABLE_BY_BOOMEREAPERANG)
+			.addTag(BlockTags.FLOWERS)
+			.add(
+				Blocks.SHORT_GRASS,
+				Blocks.TALL_GRASS,
+				Blocks.FERN,
+				Blocks.LARGE_FERN
+			)
 	}
 
 	companion object {
@@ -273,6 +282,7 @@ class ModBlockTagsProvider(
 		val FIRE_AXE_MINEABLE = create("mineable/fire_axe")
 		val DESTRUCTION_PICKAXE_TARGET = create("destruction_pickaxe_target")
 		val EROSION_SHOVEL_TARGET = create("erosion_shovel_target")
+		val COLLECTABLE_BY_BOOMEREAPERANG = create("collectable_by_boomereaperang")
 	}
 
 }
