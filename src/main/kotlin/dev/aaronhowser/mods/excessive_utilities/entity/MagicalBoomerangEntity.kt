@@ -62,6 +62,12 @@ class MagicalBoomerangEntity(
 		return baseSpeed * speedMultiplier
 	}
 
+	private fun getDamage(): Float {
+		val bladerangLevel = getEnchantmentLevel(ModEnchantmentProvider.BLADERANG)
+
+		return 4f + (bladerangLevel * 4f)
+	}
+
 	override fun onHitBlock(result: BlockHitResult) {
 		super.onHitBlock(result)
 		isReturning = true
@@ -81,6 +87,11 @@ class MagicalBoomerangEntity(
 
 			boomerangStack?.remove(ModDataComponents.THROWN_BOOMERANG)
 			discard()
+		} else if (hitEntity is LivingEntity) {
+			hitEntity.hurt(
+				damageSources().thrown(this, owner),
+				getDamage()
+			)
 		}
 	}
 
