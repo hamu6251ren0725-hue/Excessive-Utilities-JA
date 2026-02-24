@@ -28,6 +28,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.FluidTags
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.Capabilities
@@ -259,6 +260,7 @@ object CommonEvents {
 			val demonStack = output.defaultInstance.copyWithCount(count)
 
 			itemEntity.item = demonStack
+			itemEntity.deltaMovement = Vec3.ZERO
 		}
 	}
 
