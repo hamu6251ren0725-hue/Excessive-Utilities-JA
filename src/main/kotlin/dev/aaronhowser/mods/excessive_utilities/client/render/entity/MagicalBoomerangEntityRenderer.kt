@@ -33,7 +33,7 @@ class MagicalBoomerangEntityRenderer(
 		super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight)
 
 		val age = entity.tickCount + partialTick
-		val rotationDegrees = Mth.wrapDegrees(age * 10f)
+		val rotationDegrees = Mth.wrapDegrees(age * 20f)
 
 		poseStack.pushPose()
 
