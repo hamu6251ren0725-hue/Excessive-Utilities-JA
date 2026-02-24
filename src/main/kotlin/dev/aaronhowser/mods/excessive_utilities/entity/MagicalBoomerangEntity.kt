@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModEnchantmentProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -51,9 +52,17 @@ class MagicalBoomerangEntity(
 	}
 
 	private fun getSpeed(): Double {
-		val baseSpeed = 1.5
+		val zoomerangLevel = getEnchantmentLevel(ModEnchantmentProvider.ZOOMERANG)
 
-		return baseSpeed
+		if (isReturning) {
+			val baseSpeed = 2.0
+			val speedMultiplier = 1.0 + zoomerangLevel
+			return baseSpeed * speedMultiplier
+		} else {
+			val baseSpeed = 1.5
+			val speedMultiplier = 1.0 + (zoomerangLevel * 0.3)
+			return baseSpeed * speedMultiplier
+		}
 	}
 
 	override fun onHitBlock(result: BlockHitResult) {
@@ -97,7 +106,8 @@ class MagicalBoomerangEntity(
 			return
 		}
 
-		deltaMovement = vecTo.normalize().scale(getSpeed())
+		val distanceToTravel = getSpeed().coerceAtMost(vecTo.length())
+		deltaMovement = vecTo.normalize().scale(distanceToTravel)
 	}
 
 	private fun carryItems() {
