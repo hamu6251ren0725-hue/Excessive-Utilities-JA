@@ -26,7 +26,7 @@ class MagicalBoomerangItem(properties: Properties) : Item(properties) {
 		if (stack.has(ModDataComponents.THROWN_BOOMERANG)) return InteractionResultHolder.fail(stack)
 
 		if (level.isServerSide) {
-			val boomerang = MagicalBoomerangEntity(level, player)
+			val boomerang = MagicalBoomerangEntity(level, player, stack)
 			boomerang.shootFromRotation(player, player.xRot, player.yRot, 0f, 1.5f, 0f)
 			level.addFreshEntity(boomerang)
 			stack.set(ModDataComponents.THROWN_BOOMERANG, boomerang.uuid)

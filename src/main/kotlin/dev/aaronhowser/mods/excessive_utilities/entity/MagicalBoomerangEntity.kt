@@ -4,13 +4,19 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ThrowableProjectile
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.enchantment.Enchantment
+import net.minecraft.world.item.enchantment.ItemEnchantments
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
@@ -21,21 +27,30 @@ class MagicalBoomerangEntity(
 	level: Level
 ) : ThrowableProjectile(entityType, level) {
 
-	constructor(level: Level, entity: LivingEntity) : this(ModEntityTypes.MAGICAL_BOOMERANG.get(), level) {
+	constructor(
+		level: Level,
+		entity: LivingEntity,
+		boomerangStack: ItemStack
+	) : this(ModEntityTypes.MAGICAL_BOOMERANG.get(), level) {
 		owner = entity
+		enchantments = boomerangStack.enchantments
 		setPos(entity.x, entity.eyeY - 0.1, entity.z)
 	}
 
+	private var enchantments: ItemEnchantments = ItemEnchantments.EMPTY
 	private var isReturning: Boolean = false
 
-	override fun defineSynchedData(builder: SynchedEntityData.Builder) {}
+	fun hasEnchantment(enchantment: Holder<Enchantment>): Boolean = enchantments.getLevel(enchantment) != 0
+	fun hasEnchantment(enchantment: ResourceKey<Enchantment>): Boolean {
+		val enchantmentHolder = level()
+			.registryAccess()
+			.registryOrThrow(Registries.ENCHANTMENT)
+			.getHolder(enchantment)
+			.orElse(null)
+			?: return false
 
-	override fun canUsePortal(allowPassengers: Boolean): Boolean = false
-	override fun isInvulnerable(): Boolean = true
-	override fun isInvulnerableTo(source: DamageSource): Boolean = true
-
-	override fun isNoGravity(): Boolean = true
-	override fun getDefaultGravity(): Double = 0.0
+		return hasEnchantment(enchantmentHolder)
+	}
 
 	override fun onHitBlock(result: BlockHitResult) {
 		super.onHitBlock(result)
@@ -92,5 +107,15 @@ class MagicalBoomerangEntity(
 			}
 		}
 	}
+
+	override fun defineSynchedData(builder: SynchedEntityData.Builder) {}
+
+	override fun canUsePortal(allowPassengers: Boolean): Boolean = false
+	override fun isInvulnerable(): Boolean = true
+	override fun isInvulnerableTo(source: DamageSource): Boolean = true
+
+	override fun isNoGravity(): Boolean = true
+	override fun getDefaultGravity(): Double = 0.0
+
 
 }
