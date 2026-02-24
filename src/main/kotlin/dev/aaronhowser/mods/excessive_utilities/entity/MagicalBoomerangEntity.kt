@@ -81,25 +81,33 @@ class MagicalBoomerangEntity(
 
 		val hitEntity = result.entity
 		if (hitEntity == owner && hitEntity is Player) {
-			val boomerangStack = hitEntity.inventory
-				.items
-				.firstOrNull { it.isItem(ModItems.MAGICAL_BOOMERANG) && it.get(ModDataComponents.THROWN_BOOMERANG) == uuid }
-
-			boomerangStack?.remove(ModDataComponents.THROWN_BOOMERANG)
-			discard()
+			enterInventory(hitEntity)
 		} else if (hitEntity is LivingEntity) {
-			hitEntity.hurt(
-				damageSources().thrown(this, owner),
-				getDamage()
-			)
+			hurtEntity(hitEntity)
+		}
+	}
 
-			val burnerangLevel = getEnchantmentLevel(ModEnchantmentProvider.BURNERANG)
-			if (burnerangLevel > 0) {
-				hitEntity.remainingFireTicks = maxOf(
-					hitEntity.remainingFireTicks,
-					20 * 5 * burnerangLevel
-				)
-			}
+	private fun enterInventory(owner: Player) {
+		val boomerangStack = owner.inventory
+			.items
+			.firstOrNull { it.isItem(ModItems.MAGICAL_BOOMERANG) && it.get(ModDataComponents.THROWN_BOOMERANG) == uuid }
+
+		boomerangStack?.remove(ModDataComponents.THROWN_BOOMERANG)
+		discard()
+	}
+
+	private fun hurtEntity(target: LivingEntity) {
+		target.hurt(
+			damageSources().thrown(this, owner),
+			getDamage()
+		)
+
+		val burnerangLevel = getEnchantmentLevel(ModEnchantmentProvider.BURNERANG)
+		if (burnerangLevel > 0) {
+			target.remainingFireTicks = maxOf(
+				target.remainingFireTicks,
+				20 * 5 * burnerangLevel
+			)
 		}
 	}
 
