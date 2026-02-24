@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.excessive_utilities.entity.MagicalBoomerangEntity
+import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
@@ -18,10 +20,13 @@ class MagicalBoomerangItem(properties: Properties) : Item(properties) {
 	): InteractionResultHolder<ItemStack> {
 		val stack = player.getItemInHand(usedHand)
 
+		if (stack.has(ModDataComponents.THROWN)) return InteractionResultHolder.fail(stack)
+
 		if (level.isServerSide) {
 			val boomerang = MagicalBoomerangEntity(level, player)
 			boomerang.shootFromRotation(player, player.xRot, player.yRot, 0f, 1.5f, 0f)
 			level.addFreshEntity(boomerang)
+			stack.setUnit(ModDataComponents.THROWN)
 		}
 
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide)
