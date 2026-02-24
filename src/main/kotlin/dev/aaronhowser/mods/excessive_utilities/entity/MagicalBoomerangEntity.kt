@@ -72,9 +72,14 @@ class MagicalBoomerangEntity(
 		val targetPos = Vec3(owner.x, owner.eyeY - 0.4, owner.z)
 
 		val currentSpeed = deltaMovement.length()
-		val newDirection = position().vectorTo(targetPos).normalize()
+		val vecTo = position().vectorTo(targetPos)
 
-		deltaMovement = newDirection.scale(currentSpeed.coerceAtLeast(0.1))
+		if (vecTo.lengthSqr() < 0.1) {
+			discard()
+			return
+		}
+
+		deltaMovement = vecTo.normalize().scale(currentSpeed.coerceAtLeast(0.1))
 	}
 
 	private fun carryItems() {
