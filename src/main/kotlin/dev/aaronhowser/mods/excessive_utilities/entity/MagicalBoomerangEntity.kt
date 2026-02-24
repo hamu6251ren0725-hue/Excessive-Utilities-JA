@@ -71,6 +71,14 @@ class MagicalBoomerangEntity(
 	override fun onHitBlock(result: BlockHitResult) {
 		super.onHitBlock(result)
 		isReturning = true
+		explode()
+	}
+
+	private fun explode() {
+		val kaboomerangLevel = getEnchantmentLevel(ModEnchantmentProvider.KABOOMERANG)
+		if (kaboomerangLevel <= 0) return
+
+		//TODO
 	}
 
 	override fun onHitEntity(result: EntityHitResult) {
