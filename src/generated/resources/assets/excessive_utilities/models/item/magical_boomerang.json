@@ -4,7 +4,7 @@
     {
       "model": "excessive_utilities:item/magical_boomerang_thrown",
       "predicate": {
-        "excessive_utilities:ender_shard_count": 1.0
+        "excessive_utilities:magical_boomerang_thrown": 1.0
       }
     }
   ],

@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.excessive_utilities.entity.MagicalBoomerangEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.ClientKeyHandler
 import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
 import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
+import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
 import dev.aaronhowser.mods.excessive_utilities.item.WateringCanItem
 import dev.aaronhowser.mods.excessive_utilities.registry.*
 import net.minecraft.client.renderer.ItemBlockRenderTypes
@@ -82,8 +83,8 @@ object ClientEvents {
 
 		ItemProperties.register(
 			ModItems.MAGICAL_BOOMERANG.get(),
-			MagicalBoomerangEntity.THROWN_PREDICATE,
-			MagicalBoomerangEntity::isThrown
+			MagicalBoomerangItem.THROWN_PREDICATE,
+			MagicalBoomerangItem::isThrown
 		)
 	}
 

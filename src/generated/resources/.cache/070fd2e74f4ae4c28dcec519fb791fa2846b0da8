@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-24T01:44:58.2984301	Item Models: excessive_utilities
+// 1.21.1	2026-02-24T01:47:10.3793813	Item Models: excessive_utilities
 9d6996bb263b4e33b72427d7b5e0dbea7f0b9ebb assets/excessive_utilities/models/item/advanced_item_filter.json
 1b5cdcaf8035c8ad20d95987b1190cfdedb942fd assets/excessive_utilities/models/item/angel_ring.json
 ba9bed41335a88b8d00e7f12d6917c3c0a918eba assets/excessive_utilities/models/item/bag_of_holding.json
@@ -47,7 +47,7 @@ b8ce398d5409c61d511dcc6cdbb912fca2dd9641 assets/excessive_utilities/models/item/
 1e13a69390961ab8ee787c4bc2b7f1c76ec8f9a9 assets/excessive_utilities/models/item/item_filter.json
 51b4830aa1a9f640cbf0e417a09ef8570c5c26fa assets/excessive_utilities/models/item/lunar_reactive_dust.json
 34c063c725f8c913b5c1393175528bc6712d3001 assets/excessive_utilities/models/item/magical_apple.json
-d6bfcba39fcd02133fe1fbe008dd76f077bbeb15 assets/excessive_utilities/models/item/magical_boomerang.json
+df749ccee0b114aa68f934b6e60ba5f8971199b0 assets/excessive_utilities/models/item/magical_boomerang.json
 3ca97617c4431bf7217670ae0b39c08b3d0990c6 assets/excessive_utilities/models/item/magical_boomerang_thrown.json
 0feecdbf86f2248c82f6d70b39932e916409d39b assets/excessive_utilities/models/item/moon_stone.json
 dd9f77f45e5bdfc10ac63e52baaa7341b45d0c02 assets/excessive_utilities/models/item/netherite_sickle.json
