@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.event
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isFluid
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import dev.aaronhowser.mods.excessive_utilities.block.AngelBlock
@@ -11,9 +10,9 @@ import dev.aaronhowser.mods.excessive_utilities.block.entity.generator.MagmaticG
 import dev.aaronhowser.mods.excessive_utilities.block.entity.trash.EnergyTrashCanBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.entity.trash.FluidTrashCanBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.entity.trash.TrashCanBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
 import dev.aaronhowser.mods.excessive_utilities.datamap.GeneratorItemFuel
 import dev.aaronhowser.mods.excessive_utilities.datamap.MagmaticGeneratorFuel
+import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
 import dev.aaronhowser.mods.excessive_utilities.entity.FlatTransferNodeEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerHandler
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.KeyHandler
@@ -23,7 +22,6 @@ import dev.aaronhowser.mods.excessive_utilities.item.ErosionShovelItem
 import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
 import dev.aaronhowser.mods.excessive_utilities.packet.ModPacketHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
-import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.FluidTags
@@ -34,7 +32,6 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
-import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
@@ -247,19 +244,17 @@ object CommonEvents {
 		if (level.dimension() != Level.NETHER) return
 
 		val item = itemEntity.item
-		val output = when {
-			item.isItem(Tags.Items.INGOTS_GOLD) -> ModItems.DEMON_INGOT.get()
-			item.isItem(Tags.Items.STORAGE_BLOCKS_GOLD) -> ModBlocks.BLOCK_OF_DEMON_METAL.asItem()
-			else -> null
-		}
-
-		if (output == null) return
+		val output = item.item
+			.builtInRegistryHolder()
+			.getData(NetherLavaDunkConversion.DATA_MAP)
+			?.output
+			?: return
 
 		val pos = itemEntity.blockPosition()
 		val fluidState = level.getFluidState(pos)
 		if (fluidState.isFluid(FluidTags.LAVA)) {
 			val count = item.count
-			val demonStack = output.defaultInstance.copyWithCount(count)
+			val demonStack = output.copyWithCount(count)
 
 			itemEntity.item = demonStack
 			itemEntity.deltaMovement = Vec3.ZERO
