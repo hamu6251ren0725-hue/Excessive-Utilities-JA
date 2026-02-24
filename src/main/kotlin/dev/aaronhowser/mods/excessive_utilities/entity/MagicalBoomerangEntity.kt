@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
-import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.resources.ResourceKey
@@ -40,16 +39,21 @@ class MagicalBoomerangEntity(
 	private var enchantments: ItemEnchantments = ItemEnchantments.EMPTY
 	private var isReturning: Boolean = false
 
-	fun hasEnchantment(enchantment: Holder<Enchantment>): Boolean = enchantments.getLevel(enchantment) != 0
-	fun hasEnchantment(enchantment: ResourceKey<Enchantment>): Boolean {
+	private fun getEnchantmentLevel(enchantment: ResourceKey<Enchantment>): Int {
 		val enchantmentHolder = level()
 			.registryAccess()
 			.registryOrThrow(Registries.ENCHANTMENT)
 			.getHolder(enchantment)
 			.orElse(null)
-			?: return false
+			?: return 0
 
-		return hasEnchantment(enchantmentHolder)
+		return enchantments.getLevel(enchantmentHolder)
+	}
+
+	private fun getSpeed(): Double {
+		val baseSpeed = 1.5
+
+		return baseSpeed
 	}
 
 	override fun onHitBlock(result: BlockHitResult) {
@@ -86,7 +90,6 @@ class MagicalBoomerangEntity(
 		val owner = owner ?: return
 		val targetPos = Vec3(owner.x, owner.eyeY - 0.4, owner.z)
 
-		val currentSpeed = deltaMovement.length()
 		val vecTo = position().vectorTo(targetPos)
 
 		if (vecTo.lengthSqr() < 0.1) {
@@ -94,7 +97,7 @@ class MagicalBoomerangEntity(
 			return
 		}
 
-		deltaMovement = vecTo.normalize().scale(currentSpeed.coerceAtLeast(0.1))
+		deltaMovement = vecTo.normalize().scale(getSpeed())
 	}
 
 	private fun carryItems() {
