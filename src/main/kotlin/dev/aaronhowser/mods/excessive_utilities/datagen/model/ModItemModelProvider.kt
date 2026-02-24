@@ -27,8 +27,29 @@ class ModItemModelProvider(
 		flatTransferNodes()
 		enderShard()
 		wateringCan()
+		magicalBoomerang()
 
 		basicItems()
+	}
+
+	fun magicalBoomerang() {
+		val item = ModItems.MAGICAL_BOOMERANG.get()
+
+		val baseModel = getBuilder(getName(item))
+			.parent(ModelFile.UncheckedModelFile("item/generated"))
+			.texture("layer0", modLoc("item/magical_boomerang/not_thrown"))
+
+		val thrownModel = getBuilder(getName(item) + "_thrown")
+			.parent(ModelFile.UncheckedModelFile("item/generated"))
+			.texture("layer0", modLoc("item/magical_boomerang/thrown"))
+
+		baseModel
+			.override()
+			.predicate(ENDER_SHARD_COUNT, 1f)
+			.model(thrownModel)
+			.end()
+
+		handledItems.add(item)
 	}
 
 	fun flatTransferNodes() {

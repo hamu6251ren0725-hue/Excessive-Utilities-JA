@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRen
 import dev.aaronhowser.mods.excessive_utilities.client.render.bewlr.OpiniumCoreBEWLR
 import dev.aaronhowser.mods.excessive_utilities.client.render.block_entity.EnderQuarryBER
 import dev.aaronhowser.mods.excessive_utilities.datagen.model.ModItemModelProvider
+import dev.aaronhowser.mods.excessive_utilities.entity.MagicalBoomerangEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.ClientKeyHandler
 import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
 import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
@@ -77,6 +78,12 @@ object ClientEvents {
 			ModItems.WATERING_CAN.get(),
 			WateringCanItem.IS_BROKEN_PREDICATE,
 			WateringCanItem::isBroken
+		)
+
+		ItemProperties.register(
+			ModItems.MAGICAL_BOOMERANG.get(),
+			MagicalBoomerangEntity.THROWN_PREDICATE,
+			MagicalBoomerangEntity::isThrown
 		)
 	}
 
