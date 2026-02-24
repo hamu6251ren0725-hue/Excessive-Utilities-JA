@@ -125,8 +125,8 @@ object ModItems : AaronItemRegistry() {
 		basic("lux_saber")
 	val COMPOUND_BOW =
 		basic("compound_bow")
-	val MAGICAL_BOOMERANG =
-		basic("magical_boomerang")
+	val MAGICAL_BOOMERANG: DeferredItem<MagicalBoomerangItem> =
+		register("magical_boomerang", ::MagicalBoomerangItem, MagicalBoomerangItem.DEFAULT_PROPERTIES)
 
 	// Misc
 	@JvmField
