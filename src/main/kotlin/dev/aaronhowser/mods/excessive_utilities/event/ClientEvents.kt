@@ -174,6 +174,7 @@ object ClientEvents {
 	@SubscribeEvent
 	fun registerEntityRenderer(event: EntityRenderersEvent.RegisterRenderers) {
 		event.registerEntityRenderer(ModEntityTypes.FLAT_TRANSFER_NODE.get(), ::NoopRenderer)
+		event.registerEntityRenderer(ModEntityTypes.MAGICAL_BOOMERANG.get(), ::NoopRenderer)
 
 		event.registerBlockEntityRenderer(ModBlockEntityTypes.ENDER_QUARRY.get(), ::EnderQuarryBER)
 	}
