@@ -84,7 +84,7 @@ class MagicalBoomerangEntity(
 
 	override fun onHitEntity(result: EntityHitResult) {
 		super.onHitEntity(result)
-		if (tickCount < 10) return
+		if (tickCount < 2) return
 
 		isReturning = true
 
