@@ -25,6 +25,7 @@ import net.minecraft.world.item.enchantment.ItemEnchantments
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.EntityHitResult
+import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 
 class MagicalBoomerangEntity(
@@ -70,10 +71,16 @@ class MagicalBoomerangEntity(
 		return 4f + (bladerangLevel * 4f)
 	}
 
+	override fun onHit(result: HitResult) {
+		super.onHit(result)
+		if (result.type != HitResult.Type.MISS) {
+			explode()
+		}
+	}
+
 	override fun onHitBlock(result: BlockHitResult) {
 		super.onHitBlock(result)
 		isReturning = true
-		explode()
 	}
 
 	private fun explode() {
@@ -85,11 +92,12 @@ class MagicalBoomerangEntity(
 
 	override fun onHitEntity(result: EntityHitResult) {
 		super.onHitEntity(result)
-		if (tickCount < 2) return
-
-		isReturning = true
-
 		val hitEntity = result.entity
+
+		if (hitEntity != owner) {
+			isReturning = true
+		}
+
 		if (hitEntity == owner && hitEntity is Player) {
 			enterInventory(hitEntity)
 		} else if (hitEntity is LivingEntity) {
