@@ -48,6 +48,11 @@ class QuantumQuarryBlockEntity(
 	}
 
 	private fun targetNewChunk(miningDimensionLevel: ServerLevel) {
+		val previousChunk = targetChunk
+		if (previousChunk != null) {
+			miningDimensionLevel.setChunkForced(previousChunk.x, previousChunk.z, false)
+		}
+
 		var nextChunkPos = ChunkPos(
 			miningDimensionLevel.random.nextInt(-100_000, 100_000),
 			miningDimensionLevel.random.nextInt(-100_000, 100_000)
@@ -77,6 +82,17 @@ class QuantumQuarryBlockEntity(
 			miningDimensionLevel.maxBuildHeight,
 			nextChunkPos.minBlockZ
 		)
+	}
+
+	override fun setRemoved() {
+		super.setRemoved()
+
+		val level = level
+		val targetChunk = targetChunk
+		if (level is ServerLevel && targetChunk != null) {
+			val miningDimensionLevel = getMiningLevel(level)
+			miningDimensionLevel?.setChunkForced(targetChunk.x, targetChunk.z, false)
+		}
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -136,6 +152,10 @@ class QuantumQuarryBlockEntity(
 
 				blockEntity.serverTick(level, miningDimensionLevel)
 			}
+		}
+
+		private fun getMiningLevel(level: ServerLevel): ServerLevel? {
+			return level.server.getLevel(ModDimensionProvider.QUANTUM_QUARRY_LEVEL)
 		}
 	}
 
