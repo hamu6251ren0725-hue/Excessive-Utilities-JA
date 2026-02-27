@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModDimensionProvider
-import dev.aaronhowser.mods.excessive_utilities.handler.quantum_quarry.QuantumQuarryHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
@@ -41,10 +40,13 @@ class QuantumQuarryBlockEntity(
 	}
 
 	private fun initializeTarget(miningDimensionLevel: ServerLevel) {
-		val handler = QuantumQuarryHandler.get(miningDimensionLevel)
-		val nextChunk = handler.getNextChunk()
-		targetChunk = nextChunk
-		targetBlockPos = BlockPos(nextChunk.minBlockX, miningDimensionLevel.maxBuildHeight, nextChunk.minBlockZ)
+		val nextChunkPos = ChunkPos(
+			miningDimensionLevel.random.nextInt(-100_000, 100_000),
+			miningDimensionLevel.random.nextInt(-100_000, 100_000)
+		)
+
+		targetChunk = nextChunkPos
+		targetBlockPos = BlockPos(nextChunkPos.minBlockX, miningDimensionLevel.maxBuildHeight, nextChunkPos.minBlockZ)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
