@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.saveddata.SavedData
 import java.util.*
 
@@ -46,6 +47,10 @@ class BagOfHoldingHandler : SavedData() {
 		}
 
 		fun get(level: ServerLevel): BagOfHoldingHandler {
+			if (level.server.overworld() != Level.OVERWORLD) {
+				return get(level.server.overworld())
+			}
+
 			val storage = level.dataStorage
 			val factory = Factory(::BagOfHoldingHandler, ::load)
 
