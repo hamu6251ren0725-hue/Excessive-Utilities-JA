@@ -89,6 +89,9 @@ class ServerConfig(
 	lateinit var eqSpeedThreeCostMultiplier: ModConfigSpec.DoubleValue
 	lateinit var eqWorldHoleCostMultiplier: ModConfigSpec.DoubleValue
 
+	lateinit var quantumQuarryFePerBlock: ModConfigSpec.DoubleValue
+	lateinit var quantumQuarryBlocksPerTick: ModConfigSpec.DoubleValue
+
 	lateinit var boomerangItemPickupRadius: ModConfigSpec.DoubleValue
 	lateinit var boomereaperangRadius: ModConfigSpec.DoubleValue
 
@@ -100,64 +103,21 @@ class ServerConfig(
 		gridPower()
 		feGenerators()
 		enderQuarry()
+		quantumQuarry()
 		rings()
 		boomerang()
 	}
 
-	private fun boomerang() {
-		builder.push("boomerang")
+	private fun quantumQuarry() {
+		builder.push("quantum_quarry")
 
-		boomerangItemPickupRadius = builder
-			.comment("The radius in blocks around the Boomerang that it will pick up items.")
-			.defineInRange("boomerangItemPickupRadius", 4.0, 0.0, Double.MAX_VALUE)
+		quantumQuarryFePerBlock = builder
+			.comment("The amount of FE the Quantum Quarry will use per block mined.")
+			.defineInRange("quantumQuarryFePerBlock", 20_000.0, 0.0, Double.MAX_VALUE)
 
-		boomereaperangRadius = builder
-			.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
-			.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
-	}
-
-	private fun rings() {
-		builder.push("rings")
-
-		builder.comment("GP costs are defined elsewhere!")
-
-		builder.push("chicken_wing_ring")
-
-		chickenWingRingFallSpeed = builder
-			.comment("The max fall speed when using a Chicken Wing Ring.")
-			.defineInRange("chickenWingRingFallSpeed", 0.1, 0.0, Double.MAX_VALUE)
-
-		chickenWingRingDurationTicks = builder
-			.comment("The number of ticks that the Chicken Wing Ring will last.")
-			.defineInRange("chickenWingRingDurationTicks", 20 * 10, 1, Int.MAX_VALUE)
-
-		chickenWingRingRechargeTicks = builder
-			.comment("The number of ticks that the Chicken Wing Ring will take to fully recharge.")
-			.defineInRange("chickenWingRingRechargeTicks", 20 * 5, 1, Int.MAX_VALUE)
-
-		builder.pop()
-
-		builder.push("flying_squid_ring")
-
-		flyingSquidRingThrustMultiplier = builder
-			.comment("How many times stronger than your gravity the upward thrust of the Ring of the Flying Squid is.")
-			.defineInRange("flyingSquidRingThrustMultiplier", 1.1, 0.0, Double.MAX_VALUE)
-
-		flyingSquidRingMaxUpwardSpeed = builder
-			.comment("The maximum upward speed in blocks per tick that the Ring of the Flying Squid will push you.")
-			.defineInRange("flyingSquidRingMaxUpwardSpeed", 1.0, 0.0, Double.MAX_VALUE)
-
-		flyingSquidRingDurationTicks = builder
-			.comment("The number of ticks that the Ring of the Flying Squid will last.")
-			.defineInRange("flyingSquidRingDurationTicks", 20 * 15, 1, Int.MAX_VALUE)
-
-		flyingSquidRingRechargeTicks = builder
-			.comment("The number of ticks that the Ring of the Flying Squid will take to fully recharge.")
-			.defineInRange("flyingSquidRingRechargeTicks", 20 * 10, 1, Int.MAX_VALUE)
-
-		builder.pop()
+		quantumQuarryBlocksPerTick = builder
+			.comment("The maximum number of blocks the Quantum Quarry will mine per tick.")
+			.defineInRange("quantumQuarryBlocksPerTick", 2.0, 0.0, Double.MAX_VALUE)
 
 		builder.pop()
 	}
@@ -228,6 +188,64 @@ class ServerConfig(
 		eqWorldHoleCostMultiplier = builder
 			.comment("How many times more FE the Ender Quarry will drain when it has a World Hole Upgrade.")
 			.defineInRange("eqWorldHoleCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
+
+		builder.pop()
+
+		builder.pop()
+	}
+
+	private fun boomerang() {
+		builder.push("boomerang")
+
+		boomerangItemPickupRadius = builder
+			.comment("The radius in blocks around the Boomerang that it will pick up items.")
+			.defineInRange("boomerangItemPickupRadius", 4.0, 0.0, Double.MAX_VALUE)
+
+		boomereaperangRadius = builder
+			.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
+			.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
+
+		builder.pop()
+	}
+
+	private fun rings() {
+		builder.push("rings")
+
+		builder.comment("GP costs are defined elsewhere!")
+
+		builder.push("chicken_wing_ring")
+
+		chickenWingRingFallSpeed = builder
+			.comment("The max fall speed when using a Chicken Wing Ring.")
+			.defineInRange("chickenWingRingFallSpeed", 0.1, 0.0, Double.MAX_VALUE)
+
+		chickenWingRingDurationTicks = builder
+			.comment("The number of ticks that the Chicken Wing Ring will last.")
+			.defineInRange("chickenWingRingDurationTicks", 20 * 10, 1, Int.MAX_VALUE)
+
+		chickenWingRingRechargeTicks = builder
+			.comment("The number of ticks that the Chicken Wing Ring will take to fully recharge.")
+			.defineInRange("chickenWingRingRechargeTicks", 20 * 5, 1, Int.MAX_VALUE)
+
+		builder.pop()
+
+		builder.push("flying_squid_ring")
+
+		flyingSquidRingThrustMultiplier = builder
+			.comment("How many times stronger than your gravity the upward thrust of the Ring of the Flying Squid is.")
+			.defineInRange("flyingSquidRingThrustMultiplier", 1.1, 0.0, Double.MAX_VALUE)
+
+		flyingSquidRingMaxUpwardSpeed = builder
+			.comment("The maximum upward speed in blocks per tick that the Ring of the Flying Squid will push you.")
+			.defineInRange("flyingSquidRingMaxUpwardSpeed", 1.0, 0.0, Double.MAX_VALUE)
+
+		flyingSquidRingDurationTicks = builder
+			.comment("The number of ticks that the Ring of the Flying Squid will last.")
+			.defineInRange("flyingSquidRingDurationTicks", 20 * 15, 1, Int.MAX_VALUE)
+
+		flyingSquidRingRechargeTicks = builder
+			.comment("The number of ticks that the Ring of the Flying Squid will take to fully recharge.")
+			.defineInRange("flyingSquidRingRechargeTicks", 20 * 10, 1, Int.MAX_VALUE)
 
 		builder.pop()
 

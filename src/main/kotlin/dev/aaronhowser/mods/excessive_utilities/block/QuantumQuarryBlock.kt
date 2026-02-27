@@ -28,7 +28,7 @@ class QuantumQuarryBlock : Block(Properties.ofFullCopy(Blocks.OBSIDIAN)), Entity
 		return BaseEntityBlock.createTickerHelper(
 			blockEntityType,
 			ModBlockEntityTypes.QUANTUM_QUARRY.get(),
-			EnderQuarryBlockEntity::tick
+			QuantumQuarryBlockEntity::tick
 		)
 	}
 
