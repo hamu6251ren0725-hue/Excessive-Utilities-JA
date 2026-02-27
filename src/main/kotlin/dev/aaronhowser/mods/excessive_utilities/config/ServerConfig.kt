@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.config
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.section
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair
@@ -109,312 +110,277 @@ class ServerConfig(
 	}
 
 	private fun quantumQuarry() {
-		builder.push("quantum_quarry")
+		builder.section("quantum_quarry") {
+			quantumQuarryFePerBlock = builder
+				.comment("The amount of FE the Quantum Quarry will use per block mined.")
+				.defineInRange("quantumQuarryFePerBlock", 20_000.0, 0.0, Double.MAX_VALUE)
 
-		quantumQuarryFePerBlock = builder
-			.comment("The amount of FE the Quantum Quarry will use per block mined.")
-			.defineInRange("quantumQuarryFePerBlock", 20_000.0, 0.0, Double.MAX_VALUE)
-
-		quantumQuarryBlocksPerTick = builder
-			.comment("The maximum number of blocks the Quantum Quarry will mine per tick.")
-			.defineInRange("quantumQuarryBlocksPerTick", 2.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
+			quantumQuarryBlocksPerTick = builder
+				.comment("The maximum number of blocks the Quantum Quarry will mine per tick.")
+				.defineInRange("quantumQuarryBlocksPerTick", 2.0, 0.0, Double.MAX_VALUE)
+		}
 	}
 
 	private fun enderQuarry() {
-		builder.push("ender_quarry")
+		builder.section("ender_quarry") {
+			enderQuarryFencePerimeterLimit = builder
+				.comment("The maximum number of fence blocks that can be used to create the perimeter for an Ender Quarry.")
+				.defineInRange("enderQuarryFencePerimeterLimit", 100_000, 4, Int.MAX_VALUE)
 
-		enderQuarryFencePerimeterLimit = builder
-			.comment("The maximum number of fence blocks that can be used to create the perimeter for an Ender Quarry.")
-			.defineInRange("enderQuarryFencePerimeterLimit", 100_000, 4, Int.MAX_VALUE)
+			enderQuarryMarkerSearchDistance = builder
+				.comment("The maximum distance in blocks that the Ender Quarry will search for its markers.")
+				.defineInRange("enderQuarryMarkerSearchDistance", 1_000, 1, Int.MAX_VALUE)
 
-		enderQuarryMarkerSearchDistance = builder
-			.comment("The maximum distance in blocks that the Ender Quarry will search for its markers.")
-			.defineInRange("enderQuarryMarkerSearchDistance", 1_000, 1, Int.MAX_VALUE)
+			enderQuarryFePerBlock = builder
+				.comment("The amount of FE the Ender Quarry will use per block mined.")
+				.defineInRange("enderQuarryFePerBlock", 10.0, 0.0, Double.MAX_VALUE)
 
-		enderQuarryFePerBlock = builder
-			.comment("The amount of FE the Ender Quarry will use per block mined.")
-			.defineInRange("enderQuarryFePerBlock", 10.0, 0.0, Double.MAX_VALUE)
+			enderQuarryBlocksPerTick = builder
+				.comment("The maximum number of blocks the Ender Quarry will mine per tick.")
+				.defineInRange("enderQuarryBlocksPerTick", 0.5, 0.0, Double.MAX_VALUE)
 
-		enderQuarryBlocksPerTick = builder
-			.comment("The maximum number of blocks the Ender Quarry will mine per tick.")
-			.defineInRange("enderQuarryBlocksPerTick", 0.5, 0.0, Double.MAX_VALUE)
+			builder.section("eq_upgrades") {
+				eqSpeedOneSpeedMultiplier = builder
+					.comment("How many times faster the Ender Quarry mines with a Speed I Upgrade.")
+					.defineInRange("eqSpeedOneSpeedMultiplier", 1.5, 0.0, Double.MAX_VALUE)
 
-		eqUpgrades()
+				eqSpeedTwoSpeedMultiplier = builder
+					.comment("How many times faster the Ender Quarry mines with a Speed II Upgrade.")
+					.defineInRange("eqSpeedTwoSpeedMultiplier", 2.0, 0.0, Double.MAX_VALUE)
 
-		builder.pop()
-	}
+				eqSpeedThreeSpeedMultiplier = builder
+					.comment("How many times faster the Ender Quarry mines with a Speed III Upgrade.")
+					.defineInRange("eqSpeedThreeSpeedMultiplier", 3.0, 0.0, Double.MAX_VALUE)
 
-	private fun eqUpgrades() {
-		builder.push("eq_upgrades")
+				builder.section("eq_upgrade_costs") {
+					eqSilkTouchCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Silk Touch Upgrade.")
+						.defineInRange("eqSilkTouchCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
 
-		eqSpeedOneSpeedMultiplier = builder
-			.comment("How many times faster the Ender Quarry mines with a Speed I Upgrade.")
-			.defineInRange("eqSpeedOneSpeedMultiplier", 1.5, 0.0, Double.MAX_VALUE)
+					eqFortuneOneCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Fortune I Upgrade.")
+						.defineInRange("eqFortuneOneCostMultiplier", 5.0, 0.0, Double.MAX_VALUE)
 
-		eqSpeedTwoSpeedMultiplier = builder
-			.comment("How many times faster the Ender Quarry mines with a Speed II Upgrade.")
-			.defineInRange("eqSpeedTwoSpeedMultiplier", 2.0, 0.0, Double.MAX_VALUE)
+					eqFortuneTwoCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Fortune II Upgrade.")
+						.defineInRange("eqFortuneTwoCostMultiplier", 20.0, 0.0, Double.MAX_VALUE)
 
-		eqSpeedThreeSpeedMultiplier = builder
-			.comment("How many times faster the Ender Quarry mines with a Speed III Upgrade.")
-			.defineInRange("eqSpeedThreeSpeedMultiplier", 3.0, 0.0, Double.MAX_VALUE)
+					eqFortuneThreeCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Fortune III Upgrade.")
+						.defineInRange("eqFortuneThreeCostMultiplier", 80.0, 0.0, Double.MAX_VALUE)
 
-		eqUpgradeCosts()
+					eqSpeedOneCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Speed I Upgrade.")
+						.defineInRange("eqSpeedOneCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
 
-		builder.pop()
-	}
+					eqSpeedTwoCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Speed II Upgrade.")
+						.defineInRange("eqSpeedTwoCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
 
-	private fun eqUpgradeCosts() {
-		builder.push("eq_upgrade_costs")
+					eqSpeedThreeCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a Speed III Upgrade.")
+						.defineInRange("eqSpeedThreeCostMultiplier", 2.0, 0.0, Double.MAX_VALUE)
 
-		eqSilkTouchCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Silk Touch Upgrade.")
-			.defineInRange("eqSilkTouchCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
-
-		eqFortuneOneCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune I Upgrade.")
-			.defineInRange("eqFortuneOneCostMultiplier", 5.0, 0.0, Double.MAX_VALUE)
-
-		eqFortuneTwoCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune II Upgrade.")
-			.defineInRange("eqFortuneTwoCostMultiplier", 20.0, 0.0, Double.MAX_VALUE)
-
-		eqFortuneThreeCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune III Upgrade.")
-			.defineInRange("eqFortuneThreeCostMultiplier", 80.0, 0.0, Double.MAX_VALUE)
-
-		eqSpeedOneCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Speed I Upgrade.")
-			.defineInRange("eqSpeedOneCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
-
-		eqSpeedTwoCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Speed II Upgrade.")
-			.defineInRange("eqSpeedTwoCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
-
-		eqSpeedThreeCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Speed III Upgrade.")
-			.defineInRange("eqSpeedThreeCostMultiplier", 2.0, 0.0, Double.MAX_VALUE)
-
-		eqWorldHoleCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a World Hole Upgrade.")
-			.defineInRange("eqWorldHoleCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
+					eqWorldHoleCostMultiplier = builder
+						.comment("How many times more FE the Ender Quarry will drain when it has a World Hole Upgrade.")
+						.defineInRange("eqWorldHoleCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
+				}
+			}
+		}
 	}
 
 	private fun boomerang() {
-		builder.push("boomerang")
+		builder.section("boomerang") {
+			boomerangItemPickupRadius = builder
+				.comment("The radius in blocks around the Boomerang that it will pick up items.")
+				.defineInRange("boomerangItemPickupRadius", 4.0, 0.0, Double.MAX_VALUE)
 
-		boomerangItemPickupRadius = builder
-			.comment("The radius in blocks around the Boomerang that it will pick up items.")
-			.defineInRange("boomerangItemPickupRadius", 4.0, 0.0, Double.MAX_VALUE)
-
-		boomereaperangRadius = builder
-			.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
-			.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
+			boomereaperangRadius = builder
+				.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
+				.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
+		}
 	}
 
 	private fun rings() {
-		builder.push("rings")
+		builder.section("rings") {
+			builder.comment("GP costs are defined elsewhere!")
 
-		builder.comment("GP costs are defined elsewhere!")
+			builder.section("chicken_wing_ring") {
+				chickenWingRingFallSpeed = builder
+					.comment("The max fall speed when using a Chicken Wing Ring.")
+					.defineInRange("chickenWingRingFallSpeed", 0.1, 0.0, Double.MAX_VALUE)
 
-		builder.push("chicken_wing_ring")
+				chickenWingRingDurationTicks = builder
+					.comment("The number of ticks that the Chicken Wing Ring will last.")
+					.defineInRange("chickenWingRingDurationTicks", 20 * 10, 1, Int.MAX_VALUE)
 
-		chickenWingRingFallSpeed = builder
-			.comment("The max fall speed when using a Chicken Wing Ring.")
-			.defineInRange("chickenWingRingFallSpeed", 0.1, 0.0, Double.MAX_VALUE)
+				chickenWingRingRechargeTicks = builder
+					.comment("The number of ticks that the Chicken Wing Ring will take to fully recharge.")
+					.defineInRange("chickenWingRingRechargeTicks", 20 * 5, 1, Int.MAX_VALUE)
+			}
 
-		chickenWingRingDurationTicks = builder
-			.comment("The number of ticks that the Chicken Wing Ring will last.")
-			.defineInRange("chickenWingRingDurationTicks", 20 * 10, 1, Int.MAX_VALUE)
+			builder.section("flying_squid_ring") {
+				flyingSquidRingThrustMultiplier = builder
+					.comment("How many times stronger than your gravity the upward thrust of the Ring of the Flying Squid is.")
+					.defineInRange("flyingSquidRingThrustMultiplier", 1.1, 0.0, Double.MAX_VALUE)
 
-		chickenWingRingRechargeTicks = builder
-			.comment("The number of ticks that the Chicken Wing Ring will take to fully recharge.")
-			.defineInRange("chickenWingRingRechargeTicks", 20 * 5, 1, Int.MAX_VALUE)
+				flyingSquidRingMaxUpwardSpeed = builder
+					.comment("The maximum upward speed in blocks per tick that the Ring of the Flying Squid will push you.")
+					.defineInRange("flyingSquidRingMaxUpwardSpeed", 1.0, 0.0, Double.MAX_VALUE)
 
-		builder.pop()
+				flyingSquidRingDurationTicks = builder
+					.comment("The number of ticks that the Ring of the Flying Squid will last.")
+					.defineInRange("flyingSquidRingDurationTicks", 20 * 15, 1, Int.MAX_VALUE)
 
-		builder.push("flying_squid_ring")
-
-		flyingSquidRingThrustMultiplier = builder
-			.comment("How many times stronger than your gravity the upward thrust of the Ring of the Flying Squid is.")
-			.defineInRange("flyingSquidRingThrustMultiplier", 1.1, 0.0, Double.MAX_VALUE)
-
-		flyingSquidRingMaxUpwardSpeed = builder
-			.comment("The maximum upward speed in blocks per tick that the Ring of the Flying Squid will push you.")
-			.defineInRange("flyingSquidRingMaxUpwardSpeed", 1.0, 0.0, Double.MAX_VALUE)
-
-		flyingSquidRingDurationTicks = builder
-			.comment("The number of ticks that the Ring of the Flying Squid will last.")
-			.defineInRange("flyingSquidRingDurationTicks", 20 * 15, 1, Int.MAX_VALUE)
-
-		flyingSquidRingRechargeTicks = builder
-			.comment("The number of ticks that the Ring of the Flying Squid will take to fully recharge.")
-			.defineInRange("flyingSquidRingRechargeTicks", 20 * 10, 1, Int.MAX_VALUE)
-
-		builder.pop()
-
-		builder.pop()
+				flyingSquidRingRechargeTicks = builder
+					.comment("The number of ticks that the Ring of the Flying Squid will take to fully recharge.")
+					.defineInRange("flyingSquidRingRechargeTicks", 20 * 10, 1, Int.MAX_VALUE)
+			}
+		}
 	}
 
 	private fun wateringCan() {
-		builder.push("watering_can")
+		builder.section("watering_can") {
+			wateringCanRadius = builder
+				.comment("The radius in blocks around the player that the Watering Can will effect.")
+				.defineInRange("wateringCanRadius", 3, 1, Int.MAX_VALUE)
 
-		wateringCanRadius = builder
-			.comment("The radius in blocks around the player that the Watering Can will effect.")
-			.defineInRange("wateringCanRadius", 3, 1, Int.MAX_VALUE)
+			wateringCanTickChance = builder
+				.comment("The chance that each block in the radius will get ticked when the Watering Can is used.")
+				.defineInRange("wateringCanTickChance", 0.3, 0.0, 1.0)
 
-		wateringCanTickChance = builder
-			.comment("The chance that each block in the radius will get ticked when the Watering Can is used.")
-			.defineInRange("wateringCanTickChance", 0.3, 0.0, 1.0)
+			wateringCanWaterUsagePerTick = builder
+				.comment(
+					"The amount of water in millibuckets that the Watering Can will use per tick.",
+					"Setting this to 0 will make it not require water at all."
+				)
+				.defineInRange("wateringCanWaterUsagePerTick", 10, 0, Int.MAX_VALUE)
 
-		wateringCanWaterUsagePerTick = builder
-			.comment(
-				"The amount of water in millibuckets that the Watering Can will use per tick.",
-				"Setting this to 0 will make it not require water at all."
-			)
-			.defineInRange("wateringCanWaterUsagePerTick", 10, 0, Int.MAX_VALUE)
+			reinforcedWateringCanRadius = builder
+				.comment("The radius in blocks around the player that the Reinforced Watering Can will effect.")
+				.defineInRange("reinforcedWateringCanRadius", 5, 1, Int.MAX_VALUE)
 
-		reinforcedWateringCanRadius = builder
-			.comment("The radius in blocks around the player that the Reinforced Watering Can will effect.")
-			.defineInRange("reinforcedWateringCanRadius", 5, 1, Int.MAX_VALUE)
+			reinforcedWateringCanTickChance = builder
+				.comment("The chance that each block in the radius will get ticked when the Reinforced Watering Can is used.")
+				.defineInRange("reinforcedWateringCanTickChance", 0.5, 0.0, 1.0)
 
-		reinforcedWateringCanTickChance = builder
-			.comment("The chance that each block in the radius will get ticked when the Reinforced Watering Can is used.")
-			.defineInRange("reinforcedWateringCanTickChance", 0.5, 0.0, 1.0)
-
-		reinforcedWateringCanWaterUsagePerTick = builder
-			.comment(
-				"The amount of water in millibuckets that the Reinforced Watering Can will use per tick.",
-				"Setting this to 0 will make it not require water at all."
-			)
-			.defineInRange("reinforcedWateringCanWaterUsagePerTick", 10, 0, Int.MAX_VALUE)
-
-		builder.pop()
+			reinforcedWateringCanWaterUsagePerTick = builder
+				.comment(
+					"The amount of water in millibuckets that the Reinforced Watering Can will use per tick.",
+					"Setting this to 0 will make it not require water at all."
+				)
+				.defineInRange("reinforcedWateringCanWaterUsagePerTick", 10, 0, Int.MAX_VALUE)
+		}
 	}
 
 	private fun feGenerators() {
-		builder.push("fe_generators")
+		builder.section("fe_generators") {
+			culinaryFePerFoodValue = builder
+				.comment("How much FE the Culinary Generator produces per point of food value in the input item.")
+				.defineInRange("culinaryFePerFoodValue", 1.0, 0.0, Double.MAX_VALUE)
 
-		culinaryFePerFoodValue = builder
-			.comment("How much FE the Culinary Generator produces per point of food value in the input item.")
-			.defineInRange("culinaryFePerFoodValue", 1.0, 0.0, Double.MAX_VALUE)
+			culinaryTicksPerSaturationValue = builder
+				.comment("How many ticks of burn time the Culinary Generator gets per point of saturation value in the input item.")
+				.defineInRange("culinaryFePerSaturationValue", 1.0, 0.0, Double.MAX_VALUE)
 
-		culinaryTicksPerSaturationValue = builder
-			.comment("How many ticks of burn time the Culinary Generator gets per point of saturation value in the input item.")
-			.defineInRange("culinaryFePerSaturationValue", 1.0, 0.0, Double.MAX_VALUE)
+			furnaceGeneratorBurnTimeMultiplier = builder
+				.comment("How many times longer should a furnace fuel burn in the Furnace Generator compared to a regular furnace.")
+				.defineInRange("furnaceGeneratorBurnTimeMultiplier", 2.5, 0.0, Double.MAX_VALUE)
 
-		furnaceGeneratorBurnTimeMultiplier = builder
-			.comment("How many times longer should a furnace fuel burn in the Furnace Generator compared to a regular furnace.")
-			.defineInRange("furnaceGeneratorBurnTimeMultiplier", 2.5, 0.0, Double.MAX_VALUE)
+			furnaceGeneratorFePerTick = builder
+				.comment("How much FE per tick the Furnace Generator produces when active.")
+				.defineInRange("furnaceGeneratorFePerTick", 40, 1, Int.MAX_VALUE)
 
-		furnaceGeneratorFePerTick = builder
-			.comment("How much FE per tick the Furnace Generator produces when active.")
-			.defineInRange("furnaceGeneratorFePerTick", 40, 1, Int.MAX_VALUE)
+			survivalistGeneratorBurnTimeMultiplier = builder
+				.comment("How many times longer should a furnace fuel burn in the Survivalist Generator compared to a regular furnace.")
+				.defineInRange("survivalistGeneratorBurnTimeMultiplier", 100.0, 0.0, Double.MAX_VALUE)
 
-		survivalistGeneratorBurnTimeMultiplier = builder
-			.comment("How many times longer should a furnace fuel burn in the Survivalist Generator compared to a regular furnace.")
-			.defineInRange("survivalistGeneratorBurnTimeMultiplier", 100.0, 0.0, Double.MAX_VALUE)
+			survivalistGeneratorFePerTick = builder
+				.comment("How much FE per tick the Survivalist Generator produces when active.")
+				.defineInRange("survivalistGeneratorFePerTick", 5, 1, Int.MAX_VALUE)
 
-		survivalistGeneratorFePerTick = builder
-			.comment("How much FE per tick the Survivalist Generator produces when active.")
-			.defineInRange("survivalistGeneratorFePerTick", 5, 1, Int.MAX_VALUE)
+			netherStarGeneratorEffectRadius = builder
+				.comment("The radius in blocks that the Nether Star Generator applies the Withering II effect while active.")
+				.defineInRange("netherStarGeneratorEffectRadius", 10.0, 0.0, Double.MAX_VALUE)
 
-		netherStarGeneratorEffectRadius = builder
-			.comment("The radius in blocks that the Nether Star Generator applies the Withering II effect while active.")
-			.defineInRange("netherStarGeneratorEffectRadius", 10.0, 0.0, Double.MAX_VALUE)
+			deathGeneratorEffectRadius = builder
+				.comment("The radius in blocks that the Death Generator applies the Doom effect while active.")
+				.defineInRange("deathGeneratorEffectRadius", 3.0, 0.0, Double.MAX_VALUE)
 
-		deathGeneratorEffectRadius = builder
-			.comment("The radius in blocks that the Death Generator applies the Doom effect while active.")
-			.defineInRange("deathGeneratorEffectRadius", 3.0, 0.0, Double.MAX_VALUE)
-
-		rainbowGeneratorFePerTick = builder
-			.comment("How much FE per tick the Rainbow Generator produces when active.")
-			.defineInRange("rainbowGeneratorFePerTick", 25_000_000, 1, Int.MAX_VALUE)
-
-		builder.pop()
+			rainbowGeneratorFePerTick = builder
+				.comment("How much FE per tick the Rainbow Generator produces when active.")
+				.defineInRange("rainbowGeneratorFePerTick", 25_000_000, 1, Int.MAX_VALUE)
+		}
 	}
 
 	private fun gridPower() {
-		builder.push("grid_power")
+		builder.section("grid_power") {
+			builder.section("gp_generation") {
+				manualMillGenerationPerPlayer = builder
+					.comment("The amount of GP the Manual Mill generates per player cranking it.")
+					.defineInRange("manualMillGenerationPerPlayer", 15.0, 1.0, Double.MAX_VALUE)
 
-		builder.push("gp_generation")
+				solarPanelGeneration = builder
+					.comment("The amount of GP the Solar Panel generates when it can see the sun.")
+					.defineInRange("solarPanelGeneration", 1.0, 1.0, Double.MAX_VALUE)
 
-		manualMillGenerationPerPlayer = builder
-			.comment("The amount of GP the Manual Mill generates per player cranking it.")
-			.defineInRange("manualMillGenerationPerPlayer", 15.0, 1.0, Double.MAX_VALUE)
+				lunarPanelGeneration = builder
+					.comment("The amount of GP the Lunar Panel generates when it can see the moon.")
+					.defineInRange("lunarPanelGeneration", 1.0, 1.0, Double.MAX_VALUE)
 
-		solarPanelGeneration = builder
-			.comment("The amount of GP the Solar Panel generates when it can see the sun.")
-			.defineInRange("solarPanelGeneration", 1.0, 1.0, Double.MAX_VALUE)
+				lavaMillGeneration = builder
+					.comment("The amount of GP the Lava Mill generates when Lava is adjacent.")
+					.defineInRange("lavaMillGeneration", 2.0, 1.0, Double.MAX_VALUE)
 
-		lunarPanelGeneration = builder
-			.comment("The amount of GP the Lunar Panel generates when it can see the moon.")
-			.defineInRange("lunarPanelGeneration", 1.0, 1.0, Double.MAX_VALUE)
+				fireMillGeneration = builder
+					.comment("The amount of GP the Fire Mill generates when Fire is below it.")
+					.defineInRange("fireMillGeneration", 4.0, 1.0, Double.MAX_VALUE)
 
-		lavaMillGeneration = builder
-			.comment("The amount of GP the Lava Mill generates when Lava is adjacent.")
-			.defineInRange("lavaMillGeneration", 2.0, 1.0, Double.MAX_VALUE)
+				waterMillGenerationPerSide = builder
+					.comment("The amount of GP the Water Mill generates per side with flowing water adjacent.")
+					.defineInRange("waterMillGenerationPerSide", 4.0, 1.0, Double.MAX_VALUE)
 
-		fireMillGeneration = builder
-			.comment("The amount of GP the Fire Mill generates when Fire is below it.")
-			.defineInRange("fireMillGeneration", 4.0, 1.0, Double.MAX_VALUE)
+				dragonEggMillGeneration = builder
+					.comment("The amount of GP the Dragon Egg Mill generates when a Dragon Egg is on top of it.")
+					.defineInRange("dragonEggMillGeneration", 500.0, 1.0, Double.MAX_VALUE)
 
-		waterMillGenerationPerSide = builder
-			.comment("The amount of GP the Water Mill generates per side with flowing water adjacent.")
-			.defineInRange("waterMillGenerationPerSide", 4.0, 1.0, Double.MAX_VALUE)
+				creativeMillGeneration = builder
+					.comment("The amount of GP the Creative Mill generates.")
+					.defineInRange("creativeMillGeneration", 10_000.0, 1.0, Double.MAX_VALUE)
+			}
 
-		dragonEggMillGeneration = builder
-			.comment("The amount of GP the Dragon Egg Mill generates when a Dragon Egg is on top of it.")
-			.defineInRange("dragonEggMillGeneration", 500.0, 1.0, Double.MAX_VALUE)
+			builder.section("gp_usage") {
+				redCoalGpCost = builder
+					.comment("The amount of GP to be occupied while a piece of Red Coal is burning in a Furnace.")
+					.defineInRange("redCoalGpCost", 4.0, 0.0, Double.MAX_VALUE)
 
-		creativeMillGeneration = builder
-			.comment("The amount of GP the Creative Mill generates.")
-			.defineInRange("creativeMillGeneration", 10_000.0, 1.0, Double.MAX_VALUE)
+				redCoalBurnTimeMultiplier = builder
+					.comment("How many times longer should a piece of Red Coal burn in a Furnace compared to regular coal.")
+					.defineInRange("redCoalBurnTimeMultiplier", 8.0, 0.0, Double.MAX_VALUE)
 
-		builder.pop()
+				speedUpgradeGpCostMultiplier = builder
+					.comment(
+						"The multiplier applied to the GP cost of Speed Upgrades.",
+						"Note that you can also change the GP cost formula directly using KubeJS.",
+					)
+					.defineInRange("speedUpgradeGpCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
 
-		builder.push("gp_usage")
+				chickenWingRingGpCost = builder
+					.comment("The amount of GP to be occupied while using a Chicken Wing Ring.")
+					.defineInRange("chickenWingRingGpCost", 1.0, 0.0, Double.MAX_VALUE)
 
-		redCoalGpCost = builder
-			.comment("The amount of GP to be occupied while a piece of Red Coal is burning in a Furnace.")
-			.defineInRange("redCoalGpCost", 4.0, 0.0, Double.MAX_VALUE)
+				flyingSquidRingGpCost = builder
+					.comment("The amount of GP to be occupied while using a Flying Squid Ring.")
+					.defineInRange("flyingSquidRingGpCost", 16.0, 0.0, Double.MAX_VALUE)
 
-		redCoalBurnTimeMultiplier = builder
-			.comment("How many times longer should a piece of Red Coal burn in a Furnace compared to regular coal.")
-			.defineInRange("redCoalBurnTimeMultiplier", 8.0, 0.0, Double.MAX_VALUE)
-
-		speedUpgradeGpCostMultiplier = builder
-			.comment(
-				"The multiplier applied to the GP cost of Speed Upgrades.",
-				"Note that you can also change the GP cost formula directly using KubeJS.",
-			)
-			.defineInRange("speedUpgradeGpCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
-
-		chickenWingRingGpCost = builder
-			.comment("The amount of GP to be occupied while using a Chicken Wing Ring.")
-			.defineInRange("chickenWingRingGpCost", 1.0, 0.0, Double.MAX_VALUE)
-
-		flyingSquidRingGpCost = builder
-			.comment("The amount of GP to be occupied while using a Flying Squid Ring.")
-			.defineInRange("flyingSquidRingGpCost", 16.0, 0.0, Double.MAX_VALUE)
-
-		angelRingGpCost = builder
-			.comment("The amount of GP to be occupied while flying with an Angel Ring.")
-			.defineInRange("angelRingGpCost", 64.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
-
-		builder.pop()
+				angelRingGpCost = builder
+					.comment("The amount of GP to be occupied while flying with an Angel Ring.")
+					.defineInRange("angelRingGpCost", 64.0, 0.0, Double.MAX_VALUE)
+			}
+		}
 	}
 
 	private fun general() {
-
 		chandelierRadius = builder
 			.comment("The radius in blocks that a Chandelier prevents monster spawns.")
 			.defineInRange("chandelierRadius", 16, 1, Int.MAX_VALUE)
@@ -459,52 +425,46 @@ class ServerConfig(
 	}
 
 	private fun heatingCoil() {
-		builder.push("heating_coil")
+		builder.section("heating_coil") {
+			heatingCoilBurnTime = builder
+				.comment("The number of ticks a Heating Coil will burn in a Furnace.")
+				.defineInRange("heatingCoilBurnTime", 20, 1, Int.MAX_VALUE)
 
-		heatingCoilBurnTime = builder
-			.comment("The number of ticks a Heating Coil will burn in a Furnace.")
-			.defineInRange("heatingCoilBurnTime", 20, 1, Int.MAX_VALUE)
+			heatingCoilBurnCost = builder
+				.comment("How much FE will be spent when a Heating Coil is used as Furnace fuel.")
+				.defineInRange("heatingCoilBurnCost", 50, 1, Int.MAX_VALUE)
 
-		heatingCoilBurnCost = builder
-			.comment("How much FE will be spent when a Heating Coil is used as Furnace fuel.")
-			.defineInRange("heatingCoilBurnCost", 50, 1, Int.MAX_VALUE)
-
-		heatingCoilMaxEnergy = builder
-			.comment("The maximum amount of FE a Heating Coil can store.")
-			.defineInRange("heatingCoilMaxEnergy", 1_500_000, 1, Int.MAX_VALUE)
-
-		builder.pop()
+			heatingCoilMaxEnergy = builder
+				.comment("The maximum amount of FE a Heating Coil can store.")
+				.defineInRange("heatingCoilMaxEnergy", 1_500_000, 1, Int.MAX_VALUE)
+		}
 	}
 
 	private fun drums() {
-		builder.push("drums")
+		builder.section("drums") {
+			stoneDrumCapacity = builder
+				.comment("The fluid capacity of Stone Drums in millibuckets.")
+				.defineInRange("stoneDrumCapacity", 16_000, 1, Int.MAX_VALUE)
 
-		stoneDrumCapacity = builder
-			.comment("The fluid capacity of Stone Drums in millibuckets.")
-			.defineInRange("stoneDrumCapacity", 16_000, 1, Int.MAX_VALUE)
+			ironDrumCapacity = builder
+				.comment("The fluid capacity of Iron Drums in millibuckets.")
+				.defineInRange("ironDrumCapacity", 256_000, 1, Int.MAX_VALUE)
 
-		ironDrumCapacity = builder
-			.comment("The fluid capacity of Iron Drums in millibuckets.")
-			.defineInRange("ironDrumCapacity", 256_000, 1, Int.MAX_VALUE)
+			reinforcedLargeDrumCapacity = builder
+				.comment("The fluid capacity of Reinforced Large Drums in millibuckets.")
+				.defineInRange("reinforcedLargeDrumCapacity", 4_096_000, 1, Int.MAX_VALUE)
 
-		reinforcedLargeDrumCapacity = builder
-			.comment("The fluid capacity of Reinforced Large Drums in millibuckets.")
-			.defineInRange("reinforcedLargeDrumCapacity", 4_096_000, 1, Int.MAX_VALUE)
+			demonicallyGargantuanDrumCapacity = builder
+				.comment("The fluid capacity of Demonically Gargantuan Drums in millibuckets.")
+				.defineInRange("demonicallyGargantuanDrumCapacity", 65_536_000, 1, Int.MAX_VALUE)
 
-		demonicallyGargantuanDrumCapacity = builder
-			.comment("The fluid capacity of Demonically Gargantuan Drums in millibuckets.")
-			.defineInRange("demonicallyGargantuanDrumCapacity", 65_536_000, 1, Int.MAX_VALUE)
-
-		bedrockDrumCapacity = builder
-			.comment("The fluid capacity of Bedrock Drums in millibuckets.")
-			.defineInRange("bedrockDrumCapacity", 1_048_576_000, 1, Int.MAX_VALUE)
-
-		builder.pop()
+			bedrockDrumCapacity = builder
+				.comment("The fluid capacity of Bedrock Drums in millibuckets.")
+				.defineInRange("bedrockDrumCapacity", 1_048_576_000, 1, Int.MAX_VALUE)
+		}
 	}
 
-	companion
-
-	object {
+	companion object {
 		private val configPair: Pair<ServerConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ServerConfig)
 
 		val CONFIG: ServerConfig = configPair.left
