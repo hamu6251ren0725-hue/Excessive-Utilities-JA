@@ -101,7 +101,6 @@ class ServerConfig(
 		feGenerators()
 		enderQuarry()
 		rings()
-		enderQuarryFePerBlock()
 		boomerang()
 	}
 
@@ -115,72 +114,6 @@ class ServerConfig(
 		boomereaperangRadius = builder
 			.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
 			.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
-	}
-
-	private fun enderQuarryFePerBlock() {
-		builder.push("ender_quarry")
-
-		enderQuarryFePerBlock = builder
-			.comment("The amount of FE the Ender Quarry will use per block mined.")
-			.defineInRange("enderQuarryFePerBlock", 10.0, 0.0, Double.MAX_VALUE)
-
-		enderQuarryBlocksPerTick = builder
-			.comment("The maximum number of blocks the Ender Quarry will mine per tick.")
-			.defineInRange("enderQuarryBlocksPerTick", 0.5, 0.0, Double.MAX_VALUE)
-
-		builder.push("eq_upgrades")
-
-		eqSpeedOneSpeedMultiplier = builder
-			.comment("How many times faster the Ender Quarry mines with a Speed I Upgrade.")
-			.defineInRange("eqSpeedOneSpeedMultiplier", 1.5, 0.0, Double.MAX_VALUE)
-
-		eqSpeedTwoSpeedMultiplier = builder
-			.comment("How many times faster the Ender Quarry mines with a Speed II Upgrade.")
-			.defineInRange("eqSpeedTwoSpeedMultiplier", 2.0, 0.0, Double.MAX_VALUE)
-
-		eqSpeedThreeSpeedMultiplier = builder
-			.comment("How many times faster the Ender Quarry mines with a Speed III Upgrade.")
-			.defineInRange("eqSpeedThreeSpeedMultiplier", 3.0, 0.0, Double.MAX_VALUE)
-
-		builder.push("eq_costs")
-
-		eqSilkTouchCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Silk Touch Upgrade.")
-			.defineInRange("eqSilkTouchCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
-
-		eqFortuneOneCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune I Upgrade.")
-			.defineInRange("eqFortuneOneCostMultiplier", 5.0, 0.0, Double.MAX_VALUE)
-
-		eqFortuneTwoCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune II Upgrade.")
-			.defineInRange("eqFortuneTwoCostMultiplier", 20.0, 0.0, Double.MAX_VALUE)
-
-		eqFortuneThreeCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune III Upgrade.")
-			.defineInRange("eqFortuneThreeCostMultiplier", 80.0, 0.0, Double.MAX_VALUE)
-
-		eqSpeedOneCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Speed I Upgrade.")
-			.defineInRange("eqSpeedOneCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
-
-		eqSpeedTwoCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Speed II Upgrade.")
-			.defineInRange("eqSpeedTwoCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
-
-		eqSpeedThreeCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a Speed III Upgrade.")
-			.defineInRange("eqSpeedThreeCostMultiplier", 2.0, 0.0, Double.MAX_VALUE)
-
-		eqWorldHoleCostMultiplier = builder
-			.comment("How many times more FE the Ender Quarry will drain when it has a World Hole Upgrade.")
-			.defineInRange("eqWorldHoleCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
-
-		builder.pop()
-
-		builder.pop()
 
 		builder.pop()
 	}
@@ -239,6 +172,64 @@ class ServerConfig(
 		enderQuarryMarkerSearchDistance = builder
 			.comment("The maximum distance in blocks that the Ender Quarry will search for its markers.")
 			.defineInRange("enderQuarryMarkerSearchDistance", 1_000, 1, Int.MAX_VALUE)
+
+		enderQuarryFePerBlock = builder
+			.comment("The amount of FE the Ender Quarry will use per block mined.")
+			.defineInRange("enderQuarryFePerBlock", 10.0, 0.0, Double.MAX_VALUE)
+
+		enderQuarryBlocksPerTick = builder
+			.comment("The maximum number of blocks the Ender Quarry will mine per tick.")
+			.defineInRange("enderQuarryBlocksPerTick", 0.5, 0.0, Double.MAX_VALUE)
+
+		builder.push("eq_upgrades")
+
+		eqSpeedOneSpeedMultiplier = builder
+			.comment("How many times faster the Ender Quarry mines with a Speed I Upgrade.")
+			.defineInRange("eqSpeedOneSpeedMultiplier", 1.5, 0.0, Double.MAX_VALUE)
+
+		eqSpeedTwoSpeedMultiplier = builder
+			.comment("How many times faster the Ender Quarry mines with a Speed II Upgrade.")
+			.defineInRange("eqSpeedTwoSpeedMultiplier", 2.0, 0.0, Double.MAX_VALUE)
+
+		eqSpeedThreeSpeedMultiplier = builder
+			.comment("How many times faster the Ender Quarry mines with a Speed III Upgrade.")
+			.defineInRange("eqSpeedThreeSpeedMultiplier", 3.0, 0.0, Double.MAX_VALUE)
+
+		builder.push("eq_costs")
+
+		eqSilkTouchCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Silk Touch Upgrade.")
+			.defineInRange("eqSilkTouchCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
+
+		eqFortuneOneCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune I Upgrade.")
+			.defineInRange("eqFortuneOneCostMultiplier", 5.0, 0.0, Double.MAX_VALUE)
+
+		eqFortuneTwoCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune II Upgrade.")
+			.defineInRange("eqFortuneTwoCostMultiplier", 20.0, 0.0, Double.MAX_VALUE)
+
+		eqFortuneThreeCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Fortune III Upgrade.")
+			.defineInRange("eqFortuneThreeCostMultiplier", 80.0, 0.0, Double.MAX_VALUE)
+
+		eqSpeedOneCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Speed I Upgrade.")
+			.defineInRange("eqSpeedOneCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
+
+		eqSpeedTwoCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Speed II Upgrade.")
+			.defineInRange("eqSpeedTwoCostMultiplier", 1.5, 0.0, Double.MAX_VALUE)
+
+		eqSpeedThreeCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a Speed III Upgrade.")
+			.defineInRange("eqSpeedThreeCostMultiplier", 2.0, 0.0, Double.MAX_VALUE)
+
+		eqWorldHoleCostMultiplier = builder
+			.comment("How many times more FE the Ender Quarry will drain when it has a World Hole Upgrade.")
+			.defineInRange("eqWorldHoleCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
+
+		builder.pop()
 
 		builder.pop()
 	}
