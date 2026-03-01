@@ -72,7 +72,43 @@ class QuantumQuarryBlockEntity(
 	// Go back to minX, then do +1 to Z, and repeat until at max Z.
 	// Then pick a new chunk and repeat.
 	private fun advanceTarget(miningDimensionLevel: ServerLevel) {
+		val currentChunk = targetChunk ?: return
+		val currentTarget = targetBlockPos ?: return
 
+		val xBounds = currentChunk.minBlockX..currentChunk.maxBlockX
+		val zBounds = currentChunk.minBlockZ..currentChunk.maxBlockZ
+
+		fun getNextPos(currentPos: BlockPos): BlockPos? {
+			return when {
+				currentPos.y > miningDimensionLevel.minBuildHeight ->
+					currentPos.below()
+
+				currentPos.x < currentChunk.maxBlockX ->
+					BlockPos(currentPos.x + 1, miningDimensionLevel.maxBuildHeight, currentPos.z)
+
+				currentPos.z < currentChunk.maxBlockZ ->
+					BlockPos(currentChunk.minBlockX, miningDimensionLevel.maxBuildHeight, currentPos.z + 1)
+
+				else -> null
+			}
+		}
+
+		var nextPos = getNextPos(currentTarget)
+
+		while (nextPos != null) {
+			if (nextPos.x !in xBounds || nextPos.z !in zBounds) {
+				break
+			}
+
+			if (canQuarryMineBlock(miningDimensionLevel, nextPos)) {
+				targetBlockPos = nextPos
+				return
+			}
+
+			nextPos = getNextPos(nextPos)
+		}
+
+		targetBlockPos = null
 	}
 
 	private fun targetNewChunk(miningDimensionLevel: ServerLevel) {
