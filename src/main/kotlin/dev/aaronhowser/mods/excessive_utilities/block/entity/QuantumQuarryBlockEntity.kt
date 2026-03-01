@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
+import com.mojang.authlib.GameProfile
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
 import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModDimensionProvider
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.common.util.FakePlayer
+import net.neoforged.neoforge.common.util.FakePlayerFactory
 import net.neoforged.neoforge.energy.EnergyStorage
 import java.lang.ref.WeakReference
 import java.util.*
@@ -38,6 +40,10 @@ class QuantumQuarryBlockEntity(
 	private fun getBiomeFilter() = container.getItem(BIOME_FILTER_SLOT_INDEX)
 
 	private fun serverTick(quarryLevel: ServerLevel, miningDimensionLevel: ServerLevel) {
+		if (fakePlayer?.get() == null) {
+			initFakePlayer()
+		}
+
 		if (targetChunk == null || targetBlockPos == null) {
 			targetNewChunk(miningDimensionLevel)
 		}
@@ -52,6 +58,13 @@ class QuantumQuarryBlockEntity(
 
 	fun progressMine(level: ServerLevel) {
 		if (level.hasNeighborSignal(blockPos)) return
+	}
+
+	private fun canQuarryMineBlock(miningDimensionLevel: ServerLevel, blockPos: BlockPos): Boolean {
+		val state = miningDimensionLevel.getBlockState(blockPos)
+		if (state.isAir) return false
+		val unbreakable = state.getDestroySpeed(miningDimensionLevel, blockPos) < 0
+		return !unbreakable
 	}
 
 	// Start at the top of the chunk's minimum corner,
@@ -98,6 +111,25 @@ class QuantumQuarryBlockEntity(
 			miningDimensionLevel.maxBuildHeight,
 			nextChunkPos.minBlockZ
 		)
+	}
+
+	private fun initFakePlayer() {
+		val level = level as? ServerLevel ?: return
+
+		if (this.uuid == null) {
+			this.uuid = UUID.randomUUID()
+			setChanged()
+		}
+
+		val gameProfile = GameProfile(this.uuid, "EU_QuantumQuarry")
+		val fakePlayer = FakePlayerFactory.get(level, gameProfile)
+
+		fakePlayer.isSilent = true
+		fakePlayer.setPos(blockPos.bottomCenter)
+		fakePlayer.setOnGround(true)
+
+		this.fakePlayer = WeakReference(fakePlayer)
+		setChanged()
 	}
 
 	override fun setRemoved() {
