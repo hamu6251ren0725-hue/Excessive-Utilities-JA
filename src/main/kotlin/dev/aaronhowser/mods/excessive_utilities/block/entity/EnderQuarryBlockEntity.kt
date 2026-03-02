@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.Mth
 import net.minecraft.util.StringRepresentable
+import net.minecraft.world.ContainerHelper
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.enchantment.Enchantments
@@ -579,6 +580,8 @@ class EnderQuarryBlockEntity(
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
+		ContainerHelper.saveAllItems(tag, bufferContainer.items, registries)
+
 		tag.putInt(STORED_ENERGY_NBT, energyStorage.energyStored)
 
 		val min = minBoundary
@@ -605,6 +608,8 @@ class EnderQuarryBlockEntity(
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
+
+		ContainerHelper.loadAllItems(tag, bufferContainer.items, registries)
 
 		val storedEnergyTag = tag.get(STORED_ENERGY_NBT)
 		if (storedEnergyTag is IntTag) {
