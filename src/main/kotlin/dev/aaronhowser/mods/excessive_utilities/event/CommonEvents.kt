@@ -178,6 +178,11 @@ object CommonEvents {
 			QuantumQuarryBlockEntity::getEnergyCapability
 		)
 
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ModBlockEntityTypes.QUANTUM_QUARRY_ACTUATOR.get(),
+			QuantumQuarryActuatorBlockEntity::getEnergyCapability
+		)
 
 		event.registerBlockEntity(
 			Capabilities.EnergyStorage.BLOCK,
