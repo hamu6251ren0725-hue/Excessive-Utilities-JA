@@ -8,7 +8,6 @@ import net.minecraft.core.Holder
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
-import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.resources.ResourceKey
 import net.minecraft.util.Unit
 import net.minecraft.world.entity.EntityType
@@ -31,11 +30,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 	val ENTITY_DATA: DeferredHolder<DataComponentType<*>, DataComponentType<CustomData>> =
 		register("entity_data", CustomData.CODEC, CustomData.STREAM_CODEC)
 	val ENTITY_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<EntityType<*>>>> =
-		register(
-			"entity_type",
-			BuiltInRegistries.ENTITY_TYPE.holderByNameCodec(),
-			ByteBufCodecs.holderRegistry(Registries.ENTITY_TYPE)
-		)
+		registryHolder("entity_type", BuiltInRegistries.ENTITY_TYPE)
 	val ENERGY: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
 		int("energy")
 	val OPINIUM_CORE_CONTENTS: DeferredHolder<DataComponentType<*>, DataComponentType<OpiniumCoreContentsComponent>> =
@@ -57,6 +52,6 @@ object ModDataComponents : AaronDataComponentRegistry() {
 	val THROWN_BOOMERANG: DeferredHolder<DataComponentType<*>, DataComponentType<UUID>> =
 		uuid("thrown_boomerang")
 	val BIOME: DeferredHolder<DataComponentType<*>, DataComponentType<ResourceKey<Biome>>> =
-		register("biome", ResourceKey.codec(Registries.BIOME), ResourceKey.streamCodec(Registries.BIOME))
+		registryKey("biome", Registries.BIOME)
 
 }
