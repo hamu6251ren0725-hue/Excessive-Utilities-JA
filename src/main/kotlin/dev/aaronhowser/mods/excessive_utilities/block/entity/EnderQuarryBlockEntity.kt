@@ -519,10 +519,12 @@ class EnderQuarryBlockEntity(
 		if (!firstMarkerState.isBlock(ModBlocks.ENDER_MARKER)) return false
 
 		val markers = mutableSetOf(markerPos)
-
 		val searchDistance = ServerConfig.CONFIG.enderQuarryMarkerSearchDistance.get()
 
-		val horizontals = Direction.Plane.HORIZONTAL
+		// Skip this one, because that's where the quarry is
+		val directionToQuarry = Direction.fromDelta(blockPos.x - markerPos.x, 0, blockPos.z - markerPos.z) ?: return false
+
+		val horizontals = Direction.Plane.HORIZONTAL - directionToQuarry
 		for (dir in horizontals) {
 			val checkPos = markerPos.relative(dir).mutable()
 			var locationsChecked = 0
