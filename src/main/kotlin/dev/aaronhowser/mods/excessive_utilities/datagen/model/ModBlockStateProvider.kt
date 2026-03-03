@@ -41,6 +41,100 @@ class ModBlockStateProvider(
 		chandelier()
 		magnumTorch()
 		trashCans()
+		trashChest()
+	}
+
+	private fun trashChest() {
+		val block = ModBlocks.TRASH_CAN_CHEST.get()
+
+
+		val side = modLoc("block/trash_can/chest/side")
+		val front = modLoc("block/trash_can/chest/front")
+		val top = modLoc("block/trash_can/chest/top")
+		val bottom = modLoc("block/trash_can/chest/bottom")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("side", side)
+			.texture("front", front)
+			.texture("top", top)
+			.texture("bottom", bottom)
+			.texture("particle", side)
+
+			// Bottom half
+			.element {
+				from(1f, 0f, 1f)
+				to(15f, 14f, 15f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#top"
+						Direction.DOWN -> "#bottom"
+						Direction.NORTH -> "#front"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+			// Latch
+			.element {
+				from(6f, 5f, 0f)
+				to(10f, 12f, 1f)
+
+				allFacesExcept(
+					{ dir, fb ->
+						val texture = when (dir) {
+							Direction.UP -> "#top"
+							Direction.DOWN -> "#bottom"
+							Direction.NORTH -> "#front"
+							else -> "#side"
+						}
+
+						fb.texture(texture)
+						fb.cullface(dir)
+					},
+					setOf(Direction.SOUTH)
+				)
+			}
+
+			// Handle
+			.element {
+				from(5f, 14f, 6f)
+				to(11f, 15f, 10f)
+
+				allFacesExcept(
+					{ dir, fb ->
+						val texture = if (dir == Direction.UP) "#top" else "#side"
+						fb.texture(texture)
+						fb.cullface(dir)
+					},
+					setOf(Direction.DOWN)
+				)
+			}
+
+		getVariantBuilder(block)
+			.forAllStates {
+				val facing = it.getValue(TrashCanBlock.FACING)
+
+				val yRot = when (facing) {
+					Direction.NORTH -> 0
+					Direction.EAST -> 90
+					Direction.SOUTH -> 180
+					Direction.WEST -> 270
+					else -> 0
+				}
+
+				ConfiguredModel
+					.builder()
+					.modelFile(model)
+					.rotationY(yRot)
+					.build()
+			}
+
+		simpleBlockItem(block, model)
 	}
 
 	private fun trashCans() {
@@ -63,6 +157,7 @@ class ModBlockStateProvider(
 				.texture("bottom", bottom)
 				.texture("particle", side)
 
+				// Bottom half
 				.element {
 					from(2f, 0f, 2f)
 					to(14f, 10f, 14f)
@@ -81,6 +176,7 @@ class ModBlockStateProvider(
 					)
 				}
 
+				// Lid
 				.element {
 					from(1f, 10f, 1f)
 					to(15f, 14f, 15f)
@@ -97,6 +193,7 @@ class ModBlockStateProvider(
 					}
 				}
 
+				// Handle
 				.element {
 					from(5f, 14f, 6f)
 					to(11f, 15f, 10f)
