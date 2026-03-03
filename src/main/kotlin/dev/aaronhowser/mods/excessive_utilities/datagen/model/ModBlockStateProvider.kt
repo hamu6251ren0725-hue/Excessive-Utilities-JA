@@ -617,7 +617,7 @@ class ModBlockStateProvider(
 					allFaces { dir, fb ->
 						fb.texture("#texture")
 						fb.cullface(dir)
-						fb.uvs(0f, 0f, 16f, 16f)
+						fb.uvs(1f, 1f, 15f, 15f)
 					}
 				}
 
