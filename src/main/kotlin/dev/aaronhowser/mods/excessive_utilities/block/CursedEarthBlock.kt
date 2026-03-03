@@ -30,6 +30,10 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 	}
 
 	override fun onPlace(state: BlockState, level: Level, pos: BlockPos, oldState: BlockState, movedByPiston: Boolean) {
+		if (level is ServerLevel) {
+			level.scheduleTick(pos, this, 1)
+		}
+
 		val distance = state.getValue(DISTANCE)
 		if (distance <= 1) return
 
@@ -51,17 +55,12 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 			val newState = defaultBlockState().setValue(DISTANCE, distance - 1)
 			level.setBlockAndUpdate(neighborPos, newState)
 		}
-
-		if (level is ServerLevel) {
-			level.scheduleTick(pos, this, 1)
-		}
 	}
 
 	override fun tick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
 		level.scheduleTick(pos, this, 1)
 
 		handleFire(level, pos, random)
-
 	}
 
 	companion object {
@@ -71,7 +70,7 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 			val stateAbove = level.getBlockState(pos.above())
 			if (!stateAbove.isBlock(BlockTags.FIRE)) return
 
-			if (random.chance(0.2)) {
+			if (random.chance(0.1)) {
 				level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState())
 			}
 
@@ -85,7 +84,7 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 				val posAboveThere = nearbyPos.above()
 				val stateAboveThere = level.getBlockState(posAboveThere)
 				if (stateAboveThere.canBeReplaced()) {
-					level.setBlockAndUpdate(posAboveThere, stateAboveThere)
+					level.setBlockAndUpdate(posAboveThere, stateAbove)
 				}
 			}
 
