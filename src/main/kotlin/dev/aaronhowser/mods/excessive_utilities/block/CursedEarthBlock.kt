@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModEntityTypeTagsPro
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.tags.BlockTags
 import net.minecraft.util.RandomSource
 import net.minecraft.util.random.WeightedRandomList
 import net.minecraft.world.Difficulty
@@ -39,8 +38,23 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 
 	companion object {
 		private fun handleFire(level: ServerLevel, pos: BlockPos, random: RandomSource) {
-			val stateAbove = level.getBlockState(pos.above())
-			if (!stateAbove.isBlock(BlockTags.FIRE)) return
+			var fireNearby = false
+			val fireCheckArea = BlockPos.betweenClosed(
+				pos.offset(-3, 0, -3),
+				pos.offset(3, 2, 3)
+			)
+
+			for (firePos in fireCheckArea) {
+				if (!level.isLoaded(firePos)) continue
+
+				val stateThere = level.getBlockState(firePos)
+				if (stateThere.isBlock(Blocks.FIRE)) {
+					fireNearby = true
+					break
+				}
+			}
+
+			if (!fireNearby) return
 
 			if (random.chance(0.1)) {
 				level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState())
@@ -56,7 +70,7 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 				val posAboveThere = nearbyPos.above()
 				val stateAboveThere = level.getBlockState(posAboveThere)
 				if (stateAboveThere.canBeReplaced()) {
-					level.setBlockAndUpdate(posAboveThere, stateAbove)
+					level.setBlockAndUpdate(posAboveThere, Blocks.FIRE.defaultBlockState())
 				}
 			}
 		}
