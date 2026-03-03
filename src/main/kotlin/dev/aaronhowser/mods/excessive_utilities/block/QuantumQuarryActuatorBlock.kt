@@ -48,7 +48,13 @@ class QuantumQuarryActuatorBlock : Block(Properties.ofFullCopy(Blocks.OBSIDIAN))
 	}
 
 	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
-		return QuantumQuarryActuatorBlockEntity(pos, state)
+		val actuator = QuantumQuarryActuatorBlockEntity(pos, state)
+
+		val quarryDirection = state.getValue(FACING).opposite
+		val quarryPos = pos.relative(quarryDirection)
+		actuator.quantumQuarryPos = quarryPos
+
+		return actuator
 	}
 
 	override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {

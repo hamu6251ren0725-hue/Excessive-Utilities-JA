@@ -16,6 +16,10 @@ class QuantumQuarryActuatorBlockEntity(
 ) : BlockEntity(ModBlockEntityTypes.QUANTUM_QUARRY_ACTUATOR.get(), pos, blockState) {
 
 	var quantumQuarryPos: BlockPos? = null
+		set(value) {
+			field = value
+			setChanged()
+		}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
