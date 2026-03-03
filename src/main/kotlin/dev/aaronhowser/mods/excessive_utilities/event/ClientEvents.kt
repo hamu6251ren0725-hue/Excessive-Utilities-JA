@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.NoopRenderer
 import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.BlockItem
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -88,6 +89,24 @@ object ClientEvents {
 			MagicalBoomerangItem.THROWN_PREDICATE,
 			MagicalBoomerangItem::isThrown
 		)
+
+		ItemProperties.register(
+			ModItems.COMPOUND_BOW.get(),
+			ResourceLocation.withDefaultNamespace("pull")
+		) { stack, level, entity, seed ->
+			if (entity == null || entity.useItem != stack) {
+				return@register 0f
+			}
+
+			return@register (stack.getUseDuration(entity) - entity.useItemRemainingTicks) / 20f
+		}
+
+		ItemProperties.register(
+			ModItems.COMPOUND_BOW.get(),
+			ResourceLocation.withDefaultNamespace("pulling")
+		) { stack, level, entity, seed ->
+			if (entity != null && entity.isUsingItem && entity.getUseItem() == stack) 1.0f else 0.0f
+		}
 	}
 
 	@SubscribeEvent

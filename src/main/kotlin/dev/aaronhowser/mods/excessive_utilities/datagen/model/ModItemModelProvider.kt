@@ -29,8 +29,32 @@ class ModItemModelProvider(
 		enderShard()
 		wateringCan()
 		magicalBoomerang()
+		compoundBow()
 
 		basicItems()
+	}
+
+	fun compoundBow() {
+		val item = ModItems.COMPOUND_BOW.get()
+
+		val baseModel =
+			withExistingParent("compound_bow", mcLoc("item/generated"))
+				.texture("layer0", modLoc("item/compound_bow/base"))
+
+		val pull0Model =
+			withExistingParent("compound_bow_pull_0", modLoc("item/compound_bow"))
+				.texture("layer0", modLoc("item/compound_bow/pull_0"))
+
+		val pull = mcLoc("pull")
+		val pulling = mcLoc("pulling")
+
+		baseModel
+			.override()
+			.predicate(pull, 1f)
+			.model(pull0Model)
+			.end()
+
+		handledItems.add(item)
 	}
 
 	fun magicalBoomerang() {
