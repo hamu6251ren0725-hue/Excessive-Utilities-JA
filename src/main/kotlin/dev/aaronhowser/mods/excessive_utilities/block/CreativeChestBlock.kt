@@ -1,10 +1,16 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.entity.CreativeChestBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.MenuProvider
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.EntityBlock
@@ -13,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
@@ -41,6 +48,27 @@ class CreativeChestBlock : Block(Properties.ofFullCopy(Blocks.STONE)), EntityBlo
 
 	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
 		return CreativeChestBlockEntity(pos, state)
+	}
+
+	override fun useWithoutItem(state: BlockState, level: Level, pos: BlockPos, player: Player, hitResult: BlockHitResult): InteractionResult {
+		val be = level.getBlockEntity(pos)
+		if (be is MenuProvider && level.mayInteract(player, pos)) {
+			player.openMenu(be)
+			return InteractionResult.sidedSuccess(level.isClientSide)
+		} else {
+			return InteractionResult.PASS
+		}
+	}
+
+	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
+		if (!state.isBlock(newState.block)) {
+			val be = level.getBlockEntity(pos)
+			if (be is ContainerContainer) {
+				be.dropContents(level, pos)
+			}
+		}
+
+		super.onRemove(state, level, pos, newState, movedByPiston)
 	}
 
 	companion object {
