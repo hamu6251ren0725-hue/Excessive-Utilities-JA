@@ -22,7 +22,7 @@ class MiniChestBlockEntity(
 ) : BlockEntity(ModBlockEntityTypes.MINI_CHEST.get(), pos, blockState), MenuProvider, ContainerContainer {
 
 	val container = ImprovedSimpleContainer(this, 1)
-	override fun getContainer(): Container = container
+	override fun getContainers(): List<Container> = listOf(container)
 	private val invWrapper = InvWrapper(container)
 
 	fun getItemHandler(direction: Direction?): InvWrapper = invWrapper

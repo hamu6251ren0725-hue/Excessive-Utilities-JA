@@ -6,10 +6,13 @@ import net.minecraft.world.Containers
 import net.minecraft.world.level.Level
 
 interface ContainerContainer {
-	fun getContainer(): Container?
+
+	fun getContainers(): List<Container>
 
 	fun dropContents(level: Level, pos: BlockPos) {
-		val contents = getContainer() ?: return
-		Containers.dropContents(level, pos, contents)
+		for (container in getContainers()) {
+			Containers.dropContents(level, pos, container)
+		}
+
 	}
 }

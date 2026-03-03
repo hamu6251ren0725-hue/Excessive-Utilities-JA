@@ -31,7 +31,7 @@ class ResonatorBlockEntity(
 	}
 
 	private val container = ImprovedSimpleContainer(this, CONTAINER_SIZE)
-	override fun getContainer(): Container = container
+	override fun getContainers(): List<Container> = listOf(container)
 
 	private val itemHandler: IItemHandlerModifiable =
 		object : InvWrapper(container) {

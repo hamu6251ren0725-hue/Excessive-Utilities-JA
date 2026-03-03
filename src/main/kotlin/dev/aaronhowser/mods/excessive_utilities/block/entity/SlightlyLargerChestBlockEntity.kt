@@ -22,7 +22,7 @@ class SlightlyLargerChestBlockEntity(
 ) : BlockEntity(ModBlockEntityTypes.SLIGHTLY_LARGER_CHEST.get(), pos, blockState), MenuProvider, ContainerContainer {
 
 	val container = ImprovedSimpleContainer(this, 9 * 3)
-	override fun getContainer(): Container = container
+	override fun getContainers(): List<Container> = listOf(container)
 	private val invWrapper = InvWrapper(container)
 
 	fun getItemHandler(direction: Direction?): InvWrapper = invWrapper

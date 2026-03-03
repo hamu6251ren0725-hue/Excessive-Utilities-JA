@@ -43,7 +43,7 @@ abstract class GeneratorBlockEntity(
 			override fun canPlaceUpgrade(stack: ItemStack): Boolean = isValidUpgrade(stack)
 		}
 
-	override fun getContainer(): Container? = container
+	override fun getContainers(): List<Container> = listOfNotNull(container)
 	open fun getItemHandler(direction: Direction?): IItemHandlerModifiable? = container?.itemHandler
 
 	protected open fun isValidInput(itemStack: ItemStack) = true

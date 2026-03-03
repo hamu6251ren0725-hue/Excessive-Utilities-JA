@@ -58,7 +58,7 @@ class EnderQuarryBlockEntity(
 	private val bufferContainer: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 27)
 	private val itemHandler: InvWrapper = InvWrapper(bufferContainer)
 
-	override fun getContainer(): Container = bufferContainer
+	override fun getContainers(): List<ImprovedSimpleContainer> = listOf(bufferContainer)
 
 	private var fakePlayer: WeakReference<FakePlayer>? = null
 
