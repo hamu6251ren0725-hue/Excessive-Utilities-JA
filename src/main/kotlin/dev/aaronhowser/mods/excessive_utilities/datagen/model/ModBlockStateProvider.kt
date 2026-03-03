@@ -34,6 +34,57 @@ class ModBlockStateProvider(
 		moonStoneOre()
 		resonator()
 		quantumQuarryActuator()
+		peacefulTable()
+	}
+
+	private fun peacefulTable() {
+		val block = ModBlocks.PEACEFUL_TABLE.get()
+
+		val top = modLoc("block/peaceful_table/top")
+		val bottom = modLoc("block/peaceful_table/bottom")
+		val side = modLoc("block/peaceful_table/side")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("top", top)
+			.texture("bottom", bottom)
+			.texture("side", side)
+			.texture("particle", top)
+
+			.element()
+			.from(0f, 12f, 0f)
+			.to(16f, 16f, 16f)
+			.allFaces { dir, fb ->
+				val texture = when (dir) {
+					Direction.UP -> "#top"
+					Direction.DOWN -> "#bottom"
+					else -> "#side"
+				}
+
+				fb.texture(texture)
+				fb.cullface(dir)
+			}
+			.end()
+
+			.element()
+			.from(1f, 0f, 1f)
+			.to(5f, 12f, 5f)
+			.allFacesExcept(
+				{ dir, fb ->
+					val texture = when (dir) {
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				},
+				setOf(Direction.UP)
+			)
+			.end()
+
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun quantumQuarryActuator() {
