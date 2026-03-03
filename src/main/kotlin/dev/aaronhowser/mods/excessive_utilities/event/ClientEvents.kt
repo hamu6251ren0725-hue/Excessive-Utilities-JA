@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.event
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
+import dev.aaronhowser.mods.excessive_utilities.block.entity.SoundMufflerBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.client.render.GridPowerGuiRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.bewlr.OpiniumCoreBEWLR
@@ -24,6 +25,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.*
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers
 
@@ -195,6 +197,11 @@ object ClientEvents {
 	@SubscribeEvent
 	fun beforeClientTick(event: ClientTickEvent.Pre) {
 		ClientKeyHandler.updateControls()
+	}
+
+	@SubscribeEvent
+	fun onPlaySound(event: PlaySoundEvent) {
+		SoundMufflerBlockEntity.handleSoundSourceEvent(event)
 	}
 
 }
