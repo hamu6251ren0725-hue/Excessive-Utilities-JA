@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandlerModifiable
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 
+// TODO: Menu
 class ResonatorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
