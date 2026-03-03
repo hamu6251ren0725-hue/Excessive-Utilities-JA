@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.config
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.section
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.section
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.model
 
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.element
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.face
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.*
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
@@ -395,18 +396,19 @@ class ModBlockStateProvider(
 				from(0f, 0f, 0f)
 				to(16f, 16f, 16f)
 
-				face(Direction.UP)
-					.uvs(0f, 0f, 16f, 16f)
-					.cullface(Direction.UP)
-					.texture("#top_overlay")
-					.rotation(ModelBuilder.FaceRotation.UPSIDE_DOWN)
-					.end()
+				face(Direction.UP) {
+					uvs(0f, 0f, 16f, 16f)
+					cullface(Direction.UP)
+					texture("#top_overlay")
+					rotation(ModelBuilder.FaceRotation.UPSIDE_DOWN)
+				}
 
-				face(Direction.NORTH)
-					.uvs(0f, 0f, 16f, 16f)
-					.cullface(Direction.NORTH)
-					.texture("#front_overlay")
-					.end()
+				face(Direction.NORTH) {
+					uvs(0f, 0f, 16f, 16f)
+					cullface(Direction.NORTH)
+					texture("#front_overlay")
+				}
+
 			}
 
 		survivalGenerator()
