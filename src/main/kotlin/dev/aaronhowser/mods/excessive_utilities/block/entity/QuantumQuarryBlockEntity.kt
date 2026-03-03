@@ -25,7 +25,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ChunkPos
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.storage.loot.LootParams
@@ -78,7 +77,7 @@ class QuantumQuarryBlockEntity(
 			targetNewChunk(miningDimensionLevel)
 		}
 
-		progressMine(quarryLevel)
+		progressMine(miningDimensionLevel)
 	}
 
 	private fun hasActuators(): Boolean {
@@ -135,15 +134,13 @@ class QuantumQuarryBlockEntity(
 		val blocksPerTick = ServerConfig.CONFIG.quantumQuarryBlocksPerTick.get()
 		progressThroughBlock += blocksPerTick
 
-		val myLevel = level ?: return
-
 		while (progressThroughBlock >= 1.0) {
 			progressThroughBlock -= 1.0
 
 			val target = targetBlockPos ?: return
 			val drops = gatherDrops(miningDimensionLevel, target)
 			for (drop in drops) {
-				Block.popResourceFromFace(myLevel, worldPosition, Direction.UP, drop)
+				bufferContainer.addItem(drop)
 			}
 
 			feProgress += fePerBlock
