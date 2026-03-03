@@ -272,6 +272,17 @@ class ModBlockTagsProvider(
 				Blocks.FERN,
 				Blocks.LARGE_FERN
 			)
+
+		tag(CURSED_EARTH_REPLACEABLE)
+			.addTags(
+				BlockTags.DIRT
+			)
+			.remove(
+				ModBlocks.CURSED_EARTH.get()
+			)
+
+		tag(BlockTags.DIRT)
+			.add(ModBlocks.CURSED_EARTH.get())
 	}
 
 	companion object {
@@ -288,6 +299,7 @@ class ModBlockTagsProvider(
 		val DESTRUCTION_PICKAXE_TARGET = create("destruction_pickaxe_target")
 		val EROSION_SHOVEL_TARGET = create("erosion_shovel_target")
 		val COLLECTABLE_BY_BOOMEREAPERANG = create("collectable_by_boomereaperang")
+		val CURSED_EARTH_REPLACEABLE = create("cursed_earth_replaceable")
 	}
 
 }

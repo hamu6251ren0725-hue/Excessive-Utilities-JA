@@ -24,8 +24,8 @@ object ModItems : AaronItemRegistry() {
 		basic("ender_shard")
 	val DEMON_INGOT: DeferredItem<Item> = // TODO: Throw Gold in Lava in the Nether
 		basic("demon_ingot", Item.Properties().fireResistant())
-	val DROP_OF_EVIL =
-		basic("drop_of_evil")
+	val DROP_OF_EVIL: DeferredItem<DropOfEvilItem> =
+		register("drop_of_evil", ::DropOfEvilItem)
 	val ENCHANTED_INGOT: DeferredItem<Item> =
 		basic("enchanted_ingot")
 	val EVIL_INFUSED_IRON_INGOT: DeferredItem<Item> =
