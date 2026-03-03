@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.menu.mini_chest
+package dev.aaronhowser.mods.excessive_utilities.menu.single_slot
 
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
@@ -9,11 +9,11 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
 
-class MiniChestMenu(
+class SingleSlotMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	val chestContainer: Container,
-) : MenuWithInventory(ModMenuTypes.FLAT_TRANSFER_NODE.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.SINGLE_SLOT.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(

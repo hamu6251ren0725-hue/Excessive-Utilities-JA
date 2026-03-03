@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeScreen
-import dev.aaronhowser.mods.excessive_utilities.menu.mini_chest.MiniChestMenu
-import dev.aaronhowser.mods.excessive_utilities.menu.mini_chest.MiniChestScreen
+import dev.aaronhowser.mods.excessive_utilities.menu.single_slot.SingleSlotMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.single_slot.SingleSlotScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -21,12 +21,12 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 
 	val FLAT_TRANSFER_NODE: DeferredHolder<MenuType<*>, MenuType<FlatTransferNodeMenu>> =
 		register("flat_transfer_node", ::FlatTransferNodeMenu)
-	val MINI_CHEST: DeferredHolder<MenuType<*>, MenuType<MiniChestMenu>> =
-		register("mini_chest", ::MiniChestMenu)
+	val SINGLE_SLOT: DeferredHolder<MenuType<*>, MenuType<SingleSlotMenu>> =
+		register("single_slot", ::SingleSlotMenu)
 
 	override fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(FLAT_TRANSFER_NODE.get(), ::FlatTransferNodeScreen)
-		event.register(MINI_CHEST.get(), ::MiniChestScreen)
+		event.register(SINGLE_SLOT.get(), ::SingleSlotScreen)
 	}
 
 }

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
-import dev.aaronhowser.mods.excessive_utilities.menu.mini_chest.MiniChestMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.single_slot.SingleSlotMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -30,7 +30,7 @@ class MiniChestBlockEntity(
 	override fun getDisplayName(): Component = blockState.block.name
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return MiniChestMenu(containerId, playerInventory, container)
+		return SingleSlotMenu(containerId, playerInventory, container)
 	}
 
 }
