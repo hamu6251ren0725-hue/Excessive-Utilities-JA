@@ -16,12 +16,9 @@ import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
 import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
 import dev.aaronhowser.mods.excessive_utilities.item.WateringCanItem
 import dev.aaronhowser.mods.excessive_utilities.registry.*
-import net.minecraft.client.model.PlayerModel
-import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.ItemBlockRenderTypes
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.NoopRenderer
-import net.minecraft.client.renderer.entity.RenderLayerParent
 import net.minecraft.client.renderer.entity.player.PlayerRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.resources.ResourceLocation
@@ -119,7 +116,7 @@ object ClientEvents {
 
 		for (skin in event.skins) {
 			val renderer = event.getSkin(skin) as? PlayerRenderer
-			if (renderer is RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>) {
+			if (renderer != null) {
 				val layer = AngelRingWingsLayer(renderer)
 				renderer.addLayer(layer)
 			}
