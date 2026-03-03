@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
-import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.menu.mini_chest.MiniChestMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes

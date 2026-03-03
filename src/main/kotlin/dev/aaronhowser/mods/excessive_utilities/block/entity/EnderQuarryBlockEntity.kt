@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import com.mojang.authlib.GameProfile
+import dev.aaronhowser.mods.aaron.container.ExtractOnlyInvWrapper
+import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
-import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.EnderQuarryUpgradeType
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
@@ -23,7 +24,6 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.Mth
 import net.minecraft.util.StringRepresentable
-import net.minecraft.world.Container
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -42,7 +42,6 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory
 import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.items.ItemHandlerHelper
-import net.neoforged.neoforge.items.wrapper.InvWrapper
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -56,7 +55,7 @@ class EnderQuarryBlockEntity(
 
 	private val energyStorage: EnergyStorage = EnergyStorage(1_000_000)
 	private val bufferContainer: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 27)
-	private val itemHandler: InvWrapper = InvWrapper(bufferContainer)
+	private val bufferItemHandler: ExtractOnlyInvWrapper = ExtractOnlyInvWrapper(bufferContainer)
 
 	override fun getContainers(): List<ImprovedSimpleContainer> = listOf(bufferContainer)
 
@@ -145,14 +144,14 @@ class EnderQuarryBlockEntity(
 		for (destinationHandler in adjacentItemHandlers) {
 			if (bufferContainer.isEmpty) break
 
-			for (slot in 0 until itemHandler.slots) {
-				val stack = itemHandler.getStackInSlot(slot)
+			for (slot in 0 until bufferItemHandler.slots) {
+				val stack = bufferItemHandler.getStackInSlot(slot)
 				if (stack.isEmpty) continue
 
 				val simRemainder = ItemHandlerHelper.insertItemStacked(destinationHandler, stack, true)
 				val amountAccepted = stack.count - simRemainder.count
 				if (amountAccepted > 0) {
-					val extracted = itemHandler.extractItem(slot, amountAccepted, false)
+					val extracted = bufferItemHandler.extractItem(slot, amountAccepted, false)
 					ItemHandlerHelper.insertItemStacked(destinationHandler, extracted, false)
 				}
 			}

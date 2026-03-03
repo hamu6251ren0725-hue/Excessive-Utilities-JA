@@ -337,9 +337,9 @@ object ModBlocks : AaronBlockRegistry() {
 
 	// Decor
 
-	val BLOCK_OF_BEDROCKIUM =
+	val BLOCK_OF_BEDROCKIUM: DeferredBlock<Block> =
 		basicCopiedBlock("block_of_bedrockium", Blocks.OBSIDIAN)
-	val BLOCK_OF_UNSTABLE_INGOT =
+	val BLOCK_OF_UNSTABLE_INGOT: DeferredBlock<Block> =
 		basicCopiedBlock("block_of_unstable_ingot", Blocks.IRON_BLOCK)
 	val BLOCK_OF_EVIL_INFUSED_IRON: DeferredBlock<Block> =
 		basicCopiedBlock("block_of_evil_infused_iron", Blocks.IRON_BLOCK)
