@@ -222,12 +222,12 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("creative_chest")
 	val TRASH_CAN: DeferredBlock<TrashCanBlock> =
 		registerBlock("trash_can") { TrashCanBlock(TrashCanBlock.Type.ITEM) }
-	val TRASH_CAN_CHEST: DeferredBlock<TrashCanBlock> =
-		registerBlock("trash_can_chest") { TrashCanBlock(TrashCanBlock.Type.CHEST) }
 	val TRASH_CAN_ENERGY: DeferredBlock<TrashCanBlock> =
 		registerBlock("trash_can_energy") { TrashCanBlock(TrashCanBlock.Type.ENERGY) }
 	val TRASH_CAN_FLUID: DeferredBlock<TrashCanBlock> =
 		registerBlock("trash_can_fluid") { TrashCanBlock(TrashCanBlock.Type.FLUID) }
+	val TRASH_CAN_CHEST: DeferredBlock<TrashCanBlock> =
+		registerBlock("trash_can_chest") { TrashCanBlock(TrashCanBlock.Type.CHEST) }
 
 	// Transfer
 
