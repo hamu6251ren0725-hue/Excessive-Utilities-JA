@@ -35,6 +35,19 @@ class ModBlockStateProvider(
 		resonator()
 		quantumQuarryActuator()
 		peacefulTable()
+		cursedEarth()
+	}
+
+	private fun cursedEarth() {
+		val block = ModBlocks.CURSED_EARTH.get()
+
+		val top = modLoc("block/cursed_earth/top")
+		val side = modLoc("block/cursed_earth/side")
+		val bottom = mcLoc("block/dirt")
+
+		val model = models().cubeBottomTop(name(block), side, bottom, top)
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun peacefulTable() {
