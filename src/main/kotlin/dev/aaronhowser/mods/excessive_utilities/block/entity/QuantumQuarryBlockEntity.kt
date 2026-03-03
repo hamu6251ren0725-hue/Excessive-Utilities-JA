@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import com.mojang.authlib.GameProfile
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModDimensionProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -50,6 +52,8 @@ class QuantumQuarryBlockEntity(
 	private fun getBiomeFilter() = container.getItem(BIOME_FILTER_SLOT_INDEX)
 
 	private fun serverTick(quarryLevel: ServerLevel, miningDimensionLevel: ServerLevel) {
+		if (!hasActuators()) return
+
 		if (fakePlayer?.get() == null) {
 			initFakePlayer()
 		}
@@ -59,6 +63,18 @@ class QuantumQuarryBlockEntity(
 		}
 
 		progressMine(quarryLevel)
+	}
+
+	private fun hasActuators(): Boolean {
+		val level = level ?: return false
+
+		for (direction in Direction.entries) {
+			val neighborPos = blockPos.relative(direction)
+			val stateThere = level.getBlockState(neighborPos)
+			if (!stateThere.isBlock(ModBlocks.QUANTUM_QUARRY_ACTUATOR)) return false
+		}
+
+		return true
 	}
 
 	private var progressThroughBlock = 0.0
