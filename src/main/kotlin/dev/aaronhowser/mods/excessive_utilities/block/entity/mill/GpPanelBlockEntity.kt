@@ -26,8 +26,11 @@ class GpPanelBlockEntity(
 
 		val canSeeSky = level.canSeeSky(worldPosition.above())
 		val isDayTime = level.isDay
+		val isRaining = level.isRaining
 
-		return if (canSeeSky && requiresDay == isDayTime) amount else 0.0
+		return if (canSeeSky && requiresDay == isDayTime) {
+			if (isRaining) amount * 0.95 else amount
+		} else 0.0
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
