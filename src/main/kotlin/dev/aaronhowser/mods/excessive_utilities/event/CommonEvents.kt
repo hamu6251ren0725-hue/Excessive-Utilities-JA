@@ -104,6 +104,12 @@ object CommonEvents {
 		)
 
 		event.registerBlockEntity(
+			Capabilities.ItemHandler.BLOCK,
+			ModBlockEntityTypes.CREATIVE_CHEST.get(),
+			CreativeChestBlockEntity::getItemHandler
+		)
+
+		event.registerBlockEntity(
 			Capabilities.FluidHandler.BLOCK,
 			ModBlockEntityTypes.FLUID_TRASH_CAN.get(),
 			FluidTrashCanBlockEntity::getFluidHandler
