@@ -2,11 +2,14 @@ package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.block_walker.BlockWalker
 import dev.aaronhowser.mods.aaron.block_walker.WalkType
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.defaultBlockState
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
+import net.minecraft.util.Mth
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.context.UseOnContext
@@ -37,11 +40,14 @@ class DropOfEvilItem(properties: Properties) : Item(properties) {
 			onWalked = { cb ->
 				val (posBlock, distance) = cb
 
-				level.scheduleTaskInTicks(distance * 3) {
-					val pos = posBlock.pos
-					val stateThereNow = level.getBlockState(pos)
-					if (filter.test(level, pos, stateThereNow)) {
-						level.setBlockAndUpdate(pos, ModBlocks.CURSED_EARTH.defaultBlockState())
+				if (distance == 0 || level.random.chance(0.7)) {
+					val delay = Mth.ceil(distance * 3 * level.random.nextRange(0.7, 2.0))
+					level.scheduleTaskInTicks(delay) {
+						val pos = posBlock.pos
+						val stateThereNow = level.getBlockState(pos)
+						if (filter.test(level, pos, stateThereNow)) {
+							level.setBlockAndUpdate(pos, ModBlocks.CURSED_EARTH.defaultBlockState())
+						}
 					}
 				}
 			}
