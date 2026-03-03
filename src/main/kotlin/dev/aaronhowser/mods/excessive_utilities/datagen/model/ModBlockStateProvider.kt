@@ -39,6 +39,45 @@ class ModBlockStateProvider(
 		peacefulTable()
 		cursedEarth()
 		chandelier()
+		magnumTorch()
+	}
+
+	private fun magnumTorch() {
+		val block = ModBlocks.MAGNUM_TORCH.get()
+
+		val side = modLoc("block/magnum_torch/side")
+		val top = modLoc("block/magnum_torch/top")
+		val bottom = modLoc("block/magnum_torch/bottom")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("side", side)
+			.texture("top", top)
+			.texture("bottom", bottom)
+			.texture("particle", side)
+			.renderType(RenderType.cutout().name)
+
+			.element {
+				from(6f, 0f, 6f)
+				to(10f, 16f, 10f)
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+
+					when (dir) {
+						Direction.UP, Direction.DOWN -> fb.uvs(4f, 4f, 8f, 8f)
+						else -> fb.uvs(6f, 0f, 10f, 16f)
+					}
+				}
+			}
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun chandelier() {
