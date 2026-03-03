@@ -98,6 +98,7 @@ class ServerConfig(
 
 	lateinit var cursedEarthChance: ModConfigSpec.DoubleValue
 	lateinit var cursedEarthMaxSpawnedMobs: ModConfigSpec.IntValue
+	lateinit var cursedEarthCheckRadius: ModConfigSpec.DoubleValue
 
 	init {
 		general()
@@ -122,6 +123,10 @@ class ServerConfig(
 			cursedEarthMaxSpawnedMobs = builder
 				.comment("The maximum number of mobs around a Cursed Earth before it stops trying to spawn more.")
 				.defineInRange("cursedEarthMaxSpawnedMobs", 10, 1, Int.MAX_VALUE)
+
+			cursedEarthCheckRadius = builder
+				.comment("The radius in blocks around a Cursed Earth block that it checks for nearby mobs before trying to spawn more.")
+				.defineInRange("cursedEarthCheckRadius", 8.0, 0.0, Double.MAX_VALUE)
 		}
 	}
 

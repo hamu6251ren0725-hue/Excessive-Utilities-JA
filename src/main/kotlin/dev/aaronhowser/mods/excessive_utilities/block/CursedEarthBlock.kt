@@ -108,7 +108,7 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 
 			val nearbyEntities = level.getEntitiesOfClass(
 				LivingEntity::class.java,
-				AABB(pos).inflate(8.0)
+				AABB(pos).inflate(ServerConfig.CONFIG.cursedEarthCheckRadius.get())
 			)
 			if (nearbyEntities.count() > ServerConfig.CONFIG.cursedEarthMaxSpawnedMobs.get()) return
 
