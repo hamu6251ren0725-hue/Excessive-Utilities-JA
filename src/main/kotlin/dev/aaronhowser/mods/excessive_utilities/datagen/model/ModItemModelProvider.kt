@@ -63,31 +63,27 @@ class ModItemModelProvider(
 
 		baseModel
 			.override {
-				predicate(pull, 1f)
+				predicate(pulling, 1f)
 				model(pull0Model)
 			}
 
 			.override {
-				predicate(pull, 1f)
-				predicate(pulling, 0.5f)
+				predicate(pull, 0.5f)
 				model(pull0Model)
 			}
 
 			.override {
-				predicate(pull, 1f)
-				predicate(pulling, 0.7f)
+				predicate(pull, 0.7f)
 				model(pull1Model)
 			}
 
 			.override {
-				predicate(pull, 1f)
-				predicate(pulling, 0.9f)
+				predicate(pull, 0.9f)
 				model(pull2Model)
 			}
 
 			.override {
 				predicate(pull, 1f)
-				predicate(pulling, 1f)
 				model(pull3Model)
 			}
 

@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-03T13:20:57.76764	Item Models: excessive_utilities
+// 1.21.1	2026-03-03T13:24:36.5256797	Item Models: excessive_utilities
 9d6996bb263b4e33b72427d7b5e0dbea7f0b9ebb assets/excessive_utilities/models/item/advanced_item_filter.json
 1b5cdcaf8035c8ad20d95987b1190cfdedb942fd assets/excessive_utilities/models/item/angel_ring.json
 ba9bed41335a88b8d00e7f12d6917c3c0a918eba assets/excessive_utilities/models/item/bag_of_holding.json
@@ -6,7 +6,7 @@ fb9c0163d8035ba5161fccc2589c9d7d08e983c8 assets/excessive_utilities/models/item/
 2a20ffb5814ad920a9053a2d8493d635a1ff5cd4 assets/excessive_utilities/models/item/breadth_first_search_upgrade.json
 51775dc4da89f0a39a0faf3cf0059f133feb6307 assets/excessive_utilities/models/item/builders_wand.json
 89dd7a013f8b2cd71d05f4658dddeccc7d71d873 assets/excessive_utilities/models/item/chicken_wing_ring.json
-41d646f75b6edb7ed5f3a817b6d23087b8fa46c3 assets/excessive_utilities/models/item/compound_bow.json
+a506fa48fd506373d4a070b62c263fcc756dd0d4 assets/excessive_utilities/models/item/compound_bow.json
 71a84e07daf4a92947ffd5ef961433c16151687b assets/excessive_utilities/models/item/compound_bow_pull_0.json
 b48b9bc25ada80ca067212354d14415d0dc32077 assets/excessive_utilities/models/item/compound_bow_pull_1.json
 c2667716fe5256ec656752df3af95af64c0d3b97 assets/excessive_utilities/models/item/compound_bow_pull_2.json
