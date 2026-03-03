@@ -40,16 +40,18 @@ class QuantumQuarryBlockEntity(
 ) : BlockEntity(ModBlockEntityTypes.QUANTUM_QUARRY.get(), pos, state) {
 
 	private val energyStorage = EnergyStorage(1_000_000)
-	private val container = ImprovedSimpleContainer(this, 3)
+	private val upgradesContainer = ImprovedSimpleContainer(this, 3)
 
 	private var fakePlayer: WeakReference<FakePlayer>? = null
 
 	private var targetChunk: ChunkPos? = null
 	private var targetBlockPos: BlockPos? = null
 
-	private fun getItemFilter() = container.getItem(ITEM_FILTER_SLOT_INDEX)
-	private fun getEnchantedBook() = container.getItem(ENCHANTED_BOOK_SLOT_INDEX)
-	private fun getBiomeFilter() = container.getItem(BIOME_FILTER_SLOT_INDEX)
+	private fun getItemFilter(): ItemStack = upgradesContainer.getItem(ITEM_FILTER_SLOT_INDEX)
+	private fun getEnchantedBook(): ItemStack = upgradesContainer.getItem(ENCHANTED_BOOK_SLOT_INDEX)
+	private fun getBiomeFilter(): ItemStack = upgradesContainer.getItem(BIOME_FILTER_SLOT_INDEX)
+
+	private val actuatorPositions: List<BlockPos> = Direction.entries.map { direction -> this.blockPos.relative(direction) }
 
 	private fun serverTick(quarryLevel: ServerLevel, miningDimensionLevel: ServerLevel) {
 		if (!hasActuators()) return
@@ -67,10 +69,8 @@ class QuantumQuarryBlockEntity(
 
 	private fun hasActuators(): Boolean {
 		val level = level ?: return false
-
-		for (direction in Direction.entries) {
-			val neighborPos = blockPos.relative(direction)
-			val stateThere = level.getBlockState(neighborPos)
+		for (pos in actuatorPositions) {
+			val stateThere = level.getBlockState(pos)
 			if (!stateThere.isBlock(ModBlocks.QUANTUM_QUARRY_ACTUATOR)) return false
 		}
 
