@@ -46,6 +46,7 @@ class ModBlockStateProvider(
 		gpPanels()
 		dragonEggMill()
 		creativeMill()
+		creativeChest()
 	}
 
 	private fun creativeMill() {
@@ -110,6 +111,95 @@ class ModBlockStateProvider(
 
 			simpleBlockWithItem(block, model)
 		}
+	}
+
+	private fun creativeChest() {
+		val block = ModBlocks.CREATIVE_CHEST.get()
+
+		val side = modLoc("block/creative_chest/side")
+		val front = modLoc("block/creative_chest/front")
+		val top = modLoc("block/creative_chest/top")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("side", side)
+			.texture("front", front)
+			.texture("top", top)
+			.texture("particle", side)
+
+			// Bottom half
+			.element {
+				from(1f, 0f, 1f)
+				to(15f, 14f, 15f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP, Direction.DOWN -> "#top"
+						Direction.NORTH -> "#front"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+			// Latch
+			.element {
+				from(6f, 5f, 0f)
+				to(10f, 12f, 1f)
+
+				allFacesExcept(
+					{ dir, fb ->
+						val texture = when (dir) {
+							Direction.UP -> "#top"
+							Direction.DOWN -> "#bottom"
+							Direction.NORTH -> "#front"
+							else -> "#side"
+						}
+
+						fb.texture(texture)
+						fb.cullface(dir)
+					},
+					setOf(Direction.SOUTH)
+				)
+			}
+
+			// Handle
+			.element {
+				from(5f, 14f, 6f)
+				to(11f, 15f, 10f)
+
+				allFacesExcept(
+					{ dir, fb ->
+						val texture = if (dir == Direction.UP) "#top" else "#side"
+						fb.texture(texture)
+						fb.cullface(dir)
+					},
+					setOf(Direction.DOWN)
+				)
+			}
+
+		getVariantBuilder(block)
+			.forAllStates {
+				val facing = it.getValue(TrashCanBlock.FACING)
+
+				val yRot = when (facing) {
+					Direction.NORTH -> 0
+					Direction.EAST -> 90
+					Direction.SOUTH -> 180
+					Direction.WEST -> 270
+					else -> 0
+				}
+
+				ConfiguredModel
+					.builder()
+					.modelFile(model)
+					.rotationY(yRot)
+					.build()
+			}
+
+		simpleBlockItem(block, model)
 	}
 
 	private fun trashChest() {

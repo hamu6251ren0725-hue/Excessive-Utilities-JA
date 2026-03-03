@@ -218,8 +218,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("bedrockium_drum", ::DrumBlock)
 	val CREATIVE_DRUM: DeferredBlock<DrumBlock> =
 		registerBlock("creative_drum", ::DrumBlock)
-	val CREATIVE_CHEST =
-		basicBlock("creative_chest")
+	val CREATIVE_CHEST: DeferredBlock<CreativeChestBlock> =
+		registerBlock("creative_chest", ::CreativeChestBlock)
 	val TRASH_CAN: DeferredBlock<TrashCanBlock> =
 		registerBlock("trash_can") { TrashCanBlock(TrashCanBlock.Type.ITEM) }
 	val TRASH_CAN_ENERGY: DeferredBlock<TrashCanBlock> =
