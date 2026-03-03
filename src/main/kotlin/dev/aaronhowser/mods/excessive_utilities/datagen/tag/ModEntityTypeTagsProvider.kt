@@ -27,6 +27,8 @@ class ModEntityTypeTagsProvider(
 				EntityType.ITEM,
 				EntityType.EXPERIENCE_ORB
 			)
+
+		tag(CURSED_EARTH_BLACKLIST)
 	}
 
 	companion object {
@@ -34,6 +36,7 @@ class ModEntityTypeTagsProvider(
 
 		val LASSO_BLACKLIST = create("lasso_blacklist")
 		val BOOMERANG_PICKUP = create("boomerang_pickup")
+		val CURSED_EARTH_BLACKLIST = create("cursed_earth_blacklist")
 	}
 
 }

@@ -2,12 +2,19 @@ package dev.aaronhowser.mods.excessive_utilities.block
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.RandomSource
+import net.minecraft.util.random.WeightedRandomList
+import net.minecraft.world.Difficulty
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.MobCategory
+import net.minecraft.world.entity.MobSpawnType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
@@ -15,6 +22,8 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.IntegerProperty
+import net.minecraft.world.phys.AABB
+import kotlin.jvm.optionals.getOrNull
 
 class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 
@@ -61,6 +70,7 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 		level.scheduleTick(pos, this, 1)
 
 		handleFire(level, pos, random)
+		spawnMonster(level, pos, random)
 	}
 
 	companion object {
@@ -87,7 +97,35 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 					level.setBlockAndUpdate(posAboveThere, stateAbove)
 				}
 			}
+		}
 
+		private fun spawnMonster(level: ServerLevel, pos: BlockPos, random: RandomSource) {
+			if (level.difficulty == Difficulty.PEACEFUL) return
+
+			val nearbyEntities = level.getEntitiesOfClass(
+				LivingEntity::class.java,
+				AABB(pos).inflate(8.0)
+			)
+			if (nearbyEntities.count() > 8) return
+
+			val possibleMobs = level
+				.getBiome(pos)
+				.value()
+				.mobSettings
+				.getMobs(MobCategory.MONSTER)
+				.unwrap()
+				.filterNot { it.type.isEntity(ModEntityTypeTagsProvider.CURSED_EARTH_BLACKLIST) }
+
+			if (possibleMobs.isEmpty()) return
+
+			val newWeightedList = WeightedRandomList.create(possibleMobs)
+			val randomType = newWeightedList
+				.getRandom(random)
+				.getOrNull()
+				?.type
+				?: return
+
+			randomType.spawn(level, pos, MobSpawnType.SPAWNER)
 		}
 	}
 
