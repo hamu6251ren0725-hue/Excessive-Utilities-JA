@@ -13,15 +13,12 @@ import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.util.Mth
 
-class AngelRingWingsModel : EntityModel<AbstractClientPlayer> {
+class AngelRingWingsModel(
+	root: ModelPart
+) : EntityModel<AbstractClientPlayer>(RenderType::entityCutoutNoCull) {
 
-	private val leftWing: ModelPart
-	private val rightWing: ModelPart
-
-	constructor(root: ModelPart) : super(RenderType::entityCutoutNoCull) {
-		leftWing = root.getChild("left_wing")
-		rightWing = root.getChild("right_wing")
-	}
+	private val leftWing: ModelPart = root.getChild("left_wing")
+	private val rightWing: ModelPart = root.getChild("right_wing")
 
 	override fun setupAnim(
 		entity: AbstractClientPlayer,
