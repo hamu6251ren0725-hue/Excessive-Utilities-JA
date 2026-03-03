@@ -700,6 +700,7 @@ class ModBlockStateProvider(
 			ModBlocks.BLOCK_OF_DEMON_METAL.get(),
 			ModBlocks.BLOCK_OF_ENCHANTED_METAL.get(),
 			ModBlocks.SOUND_MUFFLER.get(),
+			ModBlocks.RAIN_MUFFLER.get(),
 			ModBlocks.RAINBOW_GENERATOR.get(),
 			ModBlocks.SANDY_GLASS.get(),
 			ModBlocks.QUANTUM_QUARRY.get()
