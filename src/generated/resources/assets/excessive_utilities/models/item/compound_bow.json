@@ -6,6 +6,34 @@
       "predicate": {
         "minecraft:pull": 1.0
       }
+    },
+    {
+      "model": "excessive_utilities:item/compound_bow_pull_0",
+      "predicate": {
+        "minecraft:pull": 1.0,
+        "minecraft:pulling": 0.5
+      }
+    },
+    {
+      "model": "excessive_utilities:item/compound_bow_pull_1",
+      "predicate": {
+        "minecraft:pull": 1.0,
+        "minecraft:pulling": 0.7
+      }
+    },
+    {
+      "model": "excessive_utilities:item/compound_bow_pull_2",
+      "predicate": {
+        "minecraft:pull": 1.0,
+        "minecraft:pulling": 0.9
+      }
+    },
+    {
+      "model": "excessive_utilities:item/compound_bow_pull_3",
+      "predicate": {
+        "minecraft:pull": 1.0,
+        "minecraft:pulling": 1.0
+      }
     }
   ],
   "textures": {

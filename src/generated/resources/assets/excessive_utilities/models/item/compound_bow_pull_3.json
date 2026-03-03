@@ -1,0 +1,6 @@
+{
+  "parent": "excessive_utilities:item/compound_bow",
+  "textures": {
+    "layer0": "excessive_utilities:item/compound_bow/pull_3"
+  }
+}

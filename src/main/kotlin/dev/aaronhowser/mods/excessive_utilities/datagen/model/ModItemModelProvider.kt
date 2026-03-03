@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.model
 
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.override
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
 import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
@@ -45,14 +46,51 @@ class ModItemModelProvider(
 			withExistingParent("compound_bow_pull_0", modLoc("item/compound_bow"))
 				.texture("layer0", modLoc("item/compound_bow/pull_0"))
 
+		val pull1Model =
+			withExistingParent("compound_bow_pull_1", modLoc("item/compound_bow"))
+				.texture("layer0", modLoc("item/compound_bow/pull_1"))
+
+		val pull2Model =
+			withExistingParent("compound_bow_pull_2", modLoc("item/compound_bow"))
+				.texture("layer0", modLoc("item/compound_bow/pull_2"))
+
+		val pull3Model =
+			withExistingParent("compound_bow_pull_3", modLoc("item/compound_bow"))
+				.texture("layer0", modLoc("item/compound_bow/pull_3"))
+
 		val pull = mcLoc("pull")
 		val pulling = mcLoc("pulling")
 
 		baseModel
-			.override()
-			.predicate(pull, 1f)
-			.model(pull0Model)
-			.end()
+			.override {
+				predicate(pull, 1f)
+				model(pull0Model)
+			}
+
+			.override {
+				predicate(pull, 1f)
+				predicate(pulling, 0.5f)
+				model(pull0Model)
+			}
+
+			.override {
+				predicate(pull, 1f)
+				predicate(pulling, 0.7f)
+				model(pull1Model)
+			}
+
+			.override {
+				predicate(pull, 1f)
+				predicate(pulling, 0.9f)
+				model(pull2Model)
+			}
+
+			.override {
+				predicate(pull, 1f)
+				predicate(pulling, 1f)
+				model(pull3Model)
+			}
+
 
 		handledItems.add(item)
 	}
