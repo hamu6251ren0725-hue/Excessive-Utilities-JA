@@ -178,6 +178,21 @@ class ModItemTagsProvider(
 				ModItems.COMPOUND_BOW,
 				ModItems.FIRE_AXE
 			)
+
+		tag(Tags.Items.TOOLS_BOW)
+			.add(
+				ModItems.COMPOUND_BOW
+			)
+
+		tag(ItemTags.BOW_ENCHANTABLE)
+			.add(
+				ModItems.COMPOUND_BOW
+			)
+
+		tag(Tags.Items.RANGED_WEAPON_TOOLS)
+			.add(
+				ModItems.COMPOUND_BOW
+			)
 	}
 
 	companion object {
