@@ -55,6 +55,7 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onMobSpawn(event: MobSpawnEvent.SpawnPlacementCheck) {
 		MagnumTorchBlockEntity.handleSpawnEvent(event)
+		ChandelierBlockEntity.handleSpawnEvent(event)
 	}
 
 	@SubscribeEvent
