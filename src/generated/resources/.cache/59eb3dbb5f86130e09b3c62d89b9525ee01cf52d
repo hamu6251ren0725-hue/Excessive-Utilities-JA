@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-23T14:46:32.2738085	Loot Tables
+// 1.21.1	2026-03-03T07:48:05.2358067	Loot Tables
 d31df4f9b468081e14a6755a2facd5cb7bded7d3 data/excessive_utilities/loot_table/blocks/advanced_filing_cabinet.json
 dfd3eb1c14ba5a4b83fdae1b1844caadf489ebdb data/excessive_utilities/loot_table/blocks/advanced_observer.json
 b055a9a7538aafe8d17289edbaab51c7759d0a94 data/excessive_utilities/loot_table/blocks/angel_block.json
@@ -129,7 +129,6 @@ f6e7e032adebf7bf1fd8560b924c0d182d28a479 data/excessive_utilities/loot_table/blo
 094ff254f94352f2e44b79c0dfdc4e25b8e3cd84 data/excessive_utilities/loot_table/blocks/quartzburnt.json
 54a9b17f90cc4fd7c7c50e1b8e3fd32b4494df25 data/excessive_utilities/loot_table/blocks/rainbow_generator.json
 661a021dded40726167fb2863b2e46b49bf6cd41 data/excessive_utilities/loot_table/blocks/rainbow_stone.json
-54a62f61e43b8242b820eae715d2c3f4a0ec430b data/excessive_utilities/loot_table/blocks/rain_muffler.json
 e7a10e4615d6b447d27e12d030949cc091e75c06 data/excessive_utilities/loot_table/blocks/redstone_clock.json
 4f7e9c9555ad0ea00feb55e2dfa9144faef75869 data/excessive_utilities/loot_table/blocks/redstone_glass.json
 b42c3b5aa5d933f71ad0d744b4c2a5abc993ffd5 data/excessive_utilities/loot_table/blocks/redstone_lantern.json

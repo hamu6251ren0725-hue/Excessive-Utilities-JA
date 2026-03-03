@@ -25,7 +25,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.DEEP_DARK_PORTAL, "Portal to the Deep Dark")
 			addBlock(ModBlocks.LAST_MILLENNIUM_PORTAL, "Portal to the Last Millennium")
 			addBlock(ModBlocks.QED, "QED")
-			addBlock(ModBlocks.RAIN_MUFFLER, "Rain Muffler")
 			addBlock(ModBlocks.REDSTONE_CLOCK, "Redstone Clock")
 			addBlock(ModBlocks.SOUND_MUFFLER, "Sound Muffler")
 			addBlock(ModBlocks.TRADING_POST, "Trading Post")

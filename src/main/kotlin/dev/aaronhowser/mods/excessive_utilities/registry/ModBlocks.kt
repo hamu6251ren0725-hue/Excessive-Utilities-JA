@@ -46,8 +46,6 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("deep_dark_portal")
 	val LAST_MILLENNIUM_PORTAL =
 		basicBlock("last_millennium_portal")
-	val RAIN_MUFFLER =
-		basicBlock("rain_muffler")
 	val SOUND_MUFFLER: DeferredBlock<SoundMufflerBlock> =
 		registerBlock("sound_muffler", ::SoundMufflerBlock)
 	val TRADING_POST =
@@ -441,5 +439,6 @@ object ModBlocks : AaronBlockRegistry() {
 	// - Screen (Hard)
 	// - Chunk Loading Ward (Use FTB Chunks or something)
 	// - Ender Quarry Pump Upgrade (Use the Ender-Thermic Pump)
+	// - Rain Muffler (Just mute it in your sound settings)
 
 }
