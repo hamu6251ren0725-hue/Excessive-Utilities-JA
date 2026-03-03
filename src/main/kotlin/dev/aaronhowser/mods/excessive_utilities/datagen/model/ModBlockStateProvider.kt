@@ -35,6 +35,39 @@ class ModBlockStateProvider(
 		enderQuarryUpgrades()
 		filingCabinets()
 		moonStoneOre()
+		resonator()
+	}
+
+	private fun resonator() {
+		val block = ModBlocks.RESONATOR.get()
+
+		val top = modLoc("block/resonator/top")
+		val bottom = modLoc("block/resonator/bottom")
+		val side = modLoc("block/resonator/side")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("top", top)
+			.texture("bottom", bottom)
+			.texture("side", side)
+			.texture("particle", side)
+
+			.element()
+			.from(0f, 0f, 0f)
+			.to(16f, 15f, 16f)
+			.allFaces { dir, fb ->
+				val texture = when (dir) {
+					Direction.UP -> "#top"
+					Direction.DOWN -> "#bottom"
+					else -> "#side"
+				}
+
+				fb.texture(texture)
+				fb.cullface(dir)
+			}
+			.end()
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun moonStoneOre() {

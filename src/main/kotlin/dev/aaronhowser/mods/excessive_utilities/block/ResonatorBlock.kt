@@ -7,13 +7,20 @@ import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GpDrainBlockEn
 import dev.aaronhowser.mods.excessive_utilities.block.entity.ResonatorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.shapes.CollisionContext
+import net.minecraft.world.phys.shapes.VoxelShape
 
 class ResonatorBlock : GpDrainBlock(Properties.ofFullCopy(Blocks.COAL_BLOCK)) {
+
+	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
+		return SHAPE
+	}
 
 	override fun getBlockEntityType(): BlockEntityType<out GpDrainBlockEntity> {
 		return ModBlockEntityTypes.RESONATOR.get()
@@ -31,5 +38,9 @@ class ResonatorBlock : GpDrainBlock(Properties.ofFullCopy(Blocks.COAL_BLOCK)) {
 			}
 		}
 		super.onRemove(state, level, pos, newState, movedByPiston)
+	}
+
+	companion object {
+		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 15.0, 16.0)
 	}
 }
