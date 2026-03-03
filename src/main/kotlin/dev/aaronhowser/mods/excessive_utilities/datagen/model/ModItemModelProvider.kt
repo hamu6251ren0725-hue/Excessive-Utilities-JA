@@ -107,10 +107,10 @@ class ModItemModelProvider(
 			.texture("layer0", modLoc("item/magical_boomerang/thrown"))
 
 		baseModel
-			.override()
-			.predicate(MagicalBoomerangItem.THROWN_PREDICATE, 1f)
-			.model(thrownModel)
-			.end()
+			.override {
+				predicate(MagicalBoomerangItem.THROWN_PREDICATE, 1f)
+				model(thrownModel)
+			}
 
 		handledItems.add(item)
 	}
@@ -218,10 +218,10 @@ class ModItemModelProvider(
 			.texture("layer0", modLoc("item/watering_can_broken"))
 
 		base
-			.override()
-			.predicate(WateringCanItem.IS_BROKEN_PREDICATE, 1f)
-			.model(broken)
-			.end()
+			.override {
+				predicate(WateringCanItem.IS_BROKEN_PREDICATE, 1f)
+				model(broken)
+			}
 
 		handledItems.add(item)
 	}
@@ -239,10 +239,10 @@ class ModItemModelProvider(
 			.texture("layer1", modLoc("item/lasso/golden_internal"))
 
 		goldenBaseModel
-			.override()
-			.predicate(EntityLassoItem.HAS_ENTITY, 1f)
-			.model(goldenFilledModel)
-			.end()
+			.override {
+				predicate(EntityLassoItem.HAS_ENTITY, 1f)
+				model(goldenFilledModel)
+			}
 
 		val cursedLasso = ModItems.CURSED_LASSO.get()
 		val cursedName = getName(cursedLasso)
@@ -256,10 +256,10 @@ class ModItemModelProvider(
 			.texture("layer1", modLoc("item/lasso/cursed_internal"))
 
 		cursedBaseModel
-			.override()
-			.predicate(EntityLassoItem.HAS_ENTITY, 1f)
-			.model(cursedFilledModel)
-			.end()
+			.override {
+				predicate(EntityLassoItem.HAS_ENTITY, 1f)
+				model(cursedFilledModel)
+			}
 
 		handledItems.add(goldenLasso)
 		handledItems.add(cursedLasso)
@@ -280,10 +280,10 @@ class ModItemModelProvider(
 
 		for (i in 2..8) {
 			model
-				.override()
-				.predicate(ENDER_SHARD_COUNT, (i).toFloat())
-				.model(getModelForCount(i))
-				.end()
+				.override {
+					predicate(ENDER_SHARD_COUNT, (i).toFloat())
+					model(getModelForCount(i))
+				}
 		}
 
 		handledItems.add(item)
