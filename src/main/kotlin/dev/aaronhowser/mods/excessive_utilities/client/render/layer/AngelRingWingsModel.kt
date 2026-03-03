@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.util.Mth
 
+// TODO
 class AngelRingWingsModel(
 	root: ModelPart
 ) : AgeableListModel<AbstractClientPlayer>() {

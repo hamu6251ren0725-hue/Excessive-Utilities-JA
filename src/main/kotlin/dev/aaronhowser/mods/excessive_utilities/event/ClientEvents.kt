@@ -59,6 +59,8 @@ object ClientEvents {
 			ItemBlockRenderTypes.setRenderLayer(block, RenderType.translucent())
 		}
 
+
+
 	}
 
 	@SubscribeEvent
