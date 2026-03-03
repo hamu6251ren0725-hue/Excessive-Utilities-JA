@@ -66,6 +66,8 @@ class CursedEarthBlock : Block(Properties.ofFullCopy(Blocks.GRASS_BLOCK)) {
 			if (!random.chance(ServerConfig.CONFIG.cursedEarthChance.get())) return
 
 			val pos = cursedEarthPos.above()
+			val lightLevel = level.getMaxLocalRawBrightness(pos.above())
+			if (lightLevel > 5) return
 
 			val nearbyEntities = level.getEntitiesOfClass(
 				LivingEntity::class.java,
