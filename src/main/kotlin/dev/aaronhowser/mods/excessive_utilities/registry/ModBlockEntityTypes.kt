@@ -128,5 +128,7 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("creative_harvest", ::CreativeHarvestBlockEntity, ModBlocks.CREATIVE_HARVEST)
 	val CREATIVE_ENERGY_SOURCE: DeferredHolder<BlockEntityType<*>, BlockEntityType<CreativeEnergySourceBlockEntity>> =
 		register("creative_energy_source", ::CreativeEnergySourceBlockEntity, ModBlocks.CREATIVE_ENERGY_SOURCE)
+	val CREATIVE_CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<CreativeChestBlockEntity>> =
+		register("creative_chest", ::CreativeChestBlockEntity, ModBlocks.CREATIVE_CHEST)
 
 }

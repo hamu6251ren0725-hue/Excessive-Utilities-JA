@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.excessive_utilities.block.entity.CreativeChestBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -38,8 +39,8 @@ class CreativeChestBlock : Block(Properties.ofFullCopy(Blocks.STONE)), EntityBlo
 		return SHAPE
 	}
 
-	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity? {
-		return null
+	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
+		return CreativeChestBlockEntity(pos, state)
 	}
 
 	companion object {
