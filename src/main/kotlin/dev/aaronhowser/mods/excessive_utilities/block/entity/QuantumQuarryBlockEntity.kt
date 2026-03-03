@@ -71,6 +71,9 @@ class QuantumQuarryBlockEntity(
 			initFakePlayer()
 		}
 
+		pushOutItems(quarryLevel)
+		if (!bufferContainer.isEmpty) return
+
 		if (targetChunk == null || targetBlockPos == null) {
 			targetNewChunk(miningDimensionLevel)
 		}
