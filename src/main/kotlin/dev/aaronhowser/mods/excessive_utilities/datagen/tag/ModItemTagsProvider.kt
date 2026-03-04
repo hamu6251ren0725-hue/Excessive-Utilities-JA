@@ -28,6 +28,8 @@ class ModItemTagsProvider(
 		tag(RENDER_GP_WHILE_HOLDING)
 			.add(
 				ModItems.SPEED_UPGRADE,
+				ModItems.SPEED_UPGRADE_MAGICAL,
+				ModItems.SPEED_UPGRADE_ULTIMATE,
 				ModItems.POWER_MANAGER,
 				ModItems.RESONATING_REDSTONE_CRYSTAL,
 				ModItems.RING_OF_THE_FLYING_SQUID,

@@ -1,6 +1,8 @@
 {
   "values": [
     "excessive_utilities:speed_upgrade",
+    "excessive_utilities:speed_upgrade_magical",
+    "excessive_utilities:speed_upgrade_ultimate",
     "excessive_utilities:power_manager",
     "excessive_utilities:resonating_redstone_crystal",
     "excessive_utilities:ring_of_the_flying_squid",
