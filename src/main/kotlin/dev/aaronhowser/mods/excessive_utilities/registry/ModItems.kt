@@ -78,8 +78,8 @@ object ModItems : AaronItemRegistry() {
 		basic("precision_shears")
 	val PAINTBRUSH =
 		basic("paintbrush")
-	val GLASS_CUTTER =
-		basic("glass_cutter")
+	val GLASS_CUTTER: DeferredItem<GlassCutterItem> =
+		register("glass_cutter", ::GlassCutterItem, GlassCutterItem.DEFAULT_PROPERTIES)
 	val TROWEL: DeferredItem<TrowelItem> =
 		register("trowel", ::TrowelItem, TrowelItem.DEFAULT_PROPERTIES)
 	val WRENCH =

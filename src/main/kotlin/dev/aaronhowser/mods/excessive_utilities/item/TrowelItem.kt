@@ -29,7 +29,7 @@ class TrowelItem(properties: Properties) : ShovelItem(Tiers.IRON, properties) {
 	companion object {
 		val DEFAULT_PROPERTIES: Properties =
 			Properties()
-				.attributes(createAttributes(Tiers.IRON, 1.5f, -3f))
+				.attributes(createAttributes(Tiers.IRON, 1f, -2f))
 	}
 
 }
