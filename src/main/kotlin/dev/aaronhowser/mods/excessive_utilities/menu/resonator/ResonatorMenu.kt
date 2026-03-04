@@ -26,14 +26,16 @@ class ResonatorMenu(
 			this(
 				containerId,
 				playerInventory,
-				SimpleContainer(3),
-				SimpleContainerData(1)
+				SimpleContainer(ResonatorBlockEntity.CONTAINER_SIZE),
+				SimpleContainerData(ResonatorBlockEntity.CONTAINER_DATA_SIZE)
 			)
 
 	init {
 		checkContainerSize(resonatorContainer, ResonatorBlockEntity.CONTAINER_SIZE)
+		checkContainerDataCount(resonatorContainerData, ResonatorBlockEntity.CONTAINER_DATA_SIZE)
 
 		addSlots()
+		addDataSlots(resonatorContainerData)
 		addPlayerInventorySlots(90)
 	}
 
@@ -50,6 +52,10 @@ class ResonatorMenu(
 		this.addSlot(outputSlot)
 		this.addSlot(upgradeSlot)
 	}
+
+	fun getProgress(): Int = resonatorContainerData.get(ResonatorBlockEntity.PROGRESS_DATA_INDEX)
+	fun getMaxProgress(): Int = resonatorContainerData.get(ResonatorBlockEntity.MAX_PROGRESS_DATA_INDEX)
+	fun getGpUsage(): Double = resonatorContainerData.get(ResonatorBlockEntity.GP_HUNDREDTHS_COST_DATA_INDEX) / 100.0
 
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
 		return ItemStack.EMPTY

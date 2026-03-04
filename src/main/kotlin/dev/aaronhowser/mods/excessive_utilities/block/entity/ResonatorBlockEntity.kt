@@ -137,7 +137,7 @@ class ResonatorBlockEntity(
 	override fun getDisplayName(): Component = blockState.block.name
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return ResonatorMenu(containerId, playerInventory, container, SimpleContainerData(1))
+		return ResonatorMenu(containerId, playerInventory, container, containerData)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
