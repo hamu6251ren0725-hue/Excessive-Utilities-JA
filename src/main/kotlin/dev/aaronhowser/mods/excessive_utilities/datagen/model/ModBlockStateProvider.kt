@@ -57,17 +57,50 @@ class ModBlockStateProvider(
 		val top = modLoc("block/conveyor_belt/top")
 
 		val model = models()
-			.cube(
-				name(block),
-				top,
-				top,
-				top,
-				top,
-				side,
-				side
-			)
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("side", side)
+			.texture("top", top)
+			.texture("particle", top)
 
-		simpleBlockWithItem(block, model)
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 16f, 16f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.EAST, Direction.WEST -> "#side"
+						else -> "#top"
+					}
+
+					if (dir == Direction.WEST) {
+						fb.rotation(ModelBuilder.FaceRotation.UPSIDE_DOWN)
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+		getVariantBuilder(block)
+			.forAllStates {
+				val facing = it.getValue(ConveyorBeltBlock.FACING)
+
+				val yRot = when (facing) {
+					Direction.NORTH -> 0
+					Direction.EAST -> 90
+					Direction.SOUTH -> 180
+					Direction.WEST -> 270
+					else -> 0
+				}
+
+				ConfiguredModel
+					.builder()
+					.modelFile(model)
+					.rotationY(yRot)
+					.build()
+			}
+
+		simpleBlockItem(block, model)
 	}
 
 	private fun creativeMill() {

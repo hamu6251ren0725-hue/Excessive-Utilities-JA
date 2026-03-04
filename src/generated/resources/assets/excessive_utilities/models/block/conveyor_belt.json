@@ -1,11 +1,49 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#top"
+        },
+        "east": {
+          "cullface": "east",
+          "texture": "#side"
+        },
+        "north": {
+          "cullface": "north",
+          "texture": "#top"
+        },
+        "south": {
+          "cullface": "south",
+          "texture": "#top"
+        },
+        "up": {
+          "cullface": "up",
+          "texture": "#top"
+        },
+        "west": {
+          "cullface": "west",
+          "rotation": 180,
+          "texture": "#side"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
   "textures": {
-    "down": "excessive_utilities:block/conveyor_belt/top",
-    "east": "excessive_utilities:block/conveyor_belt/side",
-    "north": "excessive_utilities:block/conveyor_belt/top",
-    "south": "excessive_utilities:block/conveyor_belt/top",
-    "up": "excessive_utilities:block/conveyor_belt/top",
-    "west": "excessive_utilities:block/conveyor_belt/side"
+    "particle": "excessive_utilities:block/conveyor_belt/top",
+    "side": "excessive_utilities:block/conveyor_belt/side",
+    "top": "excessive_utilities:block/conveyor_belt/top"
   }
 }

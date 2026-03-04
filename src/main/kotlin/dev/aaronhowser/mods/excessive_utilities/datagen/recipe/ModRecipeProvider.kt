@@ -55,7 +55,7 @@ class ModRecipeProvider(
 				'I' to Tags.Items.INGOTS_IRON.asIngredient(),
 				'D' to Tags.Items.DUSTS_REDSTONE.asIngredient()
 			)
-		)
+		).save(recipeOutput)
 
 		shapedRecipe(
 			ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.toStack(),

@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toVec3
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.Entity
@@ -15,6 +14,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.VoxelShape
+import kotlin.math.abs
 
 class ConveyorBeltBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 
@@ -31,7 +31,7 @@ class ConveyorBeltBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 
 	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
-			.setValue(FACING, context.horizontalDirection.opposite)
+			.setValue(FACING, context.horizontalDirection)
 	}
 
 	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
@@ -40,14 +40,32 @@ class ConveyorBeltBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 
 	override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
 		val movementDirection = state.getValue(FACING)
-		val movementVector = movementDirection.step().toVec3()
 
-		entity.addDeltaMovement(movementVector)
+		val currentVelocity = entity.deltaMovement
+		val movementInDirection = if (movementDirection.axis == Direction.Axis.Z) {
+			abs(currentVelocity.z)
+		} else {
+			abs(currentVelocity.x)
+		}
+
+		val requiredSpeed = 0.1
+		if (movementInDirection < requiredSpeed) {
+			val newVelocity = when (movementDirection) {
+				Direction.NORTH -> currentVelocity.add(0.0, 0.0, -requiredSpeed)
+				Direction.SOUTH -> currentVelocity.add(0.0, 0.0, requiredSpeed)
+				Direction.WEST -> currentVelocity.add(-requiredSpeed, 0.0, 0.0)
+				Direction.EAST -> currentVelocity.add(requiredSpeed, 0.0, 0.0)
+				else -> currentVelocity
+			}
+
+			entity.deltaMovement = newVelocity
+		}
+
 	}
 
 	companion object {
 		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
-		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 15.9, 0.0)
+		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 15.9, 16.0)
 	}
 
 }
