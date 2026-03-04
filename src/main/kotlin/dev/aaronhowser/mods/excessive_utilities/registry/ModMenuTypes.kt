@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeScreen
+import dev.aaronhowser.mods.excessive_utilities.menu.resonator.ResonatorMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.resonator.ResonatorScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.single_slot.SingleSlotMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.single_slot.SingleSlotScreen
 import net.minecraft.core.registries.BuiltInRegistries
@@ -23,10 +25,13 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		register("flat_transfer_node", ::FlatTransferNodeMenu)
 	val SINGLE_SLOT: DeferredHolder<MenuType<*>, MenuType<SingleSlotMenu>> =
 		register("single_slot", ::SingleSlotMenu)
+	val RESONATOR: DeferredHolder<MenuType<*>, MenuType<ResonatorMenu>> =
+		register("resonator", ::ResonatorMenu)
 
 	override fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(FLAT_TRANSFER_NODE.get(), ::FlatTransferNodeScreen)
 		event.register(SINGLE_SLOT.get(), ::SingleSlotScreen)
+		event.register(RESONATOR.get(), ::ResonatorScreen)
 	}
 
 }
