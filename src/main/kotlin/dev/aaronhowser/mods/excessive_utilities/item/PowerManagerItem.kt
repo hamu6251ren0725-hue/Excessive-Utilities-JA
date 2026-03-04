@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
+// TODO: Make this a menu instead
 class PowerManagerItem(properties: Properties) : Item(properties) {
 
 	override fun use(
