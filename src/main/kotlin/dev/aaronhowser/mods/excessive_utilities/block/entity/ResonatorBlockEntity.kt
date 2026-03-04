@@ -34,7 +34,9 @@ class ResonatorBlockEntity(
 
 	override fun getGpUsage(): Double {
 		val level = level ?: return 0.0
-		return getRecipe(level)?.gpCost ?: 0.0
+		val recipe = getRecipe(level) ?: return 0.0
+
+		return recipe.gpCost
 	}
 
 	private val container = ImprovedSimpleContainer(this, CONTAINER_SIZE)
@@ -134,9 +136,10 @@ class ResonatorBlockEntity(
 	companion object {
 		const val PROGRESS_NBT = "Progress"
 
-		const val CONTAINER_SIZE = 2
+		const val CONTAINER_SIZE = 3
 		const val INPUT_SLOT = 0
 		const val OUTPUT_SLOT = 1
+		const val UPGRADE_SLOT = 2
 
 		const val CRAFT_TIME = 20 * 10
 	}

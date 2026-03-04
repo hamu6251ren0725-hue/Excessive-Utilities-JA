@@ -48,9 +48,9 @@ class SlightlyLargerChestBlock : Block(Properties.ofFullCopy(Blocks.CHEST)), Ent
 		if (be is MenuProvider) {
 			player.openMenu(be)
 			return InteractionResult.sidedSuccess(level.isClientSide)
-		} else {
-			return InteractionResult.PASS
 		}
+
+		return InteractionResult.PASS
 	}
 
 	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
