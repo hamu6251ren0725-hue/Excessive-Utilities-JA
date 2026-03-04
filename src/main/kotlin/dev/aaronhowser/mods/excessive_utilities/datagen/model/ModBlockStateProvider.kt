@@ -48,6 +48,20 @@ class ModBlockStateProvider(
 		creativeMill()
 		creativeChest()
 		conveyorBelt()
+		tradingPost()
+	}
+
+	private fun tradingPost() {
+		val block = ModBlocks.TRADING_POST.get()
+
+		val side = modLoc("block/trading_post/side")
+		val top = modLoc("block/trading_post/top")
+		val bottom = mcLoc("block/oak_planks")
+
+		val model = models()
+			.cubeBottomTop(name(block), side, bottom, top)
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun conveyorBelt() {
