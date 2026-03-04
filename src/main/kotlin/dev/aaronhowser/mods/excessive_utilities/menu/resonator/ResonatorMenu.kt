@@ -25,11 +25,12 @@ class ResonatorMenu(
 				SimpleContainerData(1)
 			)
 
+
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
-		TODO("Not yet implemented")
+		return ItemStack.EMPTY
 	}
 
 	override fun stillValid(player: Player): Boolean {
-		TODO("Not yet implemented")
+		return resonatorContainer.stillValid(player)
 	}
 }
