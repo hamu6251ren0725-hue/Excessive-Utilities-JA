@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.excessive_utilities.menu.resonator
 
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
+import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.block.entity.ResonatorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
@@ -31,13 +34,17 @@ class ResonatorMenu(
 		checkContainerSize(resonatorContainer, ResonatorBlockEntity.CONTAINER_SIZE)
 
 		addSlots()
-		addPlayerInventorySlots(84)
+		addPlayerInventorySlots(90)
 	}
 
 	override fun addSlots() {
-		val inputSlot = Slot(resonatorContainer, ResonatorBlockEntity.INPUT_SLOT, 60, 34)
-		val outputSlot = Slot(resonatorContainer, ResonatorBlockEntity.OUTPUT_SLOT, 120, 34)
-		val upgradeSlot = Slot(resonatorContainer, ResonatorBlockEntity.UPGRADE_SLOT, 150, 34)
+		val inputSlot = Slot(resonatorContainer, ResonatorBlockEntity.INPUT_SLOT, 57, 42)
+		val outputSlot = OutputSlot(resonatorContainer, ResonatorBlockEntity.OUTPUT_SLOT, 104, 42)
+		val upgradeSlot = object : Slot(resonatorContainer, ResonatorBlockEntity.UPGRADE_SLOT, 152, 42) {
+			override fun mayPlace(stack: ItemStack): Boolean {
+				return stack.isItem(ModItemTagsProvider.SPEED_UPGRADES)
+			}
+		}
 
 		this.addSlot(inputSlot)
 		this.addSlot(outputSlot)

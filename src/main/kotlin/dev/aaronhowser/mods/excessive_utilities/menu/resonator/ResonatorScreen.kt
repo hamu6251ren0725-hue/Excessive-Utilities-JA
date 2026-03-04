@@ -16,7 +16,7 @@ class ResonatorScreen(
 	override val background: ScreenBackground = BACKGROUND
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/resonator.png"), 176, 166)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/resonator.png"), 176, 172)
 	}
 
 }
