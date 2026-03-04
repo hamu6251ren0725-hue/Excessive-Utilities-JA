@@ -17,7 +17,7 @@ class ResonatorMenu(
 	playerInventory: Inventory,
 	val resonatorContainer: Container,
 	val resonatorContainerData: ContainerData
-) : MenuWithInventory(ModMenuTypes.SINGLE_SLOT.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.RESONATOR.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(
@@ -37,11 +37,11 @@ class ResonatorMenu(
 	override fun addSlots() {
 		val inputSlot = Slot(resonatorContainer, ResonatorBlockEntity.INPUT_SLOT, 60, 34)
 		val outputSlot = Slot(resonatorContainer, ResonatorBlockEntity.OUTPUT_SLOT, 120, 34)
-		val upgradeSLot = Slot(resonatorContainer, ResonatorBlockEntity.UPGRADE_SLOT, 150, 34)
+		val upgradeSlot = Slot(resonatorContainer, ResonatorBlockEntity.UPGRADE_SLOT, 150, 34)
 
 		this.addSlot(inputSlot)
 		this.addSlot(outputSlot)
-		this.addSlot(upgradeSLot)
+		this.addSlot(upgradeSlot)
 	}
 
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
