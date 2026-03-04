@@ -1,0 +1,22 @@
+{
+  "values": [
+    "excessive_utilities:carved_glass",
+    "excessive_utilities:edged_glass",
+    "excessive_utilities:golden_edged_glass",
+    "excessive_utilities:glowing_glass",
+    "excessive_utilities:heart_glass",
+    "excessive_utilities:obsidian_glass",
+    "excessive_utilities:reinforced_dark_glass",
+    "excessive_utilities:square_glass",
+    "excessive_utilities:swirling_glass",
+    "excessive_utilities:thickened_glass",
+    "excessive_utilities:thickened_glass_bordered",
+    "excessive_utilities:thickened_glass_patterned",
+    "excessive_utilities:redstone_glass",
+    "excessive_utilities:ethereal_glass",
+    "excessive_utilities:inverted_ethereal_glass",
+    "excessive_utilities:ineffable_glass",
+    "excessive_utilities:inverted_ineffable_glass",
+    "excessive_utilities:dark_ineffable_glass"
+  ]
+}

@@ -1,4 +1,5 @@
-// 1.21.1	2026-03-03T14:37:38.8399209	Tags for minecraft:block mod id excessive_utilities
+// 1.21.1	2026-03-04T05:53:51.1003929	Tags for minecraft:block mod id excessive_utilities
+9fd87e39153b6701c625917478d409d8ef8951eb data/c/tags/block/glass_blocks.json
 2bef9f868fc60a1a3de29857c00073febf29cd62 data/c/tags/block/mineable/sickle.json
 7d564c8a834c5d607ca80b9a8dba9380b0335386 data/excessive_utilities/tags/block/collectable_by_boomereaperang.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/excessive_utilities/tags/block/creative_harvest_blacklist.json

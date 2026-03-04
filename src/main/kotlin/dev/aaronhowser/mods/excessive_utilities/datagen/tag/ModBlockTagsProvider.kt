@@ -176,6 +176,28 @@ class ModBlockTagsProvider(
 				ModBlocks.DARK_INEFFABLE_GLASS,
 			)
 
+		tag(Tags.Blocks.GLASS_BLOCKS)
+			.add(
+				ModBlocks.CARVED_GLASS,
+				ModBlocks.EDGED_GLASS,
+				ModBlocks.GOLDEN_EDGED_GLASS,
+				ModBlocks.GLOWING_GLASS,
+				ModBlocks.HEART_GLASS,
+				ModBlocks.OBSIDIAN_GLASS,
+				ModBlocks.REINFORCED_DARK_GLASS,
+				ModBlocks.SQUARE_GLASS,
+				ModBlocks.SWIRLING_GLASS,
+				ModBlocks.THICKENED_GLASS,
+				ModBlocks.THICKENED_GLASS_BORDERED,
+				ModBlocks.THICKENED_GLASS_PATTERNED,
+				ModBlocks.REDSTONE_GLASS,
+				ModBlocks.ETHEREAL_GLASS,
+				ModBlocks.INVERTED_ETHEREAL_GLASS,
+				ModBlocks.INEFFABLE_GLASS,
+				ModBlocks.INVERTED_INEFFABLE_GLASS,
+				ModBlocks.DARK_INEFFABLE_GLASS,
+			)
+
 		tag(BlockTags.MINEABLE_WITH_SHOVEL)
 			.add(
 				ModBlocks.CURSED_EARTH
