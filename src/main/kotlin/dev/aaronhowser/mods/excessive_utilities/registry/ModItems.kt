@@ -132,8 +132,8 @@ object ModItems : AaronItemRegistry() {
 	@JvmField
 	val HEATING_COIL =
 		register("heating_coil", ::HeatingCoilItem, HeatingCoilItem.DEFAULT_PROPERTIES)
-	val POWER_MANAGER =
-		basic("power_manager")
+	val POWER_MANAGER: DeferredItem<PowerManagerItem> =
+		register("power_manager", ::PowerManagerItem, PowerManagerItem.DEFAULT_PROPERTIES)
 	val SUN_CRYSTAL =
 		basic("sun_crystal")
 	val BIOME_MARKER =
