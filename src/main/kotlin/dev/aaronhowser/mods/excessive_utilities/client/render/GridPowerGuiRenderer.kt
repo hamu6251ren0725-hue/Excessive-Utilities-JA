@@ -30,12 +30,6 @@ object GridPowerGuiRenderer {
 				.isBlock(ModBlockTagsProvider.RENDER_GP_WHILE_LOOKING_AT)
 
 			if (!isTag) return
-
-			val blockEntity = player.level().getBlockEntity(lookingAt.blockPos)
-			if (blockEntity is GpDrainBlockEntity) {
-				val currentDrain = blockEntity.getGpUsage()
-				if (currentDrain <= 0) return
-			}
 		}
 
 		val component = Component.literal("${ClientGridPower.usage} / ${ClientGridPower.capacity} GP")
