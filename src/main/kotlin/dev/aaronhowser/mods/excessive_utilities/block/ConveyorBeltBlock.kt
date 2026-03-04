@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.Entity
@@ -48,13 +49,14 @@ class ConveyorBeltBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 			abs(currentVelocity.x)
 		}
 
-		val requiredSpeed = 0.1
+		val requiredSpeed = ServerConfig.CONFIG.conveyorBeltSpeed.get()
 		if (movementInDirection < requiredSpeed) {
+			val difference = requiredSpeed - movementInDirection
 			val newVelocity = when (movementDirection) {
-				Direction.NORTH -> currentVelocity.add(0.0, 0.0, -requiredSpeed)
-				Direction.SOUTH -> currentVelocity.add(0.0, 0.0, requiredSpeed)
-				Direction.WEST -> currentVelocity.add(-requiredSpeed, 0.0, 0.0)
-				Direction.EAST -> currentVelocity.add(requiredSpeed, 0.0, 0.0)
+				Direction.NORTH -> currentVelocity.add(0.0, 0.0, -difference)
+				Direction.SOUTH -> currentVelocity.add(0.0, 0.0, difference)
+				Direction.WEST -> currentVelocity.add(-difference, 0.0, 0.0)
+				Direction.EAST -> currentVelocity.add(difference, 0.0, 0.0)
 				else -> currentVelocity
 			}
 

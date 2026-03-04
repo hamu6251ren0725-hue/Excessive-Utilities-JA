@@ -18,6 +18,7 @@ class ServerConfig(
 	lateinit var healthPerSoulFragment: ModConfigSpec.DoubleValue
 	lateinit var soulFragmentResetOnDeath: ModConfigSpec.EnumValue<SoulDebt.OnDeathConfig>
 	lateinit var healingAxeHealthTransferAmount: ModConfigSpec.DoubleValue
+	lateinit var conveyorBeltSpeed: ModConfigSpec.DoubleValue
 
 	lateinit var heatingCoilBurnTime: ModConfigSpec.IntValue
 	lateinit var heatingCoilBurnCost: ModConfigSpec.IntValue
@@ -443,6 +444,9 @@ class ServerConfig(
 			.comment("The amount of health that the Healing Axe will transfer between you and the entity you hit.")
 			.defineInRange("healingAxeHealthTransferAmount", 4.0, 0.0, Double.MAX_VALUE)
 
+		conveyorBeltSpeed = builder
+			.comment("The speed in blocks per tick that Conveyor Belts will move entities.")
+			.defineInRange("conveyorBeltSpeed", 0.1, 0.0, Double.MAX_VALUE)
 	}
 
 	private fun heatingCoil() {
