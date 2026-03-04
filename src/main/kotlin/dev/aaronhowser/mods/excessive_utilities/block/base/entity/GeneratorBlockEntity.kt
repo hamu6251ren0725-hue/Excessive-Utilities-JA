@@ -59,7 +59,7 @@ abstract class GeneratorBlockEntity(
 
 	protected open val containerData: ContainerData =
 		object : ContainerData {
-			override fun getCount(): Int = GENERATOR_CONTAINER_DATA_SIZE
+			override fun getCount(): Int = DEFAULT_GENERATOR_CONTAINER_DATA_SIZE
 
 			override fun get(index: Int): Int {
 				return when (index) {
@@ -211,7 +211,7 @@ abstract class GeneratorBlockEntity(
 		const val FE_PER_TICK_NBT = "FePerTick"
 		const val STORED_ENERGY_NBT = "StoredEnergy"
 
-		const val GENERATOR_CONTAINER_DATA_SIZE = 3
+		const val DEFAULT_GENERATOR_CONTAINER_DATA_SIZE = 3
 		const val MAX_ENERGY_DATA_INDEX = 0
 		const val CURRENT_ENERGY_DATA_INDEX = 1
 		const val BURN_TIME_REMAINING_DATA_INDEX = 2

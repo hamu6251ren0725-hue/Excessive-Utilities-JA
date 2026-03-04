@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.menu.single_item_generator
 
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
+import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
@@ -15,14 +16,14 @@ class SingleItemGeneratorMenu(
 	playerInventory: Inventory,
 	val generatorContainer: Container,
 	val generatorContainerData: ContainerData
-) : MenuWithInventory(ModMenuTypes.SINGLE_SLOT.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.SINGLE_ITEM_GENERATOR.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(
 				containerId,
 				playerInventory,
 				SimpleContainer(CONTAINER_SIZE),
-				SimpleContainerData(1)
+				SimpleContainerData(GeneratorBlockEntity.DEFAULT_GENERATOR_CONTAINER_DATA_SIZE)
 			)
 
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
