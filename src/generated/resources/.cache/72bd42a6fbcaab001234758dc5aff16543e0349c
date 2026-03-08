@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-08T05:42:31.4866566	Tags for minecraft:block mod id excessive_utilities
+// 1.21.1	2026-03-08T05:57:31.3786887	Tags for minecraft:block mod id excessive_utilities
 cf8f2990468b42d8236e60250ebcf0bb1c8d5735 data/c/tags/block/dyed.json
 abdc2b97ffdb64cc9758dbe04af0e3b99d5f1ac2 data/c/tags/block/dyed/black.json
 f7ad9d88caa593a9de6a4c224d1e490d64223593 data/c/tags/block/dyed/blue.json
@@ -31,7 +31,7 @@ b147fcff5c0b4d72df1cb7809b063b2562180832 data/excessive_utilities/tags/block/min
 fdf0229f5dd8b82a9a07d37302c8eab1ed4ebeab data/excessive_utilities/tags/block/valid_for_dragon_egg_mill.json
 8126d8bca8572cc70eb7efba0151b0979b238c50 data/minecraft/tags/block/dirt.json
 28956a9b91902468d65653ca633de74c5d8660a7 data/minecraft/tags/block/logs.json
-b112b2fa5b8c5725e1534867d377ac741e3bde77 data/minecraft/tags/block/mineable/axe.json
-66175295faaf34674a2aa37f93a8b659dda20782 data/minecraft/tags/block/mineable/pickaxe.json
-8126d8bca8572cc70eb7efba0151b0979b238c50 data/minecraft/tags/block/mineable/shovel.json
+b0bb8145892fd3de83e9137fb710b8eef0f9b5ba data/minecraft/tags/block/mineable/axe.json
+25acdba1c2875ded86661cbb8fa36abf5ecea110 data/minecraft/tags/block/mineable/pickaxe.json
+5e5183a495a6735f1c40fc65faf5349c46b6acca data/minecraft/tags/block/mineable/shovel.json
 3b6dcccd68aa030e257aeceb087d6b787579b5dd data/minecraft/tags/block/planks.json

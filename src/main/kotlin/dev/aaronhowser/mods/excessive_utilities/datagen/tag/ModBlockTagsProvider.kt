@@ -175,6 +175,15 @@ class ModBlockTagsProvider(
 				ModBlocks.INVERTED_INEFFABLE_GLASS,
 				ModBlocks.DARK_INEFFABLE_GLASS,
 			)
+			.add(*ModBlocks.COLORED_STONES.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_COBBLESTONES.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_STONE_BRICKS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_BRICKS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_COAL_BLOCKS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_REDSTONE_BLOCKS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_LAPIS_BLOCKS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_OBSIDIANS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COLORED_QUARTZES.map { it.value }.toTypedArray())
 
 		tag(Tags.Blocks.GLASS_BLOCKS)
 			.add(
@@ -202,6 +211,7 @@ class ModBlockTagsProvider(
 			.add(
 				ModBlocks.CURSED_EARTH
 			)
+			.add(*ModBlocks.COLORED_SOUL_SANDS.map { it.value }.toTypedArray())
 
 		tag(BlockTags.MINEABLE_WITH_AXE)
 			.add(
@@ -215,6 +225,7 @@ class ModBlockTagsProvider(
 				ModBlocks.MAGICAL_PLANKS,
 				ModBlocks.DIAGONAL_WOOD
 			)
+			.add(*ModBlocks.COLORED_PLANKS.map { it.value }.toTypedArray())
 
 		tag(MINEABLE_WITH_SICKLE)
 			.addTags(
@@ -349,7 +360,6 @@ class ModBlockTagsProvider(
 			.add(*ModBlocks.COLORED_OBSIDIANS.values.toTypedArray())
 			.add(*ModBlocks.COLORED_QUARTZES.values.toTypedArray())
 			.add(*ModBlocks.COLORED_SOUL_SANDS.values.toTypedArray())
-
 	}
 
 	companion object {

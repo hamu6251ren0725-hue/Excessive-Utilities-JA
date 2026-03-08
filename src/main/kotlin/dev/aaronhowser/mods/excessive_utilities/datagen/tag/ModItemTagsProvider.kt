@@ -195,6 +195,37 @@ class ModItemTagsProvider(
 			.add(
 				ModItems.COMPOUND_BOW
 			)
+
+		tag(ItemTags.LOGS_THAT_BURN)
+			.add(ModBlocks.MAGICAL_WOOD.asItem())
+
+		tag(ItemTags.PLANKS)
+			.add(ModBlocks.MAGICAL_WOOD.asItem())
+			.add(*ModBlocks.COLORED_PLANKS.map { it.value.asItem() }.toTypedArray())
+
+		tag(ItemTags.STONE_BRICKS)
+			.add(*ModBlocks.COLORED_STONE_BRICKS.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.COBBLESTONES_NORMAL)
+			.add(*ModBlocks.COLORED_COBBLESTONES.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.STONES)
+			.add(*ModBlocks.COLORED_STONES.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.BRICKS)
+			.add(*ModBlocks.COLORED_BRICKS.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.STORAGE_BLOCKS_COAL)
+			.add(*ModBlocks.COLORED_COAL_BLOCKS.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.STORAGE_BLOCKS_LAPIS)
+			.add(*ModBlocks.COLORED_LAPIS_BLOCKS.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.OBSIDIANS_NORMAL)
+			.add(*ModBlocks.COLORED_OBSIDIANS.map { it.value.asItem() }.toTypedArray())
+
+		tag(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+			.add(*ModBlocks.COLORED_REDSTONE_BLOCKS.map { it.value.asItem() }.toTypedArray())
 	}
 
 	companion object {
