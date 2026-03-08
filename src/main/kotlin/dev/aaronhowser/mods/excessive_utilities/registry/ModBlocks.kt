@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.*
 import dev.aaronhowser.mods.excessive_utilities.block.base.EnderQuarryUpgradeType
-import dev.aaronhowser.mods.excessive_utilities.block.mill.*
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -91,8 +90,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("resonator", ::ResonatorBlock)
 	val ENDER_THERMIC_PUMP =
 		basicBlock("ender_thermic_pump")
-	val QED =
-		basicBlock("qed")
+	val QED: DeferredBlock<QedBlock> =
+		registerBlock("qed", ::QedBlock)
 	val ENDER_FLUX_CRYSTAL =
 		basicBlock("ender_flux_crystal")
 	val MACHINE_BLOCK =
