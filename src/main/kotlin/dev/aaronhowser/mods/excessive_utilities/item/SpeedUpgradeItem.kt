@@ -49,7 +49,12 @@ class SpeedUpgradeItem(properties: Properties) : Item(properties) {
 			}
 		}
 
-		fun getGpCost(stackSize: Int): Double = gpCostCalculator(stackSize) * ServerConfig.CONFIG.speedUpgradeGpCostMultiplier.get()
+		fun getGpCost(stackSize: Int): Double {
+			val baseCost = gpCostCalculator(stackSize)
+			val multiplier = ServerConfig.CONFIG.speedUpgradeGpCostMultiplier.get()
+
+			return baseCost * multiplier
+		}
 
 		/**
 		 * Mostly meant to be called from KubeJS.

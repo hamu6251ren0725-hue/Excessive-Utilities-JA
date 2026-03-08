@@ -44,7 +44,8 @@ class FurnaceBlockEntity(
 
 	override fun getGpUsage(): Double {
 		val level = level ?: return 0.0
-		val recipe = getRecipe(level) ?: return 0.0
+		val hasRecipe = getRecipe(level) != null
+		if (!hasRecipe) return 0.0
 
 		val amountUpgrades = container.getItem(UPGRADE_SLOT).count
 		return SpeedUpgradeItem.getGpCost(amountUpgrades)
