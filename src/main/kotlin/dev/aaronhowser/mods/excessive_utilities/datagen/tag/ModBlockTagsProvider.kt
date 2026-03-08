@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.BlockTags
 import net.minecraft.tags.TagKey
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
@@ -316,6 +317,25 @@ class ModBlockTagsProvider(
 
 		tag(BlockTags.PLANKS)
 			.add(ModBlocks.MAGICAL_PLANKS)
+
+		for (color in DyeColor.entries) {
+			val tagName = common("dyed/${color.serializedName}")
+
+			tag(tagName)
+				.add(
+					ModBlocks.getColoredStone(color).get(),
+					ModBlocks.getColoredCobblestone(color).get(),
+					ModBlocks.getColoredStoneBricks(color).get(),
+					ModBlocks.getColoredBricks(color).get(),
+					ModBlocks.getColoredPlanks(color).get(),
+					ModBlocks.getColoredCoalBlock(color).get(),
+					ModBlocks.getColoredRedstoneBlock(color).get(),
+					ModBlocks.getColoredLapisBlock(color).get(),
+					ModBlocks.getColoredObsidian(color).get(),
+					ModBlocks.getColoredQuartz(color).get(),
+					ModBlocks.getColoredSoulSand(color).get()
+				)
+		}
 	}
 
 	companion object {
