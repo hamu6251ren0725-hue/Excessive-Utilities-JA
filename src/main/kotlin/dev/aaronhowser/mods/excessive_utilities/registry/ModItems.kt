@@ -22,7 +22,7 @@ object ModItems : AaronItemRegistry() {
 		register("soul_fragment", ::SoulFragmentItem, SoulFragmentItem.DEFAULT_PROPERTIES)
 	val ENDER_SHARD: DeferredItem<Item> =
 		basic("ender_shard")
-	val DEMON_INGOT: DeferredItem<Item> = // TODO: Throw Gold in Lava in the Nether
+	val DEMON_INGOT: DeferredItem<Item> =
 		basic("demon_ingot", Item.Properties().fireResistant())
 	val DROP_OF_EVIL: DeferredItem<DropOfEvilItem> =
 		register("drop_of_evil", ::DropOfEvilItem)
@@ -34,7 +34,7 @@ object ModItems : AaronItemRegistry() {
 		basic("eye_of_redstone")
 	val LUNAR_REACTIVE_DUST: DeferredItem<Item> =
 		basic("lunar_reactive_dust")
-	val MOON_STONE = // TODO: Drop from hidden ores that look like stone during the day
+	val MOON_STONE: DeferredItem<Item> =
 		basic("moon_stone")
 
 	@JvmField
