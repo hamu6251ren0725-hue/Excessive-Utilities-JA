@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.excessive_utilities.recipe
 
+import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeTypes
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
@@ -13,7 +15,8 @@ import net.minecraft.world.level.Level
 
 class QedRecipe(
 	val pattern: ShapedRecipePattern,
-	val result: ItemStack
+	val result: ItemStack,
+	val crystalTicks: Int
 ) : Recipe<CraftingInput> {
 
 	override fun matches(input: CraftingInput, level: Level): Boolean = pattern.matches(input)
@@ -50,7 +53,10 @@ class QedRecipe(
 							.forGetter(QedRecipe::pattern),
 						ItemStack.CODEC
 							.fieldOf("result")
-							.forGetter(QedRecipe::result)
+							.forGetter(QedRecipe::result),
+						Codec.INT
+							.fieldOf("crystal_ticks")
+							.forGetter(QedRecipe::crystalTicks)
 					).apply(instance, ::QedRecipe)
 				}
 
@@ -58,6 +64,7 @@ class QedRecipe(
 				StreamCodec.composite(
 					ShapedRecipePattern.STREAM_CODEC, QedRecipe::pattern,
 					ItemStack.STREAM_CODEC, QedRecipe::result,
+					ByteBufCodecs.VAR_INT, QedRecipe::crystalTicks,
 					::QedRecipe
 				)
 		}

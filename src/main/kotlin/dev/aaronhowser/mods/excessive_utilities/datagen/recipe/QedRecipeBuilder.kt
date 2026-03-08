@@ -16,7 +16,8 @@ import net.minecraft.world.item.crafting.ShapedRecipePattern
 
 class QedRecipeBuilder(
 	val result: ItemStack,
-	val count: Int = 1
+	val count: Int = 1,
+	val crystalTicks: Int = 20 * 5 * 3
 ) : RecipeBuilder {
 
 	private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
@@ -64,7 +65,7 @@ class QedRecipeBuilder(
 
 		val pattern = ShapedRecipePattern.of(keys, rows)
 
-		val recipe = QedRecipe(pattern, result)
+		val recipe = QedRecipe(pattern, result, crystalTicks)
 		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}
 }

@@ -1,5 +1,6 @@
 {
   "type": "excessive_utilities:qed",
+  "crystal_ticks": 300,
   "pattern": {
     "key": {
       "D": {
