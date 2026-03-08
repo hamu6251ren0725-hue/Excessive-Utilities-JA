@@ -2,9 +2,11 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.aaron.container.ExtractOnlyInvWrapper
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.recipe.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -38,13 +40,32 @@ class QedBlockEntity(
 			}
 		}
 
-	private fun serverTick(level: ServerLevel) {
+	private var amountNearbyCrystals = 0
 
+	private fun serverTick(level: ServerLevel) {
+		if (level.gameTime % 60 == 0L) {
+			updateNearbyCrystals(level)
+		}
 	}
 
 	private fun getRecipe(level: ServerLevel): QedRecipe? {
 		val recipeInput = CraftingInput.of(3, 3, container.items.subList(0, 9))
 		return QedRecipe.getRecipe(level, recipeInput)
+	}
+
+	fun updateNearbyCrystals(level: ServerLevel) {
+		val radius = 9
+		val blocks = BlockPos.betweenClosed(
+			blockPos.offset(-radius, -radius, -radius),
+			blockPos.offset(radius, radius, radius)
+		)
+
+		val count = blocks.count { pos ->
+			val stateThere = level.getBlockState(pos)
+			stateThere.isBlock(ModBlocks.ENDER_FLUX_CRYSTAL)
+		}
+
+		this.amountNearbyCrystals = count
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
