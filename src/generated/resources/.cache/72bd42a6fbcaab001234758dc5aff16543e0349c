@@ -1,4 +1,5 @@
-// 1.21.1	2026-03-08T05:57:31.3786887	Tags for minecraft:block mod id excessive_utilities
+// 1.21.1	2026-03-08T06:03:03.817876	Tags for minecraft:block mod id excessive_utilities
+5124cada2ba7e5783038acde07858db18ecdb114 data/c/tags/block/cobblestones/normal.json
 cf8f2990468b42d8236e60250ebcf0bb1c8d5735 data/c/tags/block/dyed.json
 abdc2b97ffdb64cc9758dbe04af0e3b99d5f1ac2 data/c/tags/block/dyed/black.json
 f7ad9d88caa593a9de6a4c224d1e490d64223593 data/c/tags/block/dyed/blue.json
@@ -18,6 +19,11 @@ d781fd926c50d327be0af37c7b460c917b28de3a data/c/tags/block/dyed/white.json
 7ef8b1051cdbc273b3bfdd88eeffc1e513715827 data/c/tags/block/dyed/yellow.json
 9fd87e39153b6701c625917478d409d8ef8951eb data/c/tags/block/glass_blocks.json
 2bef9f868fc60a1a3de29857c00073febf29cd62 data/c/tags/block/mineable/sickle.json
+0a8a572e94e3b6c5ce9ec90b310143da0dd09602 data/c/tags/block/obsidians/normal.json
+fd4f1876335cd2c01a9ca026938ede746cff35d8 data/c/tags/block/stones.json
+85feac18a82e7c3edd812d9769196f4558d94660 data/c/tags/block/storage_blocks/coal.json
+a749e7c3b15f980e082d3c05c67248efdbc00102 data/c/tags/block/storage_blocks/lapis.json
+567982a105688fe3cbdf2b3550109fd40e5ac97c data/c/tags/block/storage_blocks/redstone.json
 7d564c8a834c5d607ca80b9a8dba9380b0335386 data/excessive_utilities/tags/block/collectable_by_boomereaperang.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/excessive_utilities/tags/block/creative_harvest_blacklist.json
 36f31691a7014500e8f6ea861c2959d5647dd6ce data/excessive_utilities/tags/block/cursed_earth_replaceable.json
@@ -34,4 +40,8 @@ fdf0229f5dd8b82a9a07d37302c8eab1ed4ebeab data/excessive_utilities/tags/block/val
 b0bb8145892fd3de83e9137fb710b8eef0f9b5ba data/minecraft/tags/block/mineable/axe.json
 25acdba1c2875ded86661cbb8fa36abf5ecea110 data/minecraft/tags/block/mineable/pickaxe.json
 5e5183a495a6735f1c40fc65faf5349c46b6acca data/minecraft/tags/block/mineable/shovel.json
-3b6dcccd68aa030e257aeceb087d6b787579b5dd data/minecraft/tags/block/planks.json
+907aa9090ecd0e4d386fd92c93c7dead3f3a6e78 data/minecraft/tags/block/planks.json
+9216dfcd3861799057ae9663f055e03287c910ec data/minecraft/tags/block/soul_fire_base_blocks.json
+9216dfcd3861799057ae9663f055e03287c910ec data/minecraft/tags/block/soul_speed_blocks.json
+6387bf93cbbf037649d1254f37dd1e45f9469a11 data/minecraft/tags/block/stone_bricks.json
+9216dfcd3861799057ae9663f055e03287c910ec data/minecraft/tags/block/wither_summon_base_blocks.json

@@ -360,6 +360,39 @@ class ModBlockTagsProvider(
 			.add(*ModBlocks.COLORED_OBSIDIANS.values.toTypedArray())
 			.add(*ModBlocks.COLORED_QUARTZES.values.toTypedArray())
 			.add(*ModBlocks.COLORED_SOUL_SANDS.values.toTypedArray())
+
+		tag(Tags.Blocks.STONES)
+			.add(*ModBlocks.COLORED_STONES.values.toTypedArray())
+
+		tag(Tags.Blocks.COBBLESTONES_NORMAL)
+			.add(*ModBlocks.COLORED_COBBLESTONES.values.toTypedArray())
+
+		tag(BlockTags.STONE_BRICKS)
+			.add(*ModBlocks.COLORED_STONE_BRICKS.values.toTypedArray())
+
+		tag(Tags.Blocks.STORAGE_BLOCKS_COAL)
+			.add(*ModBlocks.COLORED_COAL_BLOCKS.values.toTypedArray())
+
+		tag(Tags.Blocks.STORAGE_BLOCKS_LAPIS)
+			.add(*ModBlocks.COLORED_LAPIS_BLOCKS.values.toTypedArray())
+
+		tag(Tags.Blocks.OBSIDIANS_NORMAL)
+			.add(*ModBlocks.COLORED_OBSIDIANS.values.toTypedArray())
+
+		tag(BlockTags.PLANKS)
+			.add(*ModBlocks.COLORED_PLANKS.values.toTypedArray())
+
+		tag(Tags.Blocks.STORAGE_BLOCKS_REDSTONE)
+			.add(*ModBlocks.COLORED_REDSTONE_BLOCKS.values.toTypedArray())
+
+		tag(BlockTags.SOUL_SPEED_BLOCKS)
+			.add(*ModBlocks.COLORED_SOUL_SANDS.values.toTypedArray())
+
+		tag(BlockTags.SOUL_FIRE_BASE_BLOCKS)
+			.add(*ModBlocks.COLORED_SOUL_SANDS.values.toTypedArray())
+
+		tag(BlockTags.WITHER_SUMMON_BASE_BLOCKS)
+			.add(*ModBlocks.COLORED_SOUL_SANDS.values.toTypedArray())
 	}
 
 	companion object {
