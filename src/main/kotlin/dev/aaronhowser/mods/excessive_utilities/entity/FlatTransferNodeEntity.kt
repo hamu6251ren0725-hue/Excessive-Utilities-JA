@@ -94,6 +94,11 @@ class FlatTransferNodeEntity(
 		return shouldBreak
 	}
 
+	fun getAsItemStack(): ItemStack {
+		val item = if (isItemNode) ModItems.FLAT_TRANSFER_NODE_ITEMS.get() else ModItems.FLAT_TRANSFER_NODE_FLUIDS.get()
+		return item.defaultInstance
+	}
+
 	override fun remove(reason: RemovalReason) {
 		if (level().isServerSide && (reason == RemovalReason.DISCARDED || reason == RemovalReason.KILLED)) {
 			val pos = position()
@@ -101,9 +106,7 @@ class FlatTransferNodeEntity(
 				.add(direction.step().toVec3().scale(0.5))
 
 			Containers.dropContents(level(), pos.x, pos.y, pos.z, container)
-
-			val item = if (isItemNode) ModItems.FLAT_TRANSFER_NODE_ITEMS.get() else ModItems.FLAT_TRANSFER_NODE_FLUIDS.get()
-			Containers.dropItemStack(level(), pos.x, pos.y, pos.z, item.defaultInstance)
+			Containers.dropItemStack(level(), pos.x, pos.y, pos.z, getAsItemStack())
 		}
 
 		super.remove(reason)

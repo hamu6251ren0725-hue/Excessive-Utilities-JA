@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.client.render.GridPowerGuiRender
 import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.bewlr.OpiniumCoreBEWLR
 import dev.aaronhowser.mods.excessive_utilities.client.render.block_entity.EnderQuarryBER
+import dev.aaronhowser.mods.excessive_utilities.client.render.entity.FlatTransferNodeEntityRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.entity.MagicalBoomerangEntityRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.layer.AngelRingWingsLayer
 import dev.aaronhowser.mods.excessive_utilities.datagen.model.ModItemModelProvider
@@ -219,7 +220,7 @@ object ClientEvents {
 
 	@SubscribeEvent
 	fun registerEntityRenderer(event: EntityRenderersEvent.RegisterRenderers) {
-		event.registerEntityRenderer(ModEntityTypes.FLAT_TRANSFER_NODE.get(), ::NoopRenderer)
+		event.registerEntityRenderer(ModEntityTypes.FLAT_TRANSFER_NODE.get(), ::FlatTransferNodeEntityRenderer)
 		event.registerEntityRenderer(ModEntityTypes.MAGICAL_BOOMERANG.get(), ::MagicalBoomerangEntityRenderer)
 
 		event.registerBlockEntityRenderer(ModBlockEntityTypes.ENDER_QUARRY.get(), ::EnderQuarryBER)

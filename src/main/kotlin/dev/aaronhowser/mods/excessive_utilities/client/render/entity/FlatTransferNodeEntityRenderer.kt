@@ -2,9 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.client.render.entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.excessive_utilities.entity.MagicalBoomerangEntity
-import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import dev.aaronhowser.mods.excessive_utilities.entity.FlatTransferNodeEntity
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
@@ -12,19 +10,17 @@ import net.minecraft.client.renderer.entity.ItemRenderer
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.renderer.texture.TextureAtlas
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.util.Mth
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.item.ItemDisplayContext
-import net.minecraft.world.item.ItemStack
 
-class MagicalBoomerangEntityRenderer(
+class FlatTransferNodeEntityRenderer(
 	context: EntityRendererProvider.Context
-) : EntityRenderer<MagicalBoomerangEntity>(context) {
+) : EntityRenderer<FlatTransferNodeEntity>(context) {
 
 	private val itemRenderer: ItemRenderer = context.itemRenderer
-	private val boomerangStack: ItemStack = ModItems.MAGICAL_BOOMERANG.getDefaultInstance()
 
 	override fun render(
-		entity: MagicalBoomerangEntity,
+		entity: FlatTransferNodeEntity,
 		entityYaw: Float,
 		partialTick: Float,
 		poseStack: PoseStack,
@@ -33,23 +29,26 @@ class MagicalBoomerangEntityRenderer(
 	) {
 		super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight)
 
-		val age = entity.tickCount + partialTick
-		val rotationDegrees = Mth.wrapDegrees(age * 20f)
-
 		poseStack.pushPose()
 
+		val yaw = entity.yRot
+		val pitch = entity.xRot
+
 		poseStack.mulPose(
-			Axis.YP.rotationDegrees(rotationDegrees)
+			Axis.YP.rotationDegrees(-yaw)
 		)
 
 		poseStack.mulPose(
-			Axis.XP.rotationDegrees(90f)
+			Axis.XP.rotationDegrees(pitch)
 		)
+
+		poseStack.translate(0f, 0.25f, 0.5f)
+		poseStack.scale(1.8f, 1.8f, 1.8f)
 
 		itemRenderer.renderStatic(
-			boomerangStack,
+			entity.getAsItemStack(),
 			ItemDisplayContext.GROUND,
-			packedLight,
+			0xFFFFFF,
 			OverlayTexture.NO_OVERLAY,
 			poseStack,
 			bufferSource,
@@ -60,6 +59,6 @@ class MagicalBoomerangEntityRenderer(
 		poseStack.popPose()
 	}
 
-	override fun getTextureLocation(entity: MagicalBoomerangEntity): ResourceLocation = TextureAtlas.LOCATION_BLOCKS
+	override fun getTextureLocation(entity: FlatTransferNodeEntity): ResourceLocation = TextureAtlas.LOCATION_BLOCKS
 
 }
