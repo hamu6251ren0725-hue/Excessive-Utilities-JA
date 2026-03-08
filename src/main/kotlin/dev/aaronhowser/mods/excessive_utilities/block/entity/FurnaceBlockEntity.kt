@@ -2,7 +2,9 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
@@ -12,14 +14,13 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.item.crafting.SmeltingRecipe
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import kotlin.jvm.optionals.getOrNull
 
 class FurnaceBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : BlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState) {
+) : GpDrainBlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState) {
 
 	private val container =
 		object : ImprovedSimpleContainer(this, 3) {
@@ -41,11 +42,19 @@ class FurnaceBlockEntity(
 			}
 		}
 
-	private fun serverTick(level: ServerLevel) {
+	override fun getGpUsage(): Double {
+		val level = level ?: return 0.0
+		val recipe = getRecipe(level) ?: return 0.0
 
+		val amountUpgrades = container.getItem(UPGRADE_SLOT).count
+		return SpeedUpgradeItem.getGpCost(amountUpgrades)
 	}
 
-	private fun getRecipe(level: Level): RecipeHolder<SmeltingRecipe?>? {
+	override fun serverTick(level: ServerLevel) {
+		super.serverTick(level)
+	}
+
+	private fun getRecipe(level: Level): RecipeHolder<SmeltingRecipe>? {
 		val input = SingleRecipeInput(container.getItem(INPUT_SLOT))
 		return level.recipeManager
 			.getRecipeFor(RecipeType.SMELTING, input, level)
