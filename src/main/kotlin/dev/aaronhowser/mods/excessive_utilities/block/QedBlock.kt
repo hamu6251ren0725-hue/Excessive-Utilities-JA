@@ -1,9 +1,14 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.entity.PeacefulTableBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.entity.QedBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.MenuProvider
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.Block
@@ -13,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.BlockHitResult
 
 class QedBlock : Block(Properties.ofFullCopy(Blocks.OBSIDIAN)), EntityBlock {
 
@@ -30,6 +36,28 @@ class QedBlock : Block(Properties.ofFullCopy(Blocks.OBSIDIAN)), EntityBlock {
 			ModBlockEntityTypes.QED.get(),
 			QedBlockEntity::tick
 		)
+	}
+
+
+	override fun useWithoutItem(state: BlockState, level: Level, pos: BlockPos, player: Player, hitResult: BlockHitResult): InteractionResult {
+		val be = level.getBlockEntity(pos)
+		if (be is MenuProvider) {
+			player.openMenu(be)
+			return InteractionResult.sidedSuccess(level.isClientSide)
+		}
+
+		return InteractionResult.PASS
+	}
+
+	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
+		if (!state.isBlock(newState.block)) {
+			val be = level.getBlockEntity(pos)
+			if (be is ContainerContainer) {
+				be.dropContents(level, pos)
+			}
+		}
+
+		super.onRemove(state, level, pos, newState, movedByPiston)
 	}
 
 }
