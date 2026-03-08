@@ -14,10 +14,12 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.util.Unit
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionContents
@@ -27,6 +29,7 @@ import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
+import net.neoforged.neoforge.registries.DeferredBlock
 import java.util.concurrent.CompletableFuture
 
 class ModRecipeProvider(
@@ -1242,6 +1245,41 @@ class ModRecipeProvider(
 			)
 		).save(recipeOutput)
 
+		for (color in DyeColor.entries) {
+			val tag = ItemTags.create(
+				ResourceLocation.fromNamespaceAndPath(
+					"c",
+					"dyes/${color.serializedName}"
+				)
+			)
+
+			fun makeColoredRecipe(
+				output: DeferredBlock<*>,
+				ingredient: Ingredient,
+			) {
+				shapedRecipe(
+					output.asItem(),
+					"III,IDI,IPI",
+					mapOf(
+						'I' to ingredient,
+						'D' to tag.asIngredient(),
+						'P' to ModItems.PAINTBRUSH.asIngredient()
+					)
+				).save(recipeOutput)
+			}
+
+			makeColoredRecipe(ModBlocks.getColoredStone(color), Tags.Items.STONES.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredCobblestone(color), Tags.Items.COBBLESTONES_NORMAL.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredStoneBricks(color), ItemTags.STONE_BRICKS.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredBricks(color), Tags.Items.BRICKS_NORMAL.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredPlanks(color), ItemTags.PLANKS.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredCoalBlock(color), Tags.Items.STORAGE_BLOCKS_COAL.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredRedstoneBlock(color), Tags.Items.STORAGE_BLOCKS_REDSTONE.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredLapisBlock(color), Tags.Items.STORAGE_BLOCKS_LAPIS.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredObsidian(color), Tags.Items.OBSIDIANS_NORMAL.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredQuartz(color), ModItemTagsProvider.QUARTZ_STORAGE_BLOCKS.asIngredient())
+			makeColoredRecipe(ModBlocks.getColoredSoulSand(color), ModItemTagsProvider.SOUL_SANDS.asIngredient())
+		}
 	}
 
 	private fun buildShapelessRecipes(recipeOutput: RecipeOutput) {

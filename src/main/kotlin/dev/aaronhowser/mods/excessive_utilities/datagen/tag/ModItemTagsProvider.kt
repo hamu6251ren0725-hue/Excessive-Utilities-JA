@@ -226,6 +226,12 @@ class ModItemTagsProvider(
 
 		tag(Tags.Items.STORAGE_BLOCKS_REDSTONE)
 			.add(*ModBlocks.COLORED_REDSTONE_BLOCKS.map { it.value.asItem() }.toTypedArray())
+
+		tag(QUARTZ_STORAGE_BLOCKS)
+			.add(*ModBlocks.COLORED_QUARTZES.map { it.value.asItem() }.toTypedArray())
+
+		tag(SOUL_SANDS)
+			.add(*ModBlocks.COLORED_SOUL_SANDS.map { it.value.asItem() }.toTypedArray())
 	}
 
 	companion object {
@@ -242,6 +248,8 @@ class ModItemTagsProvider(
 		val SICKLES = common("sickles")
 		val MAGICAL_BOOMERANG_ENCHANTABLE = create("magical_boomerang_enchantable")
 		val DOUBLE_ANVIL_ENCHANTMENTS = create("double_anvil_enchantments")
+		val QUARTZ_STORAGE_BLOCKS = common("storage_blocks/quartz")
+		val SOUL_SANDS = common("soul_sands")
 	}
 
 }
