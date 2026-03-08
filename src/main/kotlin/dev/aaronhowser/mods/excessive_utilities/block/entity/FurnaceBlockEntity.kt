@@ -76,13 +76,30 @@ class FurnaceBlockEntity(
 			return
 		}
 
+		val feRequired = ServerConfig.CONFIG.furnaceGeneratorFePerTick.get()
+		if (energyStorage.energyStored < feRequired) {
+			return
+		}
+
 		progress++
 		val maxProgress = ServerConfig.CONFIG.furnaceTicksPerRecipe.get()
 
 		if (progress >= maxProgress) {
+			val inputStack = container.getItem(INPUT_SLOT)
+			val newOutput = recipe.value.assemble(SingleRecipeInput(inputStack), level.registryAccess())
 
+			val stackInOutput = container.getItem(OUTPUT_SLOT)
+			if (stackInOutput.isEmpty) {
+				container.setItem(OUTPUT_SLOT, newOutput)
+			} else if (stackInOutput.isItem(newOutput.item)) {
+				stackInOutput.grow(newOutput.count)
+			}
+
+			inputStack.shrink(1)
+			energyStorage.extractEnergy(feRequired, false)
+
+			progress = 0
 		}
-
 	}
 
 	private fun getRecipe(level: Level): RecipeHolder<SmeltingRecipe>? {
