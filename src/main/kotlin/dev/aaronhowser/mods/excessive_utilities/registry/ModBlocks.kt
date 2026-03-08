@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.*
 import dev.aaronhowser.mods.excessive_utilities.block.base.EnderQuarryUpgradeType
 import dev.aaronhowser.mods.excessive_utilities.block.mill.*
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.TransparentBlock
@@ -432,6 +433,57 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("inverted_ineffable_glass") { SemiPermeableGlassBlock(isSolidForMobsOnly = true) }
 	val DARK_INEFFABLE_GLASS: DeferredBlock<SemiPermeableGlassBlock> =
 		registerBlock("dark_ineffable_glass") { SemiPermeableGlassBlock.Dark(isSolidForMobsOnly = false) }
+
+	val COLORED_STONES: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_stone", Blocks.STONE)
+	val COLORED_STONE_BRICKS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_stone_bricks", Blocks.STONE_BRICKS)
+	val COLORED_BRICKS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_bricks", Blocks.BRICKS)
+	val COLORED_COAL_BLOCKS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_coal_block", Blocks.COAL_BLOCK)
+	val COLORED_COBBLESTONES: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_cobblestone", Blocks.COBBLESTONE)
+	val COLORED_LAPIS_BLOCKS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_lapis_block", Blocks.LAPIS_BLOCK)
+	val COLORED_PLANKS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_planks", Blocks.OAK_PLANKS)
+	val COLORED_OBSIDIANS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_obsidian", Blocks.OBSIDIAN)
+	val COLORED_QUARTZES: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_quartz_block", Blocks.QUARTZ_BLOCK)
+
+	//TODO: Implement these because they're more complicated
+	val COLORED_REDSTONE_BLOCKS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_redstone_block", Blocks.REDSTONE_BLOCK)
+//	val COLORED_REDSTONE_LAMPS: Map<DyeColor, DeferredBlock<Block>> =
+//		getColorBlockMap("colored_redstone_lamp", Blocks.REDSTONE_LAMP)
+	val COLORED_SOUL_SANDS: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("colored_soul_sand", Blocks.SOUL_SAND)
+
+	fun getColoredStone(color: DyeColor): DeferredBlock<Block> = COLORED_STONES.getValue(color)
+	fun getColoredStoneBricks(color: DyeColor): DeferredBlock<Block> = COLORED_STONE_BRICKS.getValue(color)
+	fun getColoredBricks(color: DyeColor): DeferredBlock<Block> = COLORED_BRICKS.getValue(color)
+	fun getColoredCoalBlock(color: DyeColor): DeferredBlock<Block> = COLORED_COAL_BLOCKS.getValue(color)
+	fun getColoredCobblestone(color: DyeColor): DeferredBlock<Block> = COLORED_COBBLESTONES.getValue(color)
+	fun getColoredLapisBlock(color: DyeColor): DeferredBlock<Block> = COLORED_LAPIS_BLOCKS.getValue(color)
+	fun getColoredPlanks(color: DyeColor): DeferredBlock<Block> = COLORED_PLANKS.getValue(color)
+	fun getColoredObsidian(color: DyeColor): DeferredBlock<Block> = COLORED_OBSIDIANS.getValue(color)
+	fun getColoredQuartz(color: DyeColor): DeferredBlock<Block> = COLORED_QUARTZES.getValue(color)
+	fun getColoredRedstoneBlock(color: DyeColor): DeferredBlock<Block> = COLORED_REDSTONE_BLOCKS.getValue(color)
+//	fun getColoredRedstoneLamp(color: DyeColor): DeferredBlock<Block> = COLORED_REDSTONE_LAMPS.getValue(color)
+	fun getColoredSoulSand(color: DyeColor): DeferredBlock<Block> = COLORED_SOUL_SANDS.getValue(color)
+
+	private fun getColorBlockMap(
+		name: String,
+		blockToCopy: Block
+	): Map<DyeColor, DeferredBlock<Block>> {
+		return buildMap {
+			for (color in DyeColor.entries) {
+				put(color, basicCopiedBlock("${name}_${color.serializedName}", blockToCopy))
+			}
+		}
+	}
 
 	// Blocks not reimplemented:
 	// - Screen (Hard)

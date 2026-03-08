@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.language
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDyeName
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
+import net.minecraft.world.item.DyeColor
 
 object ModBlockLang {
 
@@ -171,6 +173,26 @@ object ModBlockLang {
 			addBlock(ModBlocks.THICKENED_GLASS_BORDERED, "Thickened Glass (Bordered)")
 			addBlock(ModBlocks.THICKENED_GLASS_PATTERNED, "Thickened Glass (Patterned)")
 			addBlock(ModBlocks.REDSTONE_GLASS, "Redstone Glass")
+
+			for (color in DyeColor.entries) {
+				val englishName = color.getDyeName()
+					.replace('_', ' ')
+					.split(' ')
+					.joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
+
+				addBlock(ModBlocks.getColoredStone(color), "Colored Stone (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredStoneBricks(color), "Colored Stone Bricks (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredBricks(color), "Colored Bricks (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredCoalBlock(color), "Colored Coal Block (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredCobblestone(color), "Colored Cobblestone (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredLapisBlock(color), "Colored Lapis Block (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredPlanks(color), "Colored Planks (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredObsidian(color), "Colored Obsidian (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredQuartz(color), "Colored Quartz Block (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredRedstoneBlock(color), "Colored Redstone Block (${color.getDyeName()})")
+//				addBlock(ModBlocks.getColoredRedstoneLamp(color), "Colored Redstone Lamp (${color.getDyeName()})")
+				addBlock(ModBlocks.getColoredSoulSand(color), "Colored Soul Sand (${color.getDyeName()})")
+			}
 		}
 	}
 
