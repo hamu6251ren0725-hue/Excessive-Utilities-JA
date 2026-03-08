@@ -73,7 +73,19 @@ class ModBlockStateProvider(
 			for (color in DyeColor.entries) {
 				val block = getter(color).get()
 				val model = models()
-					.cubeAll(name(block), texture)
+					.withExistingParent(name(block), mcLoc("block/block"))
+					.texture("all", texture)
+					.texture("particle", texture)
+					.element {
+						from(0f, 0f, 0f)
+						to(16f, 16f, 16f)
+						allFaces { dir, fb ->
+							fb.texture("#all")
+							fb.cullface(dir)
+							fb.uvs(0f, 0f, 16f, 16f)
+							fb.tintindex(0)
+						}
+					}
 
 				simpleBlockWithItem(block, model)
 			}
