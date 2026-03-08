@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.resonator.ResonatorMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.resonator.ResonatorScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.single_item_generator.SingleItemGeneratorMenu
@@ -40,6 +41,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		event.register(SINGLE_SLOT.get(), ::SingleSlotScreen)
 		event.register(RESONATOR.get(), ::ResonatorScreen)
 		event.register(SINGLE_ITEM_GENERATOR.get(), ::SingleItemGeneratorScreen)
+		event.register(QED.get(), ::QedScreen)
 	}
 
 }
