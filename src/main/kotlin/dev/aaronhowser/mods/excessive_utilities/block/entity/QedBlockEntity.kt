@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 import dev.aaronhowser.mods.aaron.container.ExtractOnlyInvWrapper
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadAllItems
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
@@ -131,7 +131,7 @@ class QedBlockEntity(
 		super.loadAdditional(tag, registries)
 
 		progress = tag.getInt(PROGRESS_NBT)
-		tag.loadAllItems(container, registries)
+		tag.loadItems(container, registries)
 	}
 
 	companion object {

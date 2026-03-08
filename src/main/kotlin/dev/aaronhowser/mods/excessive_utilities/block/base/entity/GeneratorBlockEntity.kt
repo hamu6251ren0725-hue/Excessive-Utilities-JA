@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block.base.entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadAllItems
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.putUuidIfNotNull
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
@@ -203,7 +203,7 @@ abstract class GeneratorBlockEntity(
 
 		val container = container
 		if (container != null) {
-			tag.loadAllItems(container, registries)
+			tag.loadItems(container, registries)
 		}
 	}
 

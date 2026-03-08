@@ -2,12 +2,18 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
+import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.Container
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeType
@@ -20,7 +26,7 @@ import kotlin.jvm.optionals.getOrNull
 class FurnaceBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : GpDrainBlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState) {
+) : GpDrainBlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState), ContainerContainer {
 
 	private val container =
 		object : ImprovedSimpleContainer(this, 3) {
@@ -42,6 +48,8 @@ class FurnaceBlockEntity(
 			}
 		}
 
+	override fun getContainers(): List<Container> = listOf(container)
+
 	override fun getGpUsage(): Double {
 		val level = level ?: return 0.0
 		val hasRecipe = getRecipe(level) != null
@@ -60,6 +68,18 @@ class FurnaceBlockEntity(
 		return level.recipeManager
 			.getRecipeFor(RecipeType.SMELTING, input, level)
 			.getOrNull()
+	}
+
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+
+		tag.saveItems(container, registries)
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+
+		tag.loadItems(container, registries)
 	}
 
 	companion object {
