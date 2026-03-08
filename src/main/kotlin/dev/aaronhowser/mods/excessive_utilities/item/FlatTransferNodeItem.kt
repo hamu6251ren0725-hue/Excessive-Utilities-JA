@@ -22,6 +22,7 @@ class FlatTransferNodeItem(
 			val success = node != null
 
 			if (success) {
+				context.itemInHand.consume(1, context.player)
 				return InteractionResult.SUCCESS
 			}
 		}
