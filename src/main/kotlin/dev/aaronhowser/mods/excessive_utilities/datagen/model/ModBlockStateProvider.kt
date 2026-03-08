@@ -1232,6 +1232,7 @@ class ModBlockStateProvider(
 			ModBlocks.SANDY_GLASS.get(),
 			ModBlocks.QUANTUM_QUARRY.get(),
 			ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.get(),
+			ModBlocks.MAGICAL_WOOD.get()
 		)
 
 		for (block in blocks) {
