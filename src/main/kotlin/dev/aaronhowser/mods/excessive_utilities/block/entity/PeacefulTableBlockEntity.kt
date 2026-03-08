@@ -5,7 +5,6 @@ import com.mojang.datafixers.util.Either
 import dev.aaronhowser.mods.aaron.entity.BetterFakePlayerFactory
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.putUuidIfNotNull
 import dev.aaronhowser.mods.aaron.misc.AaronUtil
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
@@ -73,9 +72,7 @@ class PeacefulTableBlockEntity(
 		setChanged()
 	}
 
-	private fun tick() {
-		val level = this.level as? ServerLevel ?: return
-
+	private fun tick(level: ServerLevel) {
 		if (ServerConfig.CONFIG.peacefulTableOnlyInPeaceful.get()
 			&& level.difficulty != Difficulty.PEACEFUL
 		) return
@@ -157,8 +154,8 @@ class PeacefulTableBlockEntity(
 			blockState: BlockState,
 			blockEntity: PeacefulTableBlockEntity
 		) {
-			if (level.isServerSide) {
-				blockEntity.tick()
+			if (level is ServerLevel) {
+				blockEntity.tick(level)
 			}
 		}
 

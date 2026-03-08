@@ -55,6 +55,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("quantum_quarry_actuator", ::QuantumQuarryActuatorBlockEntity, ModBlocks.QUANTUM_QUARRY_ACTUATOR)
 	val SOUND_MUFFLER: DeferredHolder<BlockEntityType<*>, BlockEntityType<SoundMufflerBlockEntity>> =
 		register("sound_muffler", ::SoundMufflerBlockEntity, ModBlocks.SOUND_MUFFLER)
+	val QED: DeferredHolder<BlockEntityType<*>, BlockEntityType<QedBlockEntity>> =
+		register("qed", ::QedBlockEntity, ModBlocks.QED)
 
 	val ENDER_QUARRY_UPGRADE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnderQuarryUpgradeBlockEntity>> =
 		register(
