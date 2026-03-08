@@ -64,6 +64,20 @@ class QedBlockEntity(
 				progress = 0
 				return
 			}
+
+			progress -= recipe.crystalTicks
+
+			val output = recipe.assemble(input, level.registryAccess())
+			val currentOutput = container.getItem(OUTPUT_SLOT)
+			if (currentOutput.isEmpty) {
+				container.setItem(OUTPUT_SLOT, output)
+			} else {
+				currentOutput.grow(output.count)
+			}
+
+			for (i in 0 until 9) {
+				container.removeItem(i, 1)
+			}
 		}
 	}
 
