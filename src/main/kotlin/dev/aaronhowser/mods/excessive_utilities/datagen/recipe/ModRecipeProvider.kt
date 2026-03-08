@@ -1879,89 +1879,98 @@ class ModRecipeProvider(
 	}
 
 	private fun buildQedRecipes(recipeOutput: RecipeOutput) {
-		val recipes = listOf(
-			QedRecipeBuilder(ModBlocks.ITEM_RETRIEVAL_NODE.toStack())
-				.pattern(
-					" E ",
-					"NMN",
-					" E "
-				)
-				.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
-				.define('N', ModBlocks.ITEM_TRANSFER_NODE.asIngredient())
-				.define('M', Tags.Items.GEMS_EMERALD.asIngredient()),
-			QedRecipeBuilder(ModBlocks.FLUID_RETRIEVAL_NODE.toStack())
-				.pattern(
-					" E ",
-					"NDN",
-					" E "
-				)
-				.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
-				.define('N', ModBlocks.FLUID_TRANSFER_NODE.asIngredient())
-				.define('D', Tags.Items.GEMS_DIAMOND.asIngredient()),
-			QedRecipeBuilder(ModBlocks.ENERGY_RETRIEVAL_NODE.toStack())
-				.pattern(
-					" E ",
-					"NRN",
-					" E "
-				)
-				.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
-				.define('N', ModBlocks.ENERGY_TRANSFER_NODE.asIngredient())
-				.define('R', Tags.Items.DUSTS_REDSTONE.asIngredient()),
-			QedRecipeBuilder(ModItems.ENDER_TRANSMITTER.toStack())
-				.pattern(
-					"ETE",
-					"QEQ",
-					"ETE"
-				)
-				.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
-				.define('T', Items.REDSTONE_TORCH.asIngredient())
-				.define('Q', Tags.Items.GEMS_QUARTZ.asIngredient()),
-			QedRecipeBuilder(ModItems.ENDER_RECEIVER.toStack())
-				.pattern(
-					"ERE",
-					"QEQ",
-					"EQE"
-				)
-				.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
-				.define('R', Tags.Items.DUSTS_REDSTONE.asIngredient())
-				.define('Q', Tags.Items.GEMS_QUARTZ.asIngredient()),
-			QedRecipeBuilder(ModBlocks.ENDER_QUARRY_UPGRADE_BASE.toStack())
-				.pattern(
-					" O ",
-					"OQO",
-					" O "
-				)
-				.define('O', ModBlocks.ENDER_INFUSED_OBSIDIAN.asIngredient())
-				.define('Q', ModBlocks.QUARTZBURNT.asIngredient()),
-			QedRecipeBuilder(ModBlocks.MAGNUM_TORCH.toStack())
-				.pattern(
-					"RCH",
-					"CLC",
-					"CLC"
-				)
-				.define(
-					'R',
-					PotionContents.createItemStack(Items.POTION, Potions.STRONG_REGENERATION).asIngredient()
-				)
-				.define(
-					'H',
-					PotionContents.createItemStack(Items.POTION, Potions.STRONG_HEALING).asIngredient()
-				)
-				.define('C', ModBlocks.CHANDELIER.asIngredient())
-				.define('L', ItemTags.LOGS.asIngredient()),
-			QedRecipeBuilder(ModBlocks.ENDER_MARKER.toStack())
-				.pattern(
-					"E",
-					"O",
-					"O"
-				)
-				.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
-				.define('O', ModBlocks.ENDER_INFUSED_OBSIDIAN.asIngredient())
-		)
+		QedRecipeBuilder(ModBlocks.ITEM_RETRIEVAL_NODE.toStack())
+			.pattern(
+				" E ",
+				"NMN",
+				" E "
+			)
+			.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('N', ModBlocks.ITEM_TRANSFER_NODE.asIngredient())
+			.define('M', Tags.Items.GEMS_EMERALD.asIngredient())
+			.save(recipeOutput)
 
-		for (recipe in recipes) {
-			recipe.save(recipeOutput)
-		}
+		QedRecipeBuilder(ModBlocks.FLUID_RETRIEVAL_NODE.toStack())
+			.pattern(
+				" E ",
+				"NDN",
+				" E "
+			)
+			.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('N', ModBlocks.FLUID_TRANSFER_NODE.asIngredient())
+			.define('D', Tags.Items.GEMS_DIAMOND.asIngredient())
+			.save(recipeOutput)
+
+		QedRecipeBuilder(ModBlocks.ENERGY_RETRIEVAL_NODE.toStack())
+			.pattern(
+				" E ",
+				"NRN",
+				" E "
+			)
+			.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('N', ModBlocks.ENERGY_TRANSFER_NODE.asIngredient())
+			.define('R', Tags.Items.DUSTS_REDSTONE.asIngredient())
+			.save(recipeOutput)
+
+		QedRecipeBuilder(ModItems.ENDER_TRANSMITTER.toStack())
+			.pattern(
+				"ETE",
+				"QEQ",
+				"ETE"
+			)
+			.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('T', Items.REDSTONE_TORCH.asIngredient())
+			.define('Q', Tags.Items.GEMS_QUARTZ.asIngredient())
+			.save(recipeOutput)
+
+		QedRecipeBuilder(ModItems.ENDER_RECEIVER.toStack())
+			.pattern(
+				"ERE",
+				"QEQ",
+				"EQE"
+			)
+			.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('R', Tags.Items.DUSTS_REDSTONE.asIngredient())
+			.define('Q', Tags.Items.GEMS_QUARTZ.asIngredient())
+			.save(recipeOutput)
+
+		QedRecipeBuilder(ModBlocks.ENDER_QUARRY_UPGRADE_BASE.toStack())
+			.pattern(
+				" O ",
+				"OQO",
+				" O "
+			)
+			.define('O', ModBlocks.ENDER_INFUSED_OBSIDIAN.asIngredient())
+			.define('Q', ModBlocks.QUARTZBURNT.asIngredient())
+			.save(recipeOutput)
+
+		QedRecipeBuilder(ModBlocks.MAGNUM_TORCH.toStack())
+			.pattern(
+				"RCH",
+				"CLC",
+				"CLC"
+			)
+			.define(
+				'R',
+				PotionContents.createItemStack(Items.POTION, Potions.STRONG_REGENERATION).asIngredient()
+			)
+			.define(
+				'H',
+				PotionContents.createItemStack(Items.POTION, Potions.STRONG_HEALING).asIngredient()
+			)
+			.define('C', ModBlocks.CHANDELIER.asIngredient())
+			.define('L', ItemTags.LOGS.asIngredient())
+			.save(recipeOutput)
+
+		QedRecipeBuilder(ModBlocks.ENDER_MARKER.toStack())
+			.pattern(
+				"E",
+				"O",
+				"O"
+			)
+			.define('E', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('O', ModBlocks.ENDER_INFUSED_OBSIDIAN.asIngredient())
+			.save(recipeOutput)
 	}
 
 	private fun modLoc(name: String) = ExcessiveUtilities.modResource(name)
