@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.ItemRenderer
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.renderer.texture.TextureAtlas
+import net.minecraft.core.Direction
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.entity.Mob
 import net.minecraft.world.item.ItemDisplayContext
 
 class FlatTransferNodeEntityRenderer(
@@ -31,19 +31,32 @@ class FlatTransferNodeEntityRenderer(
 
 		poseStack.pushPose()
 
-		val yaw = entity.yRot
-		val pitch = entity.xRot
+		val aiming = entity.aiming
 
-		poseStack.mulPose(
-			Axis.YP.rotationDegrees(-yaw)
-		)
+		when (aiming) {
+			Direction.DOWN -> {
+				poseStack.translate(0f, 0f, -0.225f)
+				poseStack.mulPose(Axis.XP.rotationDegrees(90f))
+			}
 
-		poseStack.mulPose(
-			Axis.XP.rotationDegrees(pitch)
-		)
+			Direction.UP -> {
+				poseStack.translate(0f, 1f, -0.225f)
+				poseStack.mulPose(Axis.XP.rotationDegrees(90f))
+			}
 
-		poseStack.translate(0f, 0.25f, 0.5f)
+			else -> {
+
+			}
+		}
+
+//		when (aiming) {
+//			Direction.UP -> poseStack.translate(0f, 0.5f, -0.5f)
+//			Direction.DOWN -> poseStack.translate(0f, 0f, -0.5f)
+//			else -> poseStack.translate(0f, 0.25f, 0.5f)
+//		}
+
 		poseStack.scale(1.8f, 1.8f, 1.8f)
+
 
 		itemRenderer.renderStatic(
 			entity.getAsItemStack(),

@@ -57,14 +57,32 @@ class FlatTransferNodeEntity(
 		}
 
 	val originItemHandler: IItemHandler?
-		get() = level().getCapability(Capabilities.ItemHandler.BLOCK, blockPosition(), aiming)
+		get() = level()
+			.getCapability(
+				Capabilities.ItemHandler.BLOCK,
+				blockPosition(),
+				aiming
+			)
 	val targetItemHandler: IItemHandler?
-		get() = level().getCapability(Capabilities.ItemHandler.BLOCK, blockPosition().relative(aiming), aiming.opposite)
+		get() = level()
+			.getCapability(
+				Capabilities.ItemHandler.BLOCK,
+				blockPosition().relative(aiming),
+				aiming.opposite
+			)
 
 	val originFluidHandler: IFluidHandler?
-		get() = level().getCapability(Capabilities.FluidHandler.BLOCK, blockPosition(), aiming)
+		get() = level().getCapability(
+			Capabilities.FluidHandler.BLOCK,
+			blockPosition(),
+			aiming
+		)
 	val targetFluidHandler: IFluidHandler?
-		get() = level().getCapability(Capabilities.FluidHandler.BLOCK, blockPosition().relative(aiming), aiming.opposite)
+		get() = level().getCapability(
+			Capabilities.FluidHandler.BLOCK,
+			blockPosition().relative(aiming),
+			aiming.opposite
+		)
 
 	override fun tick() {
 		super.tick()
