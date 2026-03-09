@@ -75,8 +75,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("mechanical_miner")
 	val MECHANICAL_USER =
 		basicBlock("mechanical_user")
-	val REDSTONE_CLOCK =
-		basicBlock("redstone_clock")
+	val REDSTONE_CLOCK: DeferredBlock<RedstoneClockBlock> =
+		registerBlock("redstone_clock", ::RedstoneClockBlock)
 
 	// Other FE Stuff
 
