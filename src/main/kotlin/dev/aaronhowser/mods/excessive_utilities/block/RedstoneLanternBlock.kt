@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.phys.BlockHitResult
 
+//TODO: The model for the numbers etc
 class RedstoneLanternBlock : Block(
 	Properties
 		.ofFullCopy(Blocks.STONE)
