@@ -16,6 +16,7 @@ data class MagicalSnowGlobeProgressComponent(
 ) {
 
 	constructor(map: Map<TagKey<Biome>, Boolean>) : this(HashMap(map))
+	constructor() : this(emptyMap())
 
 	fun getWithComplete(biome: Holder<Biome>): MagicalSnowGlobeProgressComponent? {
 		val newMap = HashMap(requirements)
