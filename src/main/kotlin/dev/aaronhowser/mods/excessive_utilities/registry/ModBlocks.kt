@@ -54,8 +54,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("ender_porcupine")
 	val INDEXER =
 		basicBlock("indexer")
-	val MAGICAL_SNOW_GLOBE =
-		registerBlockWithoutItem("magical_snow_globe") { Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OBSIDIAN)) }
+	val MAGICAL_SNOW_GLOBE: DeferredBlock<MagicalSnowGlobeBlock> =
+		registerBlockWithoutItem("magical_snow_globe", ::MagicalSnowGlobeBlock)
 	val RESTURBED_MOB_SPAWNER =
 		basicBlock("resturbed_mob_spawner")
 	val SCANNER =

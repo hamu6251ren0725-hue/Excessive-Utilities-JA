@@ -56,6 +56,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("qed", ::QedBlockEntity, ModBlocks.QED)
 	val FURNACE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EUFurnaceBlockEntity>> =
 		register("furnace", ::EUFurnaceBlockEntity, ModBlocks.FURNACE)
+	val MAGICAL_SNOW_GLOBE: DeferredHolder<BlockEntityType<*>, BlockEntityType<MagicalSnowGlobeBlockEntity>> =
+		register("magical_snow_globe", ::MagicalSnowGlobeBlockEntity, ModBlocks.MAGICAL_SNOW_GLOBE)
 
 	val ENDER_QUARRY_UPGRADE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnderQuarryUpgradeBlockEntity>> =
 		register(
