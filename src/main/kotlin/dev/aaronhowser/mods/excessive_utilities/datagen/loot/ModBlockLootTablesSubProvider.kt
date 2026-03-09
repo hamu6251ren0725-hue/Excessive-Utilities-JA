@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.loot
 
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
+import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.loot.BlockLootSubProvider
@@ -12,6 +13,7 @@ import net.minecraft.world.level.storage.loot.IntRange
 import net.minecraft.world.level.storage.loot.LootPool
 import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.LootItem
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
 import net.minecraft.world.level.storage.loot.predicates.TimeCheck
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -28,7 +30,8 @@ class ModBlockLootTablesSubProvider(
 		val noDropSelfBlocks = setOf(
 			ModBlocks.MOON_STORE_ORE.get(),
 			ModBlocks.DEEPSLATE_MOON_STONE_ORE.get(),
-			ModBlocks.CURSED_EARTH.get()
+			ModBlocks.CURSED_EARTH.get(),
+			ModBlocks.MAGICAL_SNOW_GLOBE.get()
 		)
 
 		val dropSelfBlocks = knownBlocks - noDropSelfBlocks
@@ -70,6 +73,24 @@ class ModBlockLootTablesSubProvider(
 		)
 
 		add(ModBlocks.CURSED_EARTH.get()) { block -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT) }
+
+		add(
+			ModBlocks.MAGICAL_SNOW_GLOBE.get(),
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1f))
+						.add(
+							LootItem.lootTableItem(ModBlocks.MAGICAL_SNOW_GLOBE.asItem())
+								.apply(
+									CopyComponentsFunction.copyComponents(
+										CopyComponentsFunction.Source.BLOCK_ENTITY
+									)
+										.include(ModDataComponents.MAGICAL_SNOW_GLOBE_PROGRESS.get())
+								)
+						)
+				)
+		)
 
 	}
 

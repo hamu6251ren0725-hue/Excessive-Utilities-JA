@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-08T06:28:02.6510002	Loot Tables
+// 1.21.1	2026-03-09T11:07:38.4022192	Loot Tables
 d31df4f9b468081e14a6755a2facd5cb7bded7d3 data/excessive_utilities/loot_table/blocks/advanced_filing_cabinet.json
 b055a9a7538aafe8d17289edbaab51c7759d0a94 data/excessive_utilities/loot_table/blocks/angel_block.json
 ac31ab7f157f056f8d68ab88ed82665e96def45d data/excessive_utilities/loot_table/blocks/antenna.json
@@ -311,7 +311,7 @@ fa8f77abb2a135265944bb27dee328fc728c4bcb data/excessive_utilities/loot_table/blo
 cc97df461082ae39215de27b5ead5cbcdc2f6114 data/excessive_utilities/loot_table/blocks/lunar_panel.json
 90a3ab4f20ec550da4c2a92ac25fa030f2bd3033 data/excessive_utilities/loot_table/blocks/machine_block.json
 156eacead287bbcedd58f3c6df6c48810c0c4636 data/excessive_utilities/loot_table/blocks/magical_planks.json
-9d8de3066dc29022fb6b40e4a5f8cb0f7721b317 data/excessive_utilities/loot_table/blocks/magical_snow_globe.json
+a0a836550c087d6557148dba9e8a3cb106ca6cb0 data/excessive_utilities/loot_table/blocks/magical_snow_globe.json
 156ab268d9606c29e8be7efd54c644c270af3390 data/excessive_utilities/loot_table/blocks/magical_wood.json
 95be99ac9e12be6ae4ee3b93ff6d43d6a2517f94 data/excessive_utilities/loot_table/blocks/magic_absorption.json
 9695b09d1817fa10a39472bfe1c38bf6d4982e69 data/excessive_utilities/loot_table/blocks/magic_infuser.json
