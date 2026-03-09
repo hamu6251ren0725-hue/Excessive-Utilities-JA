@@ -110,17 +110,26 @@ class ServerConfig(
 
 	init {
 		general()
+
+		machines()
+		gridPower()
+
 		heatingCoil()
-		furnace()
 		drums()
 		wateringCan()
-		gridPower()
-		feGenerators()
-		enderQuarry()
-		quantumQuarry()
 		rings()
 		boomerang()
 		cursedEarth()
+	}
+
+	private fun machines() {
+		builder.section("machines") {
+			feGenerators()
+			furnace()
+			enderQuarry()
+			quantumQuarry()
+			wirelessFeTransmitter()
+		}
 	}
 
 	private fun wirelessFeTransmitter() {
