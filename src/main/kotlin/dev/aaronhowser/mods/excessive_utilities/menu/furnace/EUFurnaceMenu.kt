@@ -21,7 +21,7 @@ class EUFurnaceMenu(
 	playerInventory: Inventory,
 	val furnaceContainer: Container,
 	val furnaceContainerData: ContainerData
-) : MenuWithInventory(ModMenuTypes.QED.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.FURNACE.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(
@@ -36,13 +36,13 @@ class EUFurnaceMenu(
 		checkContainerDataCount(furnaceContainerData, EUFurnaceBlockEntity.CONTAINER_DATA_SIZE)
 
 		addSlots()
-		addPlayerInventorySlots(84)
+		addPlayerInventorySlots(90)
 	}
 
 	override fun addSlots() {
-		val outputSlot = OutputSlot(furnaceContainer, EUFurnaceBlockEntity.OUTPUT_SLOT, 124, 35)
-		val inputSlot = Slot(furnaceContainer, EUFurnaceBlockEntity.INPUT_SLOT, 30, 35)
-		val upgradeSlot = FilteredSlot(furnaceContainer, EUFurnaceBlockEntity.UPGRADE_SLOT, 30, 17) {
+		val inputSlot = Slot(furnaceContainer, EUFurnaceBlockEntity.INPUT_SLOT, 63, 42)
+		val outputSlot = OutputSlot(furnaceContainer, EUFurnaceBlockEntity.OUTPUT_SLOT, 110, 42)
+		val upgradeSlot = FilteredSlot(furnaceContainer, EUFurnaceBlockEntity.UPGRADE_SLOT, 26, 54) {
 			it.isItem(ModItemTagsProvider.SPEED_UPGRADES)
 		}
 
