@@ -98,8 +98,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("machine_block")
 	val CRUSHER =
 		basicBlock("crusher")
-	val FURNACE =
-		basicBlock("furnace")
+	val FURNACE: DeferredBlock<EUFurnaceBlock> =
+		registerBlock("furnace", ::EUFurnaceBlock)
 	val ENCHANTER =
 		basicBlock("enchanter")
 	val QUANTUM_QUARRY: DeferredBlock<QuantumQuarryBlock> =

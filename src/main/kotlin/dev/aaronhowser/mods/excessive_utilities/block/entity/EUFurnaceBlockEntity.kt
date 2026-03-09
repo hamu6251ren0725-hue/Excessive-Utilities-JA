@@ -32,7 +32,7 @@ import net.neoforged.neoforge.items.wrapper.InvWrapper
 import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import kotlin.jvm.optionals.getOrNull
 
-class FurnaceBlockEntity(
+class EUFurnaceBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
 ) : GpDrainBlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState), ContainerContainer {
@@ -161,14 +161,14 @@ class FurnaceBlockEntity(
 			level: Level,
 			blockPos: BlockPos,
 			blockState: BlockState,
-			blockEntity: FurnaceBlockEntity
+			blockEntity: EUFurnaceBlockEntity
 		) {
 			if (level is ServerLevel) {
 				blockEntity.serverTick(level)
 			}
 		}
 
-		fun getEnergyCapability(transmitter: FurnaceBlockEntity, direction: Direction?): IEnergyStorage {
+		fun getEnergyCapability(transmitter: EUFurnaceBlockEntity, direction: Direction?): IEnergyStorage {
 			return transmitter.energyStorage
 		}
 	}

@@ -208,13 +208,13 @@ object CommonEvents {
 		event.registerBlockEntity(
 			Capabilities.EnergyStorage.BLOCK,
 			ModBlockEntityTypes.FURNACE.get(),
-			FurnaceBlockEntity::getEnergyCapability
+			EUFurnaceBlockEntity::getEnergyCapability
 		)
 
 		event.registerBlockEntity(
 			Capabilities.ItemHandler.BLOCK,
 			ModBlockEntityTypes.FURNACE.get(),
-			FurnaceBlockEntity::getItemHandler
+			EUFurnaceBlockEntity::getItemHandler
 		)
 	}
 
