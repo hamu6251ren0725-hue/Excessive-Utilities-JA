@@ -134,8 +134,8 @@ object ModItems : AaronItemRegistry() {
 		register("heating_coil", ::HeatingCoilItem, HeatingCoilItem.DEFAULT_PROPERTIES)
 	val POWER_MANAGER: DeferredItem<PowerManagerItem> =
 		register("power_manager", ::PowerManagerItem, PowerManagerItem.DEFAULT_PROPERTIES)
-	val SUN_CRYSTAL =
-		basic("sun_crystal")
+	val SUN_CRYSTAL: DeferredItem<SunCrystalItem> =
+		register("sun_crystal", ::SunCrystalItem, SunCrystalItem.DEFAULT_PROPERTIES)
 	val BIOME_MARKER =
 		basic("biome_marker")
 	val BAG_OF_HOLDING: DeferredItem<BagOfHoldingItem> =
