@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadEnergy
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveEnergy
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
+import dev.aaronhowser.mods.excessive_utilities.block.EUFurnaceBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
@@ -93,14 +94,28 @@ class EUFurnaceBlockEntity(
 	override fun serverTick(level: ServerLevel) {
 		super.serverTick(level)
 
+		tryCraft(level)
+
+		val wasLit = blockState.getValue(EUFurnaceBlock.LIT)
+		val shouldBeLit = progress > 0
+
+		if (wasLit != shouldBeLit) {
+			val newState = blockState.setValue(EUFurnaceBlock.LIT, shouldBeLit)
+			level.setBlockAndUpdate(blockPos, newState)
+		}
+	}
+
+	private fun tryCraft(level: ServerLevel) {
 		val recipe = getRecipe(level)
 		if (recipe == null) {
 			progress = 0
+			level.setBlockAndUpdate(blockPos, blockState.setValue(EUFurnaceBlock.LIT, false))
 			return
 		}
 
 		val feRequired = ServerConfig.CONFIG.furnaceGeneratorFePerTick.get()
 		if (energyStorage.energyStored < feRequired) {
+			level.setBlockAndUpdate(blockPos, blockState.setValue(EUFurnaceBlock.LIT, false))
 			return
 		}
 
