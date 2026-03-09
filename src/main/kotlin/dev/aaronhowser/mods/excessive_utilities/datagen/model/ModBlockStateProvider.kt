@@ -56,6 +56,78 @@ class ModBlockStateProvider(
 		enderFluxCrystal()
 		furnace()
 		magicalSnowGlobe()
+		wirelessFeBattery()
+		wirelessFeTransmitter()
+	}
+
+	private fun wirelessFeTransmitter() {
+		val block = ModBlocks.WIRELESS_FE_TRANSMITTER.get()
+
+		val top = modLoc("block/wireless_fe_transmitter/top")
+		val side = modLoc("block/wireless_fe_transmitter/side")
+		val bottom = modLoc("block/wireless_fe_transmitter/bottom")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("top", top)
+			.texture("side", side)
+			.texture("bottom", bottom)
+			.texture("particle", side)
+
+			.element {
+				from(4f, 0f, 4f)
+				to(12f, 2f, 12f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+		fun dangler(leftX: Float, topY: Float) {
+			model
+				.element {
+					from(leftX, 0f, topY)
+					to(leftX + 2f, 1f, topY + 2f)
+
+					allFaces { dir, fb ->
+						val texture = when (dir) {
+							Direction.UP -> "#top"
+							Direction.DOWN -> "#bottom"
+							else -> "#side"
+						}
+
+						fb.texture(texture)
+						fb.cullface(dir)
+					}
+				}
+		}
+
+		dangler(7f, 2f)
+		dangler(2f, 7f)
+		dangler(12f, 7f)
+		dangler(7f, 12f)
+
+		simpleBlockWithItem(block, model)
+	}
+
+	private fun wirelessFeBattery() {
+		val block = ModBlocks.WIRELESS_FE_BATTERY.get()
+
+		val top = modLoc("block/wireless_fe_battery/top")
+		val side = modLoc("block/wireless_fe_battery/side")
+
+		val model = models()
+			.cubeTop(name(block), side, top)
+			.texture("particle", side)
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun magicalSnowGlobe() {
