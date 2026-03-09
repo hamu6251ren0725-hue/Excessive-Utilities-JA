@@ -204,6 +204,18 @@ object CommonEvents {
 			ModBlockEntityTypes.CREATIVE_ENERGY_SOURCE.get(),
 			CreativeEnergySourceBlockEntity::getEnergyCapability
 		)
+
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ModBlockEntityTypes.FURNACE.get(),
+			FurnaceBlockEntity::getEnergyCapability
+		)
+
+		event.registerBlockEntity(
+			Capabilities.ItemHandler.BLOCK,
+			ModBlockEntityTypes.FURNACE.get(),
+			FurnaceBlockEntity::getItemHandler
+		)
 	}
 
 	@SubscribeEvent

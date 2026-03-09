@@ -26,6 +26,7 @@ import net.minecraft.world.item.crafting.SmeltingRecipe
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.items.IItemHandlerModifiable
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 import net.neoforged.neoforge.items.wrapper.RangedWrapper
@@ -155,6 +156,21 @@ class FurnaceBlockEntity(
 
 		const val PROGRESS_NBT = "Progress"
 		const val ENERGY_NBT = "Energy"
+
+		fun tick(
+			level: Level,
+			blockPos: BlockPos,
+			blockState: BlockState,
+			blockEntity: FurnaceBlockEntity
+		) {
+			if (level is ServerLevel) {
+				blockEntity.serverTick(level)
+			}
+		}
+
+		fun getEnergyCapability(transmitter: FurnaceBlockEntity, direction: Direction?): IEnergyStorage {
+			return transmitter.energyStorage
+		}
 	}
 
 }
