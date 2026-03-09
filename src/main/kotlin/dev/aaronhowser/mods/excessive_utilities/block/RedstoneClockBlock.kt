@@ -4,16 +4,35 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
+import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.SignalGetter
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 
 class RedstoneClockBlock : Block(Properties.ofFullCopy(Blocks.STONE)) {
+
+	init {
+		registerDefaultState(
+			stateDefinition.any()
+				.setValue(POWERED, false)
+				.setValue(ENABLED, false)
+		)
+	}
+
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		builder.add(POWERED, ENABLED)
+	}
+
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
+		return defaultBlockState()
+			.setValue(POWERED, context.level.hasNeighborSignal(context.clickedPos))
+	}
 
 	override fun isSignalSource(state: BlockState): Boolean = true
 	override fun shouldCheckWeakPower(state: BlockState, level: SignalGetter, pos: BlockPos, side: Direction): Boolean = false
