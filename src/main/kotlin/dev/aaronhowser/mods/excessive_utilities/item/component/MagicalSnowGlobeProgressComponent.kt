@@ -8,15 +8,16 @@ import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.tags.BiomeTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.level.biome.Biome
+import net.neoforged.neoforge.common.Tags
 
 data class MagicalSnowGlobeProgressComponent(
 	val requirements: HashMap<TagKey<Biome>, Boolean>
 ) {
 
 	constructor(map: Map<TagKey<Biome>, Boolean>) : this(HashMap(map))
-	constructor() : this(emptyMap())
 
 	fun getWithComplete(biome: Holder<Biome>): MagicalSnowGlobeProgressComponent? {
 		val newMap = HashMap(requirements)
@@ -51,6 +52,24 @@ data class MagicalSnowGlobeProgressComponent(
 				AaronExtraStreamCodecs.tagKeyStreamCodec(Registries.BIOME),
 				ByteBufCodecs.BOOL
 			).map(::MagicalSnowGlobeProgressComponent, MagicalSnowGlobeProgressComponent::requirements)
+
+		val DEFAULT: MagicalSnowGlobeProgressComponent =
+			MagicalSnowGlobeProgressComponent(
+				mapOf(
+					BiomeTags.IS_END to false,
+					BiomeTags.IS_FOREST to false,
+					BiomeTags.IS_HILL to false,
+					BiomeTags.IS_JUNGLE to false,
+					Tags.Biomes.IS_MAGICAL to false,
+					BiomeTags.IS_MOUNTAIN to false,
+					BiomeTags.IS_NETHER to false,
+					BiomeTags.IS_OCEAN to false,
+					Tags.Biomes.IS_PLAINS to false,
+					Tags.Biomes.IS_SANDY to false,
+					Tags.Biomes.IS_SNOWY to false,
+					Tags.Biomes.IS_SWAMP to false
+				)
+			)
 	}
 
 }

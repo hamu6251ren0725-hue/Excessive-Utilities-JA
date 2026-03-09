@@ -17,7 +17,7 @@ class MagicalSnowGlobeBlockEntity(
 	blockState: BlockState
 ) : BlockEntity(ModBlockEntityTypes.MAGICAL_SNOW_GLOBE.get(), pos, blockState) {
 
-	var progressComponent = MagicalSnowGlobeProgressComponent()
+	var progressComponent = MagicalSnowGlobeProgressComponent.DEFAULT
 		set(value) {
 			field = value
 			setChanged()
@@ -32,7 +32,7 @@ class MagicalSnowGlobeBlockEntity(
 		super.applyImplicitComponents(componentInput)
 		progressComponent = componentInput.getOrDefault(
 			ModDataComponents.MAGICAL_SNOW_GLOBE_PROGRESS,
-			MagicalSnowGlobeProgressComponent()
+			MagicalSnowGlobeProgressComponent.DEFAULT
 		)
 	}
 
