@@ -456,35 +456,6 @@ class ServerConfig(
 			.comment("The radius in blocks that a Magnum Torch prevents monster spawns.")
 			.defineInRange("magnumTorchRadius", 64, 1, Int.MAX_VALUE)
 
-		flatItemTransferNodeSpeed = builder
-			.comment("The number of items per tick that Flat Item Transfer Nodes will transfer.")
-			.defineInRange("flatItemTransferNodeSpeed", 64 / (20 * 2), 1, Int.MAX_VALUE)
-
-		flatFluidTransferNodeSpeed = builder
-			.comment("The amount of fluid in millibuckets per tick that Flat Fluid Transfer Nodes will transfer.")
-			.defineInRange("flatFluidTransferNodeSpeed", 1000 / 20, 1, Int.MAX_VALUE)
-
-		peacefulTableOnlyInPeaceful = builder
-			.comment("Whether the Peaceful Table should only work when the difficulty is set to Peaceful.")
-			.define("peacefulTableOnlyInPeaceful", true)
-
-		peacefulTableChancePerTick = builder
-			.comment("The chance per tick that the Peaceful Table will try to generate a drop.")
-			.defineInRange("peacefulTableChancePerTick", 1.0 / 20 / 30, 0.0, 1.0)
-
-		healthPerSoulFragment = builder
-			.comment("The amount of health that each Soul Fragment is worth.")
-			.defineInRange("healthPerSoulFragment", 2.0, 0.0, Double.MAX_VALUE)
-
-		soulFragmentResetOnDeath = builder
-			.comment(
-				"What should happen to your Soul Debt/Surplus when you die.",
-				"KEEP: You keep all of your Soul Debt/Surplus",
-				"RESET: You reset to having 0 Soul Debt/Surplus",
-				"REMOVE_NEGATIVE: You keep Soul Surplus, but reset Soul Debt to 0"
-			)
-			.defineEnum("soulFragmentResetOnDeath", SoulDebt.OnDeathConfig.KEEP)
-
 		healingAxeHealthTransferAmount = builder
 			.comment("The amount of health that the Healing Axe will transfer between you and the entity you hit.")
 			.defineInRange("healingAxeHealthTransferAmount", 4.0, 0.0, Double.MAX_VALUE)
@@ -492,6 +463,41 @@ class ServerConfig(
 		conveyorBeltSpeed = builder
 			.comment("The speed in blocks per tick that Conveyor Belts will move entities.")
 			.defineInRange("conveyorBeltSpeed", 0.1, 0.0, Double.MAX_VALUE)
+
+		builder.section("flat_transfer_nodes") {
+			flatItemTransferNodeSpeed = builder
+				.comment("The number of items per tick that Flat Item Transfer Nodes will transfer.")
+				.defineInRange("flatItemTransferNodeSpeed", 64 / (20 * 2), 1, Int.MAX_VALUE)
+
+			flatFluidTransferNodeSpeed = builder
+				.comment("The amount of fluid in millibuckets per tick that Flat Fluid Transfer Nodes will transfer.")
+				.defineInRange("flatFluidTransferNodeSpeed", 1000 / 20, 1, Int.MAX_VALUE)
+		}
+
+		builder.section("peaceful_table") {
+			peacefulTableOnlyInPeaceful = builder
+				.comment("Whether the Peaceful Table should only work when the difficulty is set to Peaceful.")
+				.define("peacefulTableOnlyInPeaceful", true)
+
+			peacefulTableChancePerTick = builder
+				.comment("The chance per tick that the Peaceful Table will try to generate a drop.")
+				.defineInRange("peacefulTableChancePerTick", 1.0 / 20 / 30, 0.0, 1.0)
+		}
+
+		builder.section("soul_fragments") {
+			healthPerSoulFragment = builder
+				.comment("The amount of health that each Soul Fragment is worth.")
+				.defineInRange("healthPerSoulFragment", 2.0, 0.0, Double.MAX_VALUE)
+
+			soulFragmentResetOnDeath = builder
+				.comment(
+					"What should happen to your Soul Debt/Surplus when you die.",
+					"KEEP: You keep all of your Soul Debt/Surplus",
+					"RESET: You reset to having 0 Soul Debt/Surplus",
+					"REMOVE_NEGATIVE: You keep Soul Surplus, but reset Soul Debt to 0"
+				)
+				.defineEnum("soulFragmentResetOnDeath", SoulDebt.OnDeathConfig.KEEP)
+		}
 	}
 
 	private fun heatingCoil() {
