@@ -55,6 +55,56 @@ class ModBlockStateProvider(
 		qed()
 		enderFluxCrystal()
 		furnace()
+		magicalSnowGlobe()
+	}
+
+	private fun magicalSnowGlobe() {
+		val block = ModBlocks.MAGICAL_SNOW_GLOBE.get()
+
+		val top = modLoc("block/magical_snow_globe/top")
+		val bottom = modLoc("block/magical_snow_globe/bottom")
+		val side = modLoc("block/magical_snow_globe/side")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("top", top)
+			.texture("bottom", bottom)
+			.texture("side", side)
+			.texture("particle", side)
+			.renderType(RenderType.translucent().name)
+
+			.element {
+				from(3f, 0f, 3f)
+				to(13f, 11f, 13f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+
+					if (dir == Direction.DOWN) {
+						fb.uvs(3f, 3f, 13f, 13f)
+					}
+				}
+			}
+
+			.element {
+				from(3f, 0f, 3f)
+				to(13f, 0f, 13f)
+
+				face(Direction.UP) {
+					texture("bottom")
+					uvs(3f, 3f, 13f, 13f)
+					cullface(Direction.UP)
+				}
+			}
+
+		simpleBlockWithItem(block, model)
 	}
 
 	//TODO: On
