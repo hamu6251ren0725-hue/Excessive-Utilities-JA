@@ -30,7 +30,13 @@ class WirelessFeTransmitterBlockEntity(
 		return WirelessFeNetworkHandler.get(level).getNetwork(uuid).energyStorage
 	}
 
-	private fun recalculateDestinationCache(level: ServerLevel) {
+	private fun serverTick(level: ServerLevel) {
+		if (level.gameTime % 20 == 0L) {
+			recalculateDestinationCache(level)
+		}
+	}
+
+	fun recalculateDestinationCache(level: ServerLevel) {
 		destinationCache.clear()
 
 		val radius = ServerConfig.CONFIG.wirelessFeTransmitterRange.get()
