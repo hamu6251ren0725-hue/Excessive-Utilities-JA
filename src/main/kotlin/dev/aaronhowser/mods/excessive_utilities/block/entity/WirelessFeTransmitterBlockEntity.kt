@@ -36,6 +36,16 @@ class WirelessFeTransmitterBlockEntity(
 		if (level.gameTime % 20 == 0L) {
 			recalculateDestinationCache(level)
 		}
+
+		val ownerUuid = ownerUuid ?: return
+		val networkEnergy = WirelessFeNetworkHandler.get(level).getNetwork(ownerUuid).energyStorage
+
+		destinationsUsedLastTick = 0
+
+		for (destination in destinationCache) {
+
+		}
+
 	}
 
 	fun recalculateDestinationCache(level: ServerLevel) {
