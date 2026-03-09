@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.excessive_utilities.block.entity
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.handler.wireless_fe.WirelessFeNetworkHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
@@ -69,9 +71,14 @@ class WirelessFeTransmitterBlockEntity(
 
 		val directions = listOf(null, *Direction.entries.toTypedArray())
 
+		posLoop@
 		for (pos in blocks) {
+
 			dirLoop@
 			for (dir in directions) {
+				val stateThere = level.getBlockState(pos)
+				if (stateThere.isBlock(ModBlockTagsProvider.FE_TRANSMITTER_BLACKLIST)) continue@dirLoop
+
 				@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 				val energyHandler = level.getCapability(
 					Capabilities.EnergyStorage.BLOCK,
@@ -81,7 +88,7 @@ class WirelessFeTransmitterBlockEntity(
 
 				if (energyHandler != null && energyHandler.canReceive()) {
 					destinationCache.add(energyHandler)
-					continue@dirLoop
+					continue@posLoop
 				}
 			}
 		}

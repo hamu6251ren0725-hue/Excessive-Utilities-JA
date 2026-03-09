@@ -393,6 +393,12 @@ class ModBlockTagsProvider(
 
 		tag(BlockTags.WITHER_SUMMON_BASE_BLOCKS)
 			.add(*ModBlocks.COLORED_SOUL_SANDS.values.toTypedArray())
+
+		tag(FE_TRANSMITTER_BLACKLIST)
+			.add(
+				ModBlocks.WIRELESS_FE_BATTERY,
+				ModBlocks.WIRELESS_FE_TRANSMITTER
+			)
 	}
 
 	companion object {
@@ -411,6 +417,7 @@ class ModBlockTagsProvider(
 		val COLLECTABLE_BY_BOOMEREAPERANG = create("collectable_by_boomereaperang")
 		val CURSED_EARTH_REPLACEABLE = create("cursed_earth_replaceable")
 		val GLASS_CUTTER_MINEABLE = create("mineable/glass_cutter")
+		val FE_TRANSMITTER_BLACKLIST = create("fe_transmitter_blacklist")
 	}
 
 }

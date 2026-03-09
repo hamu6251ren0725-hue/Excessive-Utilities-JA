@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-08T06:03:03.817876	Tags for minecraft:block mod id excessive_utilities
+// 1.21.1	2026-03-09T12:00:40.2070097	Tags for minecraft:block mod id excessive_utilities
 5124cada2ba7e5783038acde07858db18ecdb114 data/c/tags/block/cobblestones/normal.json
 cf8f2990468b42d8236e60250ebcf0bb1c8d5735 data/c/tags/block/dyed.json
 abdc2b97ffdb64cc9758dbe04af0e3b99d5f1ac2 data/c/tags/block/dyed/black.json
@@ -31,6 +31,7 @@ a749e7c3b15f980e082d3c05c67248efdbc00102 data/c/tags/block/storage_blocks/lapis.
 f8b9073a9052798f83bdc2da8698d17de3e9f417 data/excessive_utilities/tags/block/ender_quarry_blacklist.json
 649d76d2175d8567a6fd6a41e88c6e82900d6aa5 data/excessive_utilities/tags/block/ender_quarry_part.json
 8970eaead49e586815b02b3e41010dbe9693ff29 data/excessive_utilities/tags/block/erosion_shovel_target.json
+a0f522a32649d10f63ac1b9b6a169b7fc9b10264 data/excessive_utilities/tags/block/fe_transmitter_blacklist.json
 b147fcff5c0b4d72df1cb7809b063b2562180832 data/excessive_utilities/tags/block/mineable/fire_axe.json
 0b8dc777f12e3ac734cab3b6b1382caa0aff238e data/excessive_utilities/tags/block/mineable/glass_cutter.json
 2bd371f63b72eecd4710ed9ef16fcf54baec3f19 data/excessive_utilities/tags/block/render_gp_while_looking_at.json
