@@ -4,12 +4,15 @@ import dev.aaronhowser.mods.excessive_utilities.block.base.ConfigurableFluidTank
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
+import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentMap
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.fluids.SimpleFluidContent
 import net.neoforged.neoforge.fluids.capability.IFluidHandler
 import java.util.function.IntSupplier
 
@@ -36,6 +39,17 @@ class DrumBlockEntity(
 				setChanged()
 			}
 		}
+
+	override fun applyImplicitComponents(componentInput: DataComponentInput) {
+		val tankComponent = componentInput.get(ModDataComponents.TANK)
+		if (tankComponent != null) {
+			tank.setFromFluidContent(tankComponent)
+		}
+	}
+
+	override fun collectImplicitComponents(components: DataComponentMap.Builder) {
+		components.set(ModDataComponents.TANK, SimpleFluidContent.copyOf(tank.copy()))
+	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)

@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.neoforged.neoforge.fluids.FluidStack
 import net.neoforged.neoforge.fluids.IFluidTank
+import net.neoforged.neoforge.fluids.SimpleFluidContent
 import net.neoforged.neoforge.fluids.capability.IFluidHandler
 import java.util.function.IntSupplier
 import kotlin.math.min
@@ -12,37 +13,39 @@ open class ConfigurableFluidTank(
 	private val capacityGetter: IntSupplier
 ) : IFluidTank, IFluidHandler {
 
-	private var fluid: FluidStack = FluidStack.EMPTY
+	private var fluidStack: FluidStack = FluidStack.EMPTY
 
-	override fun getFluid(): FluidStack = fluid
-	override fun getFluidAmount(): Int = fluid.amount
+	override fun getFluid(): FluidStack = fluidStack
+	override fun getFluidAmount(): Int = fluidStack.amount
 	override fun getCapacity(): Int = capacityGetter.asInt
 	override fun isFluidValid(stack: FluidStack): Boolean = true
+
+	fun copy(): FluidStack = fluidStack.copy()
 
 	override fun fill(resource: FluidStack, action: IFluidHandler.FluidAction): Int {
 		if (resource.isEmpty || !isFluidValid(resource)) return 0
 
 		if (action.simulate()) {
-			if (fluid.isEmpty) return min(capacity, resource.amount)
-			if (!FluidStack.isSameFluidSameComponents(fluid, resource)) return 0
-			return min(capacity - fluid.amount, resource.amount)
+			if (fluidStack.isEmpty) return min(capacity, resource.amount)
+			if (!FluidStack.isSameFluidSameComponents(fluidStack, resource)) return 0
+			return min(capacity - fluidStack.amount, resource.amount)
 		}
 
-		if (fluid.isEmpty) {
-			fluid = resource.copyWithAmount(min(capacity, resource.amount))
+		if (fluidStack.isEmpty) {
+			fluidStack = resource.copyWithAmount(min(capacity, resource.amount))
 			onContentsChanged()
-			return fluid.amount
+			return fluidStack.amount
 		}
 
-		if (!FluidStack.isSameFluidSameComponents(fluid, resource)) return 0
+		if (!FluidStack.isSameFluidSameComponents(fluidStack, resource)) return 0
 
-		var filled = capacity - fluid.amount
+		var filled = capacity - fluidStack.amount
 
 		if (resource.amount < filled) {
-			fluid.grow(resource.amount)
+			fluidStack.grow(resource.amount)
 			filled = resource.amount
 		} else {
-			fluid.amount = capacity
+			fluidStack.amount = capacity
 		}
 
 		if (filled > 0) onContentsChanged()
@@ -53,13 +56,13 @@ open class ConfigurableFluidTank(
 	override fun drain(maxDrain: Int, action: IFluidHandler.FluidAction): FluidStack {
 		var drained = maxDrain
 
-		if (fluid.amount < drained) {
-			drained = fluid.amount
+		if (fluidStack.amount < drained) {
+			drained = fluidStack.amount
 		}
 
-		val stack = fluid.copyWithAmount(drained)
+		val stack = fluidStack.copyWithAmount(drained)
 		if (action.execute() && drained > 0) {
-			fluid.shrink(drained)
+			fluidStack.shrink(drained)
 			onContentsChanged()
 		}
 
@@ -67,7 +70,7 @@ open class ConfigurableFluidTank(
 	}
 
 	override fun drain(resource: FluidStack, action: IFluidHandler.FluidAction): FluidStack {
-		if (resource.isEmpty || !FluidStack.isSameFluidSameComponents(resource, fluid)) {
+		if (resource.isEmpty || !FluidStack.isSameFluidSameComponents(resource, fluidStack)) {
 			return FluidStack.EMPTY
 		}
 
@@ -78,20 +81,25 @@ open class ConfigurableFluidTank(
 
 	override fun getTanks(): Int = 1
 	override fun getTankCapacity(tank: Int): Int = capacity
-	override fun getFluidInTank(tank: Int): FluidStack = fluid
+	override fun getFluidInTank(tank: Int): FluidStack = fluidStack
 	override fun isFluidValid(tank: Int, stack: FluidStack): Boolean = isFluidValid(stack)
 
 	fun addToTag(lookupProvider: HolderLookup.Provider, nbt: CompoundTag): CompoundTag {
-		if (!fluid.isEmpty) {
-			nbt.put("Fluid", fluid.save(lookupProvider))
+		if (!fluidStack.isEmpty) {
+			nbt.put("Fluid", fluidStack.save(lookupProvider))
 		}
 
 		return nbt
 	}
 
 	fun loadFromTag(lookupProvider: HolderLookup.Provider, nbt: CompoundTag): ConfigurableFluidTank {
-		fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompound("Fluid"))
+		fluidStack = FluidStack.parseOptional(lookupProvider, nbt.getCompound("Fluid"))
 		return this
+	}
+
+	fun setFromFluidContent(fluidContent: SimpleFluidContent) {
+		fluidStack = fluidContent.copy()
+		onContentsChanged()
 	}
 
 }

@@ -29,7 +29,6 @@ class MagicalSnowGlobeBlockEntity(
 	}
 
 	override fun applyImplicitComponents(componentInput: DataComponentInput) {
-		super.applyImplicitComponents(componentInput)
 		progressComponent = componentInput.getOrDefault(
 			ModDataComponents.MAGICAL_SNOW_GLOBE_PROGRESS,
 			MagicalSnowGlobeProgressComponent.DEFAULT
