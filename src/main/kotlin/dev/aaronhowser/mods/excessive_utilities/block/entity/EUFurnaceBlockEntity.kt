@@ -19,6 +19,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Container
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeType
@@ -57,6 +58,23 @@ class EUFurnaceBlockEntity(
 					else ->
 						false
 				}
+			}
+		}
+
+	private val containerData =
+		object : ContainerData {
+			override fun getCount(): Int = CONTAINER_DATA_SIZE
+
+			override fun get(index: Int): Int {
+				return when (index) {
+					CURRENT_ENERGY_DATA_INDEX -> energyStorage.energyStored
+					PROGRESS_DATA_INDEX -> progress
+					else -> -1
+				}
+			}
+
+			override fun set(index: Int, value: Int) {
+				// Unused
 			}
 		}
 
@@ -168,6 +186,10 @@ class EUFurnaceBlockEntity(
 		const val INPUT_SLOT = 0
 		const val OUTPUT_SLOT = 1
 		const val UPGRADE_SLOT = 2
+
+		const val CONTAINER_DATA_SIZE = 2
+		const val CURRENT_ENERGY_DATA_INDEX = 0
+		const val PROGRESS_DATA_INDEX = 1
 
 		const val PROGRESS_NBT = "Progress"
 		const val ENERGY_NBT = "Energy"
