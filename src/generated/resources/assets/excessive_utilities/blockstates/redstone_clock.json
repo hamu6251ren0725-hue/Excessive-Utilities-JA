@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "enabled=false,powered=false": {
+      "model": "excessive_utilities:block/redstone_clock_off"
+    },
+    "enabled=false,powered=true": {
+      "model": "excessive_utilities:block/redstone_clock"
+    },
+    "enabled=true,powered=false": {
+      "model": "excessive_utilities:block/redstone_clock_off"
+    },
+    "enabled=true,powered=true": {
+      "model": "excessive_utilities:block/redstone_clock"
+    }
+  }
+}

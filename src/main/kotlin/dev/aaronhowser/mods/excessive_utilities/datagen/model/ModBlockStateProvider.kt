@@ -59,6 +59,33 @@ class ModBlockStateProvider(
 		wirelessFeBattery()
 		wirelessFeTransmitter()
 		redstoneLantern()
+		redstoneClock()
+	}
+
+	private fun redstoneClock() {
+		val block = ModBlocks.REDSTONE_CLOCK.get()
+
+		val on = modLoc("block/redstone_clock/on")
+		val off = modLoc("block/redstone_clock/off")
+
+		val modelOn = models()
+			.cubeAll(name(block), on)
+
+		val modelOff = models()
+			.cubeAll(name(block) + "_off", off)
+
+		getVariantBuilder(block)
+			.forAllStates {
+				val powered = it.getValue(RedstoneClockBlock.POWERED)
+				val model = if (powered) modelOn else modelOff
+
+				ConfiguredModel
+					.builder()
+					.modelFile(model)
+					.build()
+			}
+
+		simpleBlockItem(block, modelOn)
 	}
 
 	private fun redstoneLantern() {
