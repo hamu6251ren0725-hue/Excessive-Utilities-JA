@@ -13,7 +13,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.phys.BlockHitResult
 
-class RedstoneLanternBlock : Block(Properties.ofFullCopy(Blocks.STONE)) {
+class RedstoneLanternBlock : Block(
+	Properties
+		.ofFullCopy(Blocks.STONE)
+		.lightLevel { state ->
+			if (!state.getValue(LIT)) return@lightLevel 0
+			return@lightLevel state.getValue(POWER)
+		}
+) {
 
 	init {
 		registerDefaultState(
