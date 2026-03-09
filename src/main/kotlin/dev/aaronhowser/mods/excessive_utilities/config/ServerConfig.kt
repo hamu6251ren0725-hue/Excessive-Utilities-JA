@@ -113,12 +113,8 @@ class ServerConfig(
 
 		machines()
 		gridPower()
-
-		heatingCoil()
-		drums()
 		wateringCan()
 		rings()
-		boomerang()
 		cursedEarth()
 	}
 
@@ -249,18 +245,6 @@ class ServerConfig(
 						.defineInRange("eqWorldHoleCostMultiplier", 1.0, 0.0, Double.MAX_VALUE)
 				}
 			}
-		}
-	}
-
-	private fun boomerang() {
-		builder.section("boomerang") {
-			boomerangItemPickupRadius = builder
-				.comment("The radius in blocks around the Boomerang that it will pick up items.")
-				.defineInRange("boomerangItemPickupRadius", 4.0, 0.0, Double.MAX_VALUE)
-
-			boomereaperangRadius = builder
-				.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
-				.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
 		}
 	}
 
@@ -498,9 +482,7 @@ class ServerConfig(
 				)
 				.defineEnum("soulFragmentResetOnDeath", SoulDebt.OnDeathConfig.KEEP)
 		}
-	}
 
-	private fun heatingCoil() {
 		builder.section("heating_coil") {
 			heatingCoilBurnTime = builder
 				.comment("The number of ticks a Heating Coil will burn in a Furnace.")
@@ -514,9 +496,7 @@ class ServerConfig(
 				.comment("The maximum amount of FE a Heating Coil can store.")
 				.defineInRange("heatingCoilMaxEnergy", 1_500_000, 1, Int.MAX_VALUE)
 		}
-	}
 
-	private fun drums() {
 		builder.section("drums") {
 			stoneDrumCapacity = builder
 				.comment("The fluid capacity of Stone Drums in millibuckets.")
@@ -537,6 +517,16 @@ class ServerConfig(
 			bedrockDrumCapacity = builder
 				.comment("The fluid capacity of Bedrock Drums in millibuckets.")
 				.defineInRange("bedrockDrumCapacity", 1_048_576_000, 1, Int.MAX_VALUE)
+		}
+
+		builder.section("boomerang") {
+			boomerangItemPickupRadius = builder
+				.comment("The radius in blocks around the Boomerang that it will pick up items.")
+				.defineInRange("boomerangItemPickupRadius", 4.0, 0.0, Double.MAX_VALUE)
+
+			boomereaperangRadius = builder
+				.comment("The radius in blocks around the Boomerang that it will break plants if it has the Boomereaperang enchantment.")
+				.defineInRange("boomereaperangRadius", 4.0, 0.0, Double.MAX_VALUE)
 		}
 	}
 
