@@ -94,8 +94,8 @@ class ModBlockStateProvider(
 			}
 
 			.element {
-				from(2f, 0f, 2f)
-				to(14f, 0f, 14f)
+				from(2f, 0.01f, 2f)
+				to(14f, 0.01f, 14f)
 
 				face(Direction.UP) {
 					texture("#bottom")
