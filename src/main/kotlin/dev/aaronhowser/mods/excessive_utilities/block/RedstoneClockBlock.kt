@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
@@ -51,11 +52,12 @@ class RedstoneClockBlock : Block(Properties.ofFullCopy(Blocks.STONE)) {
 
 		if (wasPowered != shouldBePowered) {
 			level.setBlockAndUpdate(pos, state.setValue(POWERED, shouldBePowered))
+			level.scheduleTick(pos, this, 1)
 		}
 	}
 
 	override fun onPlace(state: BlockState, level: Level, pos: BlockPos, oldState: BlockState, movedByPiston: Boolean) {
-		if (level is ServerLevel) {
+		if (level is ServerLevel && !state.isBlock(oldState.block)) {
 			level.scheduleTick(pos, this, 1)
 		}
 	}
