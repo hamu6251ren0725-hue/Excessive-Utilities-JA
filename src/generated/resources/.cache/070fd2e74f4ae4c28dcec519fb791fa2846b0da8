@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-03T13:24:36.5256797	Item Models: excessive_utilities
+// 1.21.1	2026-03-09T16:15:17.565643	Item Models: excessive_utilities
 9d6996bb263b4e33b72427d7b5e0dbea7f0b9ebb assets/excessive_utilities/models/item/advanced_item_filter.json
 1b5cdcaf8035c8ad20d95987b1190cfdedb942fd assets/excessive_utilities/models/item/angel_ring.json
 ba9bed41335a88b8d00e7f12d6917c3c0a918eba assets/excessive_utilities/models/item/bag_of_holding.json
@@ -75,6 +75,7 @@ f5cdd222d15da217cf61897fb32e9cb816b120a9 assets/excessive_utilities/models/item/
 c3eb7bb4f0f129e3235897c58c981351c1e2906c assets/excessive_utilities/models/item/speed_upgrade_ultimate.json
 4bf0a23978d89c8edbe0110ed94fcd551db4f549 assets/excessive_utilities/models/item/stack_upgrade.json
 a2054e2d130c5803ef9a33a4f3c388ad81b36c3e assets/excessive_utilities/models/item/stone_sickle.json
+99244474b643d0922c2673547ad71829de81b673 assets/excessive_utilities/models/item/sun_crystal.json
 6ed40dbfd1a1d91e3a8757b05cad1a1aa00b95f5 assets/excessive_utilities/models/item/trowel.json
 5b015afa7f7cacd0d1c4ccd80d6a4e08f0929ab3 assets/excessive_utilities/models/item/unstable_ingot.json
 affe31894bd8dd951fc9adfa947b33f9b55eec7e assets/excessive_utilities/models/item/upgrade_base.json

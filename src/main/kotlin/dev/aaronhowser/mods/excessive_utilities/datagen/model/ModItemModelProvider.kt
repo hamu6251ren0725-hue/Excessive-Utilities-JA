@@ -31,8 +31,19 @@ class ModItemModelProvider(
 		wateringCan()
 		magicalBoomerang()
 		compoundBow()
+		sunCrystal()
 
 		basicItems()
+	}
+
+	fun sunCrystal() {
+		val item = ModItems.SUN_CRYSTAL.get()
+
+		withExistingParent(getName(item), mcLoc("item/generated"))
+			.texture("layer0", modLoc("item/sun_crystal/outline"))
+			.texture("layer1", modLoc("item/sun_crystal/glow"))
+
+		handledItems.add(item)
 	}
 
 	fun compoundBow() {
