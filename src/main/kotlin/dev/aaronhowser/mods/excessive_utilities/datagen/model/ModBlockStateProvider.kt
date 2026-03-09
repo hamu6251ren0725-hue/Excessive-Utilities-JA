@@ -58,6 +58,32 @@ class ModBlockStateProvider(
 		magicalSnowGlobe()
 		wirelessFeBattery()
 		wirelessFeTransmitter()
+		redstoneLantern()
+	}
+
+	private fun redstoneLantern() {
+		val block = ModBlocks.REDSTONE_LANTERN.get()
+
+		val base = modLoc("block/redstone_lantern/base")
+		val numbers = modLoc("block/redstone_lantern/numbers")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("base", base)
+			.texture("numbers", numbers)
+
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 16f, 16f)
+
+				allFaces { dir, fb ->
+					fb.texture("#base")
+					fb.cullface(dir)
+					fb.uvs(1f, 1f, 15f, 15f)
+				}
+			}
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun wirelessFeTransmitter() {

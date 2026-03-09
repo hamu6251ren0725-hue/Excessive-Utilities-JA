@@ -67,8 +67,8 @@ object ModBlocks : AaronBlockRegistry() {
 
 	// Redstone stuff
 
-	val REDSTONE_LANTERN =
-		basicBlock("redstone_lantern")
+	val REDSTONE_LANTERN: DeferredBlock<RedstoneLanternBlock> =
+		registerBlock("redstone_lantern", ::RedstoneLanternBlock)
 	val RED_ORCHID =
 		basicBlock("red_orchid")
 	val MECHANICAL_MINER =
