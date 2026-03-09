@@ -45,7 +45,7 @@ class EUFurnaceBlockEntity(
 	blockState: BlockState
 ) : GpDrainBlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState), ContainerContainer, MenuProvider {
 
-	private val energyStorage = EnergyStorage(128_000)
+	private val energyStorage = EnergyStorage(MAX_ENERGY)
 
 	private val container: ImprovedSimpleContainer =
 		object : ImprovedSimpleContainer(this, 3) {
@@ -205,6 +205,8 @@ class EUFurnaceBlockEntity(
 
 		const val PROGRESS_NBT = "Progress"
 		const val ENERGY_NBT = "Energy"
+
+		const val MAX_ENERGY = 128_000
 
 		fun tick(
 			level: Level,
