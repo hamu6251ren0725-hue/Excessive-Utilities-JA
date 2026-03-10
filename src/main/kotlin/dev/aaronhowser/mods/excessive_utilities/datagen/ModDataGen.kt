@@ -93,11 +93,11 @@ object ModDataGen {
 			event.includeServer(),
 			ModEnchantmentTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
-//		generator.addProvider(
-//			event.includeServer(),
-//			ModBiomeTagsProvider(output, lookupProvider, existingFileHelper)
-//		)
-//
+		generator.addProvider(
+			event.includeServer(),
+			ModBiomeTagsProvider(output, lookupProvider, existingFileHelper)
+		)
+
 //		generator.addProvider(
 //			event.includeServer(),
 //			ModCurioProvider(output, existingFileHelper, lookupProvider)

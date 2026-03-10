@@ -8,7 +8,7 @@ import net.minecraft.core.Holder
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.util.Unit
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.component.CustomData
@@ -51,7 +51,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		int("countdown")
 	val THROWN_BOOMERANG: DeferredHolder<DataComponentType<*>, DataComponentType<UUID>> =
 		uuid("thrown_boomerang")
-	val BIOME: DeferredHolder<DataComponentType<*>, DataComponentType<ResourceKey<Biome>>> =
-		registryKey("biome", Registries.BIOME)
+	val BIOME: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Biome>>> =
+		register("biome", Biome.CODEC, ByteBufCodecs.holderRegistry(Registries.BIOME))
 
 }
