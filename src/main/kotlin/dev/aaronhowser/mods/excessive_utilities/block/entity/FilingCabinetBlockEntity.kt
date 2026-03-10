@@ -32,16 +32,17 @@ class FilingCabinetBlockEntity(
 
 	fun getItemCount(): Int = storedEntries.values.sum()
 
-	val maxAmount: Int
-		get() = if (blockState.isBlock(ModBlocks.FILING_CABINET)) {
+	fun getMaxAmount(): Int {
+		return if (blockState.isBlock(ModBlocks.FILING_CABINET)) {
 			270
 		} else {
 			540
 		}
+	}
 
 	private val itemHandler: IItemHandler =
 		object : IItemHandler {
-			override fun getSlots(): Int = maxAmount
+			override fun getSlots(): Int = getMaxAmount()
 
 			override fun getStackInSlot(slot: Int): ItemStack {
 				val item = storedItem ?: return ItemStack.EMPTY
@@ -63,7 +64,7 @@ class FilingCabinetBlockEntity(
 				}
 
 				val currentTotalCount = getItemCount()
-				val amountToInsert = stack.count.coerceAtMost(maxAmount - currentTotalCount)
+				val amountToInsert = stack.count.coerceAtMost(getMaxAmount() - currentTotalCount)
 				if (amountToInsert <= 0) {
 					return stack
 				}
@@ -115,7 +116,7 @@ class FilingCabinetBlockEntity(
 				return stack
 			}
 
-			override fun getSlotLimit(slot: Int): Int = maxAmount
+			override fun getSlotLimit(slot: Int): Int = getMaxAmount()
 
 			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 				if (storedItem == null) {
