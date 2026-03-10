@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.SimpleContainerBlock
-import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.entity.CreativeChestBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

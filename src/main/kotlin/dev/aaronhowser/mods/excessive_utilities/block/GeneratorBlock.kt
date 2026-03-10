@@ -1,10 +1,8 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
-import dev.aaronhowser.mods.excessive_utilities.block.base.SimpleContainerBlock
-import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.GeneratorType
+import dev.aaronhowser.mods.excessive_utilities.block.base.SimpleContainerBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.entity.RainbowGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.rainbow_generator.RainbowGeneratorHandler

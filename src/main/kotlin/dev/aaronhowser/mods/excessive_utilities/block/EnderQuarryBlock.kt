@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.excessive_utilities.block.base.SimpleContainerBlock
-import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.entity.EnderQuarryBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
@@ -12,7 +10,6 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.BaseEntityBlock
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.entity.BlockEntity

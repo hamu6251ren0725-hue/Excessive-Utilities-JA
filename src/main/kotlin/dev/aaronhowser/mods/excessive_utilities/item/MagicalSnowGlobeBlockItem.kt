@@ -6,13 +6,11 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
-import net.minecraft.tags.BiomeTags
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.Tags
 
 class MagicalSnowGlobeBlockItem(properties: Properties) : BlockItem(ModBlocks.MAGICAL_SNOW_GLOBE.get(), properties) {
 
