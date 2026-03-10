@@ -15,6 +15,7 @@ import net.minecraft.world.phys.shapes.VoxelShape
 import net.neoforged.neoforge.common.util.FakePlayerFactory
 import java.util.*
 
+//TODO: Rotation
 class SpikeBlock(
 	val damagePerHit: Float,
 	val canKill: Boolean = true,
