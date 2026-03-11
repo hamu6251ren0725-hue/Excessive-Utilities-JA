@@ -12,6 +12,7 @@ import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
+import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.Block
@@ -19,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.phys.BlockHitResult
+import net.minecraft.world.phys.shapes.CollisionContext
+import net.minecraft.world.phys.shapes.VoxelShape
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.common.Tags
 
@@ -77,14 +80,30 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		return ItemInteractionResult.sidedSuccess(level.isClientSide)
 	}
 
+	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
+
+	}
+
 	companion object {
+		val CENTER_SHAPE: VoxelShape = box(6.0, 6.0, 6.0, 10.0, 10.0, 10.0)
+		val ARM_SHAPES: Array<VoxelShape?> =
+			arrayOf(
+				box(6.0, 0.0, 6.0, 10.0, 6.0, 10.0), // DOWN
+				box(6.0, 10.0, 6.0, 10.0, 16.0, 10.0), // UP
+				box(6.0, 6.0, 0.0, 10.0, 10.0, 6.0), // NORTH
+				box(6.0, 6.0, 10.0, 10.0, 10.0, 16.0), // SOUTH
+				box(0.0, 6.0, 6.0, 6.0, 10.0, 10.0), // WEST
+				box(10.0, 6.0, 6.0, 16.0, 10.0, 10.0) // EAST
+			)
+
+		val DOWN: EnumProperty<ConnectionType> = connectedProperty("down")
+		val UP: EnumProperty<ConnectionType> = connectedProperty("up")
 		val NORTH: EnumProperty<ConnectionType> = connectedProperty("north")
-		val EAST: EnumProperty<ConnectionType> = connectedProperty("east")
 		val SOUTH: EnumProperty<ConnectionType> = connectedProperty("south")
 		val WEST: EnumProperty<ConnectionType> = connectedProperty("west")
-		val UP: EnumProperty<ConnectionType> = connectedProperty("up")
-		val DOWN: EnumProperty<ConnectionType> = connectedProperty("down")
+		val EAST: EnumProperty<ConnectionType> = connectedProperty("east")
 
+		// Same order as the Direction enum, so we can use the ordinal as an index
 		private val CONNECTIONS: Array<EnumProperty<ConnectionType>> = arrayOf(DOWN, UP, NORTH, SOUTH, WEST, EAST)
 
 		private fun connectedProperty(name: String): EnumProperty<ConnectionType> {
@@ -95,9 +114,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 			var state = oldState
 
 			for (dir in Direction.entries) {
-				val ordinal = dir.ordinal
-
-				val property = CONNECTIONS[ordinal]
+				val property = CONNECTIONS[dir.ordinal]
 				val isBlocked = state.getValue(property) == ConnectionType.BLOCKED
 				if (isBlocked) continue
 
