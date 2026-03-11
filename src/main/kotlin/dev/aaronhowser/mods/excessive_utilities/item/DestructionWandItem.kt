@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
+import dev.aaronhowser.mods.aaron.block_walker.BlockWalker
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -9,6 +11,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.phys.BlockHitResult
 import net.neoforged.neoforge.event.EventHooks
 import net.neoforged.neoforge.event.level.BlockEvent
@@ -55,7 +58,7 @@ class DestructionWandItem(
 			val blockPos = event.pos
 			val face = hitResult.direction
 
-			val positions = getPositions(level, blockPos, face, wandItem.maxBlocks)
+			val positions = getPositions(level, blockPos, brokenState.block, face, wandItem.maxBlocks)
 			if (positions.isEmpty()) return
 
 			breakBlocks(usedStack, positions, level, player)
@@ -93,8 +96,28 @@ class DestructionWandItem(
 			isWandActive = false
 		}
 
-		private fun getPositions(level: Level, origin: BlockPos, face: Direction, maxCount: Int): List<BlockPos> {
-			return emptyList()
+		private fun getPositions(
+			level: Level,
+			origin: BlockPos,
+			originalBlock: Block,
+			face: Direction,
+			maxCount: Int
+		): List<BlockPos> {
+			val searchDirections = if (face.axis == Direction.Axis.Y) {
+				listOf(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)
+			} else {
+				listOf(Direction.UP, Direction.DOWN)
+			}
+
+			val walker = BlockWalker
+				.Builder(level)
+				.searchOffsets(searchDirections.map(Direction::getNormal))
+				.startPos(origin)
+				.filter { _, _, state -> state.isBlock(originalBlock) }
+				.maxTotalBlocks(maxCount)
+				.build()
+
+			return walker.locateAllImmediately().map { it.block.pos }
 		}
 	}
 
