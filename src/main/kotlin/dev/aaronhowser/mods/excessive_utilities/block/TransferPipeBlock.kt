@@ -2,15 +2,48 @@ package dev.aaronhowser.mods.excessive_utilities.block
 
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.neoforged.neoforge.capabilities.Capabilities
 
 class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
+
+	init {
+		registerDefaultState(
+			stateDefinition.any()
+				.setValue(NORTH, false)
+				.setValue(EAST, false)
+				.setValue(SOUTH, false)
+				.setValue(WEST, false)
+				.setValue(UP, false)
+				.setValue(DOWN, false)
+				.setValue(BLOCKED_DIRECTIONS, 0)
+		)
+	}
+
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, BLOCKED_DIRECTIONS)
+	}
+
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
+		return updateConnections(context.level, context.clickedPos, 0)
+	}
+
+	override fun updateShape(state: BlockState, direction: Direction, neighborState: BlockState, level: LevelAccessor, pos: BlockPos, neighborPos: BlockPos): BlockState {
+		if (level is Level) {
+			val blockedDirections = state.getValue(BLOCKED_DIRECTIONS)
+			return updateConnections(level, pos, blockedDirections)
+		}
+
+		return state
+	}
 
 	private fun updateConnections(level: Level, pos: BlockPos, blockedDirections: Int): BlockState {
 		val state = defaultBlockState().setValue(BLOCKED_DIRECTIONS, blockedDirections)
