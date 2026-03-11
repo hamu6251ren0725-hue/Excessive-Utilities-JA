@@ -49,6 +49,7 @@ class ModBlockStateProvider(
 		dragonEggMill()
 		creativeMill()
 		waterMill()
+		windMill()
 		fireMill()
 		lavaMill()
 		creativeChest()
@@ -498,6 +499,89 @@ class ModBlockStateProvider(
 
 		val model = models()
 			.cubeTop(name(block), side, top)
+
+		simpleBlockWithItem(block, model)
+	}
+
+	private fun windMill() {
+		val block = ModBlocks.WIND_MILL.get()
+
+		val top = modLoc("block/mill/wind")
+		val base = modLoc("block/mill/base")
+		val fan = modLoc("block/mill/fan_spinning")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("top", top)
+			.texture("base", base)
+			.texture("fan", fan)
+			.texture("particle", top)
+			.renderType(RenderType.cutout().name)
+
+			// Top
+			.element {
+				from(0f, 15f, 0f)
+				to(16f, 16f, 16f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.DOWN -> "#base"
+						else -> "#top"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+			// Bottom
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 1f, 16f)
+
+				allFaces { dir, fb ->
+					fb.texture("#base")
+					fb.cullface(dir)
+				}
+			}
+
+			// West
+			.element {
+				from(0f, 1f, 0f)
+				to(1f, 15f, 16f)
+
+				allFaces { dir, fb ->
+					fb.texture("#base")
+					fb.cullface(dir)
+				}
+			}
+
+			// East
+			.element {
+				from(15f, 1f, 0f)
+				to(16f, 15f, 16f)
+
+				allFaces { dir, fb ->
+					fb.texture("#base")
+					fb.cullface(dir)
+				}
+			}
+
+			// Fan
+			.element {
+				from(1f, 1f, 7f)
+				to(15f, 15f, 7.1f)
+
+				face(Direction.NORTH) {
+					texture("#fan")
+					cullface(Direction.NORTH)
+				}
+
+				face(Direction.SOUTH) {
+					texture("#fan")
+					cullface(Direction.SOUTH)
+				}
+			}
 
 		simpleBlockWithItem(block, model)
 	}
