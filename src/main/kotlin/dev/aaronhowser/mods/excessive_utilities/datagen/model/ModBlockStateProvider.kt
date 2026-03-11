@@ -158,14 +158,14 @@ class ModBlockStateProvider(
 
 				.part()
 				.modelFile(model)
-				.rotationX(90)
+				.rotationX(270)
 				.addModel()
 				.condition(TransferPipeBlock.UP, connectionType)
 				.end()
 
 				.part()
 				.modelFile(model)
-				.rotationX(270)
+				.rotationX(90)
 				.addModel()
 				.condition(TransferPipeBlock.DOWN, connectionType)
 				.end()
