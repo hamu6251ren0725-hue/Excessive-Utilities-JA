@@ -27,9 +27,6 @@ class ModItemTagsProvider(
 	override fun addTags(provider: HolderLookup.Provider) {
 		tag(RENDER_GP_WHILE_HOLDING)
 			.add(
-				ModItems.SPEED_UPGRADE,
-				ModItems.SPEED_UPGRADE_MAGICAL,
-				ModItems.SPEED_UPGRADE_ULTIMATE,
 				ModItems.POWER_MANAGER,
 				ModItems.RESONATING_REDSTONE_CRYSTAL,
 				ModItems.RING_OF_THE_FLYING_SQUID,
@@ -49,6 +46,9 @@ class ModItemTagsProvider(
 				ModBlocks.CREATIVE_MILL.asItem(),
 				ModBlocks.RESONATOR.asItem(),
 				ModBlocks.WIRELESS_FE_TRANSMITTER.asItem(),
+			)
+			.addTags(
+				SPEED_UPGRADES
 			)
 
 		tag(PISTONS)
@@ -212,7 +212,6 @@ class ModItemTagsProvider(
 		tag(Tags.Items.STONES)
 			.add(*ModBlocks.COLORED_STONES.map { it.value.asItem() }.toTypedArray())
 
-
 		tag(Tags.Items.STORAGE_BLOCKS_COAL)
 			.add(*ModBlocks.COLORED_COAL_BLOCKS.map { it.value.asItem() }.toTypedArray())
 
@@ -244,16 +243,46 @@ class ModItemTagsProvider(
 		tag(REDSTONE_LAMPS)
 			.add(Items.REDSTONE_LAMP)
 			.add(*ModBlocks.COLORED_REDSTONE_LAMPS.map { it.value.asItem() }.toTypedArray())
+
+		tag(TRANSFER_NODE_UPGRADES)
+			.add(
+				ModItems.STACK_UPGRADE,
+				ModItems.WORLD_INTERACTION_UPGRADE,
+				ModItems.CREATIVE_UPGRADE,
+				ModItems.BREADTH_FIRST_SEARCH_UPGRADE,
+				ModItems.DEPTH_FIRST_SEARCH_UPGRADE,
+				ModItems.PSEUDO_ROUND_ROBIN_UPGRADE,
+				ModItems.ENDER_TRANSMITTER,
+			)
+			.addTags(
+				SPEED_UPGRADES
+			)
+
+		tag(RETRIEVAL_NODE_UPGRADES)
+			.add(
+				ModItems.STACK_UPGRADE,
+				ModItems.CREATIVE_UPGRADE,
+				ModItems.BREADTH_FIRST_SEARCH_UPGRADE,
+				ModItems.DEPTH_FIRST_SEARCH_UPGRADE,
+				ModItems.PSEUDO_ROUND_ROBIN_UPGRADE,
+				ModItems.ENDER_RECEIVER,
+			)
+			.addTags(
+				SPEED_UPGRADES
+			)
 	}
 
 	companion object {
 		private fun create(id: String): TagKey<Item> = ItemTags.create(ExcessiveUtilities.modResource(id))
 		private fun common(id: String): TagKey<Item> = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", id))
 
+		val TRANSFER_NODE_UPGRADES = create("transfer_node_upgrades")
+		val RETRIEVAL_NODE_UPGRADES = create("retrieval_node_upgrades")
+		val SPEED_UPGRADES = create("speed_upgrades")
+
 		val RENDER_GP_WHILE_HOLDING = create("render_gp_while_holding")
 		val PISTONS = common("pistons")
 		val CORPSE_PARTS = create("corpse_parts")
-		val SPEED_UPGRADES = create("speed_upgrades")
 		val INTERACT_WITH_FLAT_TRANSFER_NODES = create("interact_with_flat_transfer_nodes")
 		val REMOVE_FLAT_TRANSFER_NODES = create("remove_flat_transfer_nodes")
 		val FILTERS = create("filters")
