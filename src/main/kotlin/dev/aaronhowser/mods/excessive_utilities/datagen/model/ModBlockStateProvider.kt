@@ -174,6 +174,111 @@ class ModBlockStateProvider(
 		addArms(TransferPipeBlock.ConnectionType.CONNECTED, armModel)
 		addArms(TransferPipeBlock.ConnectionType.BLOCKED, armBlockedModel)
 
+		transferNodes(armModel)
+	}
+
+	private fun transferNodes(armModel: BlockModelBuilder) {
+		val template = models()
+			.withExistingParent("transfer_node_template", mcLoc("block/block"))
+			.texture("particle", "#node")
+
+		fun specific(block: TransferNodeBlock, frontTexture: String) {
+			val model = models()
+				.withExistingParent(name(block), modLoc("block/transfer_node_template"))
+
+			val builder = getMultipartBuilder(block)
+
+			builder.part()
+				.modelFile(model)
+				.addModel()
+				.condition(TransferNodeBlock.PLACED_ON, Direction.NORTH)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(90)
+				.addModel()
+				.condition(TransferNodeBlock.PLACED_ON, Direction.EAST)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(180)
+				.addModel()
+				.condition(TransferNodeBlock.PLACED_ON, Direction.SOUTH)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(270)
+				.addModel()
+				.condition(TransferNodeBlock.PLACED_ON, Direction.WEST)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationX(270)
+				.addModel()
+				.condition(TransferNodeBlock.PLACED_ON, Direction.UP)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationX(90)
+				.addModel()
+				.condition(TransferNodeBlock.PLACED_ON, Direction.DOWN)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.addModel()
+				.condition(TransferNodeBlock.NORTH, true)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(90)
+				.addModel()
+				.condition(TransferNodeBlock.EAST, true)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(180)
+				.addModel()
+				.condition(TransferNodeBlock.SOUTH, true)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(270)
+				.addModel()
+				.condition(TransferNodeBlock.WEST, true)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationX(270)
+				.addModel()
+				.condition(TransferNodeBlock.UP, true)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationX(90)
+				.addModel()
+				.condition(TransferNodeBlock.DOWN, true)
+				.end()
+
+		}
+
+		specific(ModBlocks.ITEM_TRANSFER_NODE.get(), "block/transfer_node/item")
+		specific(ModBlocks.FLUID_TRANSFER_NODE.get(), "block/transfer_node/fluid")
+		specific(ModBlocks.ENERGY_TRANSFER_NODE.get(), "block/transfer_node/energy")
+		specific(ModBlocks.ITEM_RETRIEVAL_NODE.get(), "block/transfer_node/retrieval/item")
+		specific(ModBlocks.FLUID_RETRIEVAL_NODE.get(), "block/transfer_node/retrieval/fluid")
+		specific(ModBlocks.ENERGY_RETRIEVAL_NODE.get(), "block/transfer_node/retrieval/energy")
+
 	}
 
 	private fun spikes() {
