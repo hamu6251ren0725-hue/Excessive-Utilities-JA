@@ -46,7 +46,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 	}
 
 	private fun updateConnections(level: Level, pos: BlockPos, blockedDirections: Int): BlockState {
-		val state = defaultBlockState().setValue(BLOCKED_DIRECTIONS, blockedDirections)
+		var state = defaultBlockState().setValue(BLOCKED_DIRECTIONS, blockedDirections)
 
 		for (dir in Direction.entries) {
 			val ordinal = dir.ordinal
@@ -54,7 +54,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 			val isBlocked = (blockedDirections and (1 shl ordinal)) != 0
 			val shouldConnect = !isBlocked && canConnectTo(level, pos, dir)
 
-			state.setValue(CONNECTIONS[ordinal], shouldConnect)
+			state = state.setValue(CONNECTIONS[ordinal], shouldConnect)
 		}
 
 		return state
@@ -67,7 +67,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		val WEST: BooleanProperty = BlockStateProperties.WEST
 		val UP: BooleanProperty = BlockStateProperties.UP
 		val DOWN: BooleanProperty = BlockStateProperties.DOWN
-		val BLOCKED_DIRECTIONS: IntegerProperty = IntegerProperty.create("blocked_directions", 0x000000, 0x111111)
+		val BLOCKED_DIRECTIONS: IntegerProperty = IntegerProperty.create("blocked_directions", 0, 63)
 
 		private val CONNECTIONS: Array<BooleanProperty> = arrayOf(DOWN, UP, NORTH, SOUTH, WEST, EAST)
 
