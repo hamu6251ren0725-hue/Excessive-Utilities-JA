@@ -101,6 +101,7 @@ class TransferNodeBlock(
 
 		val neighborBlock = level.getBlockState(neighborPos).block
 		if (neighborBlock is TransferPipeBlock) return true
+		if (neighborBlock is TransferNodeBlock) return true
 
 		when (type) {
 			Type.ITEM -> {
