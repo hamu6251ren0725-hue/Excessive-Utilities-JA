@@ -13,6 +13,7 @@ import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.CrossCollisionBlock
 import net.minecraft.world.level.block.RedstoneLampBlock
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ModelBuilder
@@ -72,6 +73,7 @@ class ModBlockStateProvider(
 		val block = ModBlocks.TRANSFER_PIPE.get()
 
 		val pipeTexture = modLoc("block/transfer_pipe/pipe")
+		val blockedTexture = modLoc("block/transfer_pipe/blocked")
 
 		val coreModel = models()
 			.withExistingParent(name(block) + "_core", mcLoc("block/block"))
@@ -89,6 +91,7 @@ class ModBlockStateProvider(
 				}
 			}
 
+		// Aiming north
 		val armModel = models()
 			.withExistingParent(name(block) + "_arm", mcLoc("block/block"))
 			.texture("pipe", pipeTexture)
@@ -113,6 +116,63 @@ class ModBlockStateProvider(
 					fb.uvs(uvs[0], uvs[1], uvs[2], uvs[3])
 				}
 			}
+
+		val armBlockedModel = models()
+			.withExistingParent(name(block) + "_arm_blocked", modLoc("block/" + name(block) + "_arm"))
+			.texture("pipe", blockedTexture)
+
+		val builder = getMultipartBuilder(block)
+			.part()
+			.modelFile(coreModel)
+			.addModel()
+			.end()
+
+		fun addArms(connectionType: TransferPipeBlock.ConnectionType, model: BlockModelBuilder) {
+			builder
+				.part()
+				.modelFile(model)
+				.addModel()
+				.condition(TransferPipeBlock.NORTH, connectionType)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(90)
+				.addModel()
+				.condition(TransferPipeBlock.EAST, connectionType)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(180)
+				.addModel()
+				.condition(TransferPipeBlock.SOUTH, connectionType)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationY(270)
+				.addModel()
+				.condition(TransferPipeBlock.WEST, connectionType)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationX(90)
+				.addModel()
+				.condition(TransferPipeBlock.UP, connectionType)
+				.end()
+
+				.part()
+				.modelFile(model)
+				.rotationX(270)
+				.addModel()
+				.condition(TransferPipeBlock.DOWN, connectionType)
+				.end()
+		}
+
+		addArms(TransferPipeBlock.ConnectionType.CONNECTED, armModel)
+		addArms(TransferPipeBlock.ConnectionType.BLOCKED, armBlockedModel)
 
 	}
 
