@@ -1,7 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
-import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.level.Level
@@ -35,17 +33,10 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 
 		private fun canConnectTo(level: Level, pipePos: BlockPos, direction: Direction): Boolean {
 			val neighborPos = pipePos.relative(direction)
-			val neighborState = level.getBlockState(neighborPos)
 
-			if (
-				neighborState.isBlock(ModBlocks.TRANSFER_PIPE)
-				|| neighborState.isBlock(ModBlocks.ITEM_TRANSFER_NODE)
-				|| neighborState.isBlock(ModBlocks.FLUID_TRANSFER_NODE)
-				|| neighborState.isBlock(ModBlocks.ENERGY_TRANSFER_NODE)
-				|| neighborState.isBlock(ModBlocks.ITEM_RETRIEVAL_NODE)
-				|| neighborState.isBlock(ModBlocks.FLUID_RETRIEVAL_NODE)
-				|| neighborState.isBlock(ModBlocks.ENERGY_RETRIEVAL_NODE)
-			) return true
+			val neighborBlock = level.getBlockState(neighborPos).block
+			if (neighborBlock is TransferPipeBlock) return true
+			if (neighborBlock is TransferNodeBlock) return true
 
 			val hasItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, neighborPos, direction.opposite) != null
 			if (hasItemHandler) return true
