@@ -18,7 +18,7 @@ import net.minecraft.world.phys.shapes.VoxelShape
 
 class GpPanelBlock(
 	val requiresDay: Boolean
-) : GpSourceBlock(Properties.ofFullCopy(Blocks.DAYLIGHT_DETECTOR)) {
+) : GpSourceBlock(Properties.ofFullCopy(Blocks.DAYLIGHT_DETECTOR).noOcclusion()) {
 
 	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
 		return SHAPE
