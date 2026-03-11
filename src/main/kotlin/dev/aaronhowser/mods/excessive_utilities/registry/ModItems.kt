@@ -104,10 +104,10 @@ object ModItems : AaronItemRegistry() {
 		register("diamond_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.DIAMOND) }
 	val NETHERITE_SICKLE: DeferredItem<SickleItem> =
 		register("netherite_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.NETHERITE) }
-	val BUILDERS_WAND =
-		basic("builders_wand")
-	val CREATIVE_BUILDERS_WAND =
-		basic("creative_builders_wand")
+	val BUILDERS_WAND: DeferredItem<BuildersWandItem> =
+		register("builders_wand", ::BuildersWandItem) { BuildersWandItem.propertiesWithVolume(9) }
+	val CREATIVE_BUILDERS_WAND: DeferredItem<BuildersWandItem> =
+		register("creative_builders_wand", ::BuildersWandItem) { BuildersWandItem.propertiesWithVolume(47) }
 	val DESTRUCTION_WAND: DeferredItem<DestructionWandItem> =
 		register("destruction_wand", ::DestructionWandItem) { DestructionWandItem.propertiesWithVolume(9) }
 	val CREATIVE_DESTRUCTION_WAND: DeferredItem<DestructionWandItem> =
