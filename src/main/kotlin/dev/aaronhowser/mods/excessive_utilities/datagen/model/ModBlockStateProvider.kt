@@ -65,6 +65,55 @@ class ModBlockStateProvider(
 		redstoneLantern()
 		redstoneClock()
 		spikes()
+		transferPipe()
+	}
+
+	private fun transferPipe() {
+		val block = ModBlocks.TRANSFER_PIPE.get()
+
+		val pipeTexture = modLoc("block/transfer_pipe/pipe")
+
+		val coreModel = models()
+			.withExistingParent(name(block) + "_core", mcLoc("block/block"))
+			.texture("pipe", pipeTexture)
+			.texture("particle", pipeTexture)
+			.renderType(RenderType.cutout().name)
+
+			.element {
+				from(6f, 6f, 6f)
+				to(10f, 10f, 10f)
+
+				allFaces { dir, fb ->
+					fb.texture("#pipe")
+					fb.uvs(6f, 6f, 10f, 10f)
+				}
+			}
+
+		val armModel = models()
+			.withExistingParent(name(block) + "_arm", mcLoc("block/block"))
+			.texture("pipe", pipeTexture)
+			.texture("particle", pipeTexture)
+
+			.element {
+				from(6f, 6f, 0f)
+				to(10f, 10f, 6f)
+
+				allFaces { dir, fb ->
+					fb.texture("#pipe")
+
+					val uvs = when (dir) {
+						Direction.NORTH -> arrayOf(6f, 6f, 10f, 10f)
+						Direction.EAST -> arrayOf(0f, 6f, 6f, 10f)
+						Direction.SOUTH -> arrayOf(6f, 6f, 10f, 10f)
+						Direction.WEST -> arrayOf(0f, 6f, 6f, 10f)
+						Direction.UP -> arrayOf(6f, 0f, 10f, 6f)
+						Direction.DOWN -> arrayOf(6f, 0f, 10f, 6f)
+					}
+
+					fb.uvs(uvs[0], uvs[1], uvs[2], uvs[3])
+				}
+			}
+
 	}
 
 	private fun spikes() {
