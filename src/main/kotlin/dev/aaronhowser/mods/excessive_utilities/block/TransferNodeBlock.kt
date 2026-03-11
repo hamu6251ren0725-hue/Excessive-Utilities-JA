@@ -2,12 +2,15 @@ package dev.aaronhowser.mods.excessive_utilities.block
 
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.neoforged.neoforge.capabilities.Capabilities
 
 
@@ -24,6 +27,7 @@ class TransferNodeBlock(
 	init {
 		registerDefaultState(
 			stateDefinition.any()
+				.setValue(PLACED_ON, Direction.DOWN)
 				.setValue(NORTH, false)
 				.setValue(EAST, false)
 				.setValue(SOUTH, false)
@@ -31,6 +35,31 @@ class TransferNodeBlock(
 				.setValue(UP, false)
 				.setValue(DOWN, false)
 		)
+	}
+
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		builder.add(PLACED_ON, NORTH, EAST, SOUTH, WEST, UP, DOWN)
+	}
+
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
+		var state = defaultBlockState().setValue(PLACED_ON, context.clickedFace.opposite)
+		state = updateConnections(context.level, context.clickedPos, state)
+		return state
+	}
+
+	override fun updateShape(
+		state: BlockState,
+		direction: Direction,
+		neighborState: BlockState,
+		level: LevelAccessor,
+		pos: BlockPos,
+		neighborPos: BlockPos
+	): BlockState {
+		if (level is Level) {
+			return updateConnections(level, pos, state)
+		}
+
+		return state
 	}
 
 	fun canConnectTo(level: Level, pipePos: BlockPos, direction: Direction): Boolean {
@@ -59,11 +88,21 @@ class TransferNodeBlock(
 		return false
 	}
 
-	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN)
+	private fun updateConnections(level: Level, pipePos: BlockPos, oldState: BlockState): BlockState {
+		var state = oldState
+
+		val placedOn = state.getValue(PLACED_ON)
+		for (dir in Direction.entries) {
+			val shouldConnect = dir != placedOn && canConnectTo(level, pipePos, dir)
+			val property = CONNECTIONS[dir.ordinal]
+			state = state.setValue(property, shouldConnect)
+		}
+
+		return state
 	}
 
 	companion object {
+		val PLACED_ON: DirectionProperty = BlockStateProperties.FACING
 		val NORTH: BooleanProperty = BlockStateProperties.NORTH
 		val SOUTH: BooleanProperty = BlockStateProperties.SOUTH
 		val EAST: BooleanProperty = BlockStateProperties.EAST
