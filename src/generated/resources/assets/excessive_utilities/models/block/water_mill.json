@@ -70,6 +70,7 @@
       ]
     }
   ],
+  "render_type": "minecraft:cutout",
   "textures": {
     "base": "excessive_utilities:block/mill/base",
     "fan": "excessive_utilities:block/mill/fan_spinning_small",

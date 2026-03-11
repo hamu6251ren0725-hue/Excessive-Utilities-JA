@@ -515,6 +515,7 @@ class ModBlockStateProvider(
 			.texture("base", base)
 			.texture("fan", fan)
 			.texture("particle", top)
+			.renderType(RenderType.cutout().name)
 
 			.element {
 				from(0f, 0f, 0f)
@@ -624,7 +625,7 @@ class ModBlockStateProvider(
 
 				allFaces { dir, fb ->
 					val texture = when (dir) {
-						Direction.EAST -> "#bottom"
+						Direction.EAST -> "#base"
 						else -> "#side"
 					}
 
