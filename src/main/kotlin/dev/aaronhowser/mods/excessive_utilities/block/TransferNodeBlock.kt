@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block.base.GpDrainBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.TransferNodeBlockEntity
@@ -98,6 +100,17 @@ class TransferNodeBlock(
 			Type.ITEM -> ModBlockEntityTypes.ITEM_TRANSFER_NODE.get()
 			else -> error("NYI")
 		}
+	}
+
+	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
+		if (!state.isBlock(newState.block)) {
+			val be = level.getBlockEntity(pos)
+			if (be is ContainerContainer) {
+				be.dropContents(level, pos)
+			}
+		}
+
+		super.onRemove(state, level, pos, newState, movedByPiston)
 	}
 
 	override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, placer: LivingEntity?, stack: ItemStack) {
