@@ -293,8 +293,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("manual_mill", ::ManualMillBlock)
 	val WATER_MILL: DeferredBlock<WaterMillBlock> =
 		registerBlock("water_mill", ::WaterMillBlock)
-	val WIND_MILL =
-		basicBlock("wind_mill")
+	val WIND_MILL: DeferredBlock<WindMillBlock> =
+		registerBlock("wind_mill", ::WindMillBlock)
 	val FIRE_MILL: DeferredBlock<FireMillBlock> =
 		registerBlock("fire_mill", ::FireMillBlock)
 	val LAVA_MILL: DeferredBlock<LavaMillBlock> =
