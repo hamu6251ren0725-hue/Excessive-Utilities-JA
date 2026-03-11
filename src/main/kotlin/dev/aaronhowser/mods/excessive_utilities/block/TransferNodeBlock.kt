@@ -102,7 +102,7 @@ class TransferNodeBlock(
 	}
 
 	companion object {
-		val PLACED_ON: DirectionProperty = BlockStateProperties.FACING
+		val PLACED_ON: DirectionProperty = DirectionProperty.create("placed_on", Direction.entries)
 		val NORTH: BooleanProperty = BlockStateProperties.NORTH
 		val SOUTH: BooleanProperty = BlockStateProperties.SOUTH
 		val EAST: BooleanProperty = BlockStateProperties.EAST

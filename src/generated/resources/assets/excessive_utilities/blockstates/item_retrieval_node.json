@@ -5,7 +5,7 @@
         "model": "excessive_utilities:block/item_retrieval_node"
       },
       "when": {
-        "facing": "north"
+        "placed_on": "north"
       }
     },
     {
@@ -14,7 +14,7 @@
         "y": 90
       },
       "when": {
-        "facing": "east"
+        "placed_on": "east"
       }
     },
     {
@@ -23,7 +23,7 @@
         "y": 180
       },
       "when": {
-        "facing": "south"
+        "placed_on": "south"
       }
     },
     {
@@ -32,7 +32,7 @@
         "y": 270
       },
       "when": {
-        "facing": "west"
+        "placed_on": "west"
       }
     },
     {
@@ -41,7 +41,7 @@
         "x": 270
       },
       "when": {
-        "facing": "up"
+        "placed_on": "up"
       }
     },
     {
@@ -50,7 +50,7 @@
         "x": 90
       },
       "when": {
-        "facing": "down"
+        "placed_on": "down"
       }
     },
     {
