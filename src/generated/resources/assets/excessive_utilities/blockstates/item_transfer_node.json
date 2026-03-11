@@ -55,7 +55,7 @@
     },
     {
       "apply": {
-        "model": "excessive_utilities:block/item_transfer_node"
+        "model": "excessive_utilities:block/transfer_pipe_arm"
       },
       "when": {
         "north": "true"
@@ -63,7 +63,7 @@
     },
     {
       "apply": {
-        "model": "excessive_utilities:block/item_transfer_node",
+        "model": "excessive_utilities:block/transfer_pipe_arm",
         "y": 90
       },
       "when": {
@@ -72,7 +72,7 @@
     },
     {
       "apply": {
-        "model": "excessive_utilities:block/item_transfer_node",
+        "model": "excessive_utilities:block/transfer_pipe_arm",
         "y": 180
       },
       "when": {
@@ -81,7 +81,7 @@
     },
     {
       "apply": {
-        "model": "excessive_utilities:block/item_transfer_node",
+        "model": "excessive_utilities:block/transfer_pipe_arm",
         "y": 270
       },
       "when": {
@@ -90,7 +90,7 @@
     },
     {
       "apply": {
-        "model": "excessive_utilities:block/item_transfer_node",
+        "model": "excessive_utilities:block/transfer_pipe_arm",
         "x": 270
       },
       "when": {
@@ -99,7 +99,7 @@
     },
     {
       "apply": {
-        "model": "excessive_utilities:block/item_transfer_node",
+        "model": "excessive_utilities:block/transfer_pipe_arm",
         "x": 90
       },
       "when": {
