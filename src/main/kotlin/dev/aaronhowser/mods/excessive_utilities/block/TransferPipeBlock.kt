@@ -16,7 +16,12 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		val state = defaultBlockState().setValue(BLOCKED_DIRECTIONS, blockedDirections)
 
 		for (dir in Direction.entries) {
+			val ordinal = dir.ordinal
 
+			val isBlocked = (blockedDirections and (1 shl ordinal)) != 0
+			val shouldConnect = !isBlocked && canConnectTo(level, pos, dir)
+
+			state.setValue(CONNECTIONS[ordinal], shouldConnect)
 		}
 
 		return state
