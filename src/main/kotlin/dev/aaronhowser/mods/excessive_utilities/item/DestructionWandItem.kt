@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.block_walker.BlockWalker
-import dev.aaronhowser.mods.aaron.block_walker.ConnectedBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import net.minecraft.core.BlockPos
@@ -109,26 +108,26 @@ class DestructionWandItem(
 			face: Direction,
 			maxCount: Int
 		): List<BlockPos> {
-			val searchDirections = if (face.axis == Direction.Axis.Y) {
-				listOf(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)
-			} else {
-				listOf(Direction.UP, Direction.DOWN)
-			}
+			val searchDirections =
+				when (face.axis) {
+					Direction.Axis.Y -> listOf(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)
+					Direction.Axis.X -> listOf(Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH)
+					else -> listOf(Direction.UP, Direction.DOWN, Direction.EAST, Direction.WEST)
+				}
 
 			val walker = BlockWalker
 				.Builder(level)
 				.searchOffsets(searchDirections.map(Direction::getNormal))
-				.searchFromTail(true)
 				.startPos(startPos)
 				.filter { _, _, state -> state.isBlock(originalBlock) }
-				.maxTotalBlocks(maxCount * 3)
+				.maxTotalBlocks(maxCount * 2)
 				.build()
 
 			val positions = walker
 				.locateAllImmediately()
 				.asSequence()
-				.sortedBy(ConnectedBlock::distance)
 				.map { it.block.pos }
+				.sortedBy { it.distSqr(startPos) }
 				.take(maxCount)
 				.toList()
 
