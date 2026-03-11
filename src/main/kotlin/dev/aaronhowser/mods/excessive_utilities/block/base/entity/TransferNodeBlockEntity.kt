@@ -17,12 +17,17 @@ import net.minecraft.world.level.block.state.BlockState
 
 abstract class TransferNodeBlockEntity(
 	type: BlockEntityType<*>,
-	val isRetrieval: Boolean,
 	pos: BlockPos,
 	blockState: BlockState
 ) : GpDrainBlockEntity(type, pos, blockState), ContainerContainer {
 
 	protected val parentPos: BlockPos = this.blockPos.relative(this.blockState.getValue(TransferNodeBlock.PLACED_ON))
+
+	var isRetrieval: Boolean = false
+		set(value) {
+			field = value
+			setChanged()
+		}
 
 	protected val upgradeContainer =
 		object : ImprovedSimpleContainer(this, UPGRADE_CONTAINER_SIZE) {
@@ -44,6 +49,8 @@ abstract class TransferNodeBlockEntity(
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
+		tag.putBoolean(IS_RETRIEVAL_NBT, isRetrieval)
+
 		if (!upgradeContainer.isEmpty) {
 			val upgradeTag = CompoundTag()
 			upgradeTag.saveItems(upgradeContainer, registries)
@@ -55,6 +62,8 @@ abstract class TransferNodeBlockEntity(
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
+		isRetrieval = tag.getBoolean(IS_RETRIEVAL_NBT)
+
 		if (tag.contains(UPGRADES_NBT)) {
 			val upgradeTag = tag.getCompound(UPGRADES_NBT)
 			upgradeTag.loadItems(upgradeContainer, registries)
@@ -65,6 +74,7 @@ abstract class TransferNodeBlockEntity(
 		const val UPGRADE_CONTAINER_SIZE = 5
 
 		const val UPGRADES_NBT = "Upgrades"
+		const val IS_RETRIEVAL_NBT = "IsRetrieval"
 	}
 
 }
