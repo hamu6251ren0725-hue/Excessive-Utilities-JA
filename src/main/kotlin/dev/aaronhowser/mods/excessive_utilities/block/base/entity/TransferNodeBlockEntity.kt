@@ -29,16 +29,21 @@ abstract class TransferNodeBlockEntity(
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
-		val upgradeTag = CompoundTag()
-		upgradeTag.saveItems(upgradeContainer, registries)
-		tag.put(UPGRADES_NBT, upgradeTag)
+		if (!upgradeContainer.isEmpty) {
+			val upgradeTag = CompoundTag()
+			upgradeTag.saveItems(upgradeContainer, registries)
+			tag.put(UPGRADES_NBT, upgradeTag)
+		}
+
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
-		val upgradeTag = tag.getCompound(UPGRADES_NBT)
-		upgradeTag.loadItems(upgradeContainer, registries)
+		if (tag.contains(UPGRADES_NBT)) {
+			val upgradeTag = tag.getCompound(UPGRADES_NBT)
+			upgradeTag.loadItems(upgradeContainer, registries)
+		}
 	}
 
 	companion object {
