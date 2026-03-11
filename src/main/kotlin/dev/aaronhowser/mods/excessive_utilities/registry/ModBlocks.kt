@@ -229,20 +229,20 @@ object ModBlocks : AaronBlockRegistry() {
 
 	// Transfer
 
-	val TRANSFER_PIPE =
-		basicBlock("transfer_pipe")
-	val ITEM_TRANSFER_NODE =
-		basicBlock("item_transfer_node")
-	val FLUID_TRANSFER_NODE =
-		basicBlock("fluid_transfer_node")
-	val ENERGY_TRANSFER_NODE =
-		basicBlock("energy_transfer_node")
-	val ITEM_RETRIEVAL_NODE =
-		basicBlock("item_retrieval_node")
-	val FLUID_RETRIEVAL_NODE =
-		basicBlock("fluid_retrieval_node")
-	val ENERGY_RETRIEVAL_NODE =
-		basicBlock("energy_retrieval_node")
+	val TRANSFER_PIPE: DeferredBlock<TransferPipeBlock> =
+		registerBlock("transfer_pipe", ::TransferPipeBlock)
+	val ITEM_TRANSFER_NODE: DeferredBlock<TransferNodeBlock> =
+		registerBlock("item_transfer_node") { TransferNodeBlock(TransferNodeBlock.Type.ITEM, isRetrieval = false) }
+	val FLUID_TRANSFER_NODE: DeferredBlock<TransferNodeBlock> =
+		registerBlock("fluid_transfer_node") { TransferNodeBlock(TransferNodeBlock.Type.FLUID, isRetrieval = false) }
+	val ENERGY_TRANSFER_NODE: DeferredBlock<TransferNodeBlock> =
+		registerBlock("energy_transfer_node") { TransferNodeBlock(TransferNodeBlock.Type.ENERGY, isRetrieval = false) }
+	val ITEM_RETRIEVAL_NODE: DeferredBlock<TransferNodeBlock> =
+		registerBlock("item_retrieval_node") { TransferNodeBlock(TransferNodeBlock.Type.ITEM, isRetrieval = true) }
+	val FLUID_RETRIEVAL_NODE: DeferredBlock<TransferNodeBlock> =
+		registerBlock("fluid_retrieval_node") { TransferNodeBlock(TransferNodeBlock.Type.FLUID, isRetrieval = true) }
+	val ENERGY_RETRIEVAL_NODE: DeferredBlock<TransferNodeBlock> =
+		registerBlock("energy_retrieval_node") { TransferNodeBlock(TransferNodeBlock.Type.ENERGY, isRetrieval = true) }
 	val TRANSFER_FILTER =
 		basicBlock("transfer_filter")
 	val TRANSFER_PIPE_FILTER =

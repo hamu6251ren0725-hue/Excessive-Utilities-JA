@@ -1,0 +1,61 @@
+package dev.aaronhowser.mods.excessive_utilities.block
+
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
+import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.block.state.properties.IntegerProperty
+import net.neoforged.neoforge.capabilities.Capabilities
+
+class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
+
+	private fun updateConnections(level: Level, pos: BlockPos, blockedDirections: Int): BlockState {
+		val state = defaultBlockState().setValue(BLOCKED_DIRECTIONS, blockedDirections)
+
+		for (dir in Direction.entries) {
+
+		}
+
+		return state
+	}
+
+	companion object {
+		val NORTH: BooleanProperty = BlockStateProperties.NORTH
+		val EAST: BooleanProperty = BlockStateProperties.EAST
+		val SOUTH: BooleanProperty = BlockStateProperties.SOUTH
+		val WEST: BooleanProperty = BlockStateProperties.WEST
+		val UP: BooleanProperty = BlockStateProperties.UP
+		val DOWN: BooleanProperty = BlockStateProperties.DOWN
+		val BLOCKED_DIRECTIONS: IntegerProperty = IntegerProperty.create("blocked_directions", 0x000000, 0x111111)
+
+		private fun canConnectTo(level: Level, pipePos: BlockPos, direction: Direction): Boolean {
+			val neighborPos = pipePos.relative(direction)
+			val neighborState = level.getBlockState(neighborPos)
+
+			if (
+				neighborState.isBlock(ModBlocks.TRANSFER_PIPE)
+				|| neighborState.isBlock(ModBlocks.ITEM_TRANSFER_NODE)
+				|| neighborState.isBlock(ModBlocks.FLUID_TRANSFER_NODE)
+				|| neighborState.isBlock(ModBlocks.ENERGY_TRANSFER_NODE)
+				|| neighborState.isBlock(ModBlocks.ITEM_RETRIEVAL_NODE)
+				|| neighborState.isBlock(ModBlocks.FLUID_RETRIEVAL_NODE)
+				|| neighborState.isBlock(ModBlocks.ENERGY_RETRIEVAL_NODE)
+			) return true
+
+			val hasItemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, neighborPos, direction.opposite) != null
+			if (hasItemHandler) return true
+
+			val hasFluidHandler = level.getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, direction.opposite) != null
+			if (hasFluidHandler) return true
+
+			val hasEnergyHandler = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, direction.opposite) != null
+			return hasEnergyHandler
+		}
+	}
+
+}
