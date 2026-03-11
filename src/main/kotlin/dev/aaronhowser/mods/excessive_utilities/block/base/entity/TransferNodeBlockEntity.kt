@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block.TransferNodeBlock
 import dev.aaronhowser.mods.excessive_utilities.block.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -29,7 +30,9 @@ abstract class TransferNodeBlockEntity(
 			setChanged()
 		}
 
-	protected val upgradeContainer =
+	protected var didWorkLastTick: Boolean = false
+
+	protected val upgradeContainer: ImprovedSimpleContainer =
 		object : ImprovedSimpleContainer(this, UPGRADE_CONTAINER_SIZE) {
 			override fun canAddItem(stack: ItemStack): Boolean {
 				val tag = if (isRetrieval) {
@@ -44,6 +47,20 @@ abstract class TransferNodeBlockEntity(
 
 	override fun getContainers(): List<Container> {
 		return listOf(upgradeContainer)
+	}
+
+	override fun getGpUsage(): Double {
+		var usage = 0.0
+
+		for (stack in upgradeContainer.items) {
+			if (stack.isItem(ModItemTagsProvider.SPEED_UPGRADES)) {
+				usage += SpeedUpgradeItem.getGpCost(stack.count)
+				continue
+			}
+
+		}
+
+		return usage
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {

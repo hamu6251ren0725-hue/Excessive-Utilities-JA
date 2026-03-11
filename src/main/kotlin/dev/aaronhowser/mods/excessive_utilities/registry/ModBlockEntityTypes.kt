@@ -134,4 +134,7 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 	val CREATIVE_CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<CreativeChestBlockEntity>> =
 		register("creative_chest", ::CreativeChestBlockEntity, ModBlocks.CREATIVE_CHEST)
 
+	val ITEM_TRANSFER_NODE: DeferredHolder<BlockEntityType<*>, BlockEntityType<ItemTransferNodeBlockEntity>> =
+		register("item_transfer_node", ::ItemTransferNodeBlockEntity, ModBlocks.ITEM_TRANSFER_NODE, ModBlocks.ITEM_RETRIEVAL_NODE)
+
 }

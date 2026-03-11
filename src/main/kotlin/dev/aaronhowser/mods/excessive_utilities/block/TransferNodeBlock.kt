@@ -93,6 +93,7 @@ class TransferNodeBlock(
 		val blockEntity = level.getBlockEntity(pos)
 		if (blockEntity is TransferNodeBlockEntity && placer != null) {
 			blockEntity.ownerUuid = placer.uuid
+			blockEntity.isRetrieval = isRetrieval
 		}
 	}
 
