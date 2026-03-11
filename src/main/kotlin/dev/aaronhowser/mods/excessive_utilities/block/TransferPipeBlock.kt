@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.util.StringRepresentable
@@ -49,26 +51,6 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		return state
 	}
 
-	private fun updateConnections(level: Level, pos: BlockPos, oldState: BlockState): BlockState {
-		var state = oldState
-
-		for (dir in Direction.entries) {
-			val ordinal = dir.ordinal
-
-			val property = CONNECTIONS[ordinal]
-			val isBlocked = state.getValue(property) == ConnectionType.BLOCKED
-			if (isBlocked) continue
-
-			state = if (canConnectTo(level, pos, dir)) {
-				state.setValue(property, ConnectionType.CONNECTED)
-			} else {
-				state.setValue(property, ConnectionType.NONE)
-			}
-		}
-
-		return state
-	}
-
 	companion object {
 		private fun connectedProperty(name: String): EnumProperty<ConnectionType> {
 			return EnumProperty.create(name, ConnectionType::class.java, *ConnectionType.entries.toTypedArray())
@@ -82,6 +64,26 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		val DOWN: EnumProperty<ConnectionType> = connectedProperty("down")
 
 		private val CONNECTIONS: Array<EnumProperty<ConnectionType>> = arrayOf(DOWN, UP, NORTH, SOUTH, WEST, EAST)
+
+		private fun updateConnections(level: Level, pos: BlockPos, oldState: BlockState): BlockState {
+			var state = oldState
+
+			for (dir in Direction.entries) {
+				val ordinal = dir.ordinal
+
+				val property = CONNECTIONS[ordinal]
+				val isBlocked = state.getValue(property) == ConnectionType.BLOCKED
+				if (isBlocked) continue
+
+				state = if (canConnectTo(level, pos, dir)) {
+					state.setValue(property, ConnectionType.CONNECTED)
+				} else {
+					state.setValue(property, ConnectionType.NONE)
+				}
+			}
+
+			return state
+		}
 
 		private fun canConnectTo(level: Level, pipePos: BlockPos, direction: Direction): Boolean {
 			val neighborPos = pipePos.relative(direction)
@@ -102,7 +104,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 
 		fun toggleBlocked(level: Level, pipePos: BlockPos, direction: Direction) {
 			var state = level.getBlockState(pipePos)
-			val pipeBlock = state.block as? TransferPipeBlock ?: return
+			if (!state.isBlock(ModBlocks.TRANSFER_PIPE)) return
 
 			val property = CONNECTIONS[direction.ordinal]
 			val currentConnection = state.getValue(property)
@@ -113,7 +115,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 				ConnectionType.CONNECTED -> state.setValue(property, ConnectionType.BLOCKED)
 			}
 
-			val newState = pipeBlock.updateConnections(level, pipePos, state)
+			val newState = updateConnections(level, pipePos, state)
 			level.setBlockAndUpdate(pipePos, newState)
 		}
 	}
