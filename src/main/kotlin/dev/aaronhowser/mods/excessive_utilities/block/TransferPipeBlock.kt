@@ -34,9 +34,16 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		return updateConnections(context.level, context.clickedPos, defaultBlockState())
 	}
 
-	override fun updateShape(state: BlockState, direction: Direction, neighborState: BlockState, level: LevelAccessor, pos: BlockPos, neighborPos: BlockPos): BlockState {
+	override fun updateShape(
+		state: BlockState,
+		direction: Direction,
+		neighborState: BlockState,
+		level: LevelAccessor,
+		pos: BlockPos,
+		neighborPos: BlockPos
+	): BlockState {
 		if (level is Level) {
-
+			return updateConnections(level, pos, state)
 		}
 
 		return state
