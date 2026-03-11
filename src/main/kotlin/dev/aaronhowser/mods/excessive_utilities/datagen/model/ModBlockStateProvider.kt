@@ -48,6 +48,7 @@ class ModBlockStateProvider(
 		gpPanels()
 		dragonEggMill()
 		creativeMill()
+		waterMill()
 		fireMill()
 		lavaMill()
 		creativeChest()
@@ -497,6 +498,50 @@ class ModBlockStateProvider(
 
 		val model = models()
 			.cubeTop(name(block), side, top)
+
+		simpleBlockWithItem(block, model)
+	}
+
+	private fun waterMill() {
+		val block = ModBlocks.WATER_MILL.get()
+
+		val top = modLoc("block/mill/water")
+		val fan = modLoc("block/mill/fan_spinning_small")
+		val base = modLoc("block/mill/base")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("top", top)
+			.texture("base", base)
+			.texture("fan", fan)
+			.texture("particle", top)
+
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 16f, 16f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#top"
+						else -> "#base"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 16f, 16f)
+
+				for (dir in Direction.Plane.HORIZONTAL) {
+					face(dir) {
+						texture("#fan")
+						cullface(dir)
+					}
+				}
+			}
 
 		simpleBlockWithItem(block, model)
 	}
