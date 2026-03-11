@@ -36,12 +36,29 @@ class ItemTransferNodeBlockEntity(
 		return level.getCapability(Capabilities.ItemHandler.BLOCK, placedOnPos, placedOnDirection.opposite)
 	}
 
+	private var cooldown = 20
+
 	override fun serverTick(level: ServerLevel) {
 		super.serverTick(level)
+
+		val isOverloaded = isOverloaded()
 		didWorkThisTick = false
+		if (isOverloaded) return
 
-		pullFromParent(level)
+		cooldown -= 1 + getSpeedUpgradeCount()
+		if (cooldown > 0) return
+		cooldown = 20
 
+		if (isRetrieval) {
+			pushIntoParent(level)
+		} else {
+			pullFromParent(level)
+		}
+
+	}
+
+	private fun pushIntoParent(level: ServerLevel) {
+		val parentHandler = getParentItemHandler(level) ?: return
 	}
 
 	private fun pullFromParent(level: ServerLevel) {
