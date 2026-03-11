@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-09T19:14:32.182579	Item Models: excessive_utilities
+// 1.21.1	2026-03-11T09:52:48.5656252	Item Models: excessive_utilities
 9d6996bb263b4e33b72427d7b5e0dbea7f0b9ebb assets/excessive_utilities/models/item/advanced_item_filter.json
 1b5cdcaf8035c8ad20d95987b1190cfdedb942fd assets/excessive_utilities/models/item/angel_ring.json
 ba9bed41335a88b8d00e7f12d6917c3c0a918eba assets/excessive_utilities/models/item/bag_of_holding.json
@@ -12,6 +12,8 @@ a506fa48fd506373d4a070b62c263fcc756dd0d4 assets/excessive_utilities/models/item/
 b48b9bc25ada80ca067212354d14415d0dc32077 assets/excessive_utilities/models/item/compound_bow_pull_1.json
 c2667716fe5256ec656752df3af95af64c0d3b97 assets/excessive_utilities/models/item/compound_bow_pull_2.json
 109ba2778f7a4a652a977d1ac56de812ce461725 assets/excessive_utilities/models/item/compound_bow_pull_3.json
+0e7b36664b397aed8ac998fbe225e2d86f30c1ca assets/excessive_utilities/models/item/creative_builders_wand.json
+e6c077eb3c59d78b8f243e1ffd61e2308a166870 assets/excessive_utilities/models/item/creative_destruction_wand.json
 50270e0fd544b58345ed8bff0444e898efc7063f assets/excessive_utilities/models/item/creative_upgrade.json
 0f3638592a59c1971bffbeccd734601cefa6d002 assets/excessive_utilities/models/item/cursed_lasso.json
 ad7c6b9dd8b18f6efe22bb57b620edba375d7973 assets/excessive_utilities/models/item/cursed_lasso_filled.json
