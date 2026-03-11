@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
+import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.common.Tags
@@ -81,7 +82,16 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 	}
 
 	override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
+		var mask = 0
 
+		for ((index, property) in CONNECTIONS.withIndex()) {
+			val connection = state.getValue(property)
+			if (connection.hasArm) {
+				mask = mask or (1 shl index)
+			}
+		}
+
+		return SHAPE_CACHE[mask]
 	}
 
 	companion object {
@@ -95,6 +105,21 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 				box(0.0, 6.0, 6.0, 6.0, 10.0, 10.0), // WEST
 				box(10.0, 6.0, 6.0, 16.0, 10.0, 10.0) // EAST
 			)
+
+		val SHAPE_CACHE: Array<VoxelShape> = Array(64) { shapeMask ->
+			var shape = CENTER_SHAPE
+
+			for (dir in Direction.entries) {
+				val bit = 1 shl dir.ordinal
+
+				if (shapeMask and bit != 0) {
+					val armShape = ARM_SHAPES[dir.ordinal] ?: continue
+					shape = Shapes.or(shape, armShape)
+				}
+			}
+
+			shape
+		}
 
 		val DOWN: EnumProperty<ConnectionType> = connectedProperty("down")
 		val UP: EnumProperty<ConnectionType> = connectedProperty("up")
@@ -165,11 +190,12 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 
 	enum class ConnectionType(
 		val id: String,
-		val allowsTravel: Boolean
+		val allowsTravel: Boolean,
+		val hasArm: Boolean
 	) : StringRepresentable {
-		NONE("none", allowsTravel = false),
-		BLOCKED("blocked", allowsTravel = false),
-		CONNECTED("connected", allowsTravel = true)
+		NONE("none", allowsTravel = false, hasArm = false),
+		BLOCKED("blocked", allowsTravel = false, hasArm = true),
+		CONNECTED("connected", allowsTravel = true, hasArm = true)
 		;
 
 		override fun getSerializedName(): String = id
