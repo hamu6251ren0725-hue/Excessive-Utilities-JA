@@ -70,6 +70,7 @@ class ModBlockStateProvider(
 		transferNodes()
 	}
 
+	//TODO: Make this not nullable, make textures
 	private fun transferPipe(
 		block: TransferPipeBlock,
 		textureName: String,
