@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.util.StringRepresentable
@@ -132,7 +130,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 		val EAST: EnumProperty<ConnectionType> = connectedProperty("east")
 
 		// Same order as the Direction enum, so we can use the ordinal as an index
-		private val CONNECTIONS: Array<EnumProperty<ConnectionType>> = arrayOf(DOWN, UP, NORTH, SOUTH, WEST, EAST)
+		val CONNECTIONS: Array<EnumProperty<ConnectionType>> = arrayOf(DOWN, UP, NORTH, SOUTH, WEST, EAST)
 
 		private fun connectedProperty(name: String): EnumProperty<ConnectionType> {
 			return EnumProperty.create(name, ConnectionType::class.java, *ConnectionType.entries.toTypedArray())

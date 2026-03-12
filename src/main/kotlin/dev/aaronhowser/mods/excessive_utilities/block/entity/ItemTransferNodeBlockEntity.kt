@@ -72,6 +72,12 @@ class ItemTransferNodeBlockEntity(
 			return
 		}
 
+		// Try to pull from inventories at the ping position
+		// If nothing was pulled, move the ping forward and try again next tick
+		// If something was pulled, keep the ping where it is so it can continue pulling from it next tick
+
+		pullFromPingPos(level)
+
 	}
 
 	// Pull from the parent inventory into the buffer,
@@ -83,6 +89,28 @@ class ItemTransferNodeBlockEntity(
 		if (bufferContainer.isEmpty) {
 			ping.reset()
 			return
+		}
+	}
+
+	private fun pullFromPingPos(level: ServerLevel) {
+		val possibleDirections = ping.getNextDirections(level)
+		val pingPos = ping.currentPingPos
+
+		val amountToExtract = if (hasStackUpgrade()) 64 else 1
+
+		for (dir in possibleDirections) {
+			val neighborPos = pingPos.relative(dir)
+			val handler = level.getCapability(Capabilities.ItemHandler.BLOCK, neighborPos, dir.opposite) ?: continue
+
+			for (slot in 0 until handler.slots) {
+				val simExtract = handler.extractItem(slot, amountToExtract, true)
+				if (simExtract.isEmpty) continue
+
+				val extracted = handler.extractItem(slot, amountToExtract, false)
+				bufferContainer.setItem(0, extracted)
+				didWorkThisTick = true
+				return
+			}
 		}
 	}
 
