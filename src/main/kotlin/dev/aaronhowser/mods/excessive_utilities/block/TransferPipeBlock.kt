@@ -175,7 +175,7 @@ class TransferPipeBlock : Block(Properties.of().strength(0.5f).noOcclusion()) {
 
 		fun toggleBlocked(level: Level, pipePos: BlockPos, direction: Direction) {
 			var state = level.getBlockState(pipePos)
-			if (!state.isBlock(ModBlocks.TRANSFER_PIPE)) return
+			if (state.block !is TransferPipeBlock) return
 
 			val property = CONNECTIONS[direction.ordinal]
 			val currentConnection = state.getValue(property)
