@@ -78,6 +78,9 @@ class ItemTransferNodeBlockEntity(
 
 		pullFromPingPos(level)
 
+		if (bufferContainer.isEmpty) {
+			ping.march(level)
+		}
 	}
 
 	// Pull from the parent inventory into the buffer,

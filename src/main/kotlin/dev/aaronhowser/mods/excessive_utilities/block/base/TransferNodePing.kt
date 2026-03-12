@@ -57,7 +57,7 @@ class TransferNodePing(
 			is TransferPipeBlock -> {
 				directions.removeIf { dir ->
 					val property = TransferPipeBlock.CONNECTIONS[dir.ordinal]
-					stateAtPingPos.getValue(property).allowsTravel
+					!stateAtPingPos.getValue(property).allowsTravel
 				}
 			}
 
