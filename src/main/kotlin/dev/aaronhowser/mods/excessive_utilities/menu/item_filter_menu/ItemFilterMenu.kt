@@ -17,7 +17,7 @@ class ItemFilterMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	val hand: InteractionHand
-) : MenuWithInventory(ModMenuTypes.ITEM_TRANSFER_NODE.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.ITEM_FILTER.get(), containerId, playerInventory) {
 
 	constructor(
 		containerId: Int,

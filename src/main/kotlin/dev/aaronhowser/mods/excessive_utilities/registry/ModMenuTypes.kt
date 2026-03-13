@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTran
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
@@ -56,6 +57,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		event.register(SINGLE_ITEM_GENERATOR.get(), ::SingleItemGeneratorScreen)
 		event.register(QED.get(), ::QedScreen)
 		event.register(FURNACE.get(), ::EUFurnaceScreen)
+		event.register(ITEM_FILTER.get(), ::ItemFilterScreen)
 	}
 
 }
