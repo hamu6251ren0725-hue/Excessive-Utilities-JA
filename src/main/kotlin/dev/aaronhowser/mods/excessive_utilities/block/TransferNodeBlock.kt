@@ -113,6 +113,7 @@ class TransferNodeBlock(
 	override fun getBlockEntityType(): BlockEntityType<out GpDrainBlockEntity> {
 		return when (type) {
 			Type.ITEM -> ModBlockEntityTypes.ITEM_TRANSFER_NODE.get()
+			Type.FLUID -> ModBlockEntityTypes.FLUID_TRANSFER_NODE.get()
 			else -> error("NYI")
 		}
 	}

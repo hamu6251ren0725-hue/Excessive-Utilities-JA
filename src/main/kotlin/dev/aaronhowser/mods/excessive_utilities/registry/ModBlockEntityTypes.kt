@@ -45,6 +45,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.SoundMufflerBlockEn
 import dev.aaronhowser.mods.excessive_utilities.block_entity.TrashCanBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.WirelessFeBatteryBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.WirelessFeTransmitterBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.FluidTransferNodeBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -178,5 +179,7 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 
 	val ITEM_TRANSFER_NODE: DeferredHolder<BlockEntityType<*>, BlockEntityType<ItemTransferNodeBlockEntity>> =
 		register("item_transfer_node", ::ItemTransferNodeBlockEntity, ModBlocks.ITEM_TRANSFER_NODE, ModBlocks.ITEM_RETRIEVAL_NODE)
+	val FLUID_TRANSFER_NODE: DeferredHolder<BlockEntityType<*>, BlockEntityType<FluidTransferNodeBlockEntity>> =
+		register("fluid_transfer_node", ::FluidTransferNodeBlockEntity, ModBlocks.FLUID_TRANSFER_NODE, ModBlocks.FLUID_RETRIEVAL_NODE)
 
 }
