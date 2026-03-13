@@ -283,7 +283,7 @@ class FluidTransferNodeBlockEntity(
 		const val FILTER_NBT = "Filter"
 		const val BUFFER_NBT = "BufferTank"
 
-		const val TANK_SIZE = 64_000
+		const val TANK_SIZE = 16_000
 		const val FILTER_CONTAINER_SIZE = 1
 
 		const val CONTAINER_DATA_SIZE = 3
