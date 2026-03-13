@@ -15,7 +15,7 @@ class ItemTransferNodeScreen(
 	override val background: ScreenBackground = BACKGROUND
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_transfer_node.png"), 176, 166)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_transfer_node.png"), 176, 173)
 	}
 
 }

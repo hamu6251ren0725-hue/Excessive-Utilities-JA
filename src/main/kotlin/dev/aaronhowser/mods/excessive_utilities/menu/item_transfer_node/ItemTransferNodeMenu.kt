@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
+import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
 
 class ItemTransferNodeMenu(
@@ -42,8 +43,22 @@ class ItemTransferNodeMenu(
 	}
 
 	override fun addSlots() {
-		val filterSlot = FilteredSlot(upgradesContainer, 0, 80, 34) { it.isItem(ModItemTagsProvider.FILTERS) }
+		val filterSlot = FilteredSlot(filterContainer, 0, 80, 34) { it.isItem(ModItemTagsProvider.FILTERS) }
 		this.addSlot(filterSlot)
+
+		for (i in 0 until TransferNodeBlockEntity.UPGRADE_CONTAINER_SIZE) {
+			val x = 8 + i * 18
+			val y = 8
+
+			val slot = FilteredSlot(upgradesContainer, i, x, y) {
+				it.isItem(ModItemTagsProvider.TRANSFER_NODE_UPGRADES) || it.isItem(ModItemTagsProvider.RETRIEVAL_NODE_UPGRADES)
+			}
+
+			this.addSlot(slot)
+		}
+
+		val bufferSlot = Slot(bufferContainer, 0, 80, 8)
+		this.addSlot(bufferSlot)
 	}
 
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
