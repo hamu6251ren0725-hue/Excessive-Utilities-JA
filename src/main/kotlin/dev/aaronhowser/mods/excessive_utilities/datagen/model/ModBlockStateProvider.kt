@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.excessive_utilities.datagen.model
 
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.element
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.face
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.transform
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.transforms
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.*
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
@@ -183,53 +185,52 @@ class ModBlockStateProvider(
 			addArms(TransferPipeBlock.ConnectionType.BLOCKED, armBlockedModel)
 		}
 
-		//FIXME
 		val itemModel = itemModels()
 			.withExistingParent(name(block), mcLoc("block/block"))
 			.texture("pipe", texture)
 			.renderType(RenderType.cutout().name)
 
-			.transforms()
+			.transforms {
 
-			.transform(ItemDisplayContext.GUI)
-			.rotation(30f, 225f, 0f)
-			.translation(0f, 0f, 0f)
-			.scale(0.625f, 0.625f, 0.625f)
-			.end()
+				transform(ItemDisplayContext.GUI) {
+					rotation(30f, 225f, 0f)
+					translation(0f, 0f, 0f)
+					scale(0.625f, 0.625f, 0.625f)
+				}
 
-			.transform(ItemDisplayContext.GROUND)
-			.translation(0f, 3f, 0f)
-			.scale(0.25f, 0.25f, 0.25f)
-			.end()
+				transform(ItemDisplayContext.GROUND) {
+					translation(0f, 3f, 0f)
+					scale(0.25f, 0.25f, 0.25f)
+				}
 
-			.transform(ItemDisplayContext.FIXED)
-			.rotation(0f, 180f, 0f)
-			.scale(0.5f, 0.5f, 0.5f)
-			.end()
+				transform(ItemDisplayContext.FIXED) {
+					rotation(0f, 180f, 0f)
+					scale(0.5f, 0.5f, 0.5f)
+				}
 
-			.transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
-			.rotation(75f, 45f, 0f)
-			.translation(0f, 2.5f, 0f)
-			.scale(0.375f, 0.375f, 0.375f)
-			.end()
+				transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) {
+					rotation(75f, 45f, 0f)
+					translation(0f, 2.5f, 0f)
+					scale(0.375f, 0.375f, 0.375f)
+				}
 
-			.transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
-			.rotation(75f, 45f, 0f)
-			.translation(0f, 2.5f, 0f)
-			.scale(0.375f, 0.375f, 0.375f)
-			.end()
+				transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
+					rotation(75f, 45f, 0f)
+					translation(0f, 2.5f, 0f)
+					scale(0.375f, 0.375f, 0.375f)
+				}
 
-			.transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
-			.rotation(0f, 45f, 0f)
-			.scale(0.4f, 0.4f, 0.4f)
-			.end()
+				transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND) {
+					rotation(0f, 45f, 0f)
+					scale(0.4f, 0.4f, 0.4f)
+				}
 
-			.transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
-			.rotation(0f, 225f, 0f)
-			.scale(0.4f, 0.4f, 0.4f)
-			.end()
+				transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND) {
+					rotation(0f, 225f, 0f)
+					scale(0.4f, 0.4f, 0.4f)
+				}
 
-			.end()
+			}
 
 			// Vertical
 			.element {
