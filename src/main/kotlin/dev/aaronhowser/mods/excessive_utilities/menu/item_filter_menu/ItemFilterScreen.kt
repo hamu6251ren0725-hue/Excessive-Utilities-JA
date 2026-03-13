@@ -1,8 +1,11 @@
 package dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu
 
 import dev.aaronhowser.mods.aaron.menu.BaseScreen
+import dev.aaronhowser.mods.aaron.menu.components.ChangingTextButton
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
+import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -14,10 +17,68 @@ class ItemFilterScreen(
 
 	override val background: ScreenBackground = BACKGROUND
 
+	private lateinit var invertButton: ChangingTextButton
+	private lateinit var useTagsButton: ChangingTextButton
+	private lateinit var ignoreDamageButton: ChangingTextButton
+	private lateinit var ignoreAllComponentsButton: ChangingTextButton
+
 	override fun baseInit() {
 		super.baseInit()
 
-		inventoryLabelY += 8
+		inventoryLabelY = 16
+
+		invertButton = ChangingTextButton(
+			x = rightPos - 20 - 5,
+			y = topPos + 5,
+			width = 20,
+			height = 20,
+			messageGetter = { ItemFilterItem.Flag.INVERTED.getMessage(menu.isInverted()) },
+			onPress = {
+				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_INVERTED_BUTTON_ID)
+				packet.messageServer()
+			}
+		)
+
+		useTagsButton = ChangingTextButton(
+			x = rightPos - 20 - 5,
+			y = topPos + 5 + 20 + 5,
+			width = 20,
+			height = 20,
+			messageGetter = { ItemFilterItem.Flag.USE_TAGS.getMessage(menu.useTags()) },
+			onPress = {
+				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_USE_TAGS_BUTTON_ID)
+				packet.messageServer()
+			}
+		)
+
+		ignoreDamageButton = ChangingTextButton(
+			x = rightPos - 20 - 5,
+			y = topPos + 5 + (20 + 5) * 2,
+			width = 20,
+			height = 20,
+			messageGetter = { ItemFilterItem.Flag.IGNORE_DAMAGE.getMessage(menu.ignoreDamage()) },
+			onPress = {
+				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_IGNORE_DAMAGE_BUTTON_ID)
+				packet.messageServer()
+			}
+		)
+
+		ignoreAllComponentsButton = ChangingTextButton(
+			x = rightPos - 20 - 5,
+			y = topPos + 5 + (20 + 5) * 3,
+			width = 20,
+			height = 20,
+			messageGetter = { ItemFilterItem.Flag.IGNORE_ALL_COMPONENTS.getMessage(menu.ignoreAllComponents()) },
+			onPress = {
+				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID)
+				packet.messageServer()
+			}
+		)
+
+		addRenderableWidget(invertButton)
+		addRenderableWidget(useTagsButton)
+		addRenderableWidget(ignoreDamageButton)
+		addRenderableWidget(ignoreAllComponentsButton)
 	}
 
 	companion object {
