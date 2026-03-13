@@ -53,8 +53,6 @@ class MagicalBoomerangItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
-		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
-
 		val THROWN_PREDICATE = ExcessiveUtilities.modResource("magical_boomerang_thrown")
 		fun isThrown(
 			stack: ItemStack,

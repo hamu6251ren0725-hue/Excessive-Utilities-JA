@@ -54,8 +54,4 @@ class PortableScanner(properties: Properties) : Item(properties) {
 		return InteractionResult.SUCCESS
 	}
 
-	companion object {
-		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
-	}
-
 }

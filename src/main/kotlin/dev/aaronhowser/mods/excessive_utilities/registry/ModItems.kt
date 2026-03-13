@@ -51,7 +51,7 @@ object ModItems : AaronItemRegistry() {
 	val DIVISION_SIGIL =
 		basic("division_sigil")
 	val UNSTABLE_INGOT: DeferredItem<UnstableIngotItem> =
-		register("unstable_ingot", ::UnstableIngotItem, UnstableIngotItem.STABLE_PROPERTIES)
+		register("unstable_ingot", ::UnstableIngotItem, PROPERTIES_SINGLE_STACK)
 	val SEMI_UNSTABLE_NUGGET: DeferredItem<Item> =
 		basic("semi_unstable_nugget")
 	val KLEIN_BOTTLE: DeferredItem<Item> =
@@ -89,9 +89,9 @@ object ModItems : AaronItemRegistry() {
 	val REINFORCED_WATERING_CAN: DeferredItem<WateringCanItem> =
 		register("reinforced_watering_can", { WateringCanItem(isReinforced = true, it) }, WateringCanItem.DEFAULT_REINFORCED_PROPERTIES)
 	val GOLDEN_LASSO: DeferredItem<EntityLassoItem> =
-		register("golden_lasso", { EntityLassoItem(canHoldHostileMobs = false, it) }, EntityLassoItem.DEFAULT_PROPERTIES)
+		register("golden_lasso", { EntityLassoItem(canHoldHostileMobs = false, it) }, PROPERTIES_SINGLE_STACK)
 	val CURSED_LASSO: DeferredItem<EntityLassoItem> =
-		register("cursed_lasso", { EntityLassoItem(canHoldHostileMobs = true, it) }, EntityLassoItem.DEFAULT_PROPERTIES)
+		register("cursed_lasso", { EntityLassoItem(canHoldHostileMobs = true, it) }, PROPERTIES_SINGLE_STACK)
 	val WOODEN_SICKLE: DeferredItem<SickleItem> =
 		register("wooden_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.WOOD) }
 	val STONE_SICKLE: DeferredItem<SickleItem> =
@@ -126,14 +126,14 @@ object ModItems : AaronItemRegistry() {
 	val COMPOUND_BOW: DeferredItem<CompoundBowItem> =
 		register("compound_bow", ::CompoundBowItem)
 	val MAGICAL_BOOMERANG: DeferredItem<MagicalBoomerangItem> =
-		register("magical_boomerang", ::MagicalBoomerangItem, MagicalBoomerangItem.DEFAULT_PROPERTIES)
+		register("magical_boomerang", ::MagicalBoomerangItem, PROPERTIES_SINGLE_STACK)
 
 	// Misc
 	@JvmField
 	val HEATING_COIL: DeferredItem<HeatingCoilItem> =
 		register("heating_coil", ::HeatingCoilItem, HeatingCoilItem.DEFAULT_PROPERTIES)
 	val POWER_MANAGER: DeferredItem<PowerManagerItem> =
-		register("power_manager", ::PowerManagerItem, PowerManagerItem.DEFAULT_PROPERTIES)
+		register("power_manager", ::PowerManagerItem, PROPERTIES_SINGLE_STACK)
 	val SUN_CRYSTAL: DeferredItem<SunCrystalItem> =
 		register("sun_crystal", ::SunCrystalItem, SunCrystalItem.DEFAULT_PROPERTIES)
 	val BIOME_MARKER: DeferredItem<BiomeMarkerItem> =
@@ -143,7 +143,7 @@ object ModItems : AaronItemRegistry() {
 	val MAGICAL_APPLE: DeferredItem<MagicalAppleItem> =
 		register("magical_apple", ::MagicalAppleItem, MagicalAppleItem.PROPERTIES)
 	val PORTABLE_SCANNER: DeferredItem<PortableScanner> =
-		register("portable_scanner", ::PortableScanner, PortableScanner.DEFAULT_PROPERTIES)
+		register("portable_scanner", ::PortableScanner, PROPERTIES_SINGLE_STACK)
 	val SONAR_GOGGLES =
 		basic("sonar_goggles")
 	val FLAT_TRANSFER_NODE_ITEMS: DeferredItem<FlatTransferNodeItem> =
@@ -210,7 +210,7 @@ object ModItems : AaronItemRegistry() {
 	val RING_OF_THE_FLYING_SQUID: DeferredItem<FlyingSquidRingItem> =
 		register("ring_of_the_flying_squid", ::FlyingSquidRingItem, FlyingSquidRingItem.DEFAULT_PROPERTIES)
 	val ANGEL_RING: DeferredItem<AngelRingItem> =
-		register("angel_ring", ::AngelRingItem, AngelRingItem.DEFAULT_PROPERTIES)
+		register("angel_ring", ::AngelRingItem, PROPERTIES_SINGLE_STACK)
 
 	// Items not reimplemented:
 	// - Contract (used only for Chunk Loading Ward)

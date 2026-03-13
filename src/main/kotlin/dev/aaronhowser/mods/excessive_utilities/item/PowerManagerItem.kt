@@ -59,9 +59,4 @@ class PowerManagerItem(properties: Properties) : Item(properties) {
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide)
 	}
 
-	companion object {
-		val DEFAULT_PROPERTIES: Properties =
-			Properties().stacksTo(1)
-	}
-
 }

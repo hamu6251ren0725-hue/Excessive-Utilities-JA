@@ -46,8 +46,4 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 		return ModItemLang.MOBIUS_INGOT.toComponent()
 	}
 
-	companion object {
-		val STABLE_PROPERTIES: Properties = Properties().stacksTo(1)
-	}
-
 }

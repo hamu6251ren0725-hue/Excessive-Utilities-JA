@@ -34,7 +34,6 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
-		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 		val ATTRIBUTE_MODIFIER_NAME = ExcessiveUtilities.modResource("angel_ring_flight")
 
 		fun addGpConsumer(player: ServerPlayer, ringStack: ItemStack): GridPowerContribution.HeldItem {

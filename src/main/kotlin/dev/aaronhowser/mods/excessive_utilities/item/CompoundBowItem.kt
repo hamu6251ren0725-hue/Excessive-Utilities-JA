@@ -14,8 +14,4 @@ class CompoundBowItem(properties: Properties) : BowItem(properties) {
 		return projectile
 	}
 
-	companion object {
-		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
-	}
-
 }
