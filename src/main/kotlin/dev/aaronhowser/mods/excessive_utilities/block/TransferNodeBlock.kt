@@ -8,7 +8,10 @@ import dev.aaronhowser.mods.excessive_utilities.block.base.entity.TransferNodeBl
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
@@ -21,6 +24,7 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.block.state.properties.DirectionProperty
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
@@ -93,6 +97,17 @@ class TransferNodeBlock(
 		}
 
 		return shape
+	}
+
+	override fun useWithoutItem(state: BlockState, level: Level, pos: BlockPos, player: Player, hitResult: BlockHitResult): InteractionResult {
+		val be = level.getBlockEntity(pos)
+
+		if (be is MenuProvider) {
+			player.openMenu(be)
+			return InteractionResult.sidedSuccess(level.isClientSide)
+		}
+
+		return InteractionResult.PASS
 	}
 
 	override fun getBlockEntityType(): BlockEntityType<out GpDrainBlockEntity> {
