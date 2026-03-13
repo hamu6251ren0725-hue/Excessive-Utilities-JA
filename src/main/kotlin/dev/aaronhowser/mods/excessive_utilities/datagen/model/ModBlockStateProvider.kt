@@ -200,8 +200,8 @@ class ModBlockStateProvider(
 			}
 
 			.element {
-				from (0f, 6f, 6f)
-				to (16f, 10f, 10f)
+				from(0f, 6f, 6f)
+				to(16f, 10f, 10f)
 
 				allFaces { dir, fb ->
 					fb.texture("#pipe")
@@ -248,6 +248,7 @@ class ModBlockStateProvider(
 		val armModel = models()
 			.getExistingFile(modLoc("block/transfer_pipe_arm"))
 
+		// FIXME: Make this aim down, not north
 		models()
 			.withExistingParent(templateName, mcLoc("block/block"))
 			.texture("particle", "#node")
@@ -326,8 +327,10 @@ class ModBlockStateProvider(
 		fun specific(block: TransferNodeBlock, texture: String) {
 			val nodeTexture = modLoc(texture)
 
+			val name = name(block)
+
 			val model = models()
-				.withExistingParent(name(block), modLoc("block/$templateName"))
+				.withExistingParent(name, modLoc("block/$templateName"))
 				.texture("pipe", modLoc("block/transfer_pipe/pipe"))
 				.texture("node", nodeTexture)
 				.texture("back", modLoc("block/transfer_node/back"))
@@ -417,6 +420,8 @@ class ModBlockStateProvider(
 				.condition(TransferNodeBlock.DOWN, true)
 				.end()
 
+			itemModels()
+				.withExistingParent(name, modLoc("block/$name"))
 		}
 
 		specific(ModBlocks.ITEM_TRANSFER_NODE.get(), "block/transfer_node/item")
