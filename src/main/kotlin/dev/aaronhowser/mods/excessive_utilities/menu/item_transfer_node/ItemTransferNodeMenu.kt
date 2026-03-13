@@ -22,7 +22,7 @@ class ItemTransferNodeMenu(
 	val bufferContainer: Container,
 	val filterContainer: Container,
 	val containerData: ContainerData
-) : MenuWithInventory(ModMenuTypes.FLAT_TRANSFER_NODE.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.ITEM_TRANSFER_NODE.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(
