@@ -7,14 +7,10 @@ object ModMenuLang {
 	const val SOUL_SURPLUS = "tooltip.excessive_utilities.soul_surplus"
 	const val SOUL_HEALTH_MODIFIER = "tooltip.excessive_utilities.soul_health_modifier"
 	const val FE = "tooltip.geneticsresequenced.fe"
-	const val ITEM_FILTER_INVERTED_TRUE = "tooltip.excessive_utilities.item_filter.inverted.true"
-	const val ITEM_FILTER_INVERTED_FALSE = "tooltip.excessive_utilities.item_filter.inverted.false"
-	const val ITEM_FILTER_TAGS_TRUE = "tooltip.excessive_utilities.item_filter.tags.true"
-	const val ITEM_FILTER_TAGS_FALSE = "tooltip.excessive_utilities.item_filter.tags.false"
-	const val ITEM_FILTER_IGNORE_DAMAGE_TRUE = "tooltip.excessive_utilities.item_filter.ignore_damage.true"
-	const val ITEM_FILTER_IGNORE_DAMAGE_FALSE = "tooltip.excessive_utilities.item_filter.ignore_damage.false"
-	const val ITEM_FILTER_IGNORE_ALL_COMPONENTS_TRUE = "tooltip.excessive_utilities.item_filter.ignore_all_components.true"
-	const val ITEM_FILTER_IGNORE_ALL_COMPONENTS_FALSE = "tooltip.excessive_utilities.item_filter.ignore_all_components.false"
+	const val ITEM_FILTER_INVERTED = "tooltip.excessive_utilities.item_filter.inverted"
+	const val ITEM_FILTER_TAGS = "tooltip.excessive_utilities.item_filter.tags"
+	const val ITEM_FILTER_IGNORE_DAMAGE = "tooltip.excessive_utilities.item_filter.ignore_damage"
+	const val ITEM_FILTER_IGNORE_ALL_COMPONENTS = "tooltip.excessive_utilities.item_filter.ignore_all_components"
 
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
@@ -23,14 +19,10 @@ object ModMenuLang {
 			add(SOUL_SURPLUS, "Soul Surplus: %d")
 			add(SOUL_HEALTH_MODIFIER, "Current Health Modifier: %s")
 			add(FE, "%1\$s/%2\$s FE")
-			add(ITEM_FILTER_INVERTED_TRUE, "Inverted: True")
-			add(ITEM_FILTER_INVERTED_FALSE, "Inverted: False")
-			add(ITEM_FILTER_TAGS_TRUE, "Use Tags: True")
-			add(ITEM_FILTER_TAGS_FALSE, "Use Tags: False")
-			add(ITEM_FILTER_IGNORE_DAMAGE_TRUE, "Ignore Damage: True")
-			add(ITEM_FILTER_IGNORE_DAMAGE_FALSE, "Ignore Damage: False")
-			add(ITEM_FILTER_IGNORE_ALL_COMPONENTS_TRUE, "Ignore All Components: True")
-			add(ITEM_FILTER_IGNORE_ALL_COMPONENTS_FALSE, "Ignore All Components: False")
+			add(ITEM_FILTER_INVERTED, "Inverted")
+			add(ITEM_FILTER_TAGS, "Use Tags")
+			add(ITEM_FILTER_IGNORE_DAMAGE, "Ignore Damage")
+			add(ITEM_FILTER_IGNORE_ALL_COMPONENTS, "Ignore All Components")
 		}
 	}
 

@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import net.minecraft.ChatFormatting
 import net.minecraft.core.NonNullList
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
@@ -158,20 +159,23 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 	}
 
 	enum class Flag(
-		private val onMessage: String,
-		private val offMessage: String
+		private val message: String
 	) {
-		INVERTED(ModMenuLang.ITEM_FILTER_INVERTED_TRUE, ModMenuLang.ITEM_FILTER_INVERTED_FALSE),
-		USE_TAGS(ModMenuLang.ITEM_FILTER_TAGS_TRUE, ModMenuLang.ITEM_FILTER_TAGS_FALSE),
-		IGNORE_DAMAGE(ModMenuLang.ITEM_FILTER_IGNORE_DAMAGE_TRUE, ModMenuLang.ITEM_FILTER_IGNORE_DAMAGE_FALSE),
-		IGNORE_ALL_COMPONENTS(ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS_TRUE, ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS_FALSE)
+		INVERTED(ModMenuLang.ITEM_FILTER_INVERTED),
+		USE_TAGS(ModMenuLang.ITEM_FILTER_TAGS),
+		IGNORE_DAMAGE(ModMenuLang.ITEM_FILTER_IGNORE_DAMAGE),
+		IGNORE_ALL_COMPONENTS(ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS),
 		;
 
 		val bit: Int = 1 shl ordinal
 
 		fun getMessage(isOn: Boolean): MutableComponent {
-			val key = if (isOn) onMessage else offMessage
-			return Component.translatable(key)
+			val component = Component.translatable(message)
+			if (!isOn) {
+				component.withStyle(ChatFormatting.STRIKETHROUGH)
+			}
+
+			return component
 		}
 
 	}
