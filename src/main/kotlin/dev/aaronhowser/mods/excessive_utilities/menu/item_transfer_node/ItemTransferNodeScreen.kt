@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
+//TODO: Render the ping XYZ
 class ItemTransferNodeScreen(
 	menu: ItemTransferNodeMenu,
 	playerInventory: Inventory,
