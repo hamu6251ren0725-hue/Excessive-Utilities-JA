@@ -42,24 +42,7 @@ class ItemTransferNodeBlockEntity(
 
 	private val ping = TransferNodePing(blockPos, placedOnDirection)
 
-	private var cooldown = 20
-
-	override fun serverTick(level: ServerLevel) {
-		super.serverTick(level)
-
-		val isOverloaded = isOverloaded() && getGpUsage() > 0.0
-		didWorkThisTick = false
-		if (isOverloaded) return
-
-		cooldown -= 1 + getSpeedUpgradeCount()
-
-		while (cooldown <= 0) {
-			activeTick(level)
-			cooldown += 20
-		}
-	}
-
-	private fun activeTick(level: ServerLevel) {
+	override fun activeTick(level: ServerLevel) {
 		if (isRetrieval) {
 			pullerTick(level)
 		} else {

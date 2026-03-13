@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Container
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -66,6 +67,25 @@ abstract class TransferNodeBlockEntity(
 
 		return usage
 	}
+
+	protected var cooldown = 20
+
+	override fun serverTick(level: ServerLevel) {
+		super.serverTick(level)
+
+		val isOverloaded = isOverloaded() && getGpUsage() > 0.0
+		didWorkThisTick = false
+		if (isOverloaded) return
+
+		cooldown -= 1 + getSpeedUpgradeCount()
+
+		while (cooldown <= 0) {
+			activeTick(level)
+			cooldown += 20
+		}
+	}
+
+	abstract fun activeTick(level: ServerLevel)
 
 	protected fun getSpeedUpgradeCount(): Int {
 		var count = 0
