@@ -29,7 +29,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank
 class FluidTransferNodeBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : TransferNodeBlockEntity(ModBlockEntityTypes.ITEM_TRANSFER_NODE.get(), pos, blockState) {
+) : TransferNodeBlockEntity(ModBlockEntityTypes.FLUID_TRANSFER_NODE.get(), pos, blockState) {
 
 	private val bufferTank =
 		object : FluidTank(TANK_SIZE) {
