@@ -148,13 +148,21 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		fun passesFilter(filterStack: ItemStack, checkedStack: ItemStack): Boolean {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return false
 
-			val flags = getFlags(filterStack)
-			val isInverted = Flag.INVERTED in flags
-			if (checkedStack.isEmpty) return isInverted
+			var isInverted = false
+			var ignoreDamage = false
+			var ignoreAllComponents = false
+			var useTags = false
 
-			val ignoreDamage = Flag.IGNORE_DAMAGE in flags
-			val ignoreAllComponents = Flag.IGNORE_ALL_COMPONENTS in flags
-			val useTags = Flag.USE_TAGS in flags
+			for (flag in getFlags(filterStack)) {
+				when (flag) {
+					Flag.INVERTED -> isInverted = true
+					Flag.IGNORE_DAMAGE -> ignoreDamage = true
+					Flag.IGNORE_ALL_COMPONENTS -> ignoreAllComponents = true
+					Flag.USE_TAGS -> useTags = true
+				}
+			}
+
+			if (checkedStack.isEmpty) return isInverted
 
 			val container = filterStack.get(DataComponents.CONTAINER) ?: return isInverted
 
