@@ -24,7 +24,7 @@ class FluidTransferNodeMenu(
 	val transferNode: FluidTransferNodeBlockEntity,
 	val filterContainer: Container,
 	val containerData: ContainerData
-) : MenuWithInventory(ModMenuTypes.ITEM_TRANSFER_NODE.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.FLUID_TRANSFER_NODE.get(), containerId, playerInventory) {
 
 	init {
 		checkContainerSize(upgradesContainer, TransferNodeBlockEntity.UPGRADE_CONTAINER_SIZE)
