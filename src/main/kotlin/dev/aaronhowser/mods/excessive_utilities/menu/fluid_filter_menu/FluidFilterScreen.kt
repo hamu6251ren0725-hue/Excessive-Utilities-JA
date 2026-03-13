@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -33,7 +34,7 @@ class FluidFilterScreen(
 			y = topPos + 5,
 			width = buttonWidth,
 			height = 20,
-			messageGetter = { ItemFilterItem.Flag.INVERTED.getMessage(menu.isInverted()) },
+			messageGetter = { ItemFilterFlagsComponent.Flag.INVERTED.getMessage(menu.isInverted()) },
 			onPress = {
 				val packet = ClientClickedMenuButton(FluidFilterMenu.TOGGLE_INVERTED_BUTTON_ID)
 				packet.messageServer()
@@ -45,7 +46,7 @@ class FluidFilterScreen(
 			y = topPos + 5 + 20 + 5,
 			width = buttonWidth,
 			height = 20,
-			messageGetter = { ItemFilterItem.Flag.USE_TAGS.getMessage(menu.useTags()) },
+			messageGetter = { ItemFilterFlagsComponent.Flag.USE_TAGS.getMessage(menu.useTags()) },
 			onPress = {
 				val packet = ClientClickedMenuButton(FluidFilterMenu.TOGGLE_USE_TAGS_BUTTON_ID)
 				packet.messageServer()
@@ -57,7 +58,7 @@ class FluidFilterScreen(
 			y = topPos + 5 + (20 + 5) * 2,
 			width = buttonWidth,
 			height = 20,
-			messageGetter = { ItemFilterItem.Flag.IGNORE_ALL_COMPONENTS.getMessage(menu.ignoreAllComponents()) },
+			messageGetter = { ItemFilterFlagsComponent.Flag.IGNORE_ALL_COMPONENTS.getMessage(menu.ignoreAllComponents()) },
 			onPress = {
 				val packet = ClientClickedMenuButton(FluidFilterMenu.TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID)
 				packet.messageServer()

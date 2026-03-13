@@ -49,9 +49,8 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val flagComponent = stack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, ItemFilterFlagsComponent())
-
-		for (flag in flagComponent.flags) {
+		val flagComponent = getFlagComponent(stack)
+		for (flag in flagComponent.flagList) {
 			val component = flag.getMessage(true).withStyle(ChatFormatting.BLUE)
 			tooltipComponents.add(component)
 		}
@@ -87,6 +86,20 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 	companion object {
 		const val CONTAINER_SIZE = 16
 
+		fun setFlags(filterStack: ItemStack, flags: List<ItemFilterFlagsComponent.Flag>) {
+			if (flags.isEmpty()) {
+				filterStack.remove(ModDataComponents.ITEM_FILTER_FLAGS)
+				return
+			}
+
+			val flagComponent = ItemFilterFlagsComponent(flags)
+			filterStack.set(ModDataComponents.ITEM_FILTER_FLAGS, flagComponent)
+		}
+
+		fun getFlagComponent(filterStack: ItemStack): ItemFilterFlagsComponent {
+			return filterStack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, ItemFilterFlagsComponent())
+		}
+
 		fun getGhostStack(filterStack: ItemStack, slot: Int): ItemStack {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return ItemStack.EMPTY
 			if (slot !in 0 until CONTAINER_SIZE) return ItemStack.EMPTY
@@ -121,22 +134,12 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		fun passesFilter(filterStack: ItemStack, checkedStack: ItemStack): Boolean {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return false
 
-			var isInverted = false
-			var ignoreDamage = false
-			var ignoreAllComponents = false
-			var useTags = false
+			val flags = getFlagComponent(filterStack)
 
-			val flagComponent = filterStack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, ItemFilterFlagsComponent())
-			val flags = flagComponent.flags
-
-			for (flag in flags) {
-				when (flag) {
-					ItemFilterFlagsComponent.Flag.INVERTED -> isInverted = true
-					ItemFilterFlagsComponent.Flag.IGNORE_DAMAGE -> ignoreDamage = true
-					ItemFilterFlagsComponent.Flag.IGNORE_ALL_COMPONENTS -> ignoreAllComponents = true
-					ItemFilterFlagsComponent.Flag.USE_TAGS -> useTags = true
-				}
-			}
+			val isInverted = flags.isInverted
+			val ignoreDamage = flags.ignoreDamage
+			val ignoreAllComponents = flags.ignoreAllComponents
+			val useTags = flags.useTags
 
 			if (checkedStack.isEmpty) return isInverted
 

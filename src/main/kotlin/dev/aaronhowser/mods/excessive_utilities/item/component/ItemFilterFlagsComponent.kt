@@ -11,8 +11,13 @@ import net.minecraft.network.codec.StreamCodec
 import net.minecraft.util.StringRepresentable
 
 data class ItemFilterFlagsComponent(
-	val flags: List<Flag>
+	val flagList: List<Flag>
 ) {
+
+	val isInverted = Flag.INVERTED in flagList
+	val useTags = Flag.USE_TAGS in flagList
+	val ignoreDamage = Flag.IGNORE_DAMAGE in flagList
+	val ignoreAllComponents = Flag.IGNORE_ALL_COMPONENTS in flagList
 
 	constructor() : this(emptyList())
 
@@ -20,12 +25,12 @@ data class ItemFilterFlagsComponent(
 		val CODEC: Codec<ItemFilterFlagsComponent> =
 			Flag.CODEC
 				.listOf()
-				.xmap(::ItemFilterFlagsComponent, ItemFilterFlagsComponent::flags)
+				.xmap(::ItemFilterFlagsComponent, ItemFilterFlagsComponent::flagList)
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, ItemFilterFlagsComponent> =
 			Flag.STREAM_CODEC
 				.apply(ByteBufCodecs.list())
-				.map(::ItemFilterFlagsComponent, ItemFilterFlagsComponent::flags)
+				.map(::ItemFilterFlagsComponent, ItemFilterFlagsComponent::flagList)
 	}
 
 	enum class Flag(

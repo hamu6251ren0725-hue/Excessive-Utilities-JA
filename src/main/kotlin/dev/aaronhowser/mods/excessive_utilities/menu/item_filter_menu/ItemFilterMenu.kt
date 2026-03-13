@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -48,12 +49,12 @@ class ItemFilterMenu(
 
 	private fun getFilterStack(): ItemStack = playerInventory.player.getItemInHand(hand)
 
-	private fun getFlags(): Set<ItemFilterItem.Flag> = ItemFilterItem.getFlags(getFilterStack())
+	private fun getFlagComponent(): ItemFilterFlagsComponent = ItemFilterItem.getFlagComponent(getFilterStack())
 
-	fun isInverted(): Boolean = ItemFilterItem.Flag.INVERTED in getFlags()
-	fun useTags(): Boolean = ItemFilterItem.Flag.USE_TAGS in getFlags()
-	fun ignoreDamage(): Boolean = ItemFilterItem.Flag.IGNORE_DAMAGE in getFlags()
-	fun ignoreAllComponents(): Boolean = ItemFilterItem.Flag.IGNORE_ALL_COMPONENTS in getFlags()
+	fun isInverted(): Boolean = getFlagComponent().isInverted
+	fun useTags(): Boolean = getFlagComponent().useTags
+	fun ignoreDamage(): Boolean = getFlagComponent().ignoreDamage
+	fun ignoreAllComponents(): Boolean = getFlagComponent().ignoreAllComponents
 
 	override fun addSlots() {
 		for (i in 0 until ItemFilterItem.CONTAINER_SIZE) {
@@ -83,14 +84,14 @@ class ItemFilterMenu(
 		val filterStack = getFilterStack()
 
 		val toggledFlag = when (buttonId) {
-			TOGGLE_INVERTED_BUTTON_ID -> ItemFilterItem.Flag.INVERTED
-			TOGGLE_USE_TAGS_BUTTON_ID -> ItemFilterItem.Flag.USE_TAGS
-			TOGGLE_IGNORE_DAMAGE_BUTTON_ID -> ItemFilterItem.Flag.IGNORE_DAMAGE
-			TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID -> ItemFilterItem.Flag.IGNORE_ALL_COMPONENTS
+			TOGGLE_INVERTED_BUTTON_ID -> ItemFilterFlagsComponent.Flag.INVERTED
+			TOGGLE_USE_TAGS_BUTTON_ID -> ItemFilterFlagsComponent.Flag.USE_TAGS
+			TOGGLE_IGNORE_DAMAGE_BUTTON_ID -> ItemFilterFlagsComponent.Flag.IGNORE_DAMAGE
+			TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID -> ItemFilterFlagsComponent.Flag.IGNORE_ALL_COMPONENTS
 			else -> return
 		}
 
-		val flags = getFlags().toMutableList()
+		val flags = getFlagComponent().flagList.toMutableList()
 
 		if (toggledFlag in flags) {
 			flags.remove(toggledFlag)
@@ -98,7 +99,7 @@ class ItemFilterMenu(
 			flags.add(toggledFlag)
 		}
 
-		ItemFilterItem.setFlags(filterStack, *flags.toTypedArray())
+		ItemFilterItem.setFlags(filterStack, flags)
 	}
 
 	companion object {
