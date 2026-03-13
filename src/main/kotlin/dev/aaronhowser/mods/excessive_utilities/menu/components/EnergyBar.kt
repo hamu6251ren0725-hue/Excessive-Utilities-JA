@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.menu.components
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModTooltipLang
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -49,7 +49,7 @@ class EnergyBar(
 		val currentAmountString = String.format("%,d", currentGetter.asInt)
 		val maxAmountString = String.format("%,d", maxGetter.asInt)
 
-		val component = ModTooltipLang.FE.toComponent(currentAmountString, maxAmountString)
+		val component = ModMenuLang.FE.toComponent(currentAmountString, maxAmountString)
 
 		pGuiGraphics.renderComponentTooltip(
 			font,

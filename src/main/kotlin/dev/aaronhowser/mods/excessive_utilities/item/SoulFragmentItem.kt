@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModTooltipLang
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import dev.aaronhowser.mods.excessive_utilities.registry.ModAttachmentTypes
 import net.minecraft.ChatFormatting
 import net.minecraft.core.component.DataComponents
@@ -42,13 +42,13 @@ class SoulFragmentItem(properties: Properties) : Item(properties) {
 
 		if (netSoulFragments < 0) {
 			tooltipComponents.add(
-				ModTooltipLang.SOUL_DEBT
+				ModMenuLang.SOUL_DEBT
 					.toComponent(-netSoulFragments)
 					.withStyle(ChatFormatting.RED)
 			)
 		} else {
 			tooltipComponents.add(
-				ModTooltipLang.SOUL_SURPLUS
+				ModMenuLang.SOUL_SURPLUS
 					.toComponent(netSoulFragments)
 					.withStyle(ChatFormatting.LIGHT_PURPLE)
 			)
@@ -62,7 +62,7 @@ class SoulFragmentItem(properties: Properties) : Item(properties) {
 			val amount = attributeModifier.amount
 			if (amount != 0.0) {
 				tooltipComponents.add(
-					ModTooltipLang.SOUL_HEALTH_MODIFIER
+					ModMenuLang.SOUL_HEALTH_MODIFIER
 						.toComponent(if (amount > 0) "+$amount" else "$amount")
 						.withStyle(ChatFormatting.GRAY)
 				)

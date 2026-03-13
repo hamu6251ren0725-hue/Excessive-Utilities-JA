@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -154,14 +155,21 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		}
 	}
 
-	enum class Flag {
-		INVERTED,
-		USE_TAGS,
-		IGNORE_DAMAGE,
-		IGNORE_ALL_COMPONENTS,
+	enum class Flag(
+		private val onMessage: String,
+		private val offMessage: String
+	) {
+		INVERTED(ModMenuLang.ITEM_FILTER_INVERTED_TRUE, ModMenuLang.ITEM_FILTER_INVERTED_FALSE),
+		USE_TAGS(ModMenuLang.ITEM_FILTER_TAGS_TRUE, ModMenuLang.ITEM_FILTER_TAGS_FALSE),
+		IGNORE_DAMAGE(ModMenuLang.ITEM_FILTER_IGNORE_DAMAGE_TRUE, ModMenuLang.ITEM_FILTER_IGNORE_DAMAGE_FALSE),
+		IGNORE_ALL_COMPONENTS(ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS_TRUE, ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS_FALSE)
 		;
 
 		val bit: Int = 1 shl ordinal
+
+		fun getMessage(isOn: Boolean): String {
+			return if (isOn) onMessage else offMessage
+		}
 
 	}
 
