@@ -1,0 +1,165 @@
+{
+  "parent": "excessive_utilities:item/transfer_pipe",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            0.0,
+            10.0,
+            16.0
+          ]
+        },
+        "east": {
+          "texture": "#pipe"
+        },
+        "north": {
+          "texture": "#pipe"
+        },
+        "south": {
+          "texture": "#pipe"
+        },
+        "up": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            0.0,
+            10.0,
+            16.0
+          ]
+        },
+        "west": {
+          "texture": "#pipe"
+        }
+      },
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        16,
+        10
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#pipe"
+        },
+        "east": {
+          "texture": "#pipe",
+          "uv": [
+            0.0,
+            6.0,
+            16.0,
+            10.0
+          ]
+        },
+        "north": {
+          "texture": "#pipe"
+        },
+        "south": {
+          "texture": "#pipe"
+        },
+        "up": {
+          "texture": "#pipe"
+        },
+        "west": {
+          "texture": "#pipe",
+          "uv": [
+            0.0,
+            6.0,
+            16.0,
+            10.0
+          ]
+        }
+      },
+      "from": [
+        0,
+        6,
+        6
+      ],
+      "to": [
+        16,
+        10,
+        10
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            16.0
+          ]
+        },
+        "east": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            16.0
+          ]
+        },
+        "north": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            16.0
+          ]
+        },
+        "south": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            16.0
+          ]
+        },
+        "up": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            16.0
+          ]
+        },
+        "west": {
+          "texture": "#pipe",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            16.0
+          ]
+        }
+      },
+      "from": [
+        6,
+        6,
+        0
+      ],
+      "to": [
+        10,
+        10,
+        16
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "pipe": "excessive_utilities:block/transfer_pipe/pipe"
+  }
+}

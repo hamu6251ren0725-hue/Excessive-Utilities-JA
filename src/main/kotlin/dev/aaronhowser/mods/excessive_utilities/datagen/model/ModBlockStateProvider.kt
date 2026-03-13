@@ -181,6 +181,45 @@ class ModBlockStateProvider(
 
 			addArms(TransferPipeBlock.ConnectionType.BLOCKED, armBlockedModel)
 		}
+
+		//FIXME
+		val itemModel = itemModels()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("pipe", texture)
+			.renderType(RenderType.cutout().name)
+
+			// Vertical
+			.element {
+				from(6f, 0f, 6f)
+				to(10f, 16f, 10f)
+
+				allFaces { dir, fb ->
+					fb.texture("#pipe")
+					fb.uvs(6f, 0f, 10f, 16f)
+				}
+			}
+
+			.element {
+				from (0f, 6f, 6f)
+				to (16f, 10f, 10f)
+
+				allFaces { dir, fb ->
+					fb.texture("#pipe")
+					fb.uvs(0f, 6f, 16f, 10f)
+				}
+			}
+
+			.element {
+				from(6f, 6f, 0f)
+				to(10f, 10f, 16f)
+
+				allFaces { dir, fb ->
+					fb.texture("#pipe")
+					fb.uvs(6f, 6f, 10f, 16f)
+				}
+			}
+
+		simpleBlockItem(block, itemModel)
 	}
 
 	private fun transferPipes() {
