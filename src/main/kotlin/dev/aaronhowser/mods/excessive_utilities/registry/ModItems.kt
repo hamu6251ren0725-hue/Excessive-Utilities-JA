@@ -186,8 +186,6 @@ object ModItems : AaronItemRegistry() {
 		basic("world_interaction_upgrade")
 	val ITEM_FILTER =
 		basic("item_filter")
-	val ADVANCED_ITEM_FILTER =
-		basic("advanced_item_filter")
 	val FLUID_FILTER =
 		basic("fluid_filter")
 	val BREADTH_FIRST_SEARCH_UPGRADE =

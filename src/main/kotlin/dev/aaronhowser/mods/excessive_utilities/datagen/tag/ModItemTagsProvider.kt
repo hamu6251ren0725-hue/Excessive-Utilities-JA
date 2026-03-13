@@ -83,7 +83,6 @@ class ModItemTagsProvider(
 		tag(FILTERS)
 			.add(
 				ModItems.ITEM_FILTER,
-				ModItems.ADVANCED_ITEM_FILTER,
 				ModItems.FLUID_FILTER,
 			)
 
