@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.block.entity
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isFull
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block.base.TransferNodePing
 import dev.aaronhowser.mods.excessive_utilities.block.base.entity.TransferNodeBlockEntity
@@ -10,6 +11,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Container
@@ -58,6 +60,22 @@ class ItemTransferNodeBlockEntity(
 		} else {
 			pusherTick(level)
 		}
+
+		val pingPos = ping.currentPingPos
+
+		for (i in 0 until 5) {
+			val x = pingPos.x + 0.5 + level.random.nextRange(-0.5, 0.5)
+			val y = pingPos.y + 0.5 + level.random.nextRange(-0.5, 0.5)
+			val z = pingPos.z + 0.5 + level.random.nextRange(-0.5, 0.5)
+
+			level.sendParticles(
+				DustParticleOptions.REDSTONE,
+				x, y, z,
+				1,
+				0.0, 0.0, 0.0,
+				0.0
+			)
+		}
 	}
 
 	// Pull from distant inventories into the buffer,
@@ -98,8 +116,11 @@ class ItemTransferNodeBlockEntity(
 		// If nothing was pushed, move the ping forward and try again next tick
 		// If something was pushed, keep the ping where it is so it can continue pushing into it next tick
 
+		val amountBefore = bufferContainer.getItem(0).count
 		pushIntoPingPos(level)
-		if (bufferContainer.isEmpty) {
+		val amountAfter = bufferContainer.getItem(0).count
+
+		if (amountBefore == amountAfter) {
 			ping.march(level)
 		}
 	}
@@ -112,16 +133,16 @@ class ItemTransferNodeBlockEntity(
 		if (itemHandlers.isEmpty()) return
 
 		for (handler in itemHandlers) {
-			val simRemainer = ItemHandlerHelper.insertItemStacked(handler, stackInBuffer, true)
-			val amountAccepted = stackInBuffer.count - simRemainer.count
+			val simulatedRemainder = ItemHandlerHelper.insertItemStacked(handler, stackInBuffer.copy(), true)
+			val amountAccepted = stackInBuffer.count - simulatedRemainder.count
 			if (amountAccepted <= 0) continue
 
-			ItemHandlerHelper.insertItemStacked(handler, stackInBuffer, false)
-			stackInBuffer.shrink(amountAccepted)
-			bufferContainer.setItem(0, stackInBuffer)
+			val remainder = ItemHandlerHelper.insertItemStacked(handler, stackInBuffer, false)
+
+			bufferContainer.setItem(0, remainder)
 			didWorkThisTick = true
 
-			if (stackInBuffer.isEmpty) break
+			if (remainder.isEmpty) break
 		}
 	}
 
