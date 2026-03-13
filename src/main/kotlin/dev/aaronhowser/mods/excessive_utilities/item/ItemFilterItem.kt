@@ -46,6 +46,11 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		const val CONTAINER_SIZE = 16
 
 		fun setFlags(filterStack: ItemStack, vararg flags: Flag) {
+			if (flags.isEmpty()) {
+				filterStack.remove(ModDataComponents.ITEM_FILTER_FLAGS)
+				return
+			}
+
 			var flagsInt = 0
 			for (flag in flags) {
 				flagsInt = flagsInt or flag.bit
