@@ -18,7 +18,7 @@ class FluidFilterMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	val hand: InteractionHand
-) : MenuWithInventory(ModMenuTypes.ITEM_FILTER.get(), containerId, playerInventory), MenuWithButtons {
+) : MenuWithInventory(ModMenuTypes.FLUID_FILTER.get(), containerId, playerInventory), MenuWithButtons {
 
 	constructor(
 		containerId: Int,
@@ -75,7 +75,7 @@ class FluidFilterMenu(
 	}
 
 	override fun stillValid(player: Player): Boolean {
-		return getFilterStack().isItem(ModItems.ITEM_FILTER)
+		return getFilterStack().isItem(ModItems.FLUID_FILTER)
 	}
 
 	override fun handleButtonPressed(buttonId: Int) {
