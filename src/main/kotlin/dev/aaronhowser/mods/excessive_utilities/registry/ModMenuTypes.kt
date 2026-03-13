@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTran
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceScreen
+import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
@@ -19,6 +20,7 @@ import dev.aaronhowser.mods.excessive_utilities.menu.single_slot.SingleSlotScree
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -43,6 +45,8 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		register("qed", ::QedMenu)
 	val FURNACE: DeferredHolder<MenuType<*>, MenuType<EUFurnaceMenu>> =
 		register("furnace", ::EUFurnaceMenu)
+	val ITEM_FILTER =
+		register("item_filter") { IMenuTypeExtension.create(::ItemFilterMenu) }
 
 	override fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(FLAT_TRANSFER_NODE.get(), ::FlatTransferNodeScreen)

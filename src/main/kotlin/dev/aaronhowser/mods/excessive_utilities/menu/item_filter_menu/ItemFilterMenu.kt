@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
+import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -14,6 +15,12 @@ class ItemFilterMenu(
 	playerInventory: Inventory,
 	val hand: InteractionHand
 ) : MenuWithInventory(ModMenuTypes.ITEM_TRANSFER_NODE.get(), containerId, playerInventory) {
+
+	constructor(
+		containerId: Int,
+		playerInventory: Inventory,
+		data: RegistryFriendlyByteBuf
+	) : this(containerId, playerInventory, data.readEnum(InteractionHand::class.java))
 
 	private val filterStack: ItemStack
 		get() = playerInventory.player.getItemInHand(hand)
