@@ -61,6 +61,10 @@ class ItemTransferNodeMenu(
 		this.addSlot(bufferSlot)
 	}
 
+	fun getPingX(): Int = containerData.get(ItemTransferNodeBlockEntity.X_DATA_INDEX)
+	fun getPingY(): Int = containerData.get(ItemTransferNodeBlockEntity.Y_DATA_INDEX)
+	fun getPingZ(): Int = containerData.get(ItemTransferNodeBlockEntity.Z_DATA_INDEX)
+
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
 		return ItemStack.EMPTY
 	}
