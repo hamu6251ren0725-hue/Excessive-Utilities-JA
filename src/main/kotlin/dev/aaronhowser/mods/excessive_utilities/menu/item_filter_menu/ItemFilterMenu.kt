@@ -45,9 +45,14 @@ class ItemFilterMenu(
 		addPlayerInventorySlots(91)
 	}
 
-	private fun getFilterStack(): ItemStack {
-		return playerInventory.player.getItemInHand(hand)
-	}
+	private fun getFilterStack(): ItemStack = playerInventory.player.getItemInHand(hand)
+
+	private fun getFlags(): Set<ItemFilterItem.Flag> = ItemFilterItem.getFlags(getFilterStack())
+
+	fun isInverted(): Boolean = ItemFilterItem.Flag.INVERTED in getFlags()
+	fun useTags(): Boolean = ItemFilterItem.Flag.USE_TAGS in getFlags()
+	fun ignoreDamage(): Boolean = ItemFilterItem.Flag.IGNORE_DAMAGE in getFlags()
+	fun ignoreAllComponents(): Boolean = ItemFilterItem.Flag.IGNORE_ALL_COMPONENTS in getFlags()
 
 	override fun addSlots() {
 		for (i in 0 until ItemFilterItem.CONTAINER_SIZE) {

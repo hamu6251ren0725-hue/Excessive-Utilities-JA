@@ -8,6 +8,8 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.NonNullList
 import net.minecraft.core.component.DataComponents
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.SimpleMenuProvider
@@ -167,8 +169,9 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 
 		val bit: Int = 1 shl ordinal
 
-		fun getMessage(isOn: Boolean): String {
-			return if (isOn) onMessage else offMessage
+		fun getMessage(isOn: Boolean): MutableComponent {
+			val key = if (isOn) onMessage else offMessage
+			return Component.translatable(key)
 		}
 
 	}
