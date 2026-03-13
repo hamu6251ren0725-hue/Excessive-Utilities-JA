@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeScreen
+import dev.aaronhowser.mods.excessive_utilities.menu.fluid_filter_menu.FluidFilterMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.fluid_filter_menu.FluidFilterScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
@@ -46,8 +48,10 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		register("qed", ::QedMenu)
 	val FURNACE: DeferredHolder<MenuType<*>, MenuType<EUFurnaceMenu>> =
 		register("furnace", ::EUFurnaceMenu)
-	val ITEM_FILTER =
+	val ITEM_FILTER: DeferredHolder<MenuType<*>, MenuType<ItemFilterMenu>> =
 		register("item_filter") { IMenuTypeExtension.create(::ItemFilterMenu) }
+	val FLUID_FILTER: DeferredHolder<MenuType<*>, MenuType<FluidFilterMenu>> =
+		register("fluid_filter") { IMenuTypeExtension.create(::FluidFilterMenu) }
 
 	override fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(FLAT_TRANSFER_NODE.get(), ::FlatTransferNodeScreen)
@@ -58,6 +62,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		event.register(QED.get(), ::QedScreen)
 		event.register(FURNACE.get(), ::EUFurnaceScreen)
 		event.register(ITEM_FILTER.get(), ::ItemFilterScreen)
+		event.register(FLUID_FILTER.get(), ::FluidFilterScreen)
 	}
 
 }
