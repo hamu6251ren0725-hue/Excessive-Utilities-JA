@@ -52,9 +52,14 @@ class ItemTransferNodeBlockEntity(
 		if (isOverloaded) return
 
 		cooldown -= 1 + getSpeedUpgradeCount()
-		if (cooldown > 0) return
-		cooldown = 20
 
+		while (cooldown <= 0) {
+			activeTick(level)
+			cooldown += 20
+		}
+	}
+
+	private fun activeTick(level: ServerLevel) {
 		if (isRetrieval) {
 			pullerTick(level)
 		} else {
