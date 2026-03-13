@@ -27,10 +27,12 @@ class ItemFilterScreen(
 
 		inventoryLabelY = 16
 
+		val buttonWidth = 120
+
 		invertButton = ChangingTextButton(
-			x = rightPos - 20 - 5,
+			x = rightPos - buttonWidth - 5,
 			y = topPos + 5,
-			width = 20,
+			width = buttonWidth,
 			height = 20,
 			messageGetter = { ItemFilterItem.Flag.INVERTED.getMessage(menu.isInverted()) },
 			onPress = {
@@ -40,9 +42,9 @@ class ItemFilterScreen(
 		)
 
 		useTagsButton = ChangingTextButton(
-			x = rightPos - 20 - 5,
+			x = rightPos - buttonWidth - 5,
 			y = topPos + 5 + 20 + 5,
-			width = 20,
+			width = buttonWidth,
 			height = 20,
 			messageGetter = { ItemFilterItem.Flag.USE_TAGS.getMessage(menu.useTags()) },
 			onPress = {
@@ -52,9 +54,9 @@ class ItemFilterScreen(
 		)
 
 		ignoreDamageButton = ChangingTextButton(
-			x = rightPos - 20 - 5,
+			x = rightPos - buttonWidth - 5,
 			y = topPos + 5 + (20 + 5) * 2,
-			width = 20,
+			width = buttonWidth,
 			height = 20,
 			messageGetter = { ItemFilterItem.Flag.IGNORE_DAMAGE.getMessage(menu.ignoreDamage()) },
 			onPress = {
@@ -64,9 +66,9 @@ class ItemFilterScreen(
 		)
 
 		ignoreAllComponentsButton = ChangingTextButton(
-			x = rightPos - 20 - 5,
+			x = rightPos - buttonWidth - 5,
 			y = topPos + 5 + (20 + 5) * 3,
-			width = 20,
+			width = buttonWidth,
 			height = 20,
 			messageGetter = { ItemFilterItem.Flag.IGNORE_ALL_COMPONENTS.getMessage(menu.ignoreAllComponents()) },
 			onPress = {
