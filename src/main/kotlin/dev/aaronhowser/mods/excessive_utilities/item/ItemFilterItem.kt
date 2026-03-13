@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.item
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -11,7 +11,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.NonNullList
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.SimpleMenuProvider
@@ -50,8 +49,9 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val flags = getFlags(stack)
-		for (flag in flags) {
+		val flagComponent = stack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, ItemFilterFlagsComponent())
+
+		for (flag in flagComponent.flags) {
 			val component = flag.getMessage(true).withStyle(ChatFormatting.BLUE)
 			tooltipComponents.add(component)
 		}
@@ -86,33 +86,6 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 
 	companion object {
 		const val CONTAINER_SIZE = 16
-
-		fun setFlags(filterStack: ItemStack, vararg flags: Flag) {
-			if (flags.isEmpty()) {
-				filterStack.remove(ModDataComponents.ITEM_FILTER_FLAGS)
-				return
-			}
-
-			var flagsInt = 0
-			for (flag in flags) {
-				flagsInt = flagsInt or flag.bit
-			}
-
-			filterStack.set(ModDataComponents.ITEM_FILTER_FLAGS, flagsInt)
-		}
-
-		fun getFlags(filterStack: ItemStack): Set<Flag> {
-			val flagsInt = filterStack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, 0)
-
-			val flags = mutableSetOf<Flag>()
-			for (flag in Flag.entries) {
-				if (flagsInt and flag.bit != 0) {
-					flags.add(flag)
-				}
-			}
-
-			return flags
-		}
 
 		fun getGhostStack(filterStack: ItemStack, slot: Int): ItemStack {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return ItemStack.EMPTY
@@ -153,12 +126,15 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 			var ignoreAllComponents = false
 			var useTags = false
 
-			for (flag in getFlags(filterStack)) {
+			val flagComponent = filterStack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, ItemFilterFlagsComponent())
+			val flags = flagComponent.flags
+
+			for (flag in flags) {
 				when (flag) {
-					Flag.INVERTED -> isInverted = true
-					Flag.IGNORE_DAMAGE -> ignoreDamage = true
-					Flag.IGNORE_ALL_COMPONENTS -> ignoreAllComponents = true
-					Flag.USE_TAGS -> useTags = true
+					ItemFilterFlagsComponent.Flag.INVERTED -> isInverted = true
+					ItemFilterFlagsComponent.Flag.IGNORE_DAMAGE -> ignoreDamage = true
+					ItemFilterFlagsComponent.Flag.IGNORE_ALL_COMPONENTS -> ignoreAllComponents = true
+					ItemFilterFlagsComponent.Flag.USE_TAGS -> useTags = true
 				}
 			}
 
@@ -214,28 +190,6 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 
 			return isInverted
 		}
-	}
-
-	enum class Flag(
-		private val message: String
-	) {
-		INVERTED(ModMenuLang.ITEM_FILTER_INVERTED),
-		USE_TAGS(ModMenuLang.ITEM_FILTER_TAGS),
-		IGNORE_DAMAGE(ModMenuLang.ITEM_FILTER_IGNORE_DAMAGE),
-		IGNORE_ALL_COMPONENTS(ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS),
-		;
-
-		val bit: Int = 1 shl ordinal
-
-		fun getMessage(isOn: Boolean): MutableComponent {
-			val component = Component.translatable(message)
-			if (!isOn) {
-				component.withStyle(ChatFormatting.STRIKETHROUGH)
-			}
-
-			return component
-		}
-
 	}
 
 }

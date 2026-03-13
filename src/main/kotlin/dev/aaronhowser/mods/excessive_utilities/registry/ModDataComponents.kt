@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import net.minecraft.core.Holder
@@ -55,7 +56,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		uuid("thrown_boomerang")
 	val BIOME: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Biome>>> =
 		register("biome", Biome.CODEC, ByteBufCodecs.holderRegistry(Registries.BIOME))
-	val ITEM_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
-		int("item_filter_flags")
+	val ITEM_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<ItemFilterFlagsComponent>> =
+		register("item_filter_flags", ItemFilterFlagsComponent.CODEC, ItemFilterFlagsComponent.STREAM_CODEC)
 
 }
