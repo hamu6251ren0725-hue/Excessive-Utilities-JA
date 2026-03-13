@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
@@ -58,5 +59,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		register("biome", Biome.CODEC, ByteBufCodecs.holderRegistry(Registries.BIOME))
 	val ITEM_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<ItemFilterFlagsComponent>> =
 		register("item_filter_flags", ItemFilterFlagsComponent.CODEC, ItemFilterFlagsComponent.STREAM_CODEC)
+	val FLUID_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<FluidFilterFlagsComponent>> =
+		register("fluid_filter_flags", FluidFilterFlagsComponent.CODEC, FluidFilterFlagsComponent.STREAM_CODEC)
 
 }

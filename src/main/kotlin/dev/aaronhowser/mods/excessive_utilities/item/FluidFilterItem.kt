@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.item
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isFluid
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
+import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.menu.fluid_filter_menu.FluidFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -11,7 +11,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.NonNullList
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.SimpleMenuProvider
@@ -52,7 +51,7 @@ class FluidFilterItem(properties: Properties) : Item(properties) {
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val flags = getFlags(stack)
+		val flags = getFlagComponent(stack).flagList
 		for (flag in flags) {
 			val component = flag.getMessage(true).withStyle(ChatFormatting.BLUE)
 			tooltipComponents.add(component)
@@ -89,31 +88,18 @@ class FluidFilterItem(properties: Properties) : Item(properties) {
 	companion object {
 		const val CONTAINER_SIZE = 16
 
-		fun setFlags(filterStack: ItemStack, vararg flags: Flag) {
+		fun setFlags(filterStack: ItemStack, flags: List<FluidFilterFlagsComponent.Flag>) {
 			if (flags.isEmpty()) {
-				filterStack.remove(ModDataComponents.ITEM_FILTER_FLAGS)
+				filterStack.remove(ModDataComponents.FLUID_FILTER_FLAGS)
 				return
 			}
 
-			var flagsInt = 0
-			for (flag in flags) {
-				flagsInt = flagsInt or flag.bit
-			}
-
-			filterStack.set(ModDataComponents.ITEM_FILTER_FLAGS, flagsInt)
+			val flagComponent = FluidFilterFlagsComponent(flags)
+			filterStack.set(ModDataComponents.FLUID_FILTER_FLAGS, flagComponent)
 		}
 
-		fun getFlags(filterStack: ItemStack): Set<Flag> {
-			val flagsInt = filterStack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, 0)
-
-			val flags = mutableSetOf<Flag>()
-			for (flag in Flag.entries) {
-				if (flagsInt and flag.bit != 0) {
-					flags.add(flag)
-				}
-			}
-
-			return flags
+		fun getFlagComponent(filterStack: ItemStack): FluidFilterFlagsComponent {
+			return filterStack.getOrDefault(ModDataComponents.FLUID_FILTER_FLAGS, FluidFilterFlagsComponent())
 		}
 
 		fun getGhostStack(filterStack: ItemStack, slot: Int): ItemStack {
@@ -150,17 +136,11 @@ class FluidFilterItem(properties: Properties) : Item(properties) {
 		fun passesFilter(filterStack: ItemStack, checkedStack: FluidStack): Boolean {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return false
 
-			var isInverted = false
-			var ignoreAllComponents = false
-			var useTags = false
+			val flags = getFlagComponent(filterStack)
 
-			for (flag in getFlags(filterStack)) {
-				when (flag) {
-					Flag.INVERTED -> isInverted = true
-					Flag.IGNORE_ALL_COMPONENTS -> ignoreAllComponents = true
-					Flag.USE_TAGS -> useTags = true
-				}
-			}
+			val isInverted = flags.isInverted
+			val ignoreAllComponents = flags.ignoreAllComponents
+			val useTags = flags.useTags
 
 			if (checkedStack.isEmpty) return isInverted
 
@@ -197,27 +177,6 @@ class FluidFilterItem(properties: Properties) : Item(properties) {
 
 			return isInverted
 		}
-	}
-
-	enum class Flag(
-		private val message: String
-	) {
-		INVERTED(ModMenuLang.ITEM_FILTER_INVERTED),
-		USE_TAGS(ModMenuLang.ITEM_FILTER_TAGS),
-		IGNORE_ALL_COMPONENTS(ModMenuLang.ITEM_FILTER_IGNORE_ALL_COMPONENTS),
-		;
-
-		val bit: Int = 1 shl ordinal
-
-		fun getMessage(isOn: Boolean): MutableComponent {
-			val component = Component.translatable(message)
-			if (!isOn) {
-				component.withStyle(ChatFormatting.STRIKETHROUGH)
-			}
-
-			return component
-		}
-
 	}
 
 }
