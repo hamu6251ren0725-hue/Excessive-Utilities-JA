@@ -267,15 +267,28 @@ class ItemTransferNodeBlockEntity(
 		super.saveAdditional(tag, registries)
 
 		tag.saveItems(bufferContainer, registries)
+
+		if (!filterContainer.isEmpty) {
+			val filterTag = CompoundTag()
+			filterTag.saveItems(filterContainer, registries)
+			tag.put(FILTER_NBT, filterTag)
+		}
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
 		tag.loadItems(bufferContainer, registries)
+
+		if (tag.contains(FILTER_NBT)) {
+			val filterTag = tag.getCompound(FILTER_NBT)
+			filterTag.loadItems(filterContainer, registries)
+		}
 	}
 
 	companion object {
+		const val FILTER_NBT = "Filter"
+
 		const val BUFFER_CONTAINER_SIZE = 1
 		const val FILTER_CONTAINER_SIZE = 1
 
