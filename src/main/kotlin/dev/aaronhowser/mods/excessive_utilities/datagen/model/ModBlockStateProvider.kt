@@ -54,6 +54,7 @@ class ModBlockStateProvider(
 		creativeMill()
 		waterMill()
 		windMill()
+		manualMill()
 		fireMill()
 		lavaMill()
 		creativeChest()
@@ -909,6 +910,33 @@ class ModBlockStateProvider(
 
 		val model = models()
 			.cubeTop(name(block), side, top)
+
+		simpleBlockWithItem(block, model)
+	}
+
+	private fun manualMill() {
+		val block = ModBlocks.MANUAL_MILL.get()
+
+		val side = modLoc("block/mill/manual/side")
+		val top = modLoc("block/mill/manual/top")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("side", side)
+			.texture("top", top)
+			.texture("particle", side)
+
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 7f, 16f)
+
+				allFaces { dir, fb ->
+					val texture = if (dir.axis == Direction.Axis.Y) "#top" else "#side"
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
 
 		simpleBlockWithItem(block, model)
 	}
