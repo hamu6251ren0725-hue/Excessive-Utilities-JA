@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.SoundMufflerBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.client.render.GridPowerGuiRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRenderer
+import dev.aaronhowser.mods.excessive_utilities.client.render.WandRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.bewlr.OpiniumCoreBEWLR
 import dev.aaronhowser.mods.excessive_utilities.client.render.block_entity.EnderQuarryBER
 import dev.aaronhowser.mods.excessive_utilities.client.render.entity.FlatTransferNodeEntityRenderer
@@ -275,6 +276,11 @@ object ClientEvents {
 	@SubscribeEvent
 	fun onPlaySound(event: PlaySoundEvent) {
 		SoundMufflerBlockEntity.handleSoundSourceEvent(event)
+	}
+
+	@SubscribeEvent
+	fun onRenderBlockHighlight(event: RenderHighlightEvent.Block) {
+		WandRenderer.renderTargetBlocks(event)
 	}
 
 }
