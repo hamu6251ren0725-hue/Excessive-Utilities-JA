@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRen
 import dev.aaronhowser.mods.excessive_utilities.client.render.WandRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.bewlr.OpiniumCoreBEWLR
 import dev.aaronhowser.mods.excessive_utilities.client.render.block_entity.EnderQuarryBER
+import dev.aaronhowser.mods.excessive_utilities.client.render.block_entity.ManualMillBER
 import dev.aaronhowser.mods.excessive_utilities.client.render.entity.FlatTransferNodeEntityRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.entity.MagicalBoomerangEntityRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.layer.AngelRingWingsLayer
@@ -261,6 +262,7 @@ object ClientEvents {
 		event.registerEntityRenderer(ModEntityTypes.MAGICAL_BOOMERANG.get(), ::MagicalBoomerangEntityRenderer)
 
 		event.registerBlockEntityRenderer(ModBlockEntityTypes.ENDER_QUARRY.get(), ::EnderQuarryBER)
+		event.registerBlockEntityRenderer(ModBlockEntityTypes.MANUAL_MILL.get(), ::ManualMillBER)
 	}
 
 	@SubscribeEvent
