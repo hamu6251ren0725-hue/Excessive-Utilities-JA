@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
@@ -86,9 +87,25 @@ class DestructionWandItem(properties: Properties) : Item(properties) {
 
 				val stateThere = level.getBlockState(pos)
 
+				val soundType = stateThere.getSoundType(level, pos, player)
+				fun playSound() {
+					level.playSound(
+						null,
+						pos,
+						soundType.placeSound,
+						SoundSource.BLOCKS,
+						(soundType.volume + 1f) / 2f,
+						soundType.pitch * 0.8f
+					)
+				}
+
 				if (player.isCreative) {
 					val shouldRemove = stateThere.onDestroyedByPlayer(level, pos, player, false, level.getFluidState(pos))
-					if (shouldRemove) stateThere.block.destroy(level, pos, stateThere)
+					if (shouldRemove) {
+						stateThere.block.destroy(level, pos, stateThere)
+						playSound()
+					}
+
 					continue
 				}
 
@@ -98,6 +115,7 @@ class DestructionWandItem(properties: Properties) : Item(properties) {
 				val shouldRemove = stateThere.onDestroyedByPlayer(level, pos, player, canHarvest, level.getFluidState(pos))
 				if (shouldRemove) {
 					stateThere.block.destroy(level, pos, stateThere)
+					playSound()
 				}
 
 				if (canHarvest && shouldRemove) {
