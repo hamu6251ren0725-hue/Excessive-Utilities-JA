@@ -2403,7 +2403,11 @@ class ModBlockStateProvider(
 			ModBlocks.CROSSED_STONE.get(),
 			ModBlocks.ENDER_INFUSED_OBSIDIAN.get(),
 			ModBlocks.POLISHED_STONE.get(),
-			ModBlocks.ENDER_SAND_ALLOY.get()
+			ModBlocks.ENDER_SAND_ALLOY.get(),
+			ModBlocks.GRAVEL_ROAD.get(),
+			ModBlocks.GRAVEL_BRICKS.get(),
+			ModBlocks.FROSTED_STONE.get(),
+			ModBlocks.EMINENCE_STONE.get()
 		)
 
 		val translucent = listOf(

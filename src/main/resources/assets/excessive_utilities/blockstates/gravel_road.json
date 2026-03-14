@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": {
+			"model": "excessive_utilities:block/gravel_road"
+		}
+	},
+	"athena:loader": "athena:ctm",
+	"ctm_textures": {
+		"center": "excessive_utilities:block/gravel_road/center",
+		"empty": "excessive_utilities:block/gravel_road/empty",
+		"horizontal": "excessive_utilities:block/gravel_road/horizontal",
+		"particle": "excessive_utilities:block/gravel_road/particle",
+		"vertical": "excessive_utilities:block/gravel_road/vertical"
+	}
+}

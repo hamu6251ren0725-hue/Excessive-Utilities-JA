@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": {
+			"model": "excessive_utilities:block/frosted_stone"
+		}
+	},
+	"athena:loader": "athena:ctm",
+	"ctm_textures": {
+		"center": "excessive_utilities:block/frosted_stone/center",
+		"empty": "excessive_utilities:block/frosted_stone/empty",
+		"horizontal": "excessive_utilities:block/frosted_stone/horizontal",
+		"particle": "excessive_utilities:block/frosted_stone/particle",
+		"vertical": "excessive_utilities:block/frosted_stone/vertical"
+	}
+}
