@@ -41,6 +41,7 @@
     }
   ],
   "textures": {
+    "particle": "excessive_utilities:block/ender_quarry_upgrade/speed_three",
     "texture": "excessive_utilities:block/ender_quarry_upgrade/speed_three"
   }
 }
