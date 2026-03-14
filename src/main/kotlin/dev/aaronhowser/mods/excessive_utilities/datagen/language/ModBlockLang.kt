@@ -132,7 +132,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.EMINENCE_STONE, "Carved 'Eminence' Stone")
 			addBlock(ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX, "Diamond-Etched Computational Matrix")
 			addBlock(ModBlocks.EDGED_STONE_BRICKS, "Edged Stone Bricks")
-			addBlock(ModBlocks.ENDER_SAND_ALLOY, "Ender Sand Alloy")
+			addBlock(ModBlocks.ENDER_SAND_ALLOY, "Ender-Sand Alloy")
 			addBlock(ModBlocks.FROSTED_STONE, "Frosted Stone")
 			addBlock(ModBlocks.GLASS_BRICKS, "Glass Bricks")
 			addBlock(ModBlocks.GRAVEL_BRICKS, "Gravel Bricks")

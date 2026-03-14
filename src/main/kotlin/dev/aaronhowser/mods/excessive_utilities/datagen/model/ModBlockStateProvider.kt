@@ -2369,7 +2369,7 @@ class ModBlockStateProvider(
 			ModBlocks.SANDY_GLASS.get(),
 			ModBlocks.QUANTUM_QUARRY.get(),
 			ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.get(),
-			ModBlocks.MAGICAL_WOOD.get()
+			ModBlocks.MAGICAL_WOOD.get(),
 		)
 
 		for (block in blocks) {
@@ -2402,7 +2402,8 @@ class ModBlockStateProvider(
 			ModBlocks.BORDER_STONE.get(),
 			ModBlocks.CROSSED_STONE.get(),
 			ModBlocks.ENDER_INFUSED_OBSIDIAN.get(),
-			ModBlocks.POLISHED_STONE.get()
+			ModBlocks.POLISHED_STONE.get(),
+			ModBlocks.ENDER_SAND_ALLOY.get()
 		)
 
 		val translucent = listOf(

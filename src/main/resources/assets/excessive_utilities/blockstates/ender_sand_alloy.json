@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": {
+			"model": "excessive_utilities:block/ender_sand_alloy"
+		}
+	},
+	"athena:loader": "athena:ctm",
+	"ctm_textures": {
+		"center": "excessive_utilities:block/ender_sand_alloy/center",
+		"empty": "excessive_utilities:block/ender_sand_alloy/empty",
+		"horizontal": "excessive_utilities:block/ender_sand_alloy/horizontal",
+		"particle": "excessive_utilities:block/ender_sand_alloy/particle",
+		"vertical": "excessive_utilities:block/ender_sand_alloy/vertical"
+	}
+}
