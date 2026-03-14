@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toVec3
 import dev.aaronhowser.mods.excessive_utilities.item.BuildersWandItem
+import dev.aaronhowser.mods.excessive_utilities.item.DestructionWandItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.client.renderer.MultiBufferSource
@@ -45,21 +46,26 @@ object WandRenderer {
 			if (success) event.isCanceled = true
 		}
 
+		if (destructionWand != null) {
+			val success = renderDestructionWand(level, pos, face, destructionWand, player, poseStack, bufferSource, cameraPos)
+			if (success) event.isCanceled = true
+		}
+
 	}
 
 	private fun renderBuilderWand(
 		level: Level,
-		clickedPos: BlockPos,
-		face: Direction,
+		targetPos: BlockPos,
+		targetFace: Direction,
 		wandStack: ItemStack,
 		player: Player,
 		poseStack: PoseStack,
 		bufferSource: MultiBufferSource,
 		cameraPos: Vec3
 	): Boolean {
-		val clickedState = level.getBlockState(clickedPos)
-		if (clickedState.isAir) return false
-		val blockItem = clickedState.block.asItem()
+		val targetState = level.getBlockState(targetPos)
+		if (targetState.isAir) return false
+		val blockItem = targetState.block.asItem()
 		if (blockItem == Items.AIR) return false
 
 		val amountInInventory = player.inventory.countItem(blockItem)
@@ -70,9 +76,9 @@ object WandRenderer {
 
 		val positions = BuildersWandItem.getPositions(
 			level,
-			clickedPos,
-			clickedState,
-			face,
+			targetPos,
+			targetState,
+			targetFace,
 			amountCanPlace
 		)
 
@@ -86,16 +92,52 @@ object WandRenderer {
 				linesConsumer,
 				offset.x, offset.y, offset.z,
 				offset.x + 1, offset.y + 1, offset.z + 1,
-				r = 1f, g = 1f, b = 1f, a = 1f
+				r = 1f, g = 1f, b = 1f, a = 0.8f
 			)
 		}
 
 		return true
 	}
 
-	private fun renderDestructionWand(destructionWand: ItemStack, event: RenderHighlightEvent.Block) {
-		val amount = destructionWand.get(ModDataComponents.AMOUNT_BLOCKS) ?: return
+	private fun renderDestructionWand(
+		level: Level,
+		targetPos: BlockPos,
+		targetFace: Direction,
+		wandStack: ItemStack,
+		player: Player,
+		poseStack: PoseStack,
+		bufferSource: MultiBufferSource,
+		cameraPos: Vec3
+	): Boolean {
+		val targetState = level.getBlockState(targetPos)
+		if (targetState.isAir) return false
 
+		val amount = wandStack.getOrDefault(ModDataComponents.AMOUNT_BLOCKS, 0)
+		if (amount <= 0) return false
+
+		val positions = DestructionWandItem.getPositions(
+			level,
+			targetPos,
+			targetState.block,
+			targetFace,
+			amount
+		)
+
+		val linesConsumer = bufferSource.getBuffer(RenderType.lines())
+
+		for (pos in positions) {
+			val offset = cameraPos.vectorTo(pos.toVec3()).toVector3f()
+
+			renderCubeWireframe(
+				poseStack,
+				linesConsumer,
+				offset.x, offset.y, offset.z,
+				offset.x + 1, offset.y + 1, offset.z + 1,
+				r = 1f, g = 0.5f, b = 0.5f, a = 0.8f
+			)
+		}
+
+		return true
 	}
 
 	private fun getHeldWand(player: Player, isBuilder: Boolean): ItemStack? {
