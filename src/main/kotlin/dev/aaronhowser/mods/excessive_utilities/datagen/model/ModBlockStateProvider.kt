@@ -2072,6 +2072,8 @@ class ModBlockStateProvider(
 		makeGenerator(ModBlocks.DISENCHANTMENT_GENERATOR.get(), "disenchantment")
 		makeGenerator(ModBlocks.POTION_GENERATOR.get(), "potion")
 		makeGenerator(ModBlocks.OVERCLOCKED_GENERATOR.get(), "overclocked")
+		makeGenerator(ModBlocks.HEATED_REDSTONE_GENERATOR.get(), "heated_redstone")
+		makeGenerator(ModBlocks.SLIMY_GENERATOR.get(), "nothing")
 	}
 
 	private fun survivalGenerator() {
