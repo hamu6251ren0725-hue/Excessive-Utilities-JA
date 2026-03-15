@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.datagen.recipe
+package dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.ResonatorRecipe
@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
+import kotlin.collections.iterator
 
 class ResonatorRecipeBuilder(
 	val ingredient: Ingredient,

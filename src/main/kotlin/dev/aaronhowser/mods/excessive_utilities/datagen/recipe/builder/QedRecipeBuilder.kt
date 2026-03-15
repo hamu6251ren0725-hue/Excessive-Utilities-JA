@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.datagen.recipe
+package dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.QedRecipe
@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.ShapedRecipePattern
+import kotlin.collections.iterator
 
 class QedRecipeBuilder(
 	val result: ItemStack,
