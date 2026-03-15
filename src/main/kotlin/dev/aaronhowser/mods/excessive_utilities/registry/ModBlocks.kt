@@ -266,8 +266,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("magmatic_generator") { GeneratorBlock { ModBlockEntityTypes.MAGMATIC_GENERATOR.get() } }
 	val ENDER_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("ender_generator") { GeneratorBlock { ModBlockEntityTypes.ENDER_GENERATOR.get() } }
-	val HEATED_REDSTONE_GENERATOR =
-		basicBlock("heated_redstone_generator")
+	val HEATED_REDSTONE_GENERATOR: DeferredBlock<GeneratorBlock> =
+		registerBlock("heated_redstone_generator") { GeneratorBlock { ModBlockEntityTypes.HEATED_REDSTONE_GENERATOR.get() } }
 	val CULINARY_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("culinary_generator") { GeneratorBlock { ModBlockEntityTypes.CULINARY_GENERATOR.get() } }
 	val POTION_GENERATOR: DeferredBlock<GeneratorBlock> =
@@ -286,8 +286,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("frosty_generator") { GeneratorBlock { ModBlockEntityTypes.FROSTY_GENERATOR.get() } }
 	val HALITOSIS_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("halitosis_generator") { GeneratorBlock { ModBlockEntityTypes.HALITOSIS_GENERATOR.get() } }
-	val SLIMY_GENERATOR =
-		basicBlock("slimy_generator")
+	val SLIMY_GENERATOR: DeferredBlock<GeneratorBlock> =
+		registerBlock("slimy_generator") { GeneratorBlock { ModBlockEntityTypes.SLIMY_GENERATOR.get() } }
 	val DEATH_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("death_generator") { GeneratorBlock { ModBlockEntityTypes.DEATH_GENERATOR.get() } }
 	val RAINBOW_GENERATOR: DeferredBlock<GeneratorBlock> =
