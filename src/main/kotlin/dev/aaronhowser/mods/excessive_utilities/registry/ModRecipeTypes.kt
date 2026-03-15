@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.ResonatorRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.core.registries.BuiltInRegistries
@@ -30,6 +31,8 @@ object ModRecipeTypes {
 		registerRecipeType("single_item_fuel")
 	val MAGMATIC_FUEL: DeferredHolder<RecipeType<*>, RecipeType<MagmaticFuelRecipe>> =
 		registerRecipeType("magmatic_fuel")
+	val ITEM_AND_FLUID_FUEL: DeferredHolder<RecipeType<*>, RecipeType<ItemAndFluidFuelRecipe>> =
+		registerRecipeType("item_and_fluid_fuel")
 
 	private fun <T : Recipe<*>> registerRecipeType(
 		name: String
