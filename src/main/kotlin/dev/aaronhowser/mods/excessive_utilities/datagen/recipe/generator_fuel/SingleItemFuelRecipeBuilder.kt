@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.recipe.generator_fuel
 
-import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
@@ -14,7 +13,6 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
 
 class SingleItemFuelRecipeBuilder(
-	val name: String,
 	val generatorType: SingleItemFuelRecipe.GeneratorType,
 	val ingredient: Ingredient,
 	val fePerTick: Int,
@@ -26,21 +24,22 @@ class SingleItemFuelRecipeBuilder(
 	override fun getResult(): Item = Items.AIR
 
 	override fun save(recipeOutput: RecipeOutput, id: ResourceLocation) {
-		val idString = StringBuilder()
+		val path = StringBuilder()
 			.append("generator_fuel/")
 			.append(generatorType.id)
 			.append("/")
-			.append(name)
+			.append(id.path)
+			.toString()
 
-		val id = ExcessiveUtilities.modResource(idString.toString())
+		val realId = ResourceLocation.fromNamespaceAndPath(id.namespace, path)
 
 		val advancement = recipeOutput.advancement()
-			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-			.rewards(AdvancementRewards.Builder.recipe(id))
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(realId))
+			.rewards(AdvancementRewards.Builder.recipe(realId))
 			.requirements(AdvancementRequirements.Strategy.OR)
 
 		val recipe = SingleItemFuelRecipe(generatorType, ingredient, fePerTick, duration)
-		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/generator_fuel/$generatorType/")))
+		recipeOutput.accept(realId, recipe, advancement.build(realId.withPrefix("recipes/generator_fuel/$generatorType/")))
 	}
 
 }
