@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.EnchanterRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.QedRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.ResonatorRecipeBuilder
+import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.MagmaticFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.SingleItemFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
@@ -34,6 +35,7 @@ import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient
 import net.neoforged.neoforge.registries.DeferredBlock
 import java.util.concurrent.CompletableFuture
 
@@ -1991,22 +1993,22 @@ class ModRecipeProvider(
 	}
 
 	private fun buildGeneratorFuelRecipes(recipeOutput: RecipeOutput) {
-		fun singleItem(name: String, type: SingleItemFuelRecipe.GeneratorType, ingredient: Ingredient, burnTime: Int, duration: Int) {
+		fun singleItem(name: String, type: SingleItemFuelRecipe.GeneratorType, ingredient: Ingredient, fePerTick: Int, duration: Int) {
 			SingleItemFuelRecipeBuilder(
 				type,
 				ingredient,
-				burnTime,
+				fePerTick,
 				duration
 			).save(recipeOutput, modLoc(name))
 		}
 
-		fun ender(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.ENDER, ingredient, burnTime, duration)
-		fun explosive(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.EXPLOSIVE, ingredient, burnTime, duration)
-		fun pink(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.PINK, ingredient, burnTime, duration)
-		fun netherStar(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.NETHER_STAR, ingredient, burnTime, duration)
-		fun frosty(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.FROSTY, ingredient, burnTime, duration)
-		fun halitosis(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.HALITOSIS, ingredient, burnTime, duration)
-		fun death(name: String, ingredient: Ingredient, burnTime: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.DEATH, ingredient, burnTime, duration)
+		fun ender(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.ENDER, ingredient, fePerTick, duration)
+		fun explosive(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.EXPLOSIVE, ingredient, fePerTick, duration)
+		fun pink(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.PINK, ingredient, fePerTick, duration)
+		fun netherStar(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.NETHER_STAR, ingredient, fePerTick, duration)
+		fun frosty(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.FROSTY, ingredient, fePerTick, duration)
+		fun halitosis(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.HALITOSIS, ingredient, fePerTick, duration)
+		fun death(name: String, ingredient: Ingredient, fePerTick: Int, duration: Int) = singleItem(name, SingleItemFuelRecipe.GeneratorType.DEATH, ingredient, fePerTick, duration)
 
 
 		ender("ender_pearls", Tags.Items.ENDER_PEARLS.asIngredient(), 40, 20 * (60 + 20)) // 1:20
@@ -2039,6 +2041,12 @@ class ModRecipeProvider(
 		frosty("snowball", Items.SNOWBALL.asIngredient(), 40, 5) // 5 seconds
 		frosty("snow_block", Items.SNOW_BLOCK.asIngredient(), 40, 20) // 20 seconds
 		frosty("snow", Items.SNOW.asIngredient(), 40, 3) // 3 seconds
+
+		fun magmatic(name: String, ingredient: SizedFluidIngredient, fePerTick: Int, duration: Int) {
+			MagmaticFuelRecipeBuilder(ingredient, fePerTick, duration).save(recipeOutput, modLoc(name))
+		}
+
+		magmatic("lavas", SizedFluidIngredient.of(Tags.Fluids.LAVA, 1), 80, 1) // 80,000 FE per bucket
 
 	}
 

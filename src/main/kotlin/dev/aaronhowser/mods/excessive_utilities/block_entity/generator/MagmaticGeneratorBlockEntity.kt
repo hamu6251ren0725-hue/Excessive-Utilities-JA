@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.generator
 
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.datamap.MagmaticGeneratorFuel
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.util.GeneratorType
@@ -25,10 +24,9 @@ class MagmaticGeneratorBlockEntity(
 	val tank: FluidTank =
 		object : FluidTank(1_000_000) {
 			override fun isFluidValid(stack: FluidStack): Boolean {
-				val fuelMap = MagmaticGeneratorFuel.DATA_MAP
-				val fluidFuel = stack.fluid.builtInRegistryHolder().getData(fuelMap)
-
-				return fluidFuel != null
+				val level = level ?: return false
+				val recipe = MagmaticFuelRecipe.getRecipe(level, stack)
+				return recipe != null
 			}
 		}
 
@@ -43,13 +41,12 @@ class MagmaticGeneratorBlockEntity(
 		val fluidInTank = tank.fluid
 		if (fluidInTank.isEmpty) return false
 
-		val fuelMap = MagmaticGeneratorFuel.DATA_MAP
-		val fluidFuel = fluidInTank.fluid.builtInRegistryHolder().getData(fuelMap) ?: return false
+		val recipe = getRecipe() ?: return false
 
-		fePerTick = fluidFuel.fePerTick
-		burnTimeRemaining = fluidFuel.ticksPerMb
+		fePerTick = recipe.fePerTick
+		burnTimeRemaining = recipe.duration
 
-		tank.drain(1, IFluidHandler.FluidAction.EXECUTE)
+		tank.drain(recipe.fluidIngredient.amount(), IFluidHandler.FluidAction.EXECUTE)
 		setChanged()
 
 		return true

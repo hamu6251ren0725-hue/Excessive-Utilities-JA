@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.excessive_utilities.datamap.MagmaticGeneratorFuel
 import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
 import dev.aaronhowser.mods.excessive_utilities.datamap.ReversingHoeConversion
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -23,13 +22,6 @@ class ModDataMapProvider(
 ) : DataMapProvider(packOutput, lookupProvider) {
 
 	override fun gather(provider: HolderLookup.Provider) {
-
-		builder(MagmaticGeneratorFuel.DATA_MAP)
-			.add(
-				Tags.Fluids.LAVA,
-				MagmaticGeneratorFuel(100_000 / 20, 125 * 20),
-				false
-			)
 
 		builder(NetherLavaDunkConversion.DATA_MAP)
 			.add(
