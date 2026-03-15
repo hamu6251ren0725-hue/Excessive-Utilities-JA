@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.block_entity.base
+package dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadEnergy
@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.putUuidIfNotNull
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveEnergy
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.handler.rainbow_generator.RainbowGeneratorHandler
 import dev.aaronhowser.mods.excessive_utilities.menu.single_item_generator.SingleItemGeneratorMenu
 import net.minecraft.core.BlockPos

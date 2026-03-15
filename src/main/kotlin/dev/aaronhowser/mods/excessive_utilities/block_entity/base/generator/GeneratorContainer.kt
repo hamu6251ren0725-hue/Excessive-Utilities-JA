@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.block_entity.base
+package dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem

@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.block_entity.base
+package dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator
 
 enum class GeneratorType {
 	CULINARY,

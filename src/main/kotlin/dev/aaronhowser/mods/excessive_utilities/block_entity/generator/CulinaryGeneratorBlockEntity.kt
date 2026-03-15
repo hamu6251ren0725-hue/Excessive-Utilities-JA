@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.generator
 
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorContainer
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorType
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorContainer
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.item.ItemStack

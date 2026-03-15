@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import dev.aaronhowser.mods.excessive_utilities.block.AngelBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.*
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.MagmaticGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion

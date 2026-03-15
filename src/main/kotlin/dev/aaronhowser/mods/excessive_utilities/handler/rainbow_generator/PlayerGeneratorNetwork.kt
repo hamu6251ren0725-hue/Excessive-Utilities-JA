@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.handler.rainbow_generator
 
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GeneratorType
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import net.minecraft.server.level.ServerLevel
 import java.util.*
 
