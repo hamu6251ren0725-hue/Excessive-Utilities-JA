@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB
 class DeathGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : DataDrivenGeneratorBlockEntity(ModBlockEntityTypes.DEATH_GENERATOR.get(), SingleInputDataDrivenGeneratorType.DEATH, pos, blockState) {
+) : SingleInputDataDrivenGeneratorBlockEntity(ModBlockEntityTypes.DEATH_GENERATOR.get(), SingleInputDataDrivenGeneratorType.DEATH, pos, blockState) {
 
 	override fun effectOnSuccess(level: ServerLevel) {
 		if (level.gameTime % 20 != 0L) return

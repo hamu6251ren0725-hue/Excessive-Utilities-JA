@@ -108,18 +108,18 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("furnace_generator", FurnaceFuelGeneratorBlockEntity::furnace, ModBlocks.FURNACE_GENERATOR)
 	val OVERCLOCKED_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
 		register("overclocked_generator", FurnaceFuelGeneratorBlockEntity::overclocked, ModBlocks.OVERCLOCKED_GENERATOR)
-	val ENDER_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
-		register("ender_generator", DataDrivenGeneratorBlockEntity::ender, ModBlocks.ENDER_GENERATOR)
-	val EXPLOSIVE_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
-		register("explosive_generator", DataDrivenGeneratorBlockEntity::explosive, ModBlocks.EXPLOSIVE_GENERATOR)
-	val PINK_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
-		register("pink_generator", DataDrivenGeneratorBlockEntity::pink, ModBlocks.PINK_GENERATOR)
+	val ENDER_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<SingleInputDataDrivenGeneratorBlockEntity>> =
+		register("ender_generator", SingleInputDataDrivenGeneratorBlockEntity::ender, ModBlocks.ENDER_GENERATOR)
+	val EXPLOSIVE_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<SingleInputDataDrivenGeneratorBlockEntity>> =
+		register("explosive_generator", SingleInputDataDrivenGeneratorBlockEntity::explosive, ModBlocks.EXPLOSIVE_GENERATOR)
+	val PINK_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<SingleInputDataDrivenGeneratorBlockEntity>> =
+		register("pink_generator", SingleInputDataDrivenGeneratorBlockEntity::pink, ModBlocks.PINK_GENERATOR)
 	val NETHER_STAR_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<NetherStarGeneratorBlockEntity>> =
 		register("nether_star_generator", ::NetherStarGeneratorBlockEntity, ModBlocks.NETHER_STAR_GENERATOR)
-	val FROSTY_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
-		register("frosty_generator", DataDrivenGeneratorBlockEntity::frosty, ModBlocks.FROSTY_GENERATOR)
-	val HALITOSIS_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
-		register("halitosis_generator", DataDrivenGeneratorBlockEntity::halitosis, ModBlocks.HALITOSIS_GENERATOR)
+	val FROSTY_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<SingleInputDataDrivenGeneratorBlockEntity>> =
+		register("frosty_generator", SingleInputDataDrivenGeneratorBlockEntity::frosty, ModBlocks.FROSTY_GENERATOR)
+	val HALITOSIS_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<SingleInputDataDrivenGeneratorBlockEntity>> =
+		register("halitosis_generator", SingleInputDataDrivenGeneratorBlockEntity::halitosis, ModBlocks.HALITOSIS_GENERATOR)
 	val DEATH_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DeathGeneratorBlockEntity>> =
 		register("death_generator", ::DeathGeneratorBlockEntity, ModBlocks.DEATH_GENERATOR)
 	val CULINARY_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<CulinaryGeneratorBlockEntity>> =

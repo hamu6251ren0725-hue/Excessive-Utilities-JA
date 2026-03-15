@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
-open class DataDrivenGeneratorBlockEntity(
+open class SingleInputDataDrivenGeneratorBlockEntity(
 	type: BlockEntityType<*>,
 	val singleInputDataDrivenGeneratorType: SingleInputDataDrivenGeneratorType,
 	pos: BlockPos,
@@ -49,35 +49,35 @@ open class DataDrivenGeneratorBlockEntity(
 	}
 
 	companion object {
-		fun ender(pos: BlockPos, state: BlockState) = DataDrivenGeneratorBlockEntity(
+		fun ender(pos: BlockPos, state: BlockState) = SingleInputDataDrivenGeneratorBlockEntity(
 			type = ModBlockEntityTypes.ENDER_GENERATOR.get(),
 			singleInputDataDrivenGeneratorType = SingleInputDataDrivenGeneratorType.ENDER,
 			pos = pos,
 			blockState = state
 		)
 
-		fun explosive(pos: BlockPos, state: BlockState) = DataDrivenGeneratorBlockEntity(
+		fun explosive(pos: BlockPos, state: BlockState) = SingleInputDataDrivenGeneratorBlockEntity(
 			type = ModBlockEntityTypes.EXPLOSIVE_GENERATOR.get(),
 			singleInputDataDrivenGeneratorType = SingleInputDataDrivenGeneratorType.EXPLOSIVE,
 			pos = pos,
 			blockState = state
 		)
 
-		fun pink(pos: BlockPos, state: BlockState) = DataDrivenGeneratorBlockEntity(
+		fun pink(pos: BlockPos, state: BlockState) = SingleInputDataDrivenGeneratorBlockEntity(
 			type = ModBlockEntityTypes.PINK_GENERATOR.get(),
 			singleInputDataDrivenGeneratorType = SingleInputDataDrivenGeneratorType.PINK,
 			pos = pos,
 			blockState = state
 		)
 
-		fun frosty(pos: BlockPos, state: BlockState) = DataDrivenGeneratorBlockEntity(
+		fun frosty(pos: BlockPos, state: BlockState) = SingleInputDataDrivenGeneratorBlockEntity(
 			type = ModBlockEntityTypes.FROSTY_GENERATOR.get(),
 			singleInputDataDrivenGeneratorType = SingleInputDataDrivenGeneratorType.FROSTY,
 			pos = pos,
 			blockState = state
 		)
 
-		fun halitosis(pos: BlockPos, state: BlockState) = DataDrivenGeneratorBlockEntity(
+		fun halitosis(pos: BlockPos, state: BlockState) = SingleInputDataDrivenGeneratorBlockEntity(
 			type = ModBlockEntityTypes.HALITOSIS_GENERATOR.get(),
 			singleInputDataDrivenGeneratorType = SingleInputDataDrivenGeneratorType.HALITOSIS,
 			pos = pos,

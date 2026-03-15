@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB
 class NetherStarGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : DataDrivenGeneratorBlockEntity(ModBlockEntityTypes.NETHER_STAR_GENERATOR.get(), SingleInputDataDrivenGeneratorType.NETHER_STAR, pos, blockState) {
+) : SingleInputDataDrivenGeneratorBlockEntity(ModBlockEntityTypes.NETHER_STAR_GENERATOR.get(), SingleInputDataDrivenGeneratorType.NETHER_STAR, pos, blockState) {
 
 	override fun effectOnSuccess(level: ServerLevel) {
 		if (level.gameTime % 20 != 0L) return
