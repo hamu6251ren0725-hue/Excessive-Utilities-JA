@@ -7,10 +7,12 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.EnchanterRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.QedRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.ResonatorRecipeBuilder
+import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.ItemAndFluidFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.MagmaticFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.SingleItemFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
+import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
@@ -2047,6 +2049,18 @@ class ModRecipeProvider(
 		}
 
 		magmatic("lavas", SizedFluidIngredient.of(Tags.Fluids.LAVA, 1), 100, 1) // 100,000 FE per bucket
+
+		fun slimy(name: String, ingredient: Ingredient, fluidIngredient: SizedFluidIngredient, fePerTick: Int, duration: Int) {
+			ItemAndFluidFuelRecipeBuilder(
+				ItemAndFluidFuelRecipe.GeneratorType.SLIMY,
+				ingredient,
+				fluidIngredient,
+				fePerTick,
+				duration
+			).save(recipeOutput, modLoc(name))
+		}
+
+
 
 	}
 
