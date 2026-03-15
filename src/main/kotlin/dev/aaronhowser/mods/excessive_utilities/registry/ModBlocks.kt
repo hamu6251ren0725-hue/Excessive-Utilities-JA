@@ -276,8 +276,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("explosive_generator") { GeneratorBlock { ModBlockEntityTypes.EXPLOSIVE_GENERATOR.get() } }
 	val PINK_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("pink_generator") { GeneratorBlock { ModBlockEntityTypes.PINK_GENERATOR.get() } }
-	val OVERCLOCKED_GENERATOR =
-		basicBlock("overclocked_generator")
+	val OVERCLOCKED_GENERATOR: DeferredBlock<GeneratorBlock> =
+		registerBlock("overclocked_generator") { GeneratorBlock { ModBlockEntityTypes.OVERCLOCKED_GENERATOR.get() } }
 	val NETHER_STAR_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("nether_star_generator") { GeneratorBlock { ModBlockEntityTypes.NETHER_STAR_GENERATOR.get() } }
 	val DISENCHANTMENT_GENERATOR: DeferredBlock<GeneratorBlock> =

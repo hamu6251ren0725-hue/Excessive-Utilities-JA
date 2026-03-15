@@ -66,6 +66,13 @@ class FurnaceFuelGeneratorBlockEntity(
 			pos,
 			state
 		)
+
+		fun overclocked(pos: BlockPos, state: BlockState) = FurnaceFuelGeneratorBlockEntity(
+			ModBlockEntityTypes.OVERCLOCKED_GENERATOR.get(),
+			FurnaceFuelGeneratorType.OVERCLOCKED,
+			pos,
+			state
+		)
 	}
 
 }
