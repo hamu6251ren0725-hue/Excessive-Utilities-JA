@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.attachment.SoulDebt
 import dev.aaronhowser.mods.excessive_utilities.block.AngelBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.*
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.ItemAndFluidInputDataDrivenGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.MagmaticGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
@@ -135,17 +136,23 @@ object CommonEvents {
 		)
 
 		val generators = listOf(
+			ModBlockEntityTypes.CULINARY_GENERATOR.get(),
+			ModBlockEntityTypes.DISENCHANTMENT_GENERATOR.get(),
 			ModBlockEntityTypes.ENDER_GENERATOR.get(),
 			ModBlockEntityTypes.EXPLOSIVE_GENERATOR.get(),
-			ModBlockEntityTypes.PINK_GENERATOR.get(),
-			ModBlockEntityTypes.NETHER_STAR_GENERATOR.get(),
 			ModBlockEntityTypes.FROSTY_GENERATOR.get(),
-			ModBlockEntityTypes.HALITOSIS_GENERATOR.get(),
-			ModBlockEntityTypes.DEATH_GENERATOR.get(),
-			ModBlockEntityTypes.CULINARY_GENERATOR.get(),
 			ModBlockEntityTypes.FURNACE_GENERATOR.get(),
+			ModBlockEntityTypes.HALITOSIS_GENERATOR.get(),
+			ModBlockEntityTypes.HEATED_REDSTONE_GENERATOR.get(),
+			ModBlockEntityTypes.MAGMATIC_GENERATOR.get(),
+			ModBlockEntityTypes.NETHER_STAR_GENERATOR.get(),
+			ModBlockEntityTypes.OVERCLOCKED_GENERATOR.get(),
+			ModBlockEntityTypes.PINK_GENERATOR.get(),
+			ModBlockEntityTypes.POTION_GENERATOR.get(),
+			ModBlockEntityTypes.SLIMY_GENERATOR.get(),
 			ModBlockEntityTypes.SURVIVAL_GENERATOR.get(),
-			ModBlockEntityTypes.MAGMATIC_GENERATOR.get()
+			ModBlockEntityTypes.DEATH_GENERATOR.get(),
+			ModBlockEntityTypes.RAINBOW_GENERATOR.get()
 		)
 
 		for (beType in generators) {
@@ -162,16 +169,28 @@ object CommonEvents {
 			)
 		}
 
-		event.registerItem(
-			Capabilities.EnergyStorage.ITEM,
-			HeatingCoilItem::getEnergyCapability,
-			ModItems.HEATING_COIL.get()
-		)
-
 		event.registerBlockEntity(
 			Capabilities.FluidHandler.BLOCK,
 			ModBlockEntityTypes.MAGMATIC_GENERATOR.get(),
 			MagmaticGeneratorBlockEntity::getFluidCapability
+		)
+
+		event.registerBlockEntity(
+			Capabilities.FluidHandler.BLOCK,
+			ModBlockEntityTypes.SLIMY_GENERATOR.get(),
+			ItemAndFluidInputDataDrivenGeneratorBlockEntity::getFluidCapability
+		)
+
+		event.registerBlockEntity(
+			Capabilities.FluidHandler.BLOCK,
+			ModBlockEntityTypes.HEATED_REDSTONE_GENERATOR.get(),
+			ItemAndFluidInputDataDrivenGeneratorBlockEntity::getFluidCapability
+		)
+
+		event.registerItem(
+			Capabilities.EnergyStorage.ITEM,
+			HeatingCoilItem::getEnergyCapability,
+			ModItems.HEATING_COIL.get()
 		)
 
 		event.registerBlockEntity(
