@@ -2370,7 +2370,6 @@ class ModBlockStateProvider(
 			ModBlocks.QUANTUM_QUARRY.get(),
 			ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.get(),
 			ModBlocks.MAGICAL_WOOD.get(),
-			ModBlocks.SQUARE_GLASS.get()
 		)
 
 		for (block in blocks) {
@@ -2380,7 +2379,8 @@ class ModBlockStateProvider(
 
 	private fun singleTextureCutout() {
 		val blocks = listOf(
-			ModBlocks.RESTURBED_MOB_SPAWNER.get()
+			ModBlocks.RESTURBED_MOB_SPAWNER.get(),
+			ModBlocks.SQUARE_GLASS.get()
 		)
 
 		for (block in blocks) {
