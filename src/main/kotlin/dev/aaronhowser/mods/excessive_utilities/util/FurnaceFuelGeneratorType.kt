@@ -22,7 +22,14 @@ enum class FurnaceFuelGeneratorType(
 		GeneratorType.SURVIVAL,
 		ServerConfig.CONFIG.survivalistGeneratorBurnTimeMultiplier,
 		ServerConfig.CONFIG.survivalistGeneratorFePerTick
+	),
+	OVERCLOCKED(
+		"overclocked",
+		GeneratorType.OVERCLOCKED,
+		{ 0.0 }, // Burn time is zero ticks, ot just burns the whole item instantly
+		ServerConfig.CONFIG.overclockedGeneratorFePerBurnTick
 	)
+
 
 	;
 
