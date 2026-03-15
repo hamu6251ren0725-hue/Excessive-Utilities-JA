@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.config.ClientConfig
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
-import dev.aaronhowser.mods.excessive_utilities.util.DataDrivenGeneratorType
+import dev.aaronhowser.mods.excessive_utilities.util.SingleInputDataDrivenGeneratorType
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ColorParticleOption
 import net.minecraft.core.particles.ParticleTypes
@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB
 class NetherStarGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : DataDrivenGeneratorBlockEntity(ModBlockEntityTypes.NETHER_STAR_GENERATOR.get(), DataDrivenGeneratorType.NETHER_STAR, pos, blockState) {
+) : DataDrivenGeneratorBlockEntity(ModBlockEntityTypes.NETHER_STAR_GENERATOR.get(), SingleInputDataDrivenGeneratorType.NETHER_STAR, pos, blockState) {
 
 	override fun effectOnSuccess(level: ServerLevel) {
 		if (level.gameTime % 20 != 0L) return

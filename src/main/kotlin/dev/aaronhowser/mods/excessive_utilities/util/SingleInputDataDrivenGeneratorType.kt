@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.util
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.util.StringRepresentable
 
-enum class DataDrivenGeneratorType(
+enum class SingleInputDataDrivenGeneratorType(
 	private val id: String,
 	val baseGeneratorType: GeneratorType
 ) : StringRepresentable {
@@ -41,7 +41,7 @@ enum class DataDrivenGeneratorType(
 	override fun getSerializedName(): String = id
 
 	companion object {
-		val CODEC: StringRepresentable.EnumCodec<DataDrivenGeneratorType> =
+		val CODEC: StringRepresentable.EnumCodec<SingleInputDataDrivenGeneratorType> =
 			StringRepresentable.fromEnum { entries.toTypedArray() }
 	}
 

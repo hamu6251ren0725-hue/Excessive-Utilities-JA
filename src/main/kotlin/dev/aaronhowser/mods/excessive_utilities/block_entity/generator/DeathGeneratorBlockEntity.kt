@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.config.ClientConfig
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMobEffects
-import dev.aaronhowser.mods.excessive_utilities.util.DataDrivenGeneratorType
+import dev.aaronhowser.mods.excessive_utilities.util.SingleInputDataDrivenGeneratorType
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ColorParticleOption
 import net.minecraft.core.particles.ParticleTypes
@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB
 class DeathGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : DataDrivenGeneratorBlockEntity(ModBlockEntityTypes.DEATH_GENERATOR.get(), DataDrivenGeneratorType.DEATH, pos, blockState) {
+) : DataDrivenGeneratorBlockEntity(ModBlockEntityTypes.DEATH_GENERATOR.get(), SingleInputDataDrivenGeneratorType.DEATH, pos, blockState) {
 
 	override fun effectOnSuccess(level: ServerLevel) {
 		if (level.gameTime % 20 != 0L) return
