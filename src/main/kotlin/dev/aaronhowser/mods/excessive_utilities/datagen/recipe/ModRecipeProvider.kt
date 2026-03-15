@@ -752,13 +752,13 @@ class ModRecipeProvider(
 		).save(recipeOutput)
 
 		shapedRecipe(
-			ModBlocks.HIGH_TEMPERATURE_FURNACE_GENERATOR,
-			"III,ICI,RMR",
+			ModBlocks.OVERCLOCKED_GENERATOR,
+			"LLL,LGL,RFR",
 			mapOf(
-				'I' to Tags.Items.INGOTS_IRON.asIngredient(),
-				'C' to Blocks.COAL_BLOCK.asIngredient(),
+				'L' to Tags.Items.GEMS_LAPIS.asIngredient(),
+				'G' to Tags.Items.STORAGE_BLOCKS_GOLD.asIngredient(),
 				'R' to Tags.Items.DUSTS_REDSTONE.asIngredient(),
-				'M' to ModBlocks.FURNACE_GENERATOR.asIngredient()
+				'F' to ModBlocks.FURNACE_GENERATOR.asIngredient()
 			)
 		).save(recipeOutput)
 

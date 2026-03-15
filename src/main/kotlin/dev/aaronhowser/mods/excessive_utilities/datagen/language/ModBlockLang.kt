@@ -100,7 +100,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.POTION_GENERATOR, "Potions Generator")
 			addBlock(ModBlocks.EXPLOSIVE_GENERATOR, "Explosive Generator")
 			addBlock(ModBlocks.PINK_GENERATOR, "Pink Generator")
-			addBlock(ModBlocks.HIGH_TEMPERATURE_FURNACE_GENERATOR, "High-Temperature Furnace Generator")
+			addBlock(ModBlocks.OVERCLOCKED_GENERATOR, "Overclocked Generator")
 			addBlock(ModBlocks.NETHER_STAR_GENERATOR, "Nether Star Generator")
 			addBlock(ModBlocks.DISENCHANTMENT_GENERATOR, "Disenchantment Generator")
 			addBlock(ModBlocks.FROSTY_GENERATOR, "Frosty Generator")

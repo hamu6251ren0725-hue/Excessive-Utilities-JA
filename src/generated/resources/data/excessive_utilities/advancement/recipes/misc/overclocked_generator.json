@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "excessive_utilities:high_temperature_furnace_generator"
+        "recipe": "excessive_utilities:overclocked_generator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "excessive_utilities:high_temperature_furnace_generator"
+      "excessive_utilities:overclocked_generator"
     ]
   }
 }

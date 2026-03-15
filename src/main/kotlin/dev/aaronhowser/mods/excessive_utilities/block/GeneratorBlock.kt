@@ -159,7 +159,7 @@ class GeneratorBlock(
 				ModBlocks.NETHER_STAR_GENERATOR.get() to 0xFFFFFF,
 				ModBlocks.ENDER_GENERATOR.get() to 0x258474,
 				ModBlocks.HEATED_REDSTONE_GENERATOR.get() to 0xAA4E03,
-				ModBlocks.HIGH_TEMPERATURE_FURNACE_GENERATOR.get() to 0x1B0FB0,
+				ModBlocks.OVERCLOCKED_GENERATOR.get() to 0x1B0FB0,
 				ModBlocks.HALITOSIS_GENERATOR.get() to 0xA77AA7,
 				ModBlocks.FROSTY_GENERATOR.get() to 0x4E6C9F,
 				ModBlocks.DEATH_GENERATOR.get() to 0xD8CD9C,

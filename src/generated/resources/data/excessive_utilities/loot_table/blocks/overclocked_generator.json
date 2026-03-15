@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "excessive_utilities:high_temperature_furnace_generator"
+          "name": "excessive_utilities:overclocked_generator"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "excessive_utilities:blocks/high_temperature_furnace_generator"
+  "random_sequence": "excessive_utilities:blocks/overclocked_generator"
 }
