@@ -106,8 +106,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("survival_generator", FurnaceFuelGeneratorBlockEntity::survival, ModBlocks.SURVIVAL_GENERATOR)
 	val FURNACE_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
 		register("furnace_generator", FurnaceFuelGeneratorBlockEntity::furnace, ModBlocks.FURNACE_GENERATOR)
-	val OVERCLOCKED_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
-		register("overclocked_generator", FurnaceFuelGeneratorBlockEntity::overclocked, ModBlocks.OVERCLOCKED_GENERATOR)
+	val OVERCLOCKED_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<OverclockedGeneratorBlockEntity>> =
+		register("overclocked_generator", ::OverclockedGeneratorBlockEntity, ModBlocks.OVERCLOCKED_GENERATOR)
 	val ENDER_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
 		register("ender_generator", DataDrivenGeneratorBlockEntity::ender, ModBlocks.ENDER_GENERATOR)
 	val EXPLOSIVE_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DataDrivenGeneratorBlockEntity>> =
