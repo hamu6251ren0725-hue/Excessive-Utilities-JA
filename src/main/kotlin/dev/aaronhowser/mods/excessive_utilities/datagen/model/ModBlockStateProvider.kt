@@ -2370,6 +2370,7 @@ class ModBlockStateProvider(
 			ModBlocks.QUANTUM_QUARRY.get(),
 			ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.get(),
 			ModBlocks.MAGICAL_WOOD.get(),
+			ModBlocks.SQUARE_GLASS.get()
 		)
 
 		for (block in blocks) {
@@ -2414,7 +2415,11 @@ class ModBlockStateProvider(
 			ModBlocks.INEFFABLE_GLASS.get(),
 			ModBlocks.DARK_INEFFABLE_GLASS.get(),
 			ModBlocks.ETHEREAL_GLASS.get(),
-			ModBlocks.INVERTED_ETHEREAL_GLASS.get()
+			ModBlocks.INVERTED_ETHEREAL_GLASS.get(),
+			ModBlocks.THICKENED_GLASS.get(),
+			ModBlocks.EDGED_GLASS.get(),
+			ModBlocks.SWIRLING_GLASS.get(),
+			ModBlocks.HEART_GLASS.get()
 		)
 
 		for (block in blocks) {
