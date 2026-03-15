@@ -26,7 +26,7 @@ open class ItemAndFluidInputDataDrivenGeneratorBlockEntity(
 	override val generatorType: GeneratorType = specificType.baseGeneratorType
 
 	val tank: FluidTank =
-		object : FluidTank(1_000_000) {
+		object : FluidTank(4_000) {
 			override fun isFluidValid(stack: FluidStack): Boolean {
 				val level = level ?: return false
 				return ItemAndFluidFuelRecipe.isValidFluid(stack, specificType.fuelRecipeType, level.recipeManager)
