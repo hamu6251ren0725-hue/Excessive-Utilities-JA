@@ -2416,10 +2416,18 @@ class ModBlockStateProvider(
 			ModBlocks.DARK_INEFFABLE_GLASS.get(),
 			ModBlocks.ETHEREAL_GLASS.get(),
 			ModBlocks.INVERTED_ETHEREAL_GLASS.get(),
+		)
+
+		val cutout = listOf(
 			ModBlocks.THICKENED_GLASS.get(),
 			ModBlocks.EDGED_GLASS.get(),
 			ModBlocks.SWIRLING_GLASS.get(),
-			ModBlocks.HEART_GLASS.get()
+			ModBlocks.HEART_GLASS.get(),
+			ModBlocks.GLASS_BRICKS.get(),
+			ModBlocks.CARVED_GLASS.get(),
+			ModBlocks.GOLDEN_EDGED_GLASS.get(),
+			ModBlocks.GLOWING_GLASS.get(),
+			ModBlocks.BLOCK_OF_UNSTABLE_INGOT.get()
 		)
 
 		for (block in blocks) {
@@ -2439,6 +2447,17 @@ class ModBlockStateProvider(
 			val model = models()
 				.cubeAll(name(block), texture)
 				.renderType(RenderType.translucent().name)
+
+			simpleBlockItem(block, model)
+		}
+
+		for (block in cutout) {
+			val path = BuiltInRegistries.BLOCK.getKey(block).path
+			val texture = modLoc("block/$path/particle")
+
+			val model = models()
+				.cubeAll(name(block), texture)
+				.renderType(RenderType.cutout().name)
 
 			simpleBlockItem(block, model)
 		}

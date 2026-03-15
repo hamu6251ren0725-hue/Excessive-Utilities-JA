@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_all",
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "excessive_utilities:block/heart_glass/particle"
+    "all": "excessive_utilities:block/glass_bricks/particle"
   }
 }

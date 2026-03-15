@@ -54,6 +54,10 @@ object ClientEvents {
 			ModBlocks.THICKENED_GLASS.get(),
 			ModBlocks.THICKENED_GLASS_BORDERED.get(),
 			ModBlocks.THICKENED_GLASS_PATTERNED.get(),
+			ModBlocks.GLASS_BRICKS.get(),
+			ModBlocks.GOLDEN_EDGED_GLASS.get(),
+			ModBlocks.GLOWING_GLASS.get(),
+			ModBlocks.BLOCK_OF_UNSTABLE_INGOT.get()
 		)
 
 		for (block in cutout) {
