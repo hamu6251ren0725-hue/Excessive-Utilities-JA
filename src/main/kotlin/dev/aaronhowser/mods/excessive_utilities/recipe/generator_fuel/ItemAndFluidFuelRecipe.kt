@@ -11,10 +11,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeInput
-import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.fluids.FluidStack
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient
@@ -38,6 +35,35 @@ class ItemAndFluidFuelRecipe(
 
 	override fun getSerializer(): RecipeSerializer<*> = ModRecipeSerializers.ITEM_AND_FLUID_FUEL.get()
 	override fun getType(): RecipeType<*> = ModRecipeTypes.ITEM_AND_FLUID_FUEL.get()
+
+	companion object {
+		fun getRecipe(
+			level: Level,
+			type: GeneratorType,
+			itemStack: ItemStack,
+			fluidStack: FluidStack
+		): ItemAndFluidFuelRecipe? {
+			val input = Input(itemStack, fluidStack)
+
+			return getAllRecipesOfType(type, level.recipeManager)
+				.firstOrNull { it.value.matches(input, level) }
+				?.value
+		}
+
+		fun getAllRecipesOfType(
+			generatorType: GeneratorType,
+			recipeManager: RecipeManager
+		): List<RecipeHolder<ItemAndFluidFuelRecipe>> {
+			return getAllRecipes(recipeManager).filter { it.value().generatorType == generatorType }
+		}
+
+
+		fun getAllRecipes(
+			recipeManager: RecipeManager
+		): List<RecipeHolder<ItemAndFluidFuelRecipe>> {
+			return recipeManager.getAllRecipesFor(ModRecipeTypes.ITEM_AND_FLUID_FUEL.get())
+		}
+	}
 
 	enum class GeneratorType(
 		val id: String
