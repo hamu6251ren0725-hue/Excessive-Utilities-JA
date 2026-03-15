@@ -2046,7 +2046,7 @@ class ModRecipeProvider(
 			MagmaticFuelRecipeBuilder(ingredient, fePerTick, duration).save(recipeOutput, modLoc(name))
 		}
 
-		magmatic("lavas", SizedFluidIngredient.of(Tags.Fluids.LAVA, 1), 80, 1) // 80,000 FE per bucket
+		magmatic("lavas", SizedFluidIngredient.of(Tags.Fluids.LAVA, 1), 100, 1) // 100,000 FE per bucket
 
 	}
 

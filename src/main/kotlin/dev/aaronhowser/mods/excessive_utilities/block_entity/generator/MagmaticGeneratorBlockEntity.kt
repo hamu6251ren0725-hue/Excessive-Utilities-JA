@@ -14,6 +14,7 @@ import net.neoforged.neoforge.fluids.FluidStack
 import net.neoforged.neoforge.fluids.capability.IFluidHandler
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank
 
+//TODO: Placing a bucket in the inventory should empty the bucket and fill the tank
 class MagmaticGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState,
