@@ -31,9 +31,9 @@ open class ItemAndFluidInputDataDrivenGeneratorBlockEntity(
 			}
 		}
 
-	protected fun getRecipe(itemStack: ItemStack): ItemAndFluidFuelRecipe? {
+	protected fun getRecipe(itemStack: ItemStack, fluidStack: FluidStack): ItemAndFluidFuelRecipe? {
 		val level = level ?: return null
-		return ItemAndFluidFuelRecipe.getRecipe(level, specificType.fuelRecipeType, itemStack, tank.fluid)
+		return ItemAndFluidFuelRecipe.getRecipe(level, specificType.fuelRecipeType, itemStack, fluidStack)
 	}
 
 	override fun isValidInput(itemStack: ItemStack): Boolean {
@@ -45,15 +45,14 @@ open class ItemAndFluidInputDataDrivenGeneratorBlockEntity(
 		if (burnTimeRemaining > 0) return false
 		val container = container ?: return false
 
-		val inputStack = container.getItem(GeneratorContainer.INPUT_SLOT)
-		if (inputStack.isEmpty) return false
-
-		val recipe = getRecipe(inputStack) ?: return false
+		val inputItemStack = container.getItem(GeneratorContainer.INPUT_SLOT)
+		val inputFluidStack = tank.fluid
+		val recipe = getRecipe(inputItemStack, inputFluidStack) ?: return false
 
 		fePerTick = recipe.fePerTick
 		burnTimeRemaining = recipe.duration
 
-		inputStack.shrink(1)
+		inputItemStack.shrink(recipe.fluidIngredient.amount())
 		setChanged()
 
 		return true
