@@ -1,28 +1,17 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.base
 
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
-import net.minecraft.util.StringRepresentable
 
 enum class SingleInputDataDrivenGeneratorType(
-	private val id: String,
 	val baseGeneratorType: GeneratorType
-) : StringRepresentable {
-	ENDER("ender", GeneratorType.ENDER),
-	EXPLOSIVE("explosive", GeneratorType.EXPLOSIVE),
-	PINK("pink", GeneratorType.PINK),
-	NETHER_STAR("nether_star", GeneratorType.NETHER_STAR),
-	FROSTY("frosty", GeneratorType.FROSTY),
-	HALITOSIS("halitosis", GeneratorType.HALITOSIS),
-	DEATH("death", GeneratorType.DEATH)
-
-	/**
-	 * Left out intentionally:
-	 * - Survival, Furnace, High-Temperature Furnace: Factor of burn time
-	 * - Culinary: Factor of food value
-	 * - Magmatic, Heated Redstone: Uses a fluid
-	 * - Potions: Uses a potion
-	 * - Slimy: Uses multiple items together
-	 */
+) {
+	ENDER(GeneratorType.ENDER),
+	EXPLOSIVE(GeneratorType.EXPLOSIVE),
+	PINK(GeneratorType.PINK),
+	NETHER_STAR(GeneratorType.NETHER_STAR),
+	FROSTY(GeneratorType.FROSTY),
+	HALITOSIS(GeneratorType.HALITOSIS),
+	DEATH(GeneratorType.DEATH)
 
 	;
 
@@ -36,13 +25,6 @@ enum class SingleInputDataDrivenGeneratorType(
 			HALITOSIS -> SingleItemFuelRecipe.GeneratorType.HALITOSIS
 			DEATH -> SingleItemFuelRecipe.GeneratorType.DEATH
 		}
-	}
-
-	override fun getSerializedName(): String = id
-
-	companion object {
-		val CODEC: StringRepresentable.EnumCodec<SingleInputDataDrivenGeneratorType> =
-			StringRepresentable.fromEnum { entries.toTypedArray() }
 	}
 
 }
