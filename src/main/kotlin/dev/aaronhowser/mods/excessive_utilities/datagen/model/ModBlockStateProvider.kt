@@ -494,6 +494,7 @@ class ModBlockStateProvider(
 			val model = models().getExistingFile(modLoc("block/$name"))
 			simpleBlock(spike, model)
 
+			//FIXME: They're upside down in hand
 			itemModels()
 				.withExistingParent(name, modLoc("block/$name"))
 				.transforms {
