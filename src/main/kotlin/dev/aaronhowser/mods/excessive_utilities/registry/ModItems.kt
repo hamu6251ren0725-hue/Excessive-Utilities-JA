@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.*
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemNameBlockItem
 import net.minecraft.world.item.Tiers
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -36,6 +37,10 @@ object ModItems : AaronItemRegistry() {
 		basic("lunar_reactive_dust")
 	val MOON_STONE: DeferredItem<Item> =
 		basic("moon_stone")
+
+	@JvmField
+	val RED_COAL: DeferredItem<RedCoalItem> =
+		register("red_coal", ::RedCoalItem, RedCoalItem.DEFAULT_PROPERTIES)
 	val REDSTONE_GEAR: DeferredItem<Item> =
 		basic("redstone_gear")
 	val RESONATING_REDSTONE_CRYSTAL: DeferredItem<Item> =
@@ -52,10 +57,6 @@ object ModItems : AaronItemRegistry() {
 		basic("semi_unstable_nugget")
 	val KLEIN_BOTTLE: DeferredItem<Item> =
 		basic("klein_bottle")
-
-	@JvmField
-	val RED_COAL: DeferredItem<RedCoalItem> =
-		register("red_coal", ::RedCoalItem, RedCoalItem.DEFAULT_PROPERTIES)
 
 	// Tools
 
@@ -77,7 +78,7 @@ object ModItems : AaronItemRegistry() {
 		register("glass_cutter", ::GlassCutterItem, GlassCutterItem.DEFAULT_PROPERTIES)
 	val TROWEL: DeferredItem<TrowelItem> =
 		register("trowel", ::TrowelItem, TrowelItem.DEFAULT_PROPERTIES)
-	val WRENCH: DeferredItem<Item> =
+	val WRENCH =
 		basic("wrench")
 	val WATERING_CAN: DeferredItem<WateringCanItem> =
 		register("watering_can", { WateringCanItem(isReinforced = false, it) }, WateringCanItem.DEFAULT_PROPERTIES)
