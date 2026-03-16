@@ -119,7 +119,7 @@ object WandRenderer {
 			level,
 			targetPos,
 			targetState.block,
-			targetFace,
+			if (player.isSecondaryUseActive) null else targetFace,
 			amount
 		)
 

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.block_walker.BlockWalker
+import dev.aaronhowser.mods.aaron.block_walker.WalkType
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
@@ -64,7 +65,7 @@ class DestructionWandItem(properties: Properties) : Item(properties) {
 
 			val level = player.level()
 			val blockPos = event.pos
-			val face = hitResult.direction
+			val face = if (player.isSecondaryUseActive) null else hitResult.direction
 
 			val positions = getPositions(level, blockPos, brokenState.block, face, amount)
 			if (positions.isEmpty()) return
@@ -134,19 +135,24 @@ class DestructionWandItem(properties: Properties) : Item(properties) {
 			level: Level,
 			startPos: BlockPos,
 			originalBlock: Block,
-			face: Direction,
+			face: Direction?,
 			maxCount: Int
 		): List<BlockPos> {
+
 			val searchDirections =
-				when (face.axis) {
-					Direction.Axis.Y -> listOf(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)
-					Direction.Axis.X -> listOf(Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH)
-					else -> listOf(Direction.UP, Direction.DOWN, Direction.EAST, Direction.WEST)
+				if (face == null) {
+					WalkType.ALL_SURROUNDING.neighborOffsets
+				} else {
+					when (face.axis) {
+						Direction.Axis.Y -> listOf(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)
+						Direction.Axis.X -> listOf(Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH)
+						else -> listOf(Direction.UP, Direction.DOWN, Direction.EAST, Direction.WEST)
+					}.map(Direction::getNormal)
 				}
 
 			val walker = BlockWalker
 				.Builder(level)
-				.searchOffsets(searchDirections.map(Direction::getNormal))
+				.searchOffsets(searchDirections)
 				.startPos(startPos)
 				.filter { _, _, state -> state.isBlock(originalBlock) }
 				.maxTotalBlocks(maxCount * 2)
