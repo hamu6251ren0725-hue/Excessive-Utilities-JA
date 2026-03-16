@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -39,7 +40,7 @@ class BlockStateIngredient(
 	companion object {
 		val CODEC: Codec<BlockStateIngredient> =
 			Codec.either(
-				Block.CODEC.codec(),
+				BuiltInRegistries.BLOCK.byNameCodec(),
 				TagKey.codec(Registries.BLOCK)
 			).xmap(::BlockStateIngredient, BlockStateIngredient::blockEither)
 
