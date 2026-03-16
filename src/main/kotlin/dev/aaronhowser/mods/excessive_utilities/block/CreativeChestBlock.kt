@@ -61,7 +61,7 @@ class CreativeChestBlock : SimpleContainerBlock(Properties.ofFullCopy(Blocks.STO
 	companion object {
 		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
 
-		val SHAPE: VoxelShape = box(1.0, 0.0, 1.0, 15.0, 15.0, 15.0)
+		val SHAPE: VoxelShape = box(1.0, 0.0, 1.0, 15.0, 14.0, 15.0)
 	}
 
 }
