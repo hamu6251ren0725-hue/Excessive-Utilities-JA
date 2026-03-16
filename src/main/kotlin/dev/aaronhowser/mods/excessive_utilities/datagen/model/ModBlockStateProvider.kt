@@ -2131,7 +2131,7 @@ class ModBlockStateProvider(
 			.texture("side", mcLoc("block/furnace_side"))
 
 		val modelOn = models()
-			.withExistingParent(name + "_on", modLoc("generator_base"))
+			.withExistingParent(name + "_on", modLoc("block/${name}_off"))
 			.texture("top_overlay", modLoc("block/generator/top/nothing"))
 			.texture("front_overlay", modLoc("block/generator/on"))
 
