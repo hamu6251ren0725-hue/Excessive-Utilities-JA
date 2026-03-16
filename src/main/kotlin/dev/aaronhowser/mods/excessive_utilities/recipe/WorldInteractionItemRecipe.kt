@@ -30,11 +30,18 @@ class WorldInteractionItemRecipe(
 			return false
 		}
 
+		val adjacentBlocks = input.adjacentBlocks.toMutableList()
+
 		for (requiredAdjacent in requiredAdjacentBlocks) {
 			var foundMatch = false
-			for (adjacent in input.adjacentBlocks) {
-				if (requiredAdjacent.test(adjacent)) {
+
+			val iterator = adjacentBlocks.iterator()
+
+			while (iterator.hasNext()) {
+				val next = iterator.next()
+				if (requiredAdjacent.test(next)) {
 					foundMatch = true
+					iterator.remove()
 					break
 				}
 			}
