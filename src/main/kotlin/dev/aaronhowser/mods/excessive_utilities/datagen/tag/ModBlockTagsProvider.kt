@@ -288,6 +288,7 @@ class ModBlockTagsProvider(
 		tag(DESTRUCTION_PICKAXE_TARGET)
 			.addTags(
 				Tags.Blocks.STONES,
+				Tags.Blocks.NETHERRACKS
 			)
 
 		tag(EROSION_SHOVEL_TARGET)
@@ -295,6 +296,9 @@ class ModBlockTagsProvider(
 				BlockTags.DIRT,
 				Tags.Blocks.SANDS,
 				Tags.Blocks.GRAVELS
+			)
+			.add(
+				Blocks.SOUL_SAND
 			)
 
 		tag(COLLECTABLE_BY_BOOMEREAPERANG)

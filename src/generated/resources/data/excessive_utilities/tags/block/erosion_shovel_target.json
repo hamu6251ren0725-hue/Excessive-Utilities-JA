@@ -2,6 +2,7 @@
   "values": [
     "#minecraft:dirt",
     "#c:sands",
-    "#c:gravels"
+    "#c:gravels",
+    "minecraft:soul_sand"
   ]
 }
