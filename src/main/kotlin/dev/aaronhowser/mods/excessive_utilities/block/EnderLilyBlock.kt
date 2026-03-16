@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isFluid
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -44,7 +45,7 @@ class EnderLilyBlock : CropBlock(Properties.ofFullCopy(Blocks.WHEAT)) {
 					|| facingState.getOptionalValue(BlockStateProperties.MOISTURE).getOrDefault(0) > 0
 
 			if (shouldTeleportAway) {
-				val success = teleportAway(level, currentPos)
+				val success = teleportAway(level, currentPos, state)
 				if (success) return Blocks.AIR.defaultBlockState()
 			}
 		}
@@ -54,7 +55,25 @@ class EnderLilyBlock : CropBlock(Properties.ofFullCopy(Blocks.WHEAT)) {
 
 	companion object {
 
-		private fun teleportAway(level: LevelReader, pos: BlockPos): Boolean {
+		/** Does not remove the original */
+		private fun teleportAway(level: LevelAccessor, lilyPos: BlockPos, lilyState: BlockState): Boolean {
+			val mutable = lilyPos.mutable()
+			val radius = 16
+
+			for (i in 0 until 1000) {
+				mutable.set(
+					lilyPos.x + level.random.nextRange(-radius, radius),
+					lilyPos.y + level.random.nextRange(-radius, radius),
+					lilyPos.z + level.random.nextRange(-radius, radius)
+				)
+
+				val stateThere = level.getBlockState(mutable)
+				if (stateThere.canBeReplaced() && lilyState.canSurvive(level, mutable)) {
+					level.setBlock(mutable, lilyState, 3)
+					return true
+				}
+			}
+
 			return false
 		}
 
