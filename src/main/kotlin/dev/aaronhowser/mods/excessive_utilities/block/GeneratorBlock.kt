@@ -3,10 +3,10 @@ package dev.aaronhowser.mods.excessive_utilities.block
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.excessive_utilities.block.base.SimpleContainerBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.RainbowGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.rainbow_generator.RainbowGeneratorHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component

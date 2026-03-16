@@ -13,7 +13,6 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.ShapedRecipePattern
-import kotlin.collections.iterator
 
 class QedRecipeBuilder(
 	val result: ItemStack,
