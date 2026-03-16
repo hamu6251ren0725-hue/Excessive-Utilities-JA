@@ -48,6 +48,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.MECHANICAL_USER, "Mechanical User")
 			addBlock(ModBlocks.QUANTUM_QUARRY, "Quantum Quarry")
 			addBlock(ModBlocks.QUANTUM_QUARRY_ACTUATOR, "Quantum Quarry Actuator")
+			addBlock(ModBlocks.ENDER_LILY, "Ender Lily")
 			addBlock(ModBlocks.RED_ORCHID, "Red Orchid")
 			addBlock(ModBlocks.REDSTONE_LANTERN, "Redstone Lantern")
 			addBlock(ModBlocks.RESONATOR, "Resonator")

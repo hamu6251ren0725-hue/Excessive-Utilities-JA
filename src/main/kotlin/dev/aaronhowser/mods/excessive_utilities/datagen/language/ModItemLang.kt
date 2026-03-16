@@ -42,8 +42,6 @@ object ModItemLang {
 			add(MOBIUS_INGOT, "Mobius \"Unstable/Stable\" Ingot")
 			addItem(ModItems.KLEIN_BOTTLE, "Klein Bottle")
 
-			addItem(ModItems.ENDER_LILY, "Ender Lily")
-
 			addItem(ModItems.DESTRUCTION_PICKAXE, "Destruction Pickaxe")
 			addItem(ModItems.EROSION_SHOVEL, "Erosion Shovel")
 			addItem(ModItems.ETHERIC_SWORD, "Etheric Sword")

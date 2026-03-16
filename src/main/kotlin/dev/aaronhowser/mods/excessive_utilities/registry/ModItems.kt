@@ -57,11 +57,6 @@ object ModItems : AaronItemRegistry() {
 	val KLEIN_BOTTLE: DeferredItem<Item> =
 		basic("klein_bottle")
 
-	// Plants
-
-	val ENDER_LILY =
-		basic("ender_lily")
-
 	// Tools
 
 	val DESTRUCTION_PICKAXE: DeferredItem<DestructionPickaxeItem> =
