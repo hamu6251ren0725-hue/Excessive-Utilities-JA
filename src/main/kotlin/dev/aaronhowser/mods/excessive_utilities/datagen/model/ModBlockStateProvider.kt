@@ -74,6 +74,26 @@ class ModBlockStateProvider(
 		transferPipes()
 		transferNodes()
 		enderLily()
+		redOrchid()
+	}
+
+	private fun redOrchid() {
+		val block = ModBlocks.RED_ORCHID.get()
+
+		getVariantBuilder(block)
+			.forAllStates {
+				val age = it.getValue(CropBlock.AGE)
+				val nameWithAge = name(block) + "_$age"
+
+				val model = models()
+					.cross(nameWithAge, modLoc("block/red_orchid/$age"))
+					.renderType(RenderType.cutout().name)
+
+				ConfiguredModel
+					.builder()
+					.modelFile(model)
+					.build()
+			}
 	}
 
 	private fun enderLily() {
