@@ -56,7 +56,7 @@ abstract class GeneratorBlockEntity(
 	open fun getItemHandler(direction: Direction?): IItemHandlerModifiable? = container?.itemHandler
 
 	protected open fun isValidInput(itemStack: ItemStack) = true
-	protected open fun isValidSecondaryInput(itemStack: ItemStack) = true
+	protected open fun isValidSecondaryInput(itemStack: ItemStack) = false
 	protected open fun isValidUpgrade(itemStack: ItemStack): Boolean {
 		return itemStack.isItem(ModItemTagsProvider.SPEED_UPGRADES)
 	}
