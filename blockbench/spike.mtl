@@ -1,2 +1,6 @@
 # Made in Blockbench 5.0.7
+newmtl m_d4be013c-056e-345d-0c63-b000625cb588
+map_Kd side.png
+newmtl m_03c18107-5147-31e4-4eff-d5e21ca9df0e
+map_Kd base.png
 newmtl none
