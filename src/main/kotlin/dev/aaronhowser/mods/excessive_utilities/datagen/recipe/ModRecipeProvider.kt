@@ -2095,6 +2095,25 @@ class ModRecipeProvider(
 			output = Items.COBBLESTONE.asItem().defaultInstance
 		).save(recipeOutput, modLoc("cobblestone"))
 
+		WorldInteractionItemRecipeBuilder(
+			requiredOnBlock = BlockStateIngredient(Blocks.SOUL_SOIL),
+			requiredAdjacentBlocks = listOf(
+				BlockStateIngredient(Blocks.BLUE_ICE),
+				BlockStateIngredient(Blocks.LAVA)
+			),
+			requiredBlockBehind = null,
+			output = Items.BASALT.asItem().defaultInstance
+		).save(recipeOutput, modLoc("basalt"))
+
+		WorldInteractionItemRecipeBuilder(
+			requiredOnBlock = BlockStateIngredient(Tags.Blocks.STONES),
+			requiredAdjacentBlocks = listOf(
+				BlockStateIngredient(Blocks.LAVA)
+			),
+			requiredBlockBehind = BlockStateIngredient(Blocks.WATER),
+			output = Items.STONE.asItem().defaultInstance
+		).save(recipeOutput, modLoc("stone"))
+
 	}
 
 }
