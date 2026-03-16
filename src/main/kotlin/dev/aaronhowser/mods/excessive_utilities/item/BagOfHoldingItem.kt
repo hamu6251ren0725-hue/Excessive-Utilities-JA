@@ -66,6 +66,7 @@ class BagOfHoldingItem(properties: Properties) : Item(properties), MenuProvider 
 
 	override fun getDisplayName(): Component = defaultInstance.hoverName
 
+	//FIXME: The menu doesn't close when you stop holding the item, probably allows for dupe bugs
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
 		val level = player.level()
 		if (level !is ServerLevel) return null
