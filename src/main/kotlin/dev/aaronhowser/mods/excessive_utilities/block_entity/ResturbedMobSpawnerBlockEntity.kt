@@ -19,6 +19,7 @@ import net.minecraft.world.level.Spawner
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
+//TODO: Apply the same logic as Cursed Earth... which currently does nothing
 class ResturbedMobSpawnerBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
@@ -42,6 +43,15 @@ class ResturbedMobSpawnerBlockEntity(
 			override fun getOwner(): Either<BlockEntity, Entity> {
 				return Either.left(this@ResturbedMobSpawnerBlockEntity)
 			}
+
+			override fun clientTick(level: Level, pos: BlockPos) {
+				if (level.hasNeighborSignal(pos)) {
+					oSpin = spin
+					return
+				}
+
+				super.clientTick(level, pos)
+			}
 		}
 
 	override fun setEntityId(entityType: EntityType<*>, random: RandomSource) {
@@ -55,6 +65,7 @@ class ResturbedMobSpawnerBlockEntity(
 	}
 
 	private fun serverTick(level: ServerLevel) {
+		if (level.hasNeighborSignal(blockPos)) return
 		spawner.serverTick(level, blockPos)
 	}
 
