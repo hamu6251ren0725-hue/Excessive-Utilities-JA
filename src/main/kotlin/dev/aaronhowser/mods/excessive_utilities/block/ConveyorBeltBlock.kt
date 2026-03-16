@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.Entity
@@ -43,34 +45,52 @@ class ConveyorBeltBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 	override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
 		if (entity.isCrouching) return
 
-		val movementDirection = state.getValue(FACING)
-
-		val currentVelocity = entity.deltaMovement
-		val movementInDirection = if (movementDirection.axis == Direction.Axis.Z) {
-			abs(currentVelocity.z)
-		} else {
-			abs(currentVelocity.x)
-		}
-
-		val requiredSpeed = ServerConfig.CONFIG.conveyorBeltSpeed.get()
-		if (movementInDirection < requiredSpeed) {
-			val difference = requiredSpeed - movementInDirection
-			val newVelocity = when (movementDirection) {
-				Direction.NORTH -> currentVelocity.add(0.0, 0.0, -difference)
-				Direction.SOUTH -> currentVelocity.add(0.0, 0.0, difference)
-				Direction.WEST -> currentVelocity.add(-difference, 0.0, 0.0)
-				Direction.EAST -> currentVelocity.add(difference, 0.0, 0.0)
-				else -> currentVelocity
-			}
-
-			entity.deltaMovement = newVelocity
-		}
+		moveEntityUp(state, pos, entity)
+		moveEntityForward(state, entity)
 
 	}
 
 	companion object {
 		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
-		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 15.9, 16.0)
+		val SHAPE: VoxelShape = box(0.1, 0.1, 0.1, 15.9, 15.9, 15.9)
+
+		private fun moveEntityUp(state: BlockState, pos: BlockPos, entity: Entity) {
+			if (!entity.onGround() || !entity.horizontalCollision) return
+
+			val direction = state.getValue(FACING)
+			val entityPos = BlockPos.containing(entity.position().add(0.0, 0.2, 0.0))
+			val blockInFront = entityPos.relative(direction)
+
+			if (entity.level().getBlockState(blockInFront).isBlock(ModBlocks.CONVEYOR_BELT)) {
+				entity.setPos(entity.x, pos.y + 1.2, entity.z)
+			}
+		}
+
+		private fun moveEntityForward(state: BlockState, entity: Entity) {
+			val movementDirection = state.getValue(FACING)
+
+			val currentVelocity = entity.deltaMovement
+			val movementInDirection = if (movementDirection.axis == Direction.Axis.Z) {
+				abs(currentVelocity.z)
+			} else {
+				abs(currentVelocity.x)
+			}
+
+			val requiredSpeed = ServerConfig.CONFIG.conveyorBeltSpeed.get()
+			if (movementInDirection < requiredSpeed) {
+				val difference = requiredSpeed - movementInDirection
+				val newVelocity = when (movementDirection) {
+					Direction.NORTH -> currentVelocity.add(0.0, 0.0, -difference)
+					Direction.SOUTH -> currentVelocity.add(0.0, 0.0, difference)
+					Direction.WEST -> currentVelocity.add(-difference, 0.0, 0.0)
+					Direction.EAST -> currentVelocity.add(difference, 0.0, 0.0)
+					else -> currentVelocity
+				}
+
+				entity.deltaMovement = newVelocity
+			}
+
+		}
 	}
 
 }
