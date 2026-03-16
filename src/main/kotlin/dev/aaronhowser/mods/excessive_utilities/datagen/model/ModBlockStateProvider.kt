@@ -1260,7 +1260,7 @@ class ModBlockStateProvider(
 
 			// Latch
 			.element {
-				from(6f, 5f, 0f)
+				from(6f, 6f, 0f)
 				to(10f, 11f, 1f)
 
 				allFacesExcept(
