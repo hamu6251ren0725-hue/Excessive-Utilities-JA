@@ -21,6 +21,7 @@ class ServerConfig(
 	lateinit var soulFragmentResetOnDeath: ModConfigSpec.EnumValue<SoulDebt.OnDeathConfig>
 	lateinit var healingAxeHealthTransferAmount: ModConfigSpec.DoubleValue
 	lateinit var conveyorBeltSpeed: ModConfigSpec.DoubleValue
+	lateinit var funnyEnderLilyTeleporting: ModConfigSpec.BooleanValue
 
 	lateinit var heatingCoilBurnTime: ModConfigSpec.IntValue
 	lateinit var heatingCoilBurnCost: ModConfigSpec.IntValue
@@ -427,6 +428,10 @@ class ServerConfig(
 		conveyorBeltSpeed = builder
 			.comment("The speed in blocks per tick that Conveyor Belts will move entities.")
 			.defineInRange("conveyorBeltSpeed", 0.1, 0.0, Double.MAX_VALUE)
+
+		funnyEnderLilyTeleporting = builder
+			.comment("Whether Ender Lilies should teleport away when they get wet.")
+			.define("funnyEnderLilyTeleporting", true)
 
 		builder.section("filing_cabinets") {
 			basicFilingCabinetCapacity = builder
