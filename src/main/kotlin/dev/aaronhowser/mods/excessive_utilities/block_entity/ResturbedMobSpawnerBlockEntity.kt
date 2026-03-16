@@ -5,6 +5,9 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.protocol.Packet
+import net.minecraft.network.protocol.game.ClientGamePacketListener
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.entity.Entity
@@ -67,6 +70,14 @@ class ResturbedMobSpawnerBlockEntity(
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 		spawner.load(level, blockPos, tag)
+	}
+
+	// Syncs with client
+	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
+	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag {
+		val tag = saveCustomOnly(pRegistries)
+		tag.remove("SpawnPotentials")
+		return tag
 	}
 
 	companion object {
