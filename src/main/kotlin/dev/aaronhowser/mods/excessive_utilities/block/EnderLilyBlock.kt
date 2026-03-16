@@ -6,8 +6,10 @@ import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
+import net.minecraft.util.RandomSource
 import net.minecraft.world.level.*
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.CropBlock
@@ -28,6 +30,18 @@ class EnderLilyBlock : CropBlock(Properties.ofFullCopy(Blocks.WHEAT)) {
 		val posBelow = pos.below()
 		val stateBelow = level.getBlockState(posBelow)
 		return stateBelow.isFaceSturdy(level, posBelow, Direction.UP)
+	}
+
+	override fun isValidBonemealTarget(level: LevelReader, pos: BlockPos, state: BlockState): Boolean {
+		return state.getValue(AGE) > 0
+	}
+
+	override fun performBonemeal(level: ServerLevel, random: RandomSource, pos: BlockPos, state: BlockState) {
+		val newAge = state.getValue(AGE) - 1
+		if (newAge < 0) return
+
+		val newState = state.setValue(AGE, newAge)
+		level.setBlock(pos, newState, 2)
 	}
 
 	override fun onPlace(state: BlockState, level: Level, pos: BlockPos, oldState: BlockState, movedByPiston: Boolean) {
