@@ -182,6 +182,13 @@ class ItemTransferNodeBlockEntity(
 		val hasUpgrade = upgradeContainer.countItem(ModItems.WORLD_INTERACTION_UPGRADE.get()) > 0
 		if (!hasUpgrade) return false
 
+		val craftedRecipe = tryCraftRecipe(level)
+		if (craftedRecipe) return true
+
+		return false
+	}
+
+	private fun tryCraftRecipe(level: ServerLevel): Boolean {
 		val onBlock = level.getBlockState(placedOnPos)
 		val blockBehind = level.getBlockState(placedOnPos.relative(placedOnDirection))
 		val adjacentBlocks = buildList {
@@ -215,6 +222,7 @@ class ItemTransferNodeBlockEntity(
 		bufferContainer.setItem(0, newStack);
 		didWorkThisTick = true
 		return true
+
 	}
 
 	private fun pullFromParent(level: ServerLevel) {
