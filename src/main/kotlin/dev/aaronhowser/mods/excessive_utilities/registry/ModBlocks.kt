@@ -56,8 +56,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("indexer")
 	val MAGICAL_SNOW_GLOBE: DeferredBlock<MagicalSnowGlobeBlock> =
 		registerBlockWithoutItem("magical_snow_globe", ::MagicalSnowGlobeBlock)
-	val RESTURBED_MOB_SPAWNER =
-		basicBlock("resturbed_mob_spawner")
+	val RESTURBED_MOB_SPAWNER: DeferredBlock<ResturbedMobSpawnerBlock> =
+		registerBlock("resturbed_mob_spawner", ::ResturbedMobSpawnerBlock)
 	val SCANNER =
 		basicBlock("scanner")
 	val MOON_STORE_ORE: DeferredBlock<MoonStoreOreBlock> =
