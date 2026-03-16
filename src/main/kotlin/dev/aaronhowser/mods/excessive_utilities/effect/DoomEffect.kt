@@ -21,6 +21,12 @@ class DoomEffect : MobEffect(
 
 	override fun applyEffectTick(livingEntity: LivingEntity, amplifier: Int): Boolean {
 		if (livingEntity.isClientSide || livingEntity.isDeadOrDying) return true
+
+		if (livingEntity.hasInfiniteMaterials()) {
+			livingEntity.removeEffect(ModMobEffects.DOOM)
+			return true
+		}
+
 		val remainingDuration = livingEntity.getEffect(ModMobEffects.DOOM)?.duration ?: return false
 
 		if (remainingDuration % 20 == 0) {
