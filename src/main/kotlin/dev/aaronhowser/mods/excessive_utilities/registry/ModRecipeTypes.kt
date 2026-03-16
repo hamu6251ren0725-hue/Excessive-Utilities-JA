@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.ResonatorRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.WorldInteractionItemRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
@@ -25,6 +26,9 @@ object ModRecipeTypes {
 		registerRecipeType("enchanter")
 	val QED: DeferredHolder<RecipeType<*>, RecipeType<QedRecipe>> =
 		registerRecipeType("qed")
+
+	val WORLD_INTERACTION_ITEM: DeferredHolder<RecipeType<*>, RecipeType<WorldInteractionItemRecipe>> =
+		registerRecipeType("world_interaction_item")
 
 	// Generator fuels
 	val SINGLE_ITEM_FUEL: DeferredHolder<RecipeType<*>, RecipeType<SingleItemFuelRecipe>> =
