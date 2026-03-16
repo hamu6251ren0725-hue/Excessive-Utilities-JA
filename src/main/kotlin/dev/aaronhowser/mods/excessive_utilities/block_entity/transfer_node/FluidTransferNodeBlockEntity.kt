@@ -51,10 +51,6 @@ class FluidTransferNodeBlockEntity(
 		return listOf(upgradeContainer, filterContainer)
 	}
 
-	private fun hasStackUpgrade(): Boolean {
-		return upgradeContainer.countItem(ModItems.STACK_UPGRADE.get()) > 0
-	}
-
 	private fun passesFilter(stack: ItemStack): Boolean {
 		val filterStack = filterContainer.getItem(0)
 		if (filterStack.isEmpty) return true
@@ -124,7 +120,10 @@ class FluidTransferNodeBlockEntity(
 			val amountInserted = handler.fill(fluidInBuffer, IFluidHandler.FluidAction.EXECUTE)
 			if (amountInserted <= 0) continue
 
-			bufferTank.drain(amountInserted, IFluidHandler.FluidAction.EXECUTE)
+			if (hasCreativeUpgrade()) {
+				bufferTank.drain(amountInserted, IFluidHandler.FluidAction.EXECUTE)
+			}
+
 			didWorkThisTick = true
 		}
 	}
@@ -191,7 +190,10 @@ class FluidTransferNodeBlockEntity(
 		val actualAmountInserted = parentHandler.fill(fluidInBuffer, IFluidHandler.FluidAction.EXECUTE)
 		if (actualAmountInserted <= 0) return
 
-		bufferTank.drain(actualAmountInserted, IFluidHandler.FluidAction.EXECUTE)
+		if (!hasCreativeUpgrade()) {
+			bufferTank.drain(actualAmountInserted, IFluidHandler.FluidAction.EXECUTE)
+		}
+
 		didWorkThisTick = true
 	}
 

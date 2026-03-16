@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block.TransferNodeBlock
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
+import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -55,6 +56,14 @@ abstract class TransferNodeBlockEntity(
 
 	override fun getContainers(): List<Container> {
 		return listOf(upgradeContainer)
+	}
+
+	protected fun hasStackUpgrade(): Boolean {
+		return upgradeContainer.countItem(ModItems.STACK_UPGRADE.get()) > 0
+	}
+
+	protected fun hasCreativeUpgrade(): Boolean {
+		return upgradeContainer.countItem(ModItems.CREATIVE_UPGRADE.get()) > 0
 	}
 
 	protected fun getSpeedUpgradeCount(): Int {

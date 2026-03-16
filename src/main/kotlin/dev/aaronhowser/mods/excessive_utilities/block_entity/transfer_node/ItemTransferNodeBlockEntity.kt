@@ -46,10 +46,6 @@ class ItemTransferNodeBlockEntity(
 		return listOf(bufferContainer, upgradeContainer, filterContainer)
 	}
 
-	private fun hasStackUpgrade(): Boolean {
-		return upgradeContainer.countItem(ModItems.STACK_UPGRADE.get()) > 0
-	}
-
 	private fun passesFilter(stack: ItemStack): Boolean {
 		val filterStack = filterContainer.getItem(0)
 		if (filterStack.isEmpty) return true
@@ -122,7 +118,10 @@ class ItemTransferNodeBlockEntity(
 
 			val remainder = ItemHandlerHelper.insertItemStacked(handler, stackInBuffer, false)
 
-			bufferContainer.setItem(0, remainder)
+			if (!hasCreativeUpgrade()) {
+				bufferContainer.setItem(0, remainder)
+			}
+
 			didWorkThisTick = true
 
 			if (remainder.isEmpty) break
@@ -174,9 +173,12 @@ class ItemTransferNodeBlockEntity(
 
 		ItemHandlerHelper.insertItemStacked(parentHandler, stackInBuffer, false)
 
-		val newStack = stackInBuffer.copy()
-		newStack.shrink(amountInserted)
-		bufferContainer.setItem(0, newStack)
+		if (!hasCreativeUpgrade()) {
+			val newStack = stackInBuffer.copy()
+			newStack.shrink(amountInserted)
+			bufferContainer.setItem(0, newStack)
+		}
+
 		didWorkThisTick = true
 	}
 
