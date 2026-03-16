@@ -42,6 +42,15 @@ class EnderLilyBlock : CropBlock(Properties.ofFullCopy(Blocks.WHEAT)) {
 
 		val newState = state.setValue(AGE, newAge)
 		level.setBlock(pos, newState, 2)
+
+		level.playSound(
+			null,
+			pos,
+			SoundEvents.ENDERMAN_HURT,
+			SoundSource.BLOCKS,
+			1f,
+			1f
+		)
 	}
 
 	override fun onPlace(state: BlockState, level: Level, pos: BlockPos, oldState: BlockState, movedByPiston: Boolean) {
