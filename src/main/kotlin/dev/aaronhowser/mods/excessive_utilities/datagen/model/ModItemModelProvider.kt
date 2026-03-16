@@ -327,7 +327,7 @@ class ModItemModelProvider(
 			val item = deferred.get()
 			if (item in handledItems || item in skipThese) continue
 
-			if (item !is BlockItem && item !in blockItemsToModel) {
+			if (item !is BlockItem || item in blockItemsToModel) {
 				basicItem(item)
 			}
 		}
