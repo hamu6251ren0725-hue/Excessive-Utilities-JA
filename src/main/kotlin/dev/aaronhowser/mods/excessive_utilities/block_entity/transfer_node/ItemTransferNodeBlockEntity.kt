@@ -17,12 +17,14 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Container
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.AABB
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.ItemHandlerHelper
@@ -184,6 +186,61 @@ class ItemTransferNodeBlockEntity(
 
 		val craftedRecipe = tryCraftRecipe(level)
 		if (craftedRecipe) return true
+
+		return tryPickupItems(level)
+	}
+
+	private fun tryPickupItems(level: ServerLevel): Boolean {
+		val itemEntities = level.getEntitiesOfClass(ItemEntity::class.java, AABB(placedOnPos))
+		if (itemEntities.isEmpty()) return false
+
+		val amountToPickup = if (hasStackUpgrade()) 64 else 1
+
+		for (itemEntity in itemEntities) {
+			val entityStack = itemEntity.item
+			if (!passesFilter(entityStack)) continue
+
+			val stackInBuffer = bufferContainer.getItem(0)
+
+			if (stackInBuffer.isEmpty) {
+				val toPickup = entityStack.copy()
+				toPickup.count = entityStack.count.coerceAtMost(amountToPickup)
+				bufferContainer.setItem(0, toPickup)
+
+				entityStack.shrink(toPickup.count)
+				if (entityStack.isEmpty) {
+					itemEntity.discard()
+				} else {
+					itemEntity.item = entityStack
+				}
+
+				didWorkThisTick = true
+				return true
+			}
+
+			if (!ItemStack.isSameItemSameComponents(stackInBuffer, entityStack)) continue
+
+			val amountThatFits = stackInBuffer.maxStackSize - stackInBuffer.count
+			val amountToAdd = entityStack.count
+				.coerceAtMost(amountThatFits)
+				.coerceAtMost(amountToPickup)
+
+			if (amountToAdd <= 0) continue
+
+			val newStack = stackInBuffer.copy()
+			newStack.grow(amountToAdd)
+			bufferContainer.setItem(0, newStack)
+
+			entityStack.shrink(amountToAdd)
+			if (entityStack.isEmpty) {
+				itemEntity.discard()
+			} else {
+				itemEntity.item = entityStack
+			}
+
+			didWorkThisTick = true
+			return true
+		}
 
 		return false
 	}
