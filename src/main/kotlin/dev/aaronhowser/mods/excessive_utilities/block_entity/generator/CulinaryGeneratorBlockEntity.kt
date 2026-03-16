@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.generator
 
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
-import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorContainer
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
 
@@ -28,21 +28,31 @@ class CulinaryGeneratorBlockEntity(
 		val inputStack = container.getItem(GeneratorContainer.INPUT_SLOT)
 		if (inputStack.isEmpty) return false
 
-		val foodProperties = inputStack.getFoodProperties(null) ?: return false
+		val (fePerTick, duration) = getFeValues(inputStack)
+		if (fePerTick <= 0 || duration <= 0) return false
 
-		val foodValue = foodProperties.nutrition
-		val saturationValue = foodProperties.saturation
-
-		val fePerFoodValue = ServerConfig.CONFIG.culinaryFePerFoodValue.get()
-		val ticksPerSaturationValue = ServerConfig.CONFIG.culinaryTicksPerSaturationValue.get()
-
-		fePerTick = (foodValue * fePerFoodValue).toInt()
-		burnTimeRemaining = (saturationValue * ticksPerSaturationValue).toInt()
+		this.fePerTick = fePerTick
+		this.burnTimeRemaining = duration
 
 		inputStack.shrink(1)
 		setChanged()
 
 		return true
+	}
+
+	companion object {
+		fun getFeValues(itemStack: ItemStack): Pair<Int, Int> {
+			val foodProperties = itemStack.getFoodProperties(null) ?: return Pair(0, 0)
+
+			val nutrition = foodProperties.nutrition
+			val saturation = foodProperties.saturation
+
+			val totalFe = nutrition * saturation * 8000
+			val fePerTick = nutrition * 8
+			val duration = Mth.ceil(totalFe.toDouble() / fePerTick)
+
+			return fePerTick to duration
+		}
 	}
 
 }

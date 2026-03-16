@@ -49,8 +49,6 @@ class ServerConfig(
 	lateinit var angelRingGpCost: ModConfigSpec.DoubleValue
 	lateinit var wirelessFeTransmitterGpCostPerConnection: ModConfigSpec.DoubleValue
 
-	lateinit var culinaryFePerFoodValue: ModConfigSpec.DoubleValue
-	lateinit var culinaryTicksPerSaturationValue: ModConfigSpec.DoubleValue
 	lateinit var furnaceGeneratorBurnTimeMultiplier: ModConfigSpec.DoubleValue
 	lateinit var furnaceGeneratorFePerTick: ModConfigSpec.IntValue
 	lateinit var survivalistGeneratorBurnTimeMultiplier: ModConfigSpec.DoubleValue
@@ -303,14 +301,6 @@ class ServerConfig(
 
 	private fun feGenerators() {
 		builder.section("fe_generators") {
-			culinaryFePerFoodValue = builder
-				.comment("How much FE the Culinary Generator produces per point of food value in the input item.")
-				.defineInRange("culinaryFePerFoodValue", 1.0, 0.0, Double.MAX_VALUE)
-
-			culinaryTicksPerSaturationValue = builder
-				.comment("How many ticks of burn time the Culinary Generator gets per point of saturation value in the input item.")
-				.defineInRange("culinaryFePerSaturationValue", 1.0, 0.0, Double.MAX_VALUE)
-
 			furnaceGeneratorBurnTimeMultiplier = builder
 				.comment("How many times longer should a furnace fuel burn in the Furnace Generator compared to a regular furnace.")
 				.defineInRange("furnaceGeneratorBurnTimeMultiplier", 2.5, 0.0, Double.MAX_VALUE)
