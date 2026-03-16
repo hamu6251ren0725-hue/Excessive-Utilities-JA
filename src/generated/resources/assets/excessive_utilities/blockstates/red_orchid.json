@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "excessive_utilities:block/red_orchid_0"
+    },
+    "age=1": {
+      "model": "excessive_utilities:block/red_orchid_1"
+    },
+    "age=2": {
+      "model": "excessive_utilities:block/red_orchid_2"
+    },
+    "age=3": {
+      "model": "excessive_utilities:block/red_orchid_3"
+    },
+    "age=4": {
+      "model": "excessive_utilities:block/red_orchid_4"
+    },
+    "age=5": {
+      "model": "excessive_utilities:block/red_orchid_5"
+    },
+    "age=6": {
+      "model": "excessive_utilities:block/red_orchid_6"
+    },
+    "age=7": {
+      "model": "excessive_utilities:block/red_orchid_7"
+    }
+  }
+}
