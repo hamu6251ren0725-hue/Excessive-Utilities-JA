@@ -34,7 +34,7 @@ class ResturbedMobSpawnerBER(
 				entity,
 				entityRenderer,
 				spawner.getoSpin(),
-				spawner.getoSpin()
+				spawner.spin
 			)
 		}
 
