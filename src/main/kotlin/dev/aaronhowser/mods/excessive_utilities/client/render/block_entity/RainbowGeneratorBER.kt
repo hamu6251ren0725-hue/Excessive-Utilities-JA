@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.RainbowGe
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
+import java.awt.Color
 
 class RainbowGeneratorBER(
 	val context: BlockEntityRendererProvider.Context
@@ -25,16 +26,32 @@ class RainbowGeneratorBER(
 		val tick = blockEntity.level?.gameTime ?: 0
 		val time = tick + partialTick
 
+		val centerColor = getColorFromTime(time / 200)
+		val outerColor = centerColor and 0x00FFFFFF
+
 		poseStack.pushPose()
 		poseStack.translate(0.5f, 0.5f, 0.5f)
 
 		RenderUtil.renderDragonRays(
 			poseStack = poseStack,
-			time = time,
+			time = time / 200,
 			bufferSource = bufferSource,
+			centerColor = centerColor,
+			outerColor = outerColor,
+			rayLength = 2.5f,
+			rayWidth = 0.4f
 		)
 
 		poseStack.popPose()
+	}
+
+	private fun getColorFromTime(time: Float): Int {
+		val hue = (time % 1) * 360f
+
+		val saturation = 1f
+		val brightness = 1f
+
+		return Color.HSBtoRGB(hue / 360f, saturation, brightness)
 	}
 
 }
