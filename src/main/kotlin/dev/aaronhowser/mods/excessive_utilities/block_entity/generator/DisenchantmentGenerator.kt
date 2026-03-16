@@ -1,16 +1,14 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.generator
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorContainer
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.Registries
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
@@ -23,6 +21,12 @@ class DisenchantmentGenerator(
 ) : GeneratorBlockEntity(ModBlockEntityTypes.DISENCHANTMENT_GENERATOR.get(), pos, blockState) {
 
 	override val generatorType: GeneratorType = GeneratorType.DISENCHANTMENT
+
+	override fun isValidInput(itemStack: ItemStack): Boolean {
+		if (itemStack.isEmpty) return false
+		val level = level ?: return false
+		return getPowerFromEnchantment(level, itemStack) > 0
+	}
 
 	override fun tryStartBurning(level: ServerLevel): Boolean {
 		if (burnTimeRemaining > 0 || container == null) return false
