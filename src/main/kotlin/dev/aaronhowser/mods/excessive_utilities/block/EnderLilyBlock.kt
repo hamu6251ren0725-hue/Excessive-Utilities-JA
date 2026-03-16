@@ -6,10 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.level.BlockGetter
-import net.minecraft.world.level.ItemLike
-import net.minecraft.world.level.LevelAccessor
-import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.*
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.CropBlock
 import net.minecraft.world.level.block.state.BlockState
@@ -29,6 +26,29 @@ class EnderLilyBlock : CropBlock(Properties.ofFullCopy(Blocks.WHEAT)) {
 		val posBelow = pos.below()
 		val stateBelow = level.getBlockState(posBelow)
 		return stateBelow.isFaceSturdy(level, posBelow, Direction.UP)
+	}
+
+	override fun onPlace(state: BlockState, level: Level, pos: BlockPos, oldState: BlockState, movedByPiston: Boolean) {
+		if (!ServerConfig.CONFIG.funnyEnderLilyTeleporting.get()) return
+
+		for (dir in Direction.entries) {
+			val posThere = pos.relative(dir)
+			val stateThere = level.getBlockState(posThere)
+			val fluidStateThere = level.getFluidState(posThere)
+
+			val shouldTeleport = fluidStateThere.isFluid(Tags.Fluids.WATER)
+					|| stateThere.getOptionalValue(BlockStateProperties.WATERLOGGED).getOrDefault(false)
+					|| stateThere.getOptionalValue(BlockStateProperties.MOISTURE).getOrDefault(0) > 0
+
+			if (shouldTeleport) {
+				val success = teleportAway(level, pos, state)
+				if (success) {
+					level.removeBlock(pos, false)
+					return
+				}
+			}
+		}
+
 	}
 
 	override fun updateShape(
@@ -73,6 +93,7 @@ class EnderLilyBlock : CropBlock(Properties.ofFullCopy(Blocks.WHEAT)) {
 				val stateThere = level.getBlockState(mutable)
 				if (stateThere.canBeReplaced() && lilyState.canSurvive(level, mutable)) {
 					level.setBlock(mutable, lilyState, 3)
+
 					return true
 				}
 			}
