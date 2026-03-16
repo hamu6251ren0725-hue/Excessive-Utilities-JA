@@ -153,7 +153,7 @@ class FlatTransferNodeEntity(
 		var amountToMove = ServerConfig.CONFIG.flatFluidTransferNodeSpeed.get()
 
 		for (i in 0 until source.tanks) {
-			val fluidToMove = source.getFluidInTank(i)
+			val fluidToMove = source.getFluidInTank(i).copy()
 			if (fluidToMove.isEmpty) continue
 
 			val copy = fluidToMove.copyWithAmount(1000)
@@ -178,10 +178,10 @@ class FlatTransferNodeEntity(
 		var amountToMove = ServerConfig.CONFIG.flatItemTransferNodeSpeed.get()
 
 		for (i in 0 until source.slots) {
-			val stackToMove = source.getStackInSlot(i)
-			if (stackToMove.isEmpty) continue
+			val simPull = source.extractItem(i, amountToMove, true)
+			if (simPull.isEmpty) continue
 
-			val copy = stackToMove.copyWithCount(1)
+			val copy = simPull.copyWithCount(1)
 			val splitCopy = copy.split(amountToMove)
 
 			val simulatedResult = ItemHandlerHelper.insertItemStacked(target, splitCopy, true)
@@ -189,7 +189,7 @@ class FlatTransferNodeEntity(
 			if (simulatedResult.count != splitCopy.count) {
 				val actualResult = ItemHandlerHelper.insertItemStacked(target, splitCopy, false)
 				val amountInserted = splitCopy.count - actualResult.count
-				stackToMove.shrink(amountInserted)
+				source.extractItem(i, amountInserted, false)
 				amountToMove -= amountInserted
 				if (amountToMove <= 0) return
 			}
