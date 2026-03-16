@@ -68,7 +68,7 @@ object ModBlocks : AaronBlockRegistry() {
 	// Crops
 
 	val RED_ORCHID =
-		basicBlock("red_orchid")
+		registerBlockWithoutItem("red_orchid", ::RedOrchidBlock)
 	val ENDER_LILY =
 		registerBlockWithoutItem("ender_lily", ::EnderLilyBlock)
 

@@ -159,6 +159,8 @@ object ModItems : AaronItemRegistry() {
 
 	val ENDER_LILY: DeferredItem<BlockItem> =
 		register("ender_lily", { BlockItem(ModBlocks.ENDER_LILY.get(), it) })
+	val RED_ORCHID: DeferredItem<BlockItem> =
+		register("red_orchid", { BlockItem(ModBlocks.RED_ORCHID.get(), it) })
 	val ANGEL_BLOCK: DeferredItem<AngelBlockItem> =
 		register("angel_block", ::AngelBlockItem)
 	val MAGICAL_SNOW_GLOBE: DeferredItem<MagicalSnowGlobeBlockItem> =

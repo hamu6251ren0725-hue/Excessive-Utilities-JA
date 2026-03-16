@@ -320,7 +320,8 @@ class ModItemModelProvider(
 		)
 
 		val blockItemsToModel = listOf(
-			ModItems.ENDER_LILY.get()
+			ModItems.ENDER_LILY.get(),
+			ModItems.RED_ORCHID.get()
 		)
 
 		for (deferred in ModItems.ITEM_REGISTRY.entries) {

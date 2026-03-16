@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-16T00:39:56.3038802	Loot Tables
+// 1.21.1	2026-03-16T00:50:50.477146	Loot Tables
 d31df4f9b468081e14a6755a2facd5cb7bded7d3 data/excessive_utilities/loot_table/blocks/advanced_filing_cabinet.json
 b055a9a7538aafe8d17289edbaab51c7759d0a94 data/excessive_utilities/loot_table/blocks/angel_block.json
 ac31ab7f157f056f8d68ab88ed82665e96def45d data/excessive_utilities/loot_table/blocks/antenna.json
@@ -340,7 +340,7 @@ f6e7e032adebf7bf1fd8560b924c0d182d28a479 data/excessive_utilities/loot_table/blo
 e7a10e4615d6b447d27e12d030949cc091e75c06 data/excessive_utilities/loot_table/blocks/redstone_clock.json
 4f7e9c9555ad0ea00feb55e2dfa9144faef75869 data/excessive_utilities/loot_table/blocks/redstone_glass.json
 b42c3b5aa5d933f71ad0d744b4c2a5abc993ffd5 data/excessive_utilities/loot_table/blocks/redstone_lantern.json
-f69f049c9620a3e461e596b590f2544f6379a756 data/excessive_utilities/loot_table/blocks/red_orchid.json
+d13b1ccb98ae860635c959fa385ff36711aacee5 data/excessive_utilities/loot_table/blocks/red_orchid.json
 7275bd855da6061c0bb2fd06505e90e8abc40ab4 data/excessive_utilities/loot_table/blocks/reinforced_dark_glass.json
 a64abbe1ad038ef5171f7b7abd8d3f033d25074e data/excessive_utilities/loot_table/blocks/reinforced_large_drum.json
 3c866f05acdfbad9517d7b870dcace49f89fc8ec data/excessive_utilities/loot_table/blocks/resonator.json

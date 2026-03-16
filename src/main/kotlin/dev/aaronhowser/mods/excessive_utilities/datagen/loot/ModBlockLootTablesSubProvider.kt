@@ -53,7 +53,8 @@ class ModBlockLootTablesSubProvider(
 			ModBlocks.CURSED_EARTH.get(),
 			ModBlocks.MAGICAL_SNOW_GLOBE.get(),
 			*drums.toTypedArray(),
-			ModBlocks.ENDER_LILY.get()
+			ModBlocks.ENDER_LILY.get(),
+			ModBlocks.RED_ORCHID.get()
 		)
 
 		val dropSelfBlocks = knownBlocks - noDropSelfBlocks
@@ -194,6 +195,59 @@ class ModBlockLootTablesSubProvider(
 						.add(LootItem.lootTableItem(Items.ENDER_PEARL))
 						.`when`(
 							LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ENDER_LILY.get())
+								.setProperties(
+									StatePropertiesPredicate.Builder.properties()
+										.hasProperty(CropBlock.AGE, 7)
+								)
+						)
+						.`when`(
+							BonusLevelTableCondition.bonusLevelFlatChance(
+								fortune,
+								0f,
+								1f,
+								2f,
+								3f,
+								4f,
+								5f
+							)
+						)
+				)
+
+		)
+
+		add(
+			ModBlocks.RED_ORCHID.get(),
+			LootTable.lootTable()
+
+				// Always drop the seeds
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1f))
+						.add(LootItem.lootTableItem(ModItems.RED_ORCHID))
+				)
+
+				// Drop one Redstone Dust if it's fully grown
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1f))
+						.add(LootItem.lootTableItem(Items.REDSTONE))
+						.`when`(
+							LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.RED_ORCHID.get())
+								.setProperties(
+									StatePropertiesPredicate.Builder.properties()
+										.hasProperty(CropBlock.AGE, 7)
+								)
+						)
+				)
+
+				// Drop another for each level of Fortune, if fully grown
+				// FIXME: This shit ain't WORK
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1f))
+						.add(LootItem.lootTableItem(Items.REDSTONE))
+						.`when`(
+							LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.RED_ORCHID.get())
 								.setProperties(
 									StatePropertiesPredicate.Builder.properties()
 										.hasProperty(CropBlock.AGE, 7)
