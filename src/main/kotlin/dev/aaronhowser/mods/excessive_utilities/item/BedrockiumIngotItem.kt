@@ -23,11 +23,7 @@ class BedrockiumIngotItem(properties: Properties) : Item(properties) {
 			|| level.gameTime % 20L != 0L
 		) return
 
-		if (entity.hasEffect(MobEffects.DAMAGE_BOOST)) {
-			entity.removeEffect(MobEffects.MOVEMENT_SLOWDOWN)
-		} else {
-			entity.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2))
-		}
+		entity.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 45, 2))
 	}
 
 }
