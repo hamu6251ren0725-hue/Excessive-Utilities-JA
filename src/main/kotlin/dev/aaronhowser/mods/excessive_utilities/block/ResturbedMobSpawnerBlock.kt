@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState
 
 class ResturbedMobSpawnerBlock : Block(Properties.ofFullCopy(Blocks.SPAWNER)), EntityBlock {
 
-	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity? {
+	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
 		return ResturbedMobSpawnerBlockEntity(pos, state)
 	}
 

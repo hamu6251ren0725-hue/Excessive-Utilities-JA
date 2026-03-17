@@ -278,7 +278,7 @@ class ItemTransferNodeBlockEntity(
 
 		val newStack = stackInBuffer.copy()
 		newStack.grow(amountToAdd)
-		bufferContainer.setItem(0, newStack);
+		bufferContainer.setItem(0, newStack)
 		didWorkThisTick = true
 		return true
 	}

@@ -67,9 +67,9 @@ object ModBlocks : AaronBlockRegistry() {
 
 	// Crops
 
-	val RED_ORCHID =
+	val RED_ORCHID: DeferredBlock<RedOrchidBlock> =
 		registerBlockWithoutItem("red_orchid", ::RedOrchidBlock)
-	val ENDER_LILY =
+	val ENDER_LILY: DeferredBlock<EnderLilyBlock> =
 		registerBlockWithoutItem("ender_lily", ::EnderLilyBlock)
 
 	// Redstone stuff
