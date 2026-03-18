@@ -2135,9 +2135,15 @@ class ModRecipeProvider(
 			ingredient: Ingredient,
 			primary: ItemStack,
 			secondary: ItemStack = ItemStack.EMPTY,
-			secondaryChance: Float = 0f
+			secondaryChance: Float = 0f,
+			name: String = ""
 		) {
-			CrusherRecipeBuilder(ingredient, primary, secondary, secondaryChance).save(recipeOutput)
+			val builder = CrusherRecipeBuilder(ingredient, primary, secondary, secondaryChance)
+			if (name.isNotEmpty()) {
+				builder.save(recipeOutput, modLoc(name))
+			} else {
+				builder.save(recipeOutput)
+			}
 		}
 
 		recipe(
@@ -2220,6 +2226,31 @@ class ModRecipeProvider(
 			Items.BONE.defaultInstance,
 			0.5f
 		)
+
+		fun flower(flower: Item, dye: Item, name: String = "") = recipe(flower.asIngredient(), dye.withCount(2), name = name)
+		fun tallFlower(flower: Item, dye: Item, name: String = "") = recipe(flower.asIngredient(), dye.withCount(4), name = name)
+
+		flower(Items.LILY_OF_THE_VALLEY, Items.WHITE_DYE, "lily_of_the_valley_to_white_dye")
+		flower(Items.AZURE_BLUET, Items.LIGHT_GRAY_DYE, "azure_bluet_to_light_gray_dye")
+		flower(Items.OXEYE_DAISY, Items.LIGHT_GRAY_DYE, "oxeye_daisy_to_light_gray_dye")
+		flower(Items.WITHER_ROSE, Items.BLACK_DYE, "wither_rose_to_black_dye")
+		flower(Items.COCOA_BEANS, Items.BROWN_DYE, "cocoa_beans_to_brown_dye")
+		flower(Items.BEETROOT, Items.RED_DYE, "beetroot_to_red_dye")
+		flower(Items.POPPY, Items.RED_DYE, "poppy_to_red_dye")
+		flower(Items.RED_TULIP, Items.RED_DYE, "red_tulip_to_red_dye")
+		tallFlower(Items.ROSE_BUSH, Items.RED_DYE, "rose_bush_to_red_dye")
+		flower(Items.ORANGE_TULIP, Items.ORANGE_DYE, "orange_tulip_to_orange_dye")
+		flower(Items.TORCHFLOWER, Items.ORANGE_DYE, "torchflower_to_orange_dye")
+		flower(Items.DANDELION, Items.YELLOW_DYE, "dandelion_to_yellow_dye")
+		tallFlower(Items.SUNFLOWER, Items.YELLOW_DYE, "sunflower_to_yellow_dye")
+		flower(Items.CACTUS, Items.GREEN_DYE, "cactus_to_green_dye")
+		tallFlower(Items.PITCHER_PLANT, Items.CYAN_DYE, "pitcher_plant_to_cyan_dye")
+		flower(Items.BLUE_ORCHID, Items.BLUE_DYE, "blue_orchid_to_blue_dye")
+		flower(Items.CORNFLOWER, Items.BLUE_DYE, "cornflower_to_blue_dye")
+		flower(Items.ALLIUM, Items.MAGENTA_DYE, "allium_to_magenta_dye")
+		tallFlower(Items.LILAC, Items.MAGENTA_DYE, "lilac_to_magenta_dye")
+		tallFlower(Items.PEONY, Items.PINK_DYE, "peony_to_pink_dye")
+		flower(Items.PINK_TULIP, Items.PINK_DYE, "pink_tulip_to_pink_dye")
 
 	}
 
