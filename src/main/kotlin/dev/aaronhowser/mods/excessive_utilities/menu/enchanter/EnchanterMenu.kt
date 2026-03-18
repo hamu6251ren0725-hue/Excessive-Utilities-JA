@@ -18,7 +18,7 @@ class EnchanterMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	val enchanterContainer: Container,
-) : MenuWithInventory(ModMenuTypes.FURNACE.get(), containerId, playerInventory) {
+) : MenuWithInventory(ModMenuTypes.ENCHANTER.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(
