@@ -23,6 +23,8 @@ object ModRecipeTypes {
 		registerRecipeType("enchanter")
 	val QED: DeferredHolder<RecipeType<*>, RecipeType<QedRecipe>> =
 		registerRecipeType("qed")
+	val CRUSHER: DeferredHolder<RecipeType<*>, RecipeType<CrusherRecipe>> =
+		registerRecipeType("crusher")
 
 	val WORLD_INTERACTION_ITEM: DeferredHolder<RecipeType<*>, RecipeType<WorldInteractionItemRecipe>> =
 		registerRecipeType("world_interaction_item")

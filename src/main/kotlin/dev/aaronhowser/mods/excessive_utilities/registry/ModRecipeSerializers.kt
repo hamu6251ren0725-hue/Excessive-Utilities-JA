@@ -21,6 +21,8 @@ object ModRecipeSerializers {
 		registerRecipeSerializer("enchanter", EnchanterRecipe::Serializer)
 	val QED: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("qed", QedRecipe::Serializer)
+	val CRUSHER: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
+		registerRecipeSerializer("crusher", CrusherRecipe::Serializer)
 
 	val WORLD_INTERACTION_ITEM: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("world_interaction_item", WorldInteractionItemRecipe::Serializer)
