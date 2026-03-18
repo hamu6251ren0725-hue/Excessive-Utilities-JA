@@ -19,8 +19,10 @@ class EnderPorcupineBlockEntity(
 
 	var linkedPosition: BlockPos? = null
 		set(value) {
-			field = value
-			setChanged()
+			if (value != field || value != this.blockPos) {
+				field = value
+				setChanged()
+			}
 		}
 
 	override fun getGpUsage(): Double {
