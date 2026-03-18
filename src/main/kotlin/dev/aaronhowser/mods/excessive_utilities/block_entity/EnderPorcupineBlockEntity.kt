@@ -24,14 +24,14 @@ class EnderPorcupineBlockEntity(
 	blockState: BlockState
 ) : GpDrainBlockEntity(ModBlockEntityTypes.ENDER_PORCUPINE.get(), pos, blockState) {
 
-	var minimumOffset: BlockPos = BlockPos.ZERO
+	var minimumOffset: BlockPos = BlockPos(-2, -2, -2)
 		set(value) {
 			field = value
 			setChanged()
 			updateOffsets()
 		}
 
-	var maximumOffset: BlockPos = BlockPos.ZERO
+	var maximumOffset: BlockPos = BlockPos(2, 2, 2)
 		set(value) {
 			field = value
 			setChanged()
@@ -48,12 +48,13 @@ class EnderPorcupineBlockEntity(
 	// Every second, move to the next offset in the list
 	fun getCurrentOffset(): Vec3i {
 		val level = level ?: return Vec3i.ZERO
-		val second = level.gameTime % 20
 
 		val volume = allOffsets.size
 		if (volume == 0) return Vec3i.ZERO
 
-		val index = (second % volume).toInt()
+		val ticksPerStep = 20
+		val step = (level.gameTime / ticksPerStep).toInt()
+		val index = step % volume
 
 		return allOffsets[index]
 	}
