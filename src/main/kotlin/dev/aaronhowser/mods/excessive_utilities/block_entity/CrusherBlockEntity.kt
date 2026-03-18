@@ -91,7 +91,7 @@ class CrusherBlockEntity(
 			return
 		}
 
-		val fePerTick = recipe.fePerTick
+		val fePerTick = 20
 		val speedUpgrades = container.getItem(UPGRADE_SLOT).count
 
 		for (i in 0 until speedUpgrades + 1) {
@@ -100,7 +100,7 @@ class CrusherBlockEntity(
 			progress++
 			energyStorage.extractEnergy(fePerTick, false)
 
-			if (progress >= recipe.ticks) {
+			if (progress >= 200) {
 				craftRecipe(level, recipe)
 				progress = 0
 			}
