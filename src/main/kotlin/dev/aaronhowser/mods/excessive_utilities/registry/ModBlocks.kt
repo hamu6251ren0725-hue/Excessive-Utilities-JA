@@ -52,8 +52,6 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("creative_harvest", ::CreativeHarvestBlock)
 	val ENDER_PORCUPINE: DeferredBlock<EnderPorcupineBlock> =
 		registerBlock("ender_porcupine", ::EnderPorcupineBlock)
-	val INDEXER =
-		basicBlock("indexer")
 	val MAGICAL_SNOW_GLOBE: DeferredBlock<MagicalSnowGlobeBlock> =
 		registerBlockWithoutItem("magical_snow_globe", ::MagicalSnowGlobeBlock)
 	val RESTURBED_MOB_SPAWNER: DeferredBlock<ResturbedMobSpawnerBlock> =
@@ -99,8 +97,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("qed", ::QedBlock)
 	val ENDER_FLUX_CRYSTAL: DeferredBlock<EnderFluxCrystalBlock> =
 		registerBlock("ender_flux_crystal", ::EnderFluxCrystalBlock)
-	val MACHINE_BLOCK =
-		basicBlock("machine_block")
+	val MACHINE_BLOCK: DeferredBlock<Block> =
+		basicCopiedBlock("machine_block", Blocks.STONE)
 	val CRUSHER =
 		basicBlock("crusher")
 	val FURNACE: DeferredBlock<EUFurnaceBlock> =
@@ -258,6 +256,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("transfer_filter")
 	val TRANSFER_PIPE_FILTER =
 		basicBlock("transfer_pipe_filter")
+	val INDEXER =
+		basicBlock("indexer")
 
 	// FE Generators
 
