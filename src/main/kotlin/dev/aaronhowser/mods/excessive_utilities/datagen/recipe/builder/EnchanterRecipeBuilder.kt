@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder
 
-import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.EnchanterRecipe
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
@@ -18,7 +17,7 @@ class EnchanterRecipeBuilder(
 	val leftCount: Int,
 	val rightIngredient: Ingredient,
 	val rightCount: Int,
-	val feCost: Int,
+	val fePerTick: Int,
 	val ticks: Int,
 	val result: ItemStack,
 ) : RecipeBuilder {
@@ -43,7 +42,11 @@ class EnchanterRecipeBuilder(
 			.append("enchanter/")
 			.append(id.path)
 
-		val id = ExcessiveUtilities.modResource(idString.toString())
+		val id =
+			ResourceLocation.fromNamespaceAndPath(
+				id.namespace,
+				idString.toString()
+			)
 
 		val advancement = recipeOutput.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
@@ -54,7 +57,7 @@ class EnchanterRecipeBuilder(
 			advancement.addCriterion(criterion.key, criterion.value)
 		}
 
-		val recipe = EnchanterRecipe(leftIngredient, leftCount, rightIngredient, rightCount, feCost, ticks, result)
+		val recipe = EnchanterRecipe(leftIngredient, leftCount, rightIngredient, rightCount, fePerTick, ticks, result)
 
 		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}

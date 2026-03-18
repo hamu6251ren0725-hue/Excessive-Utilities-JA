@@ -19,7 +19,7 @@ class EnchanterRecipe(
 	val leftCount: Int,
 	val rightIngredient: Ingredient,
 	val rightCount: Int,
-	val feCost: Int,
+	val fePerTick: Int,
 	val ticks: Int,
 	private val result: ItemStack
 ) : Recipe<EnchanterRecipe.Input> {
@@ -58,6 +58,19 @@ class EnchanterRecipe(
 		}
 	}
 
+	class Input(
+		val left: ItemStack,
+		val right: ItemStack
+	) : RecipeInput {
+		override fun size(): Int = 2
+
+		override fun getItem(index: Int): ItemStack = when (index) {
+			0 -> left
+			1 -> right
+			else -> ItemStack.EMPTY
+		}
+	}
+
 	class Serializer : RecipeSerializer<EnchanterRecipe> {
 		override fun codec(): MapCodec<EnchanterRecipe> = CODEC
 		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, EnchanterRecipe> = STREAM_CODEC
@@ -79,8 +92,8 @@ class EnchanterRecipe(
 							.fieldOf("right_count")
 							.forGetter(EnchanterRecipe::rightCount),
 						Codec.INT
-							.fieldOf("fe_cost")
-							.forGetter(EnchanterRecipe::feCost),
+							.fieldOf("fe_per_tick")
+							.forGetter(EnchanterRecipe::fePerTick),
 						Codec.INT
 							.fieldOf("ticks")
 							.forGetter(EnchanterRecipe::ticks),
@@ -96,24 +109,11 @@ class EnchanterRecipe(
 					ByteBufCodecs.VAR_INT, EnchanterRecipe::leftCount,
 					Ingredient.CONTENTS_STREAM_CODEC, EnchanterRecipe::rightIngredient,
 					ByteBufCodecs.VAR_INT, EnchanterRecipe::rightCount,
-					ByteBufCodecs.VAR_INT, EnchanterRecipe::feCost,
+					ByteBufCodecs.VAR_INT, EnchanterRecipe::fePerTick,
 					ByteBufCodecs.VAR_INT, EnchanterRecipe::ticks,
 					ItemStack.STREAM_CODEC, EnchanterRecipe::result,
 					::EnchanterRecipe
 				)
-		}
-	}
-
-	class Input(
-		val left: ItemStack,
-		val right: ItemStack
-	) : RecipeInput {
-		override fun size(): Int = 2
-
-		override fun getItem(index: Int): ItemStack = when (index) {
-			0 -> left
-			1 -> right
-			else -> ItemStack.EMPTY
 		}
 	}
 

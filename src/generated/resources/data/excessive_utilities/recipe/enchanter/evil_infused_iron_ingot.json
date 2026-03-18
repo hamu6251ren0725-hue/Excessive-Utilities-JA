@@ -1,6 +1,6 @@
 {
   "type": "excessive_utilities:enchanter",
-  "fe_cost": 160,
+  "fe_per_tick": 160,
   "left": {
     "tag": "c:ingots/iron"
   },

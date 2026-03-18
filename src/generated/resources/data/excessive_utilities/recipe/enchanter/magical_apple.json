@@ -1,6 +1,6 @@
 {
   "type": "excessive_utilities:enchanter",
-  "fe_cost": 10,
+  "fe_per_tick": 10,
   "left": {
     "item": "minecraft:apple"
   },
