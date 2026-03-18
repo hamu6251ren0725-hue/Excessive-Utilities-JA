@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-15T22:33:47.9746867	Tags for minecraft:block mod id excessive_utilities
+// 1.21.1	2026-03-17T20:37:06.223363	Tags for minecraft:block mod id excessive_utilities
 5124cada2ba7e5783038acde07858db18ecdb114 data/c/tags/block/cobblestones/normal.json
 cf8f2990468b42d8236e60250ebcf0bb1c8d5735 data/c/tags/block/dyed.json
 abdc2b97ffdb64cc9758dbe04af0e3b99d5f1ac2 data/c/tags/block/dyed/black.json
@@ -28,6 +28,7 @@ a749e7c3b15f980e082d3c05c67248efdbc00102 data/c/tags/block/storage_blocks/lapis.
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/excessive_utilities/tags/block/creative_harvest_blacklist.json
 36f31691a7014500e8f6ea861c2959d5647dd6ce data/excessive_utilities/tags/block/cursed_earth_replaceable.json
 05aad02b1ca2e9cb9ff77570b50eac0af19f6515 data/excessive_utilities/tags/block/destruction_pickaxe_target.json
+e4b691a3815ea9824a06a6513aad4419cb2c9138 data/excessive_utilities/tags/block/ender_porcupine_blacklist.json
 f8b9073a9052798f83bdc2da8698d17de3e9f417 data/excessive_utilities/tags/block/ender_quarry_blacklist.json
 649d76d2175d8567a6fd6a41e88c6e82900d6aa5 data/excessive_utilities/tags/block/ender_quarry_part.json
 e3b181cfa91272158c0704c4d7d9f17a056ef3fe data/excessive_utilities/tags/block/erosion_shovel_target.json

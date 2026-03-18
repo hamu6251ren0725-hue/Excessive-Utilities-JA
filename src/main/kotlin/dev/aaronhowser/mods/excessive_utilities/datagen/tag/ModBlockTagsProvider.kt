@@ -403,6 +403,11 @@ class ModBlockTagsProvider(
 				ModBlocks.WIRELESS_FE_BATTERY,
 				ModBlocks.WIRELESS_FE_TRANSMITTER
 			)
+
+		tag(ENDER_PORCUPINE_BLACKLIST)
+			.add(
+				ModBlocks.ENDER_PORCUPINE
+			)
 	}
 
 	companion object {
@@ -422,6 +427,7 @@ class ModBlockTagsProvider(
 		val CURSED_EARTH_REPLACEABLE = create("cursed_earth_replaceable")
 		val GLASS_CUTTER_MINEABLE = create("mineable/glass_cutter")
 		val FE_TRANSMITTER_BLACKLIST = create("fe_transmitter_blacklist")
+		val ENDER_PORCUPINE_BLACKLIST = create("ender_porcupine_blacklist")
 	}
 
 }

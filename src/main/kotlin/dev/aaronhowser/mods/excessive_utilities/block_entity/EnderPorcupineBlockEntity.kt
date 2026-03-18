@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toBlockPos
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -71,16 +74,26 @@ class EnderPorcupineBlockEntity(
 	}
 
 	fun getItemHandler(direction: Direction?): IItemHandler? {
+		val stateThere = level?.getBlockState(getLinkedPosition())
+		if (stateThere?.isBlock(ModBlockTagsProvider.ENDER_PORCUPINE_BLACKLIST).isTrue()) return null
+
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 		return level?.getCapability(Capabilities.ItemHandler.BLOCK, getLinkedPosition(), direction)
 	}
 
 	fun getFluidHandler(direction: Direction?): IFluidHandler? {
+		val stateThere = level?.getBlockState(getLinkedPosition())
+		if (stateThere?.isBlock(ModBlockTagsProvider.ENDER_PORCUPINE_BLACKLIST).isTrue()) return null
+
+
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 		return level?.getCapability(Capabilities.FluidHandler.BLOCK, getLinkedPosition(), direction)
 	}
 
 	fun getEnergyHandler(direction: Direction?): IEnergyStorage? {
+		val stateThere = level?.getBlockState(getLinkedPosition())
+		if (stateThere?.isBlock(ModBlockTagsProvider.ENDER_PORCUPINE_BLACKLIST).isTrue()) return null
+
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 		return level?.getCapability(Capabilities.EnergyStorage.BLOCK, getLinkedPosition(), direction)
 	}
