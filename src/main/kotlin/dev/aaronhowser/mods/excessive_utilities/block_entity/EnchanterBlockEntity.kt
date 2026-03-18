@@ -3,7 +3,9 @@ package dev.aaronhowser.mods.excessive_utilities.block_entity
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadEnergy
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveEnergy
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
@@ -26,6 +28,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.items.IItemHandlerModifiable
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 
@@ -33,6 +37,9 @@ class EnchanterBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
 ) : GpDrainBlockEntity(ModBlockEntityTypes.ENCHANTER.get(), pos, blockState), ContainerContainer, MenuProvider {
+
+	private val energyStorage = EnergyStorage(100_000)
+	fun getEnergyCapability(direction: Direction?): IEnergyStorage = energyStorage
 
 	private val container = ImprovedSimpleContainer(this, CONTAINER_SIZE)
 	override fun getContainers(): List<Container> = listOf(container)
@@ -78,17 +85,25 @@ class EnchanterBlockEntity(
 	override fun serverTick(level: ServerLevel) {
 		super.serverTick(level)
 
-		val recipe = getRecipe()
+		val recipe = getRecipe()?.value
 		if (recipe == null) {
 			progress = 0
 			return
 		}
 
-		progress++
+		val fePerTick = recipe.fePerTick
+		val speedUpgrades = container.getItem(UPGRADE_SLOT).count
 
-		if (progress >= recipe.value.ticks) {
-			craftRecipe(level, recipe.value)
-			progress = 0
+		for (i in 0 until speedUpgrades) {
+			if (energyStorage.energyStored < fePerTick) break
+
+			progress++
+			energyStorage.extractEnergy(fePerTick, false)
+
+			if (progress >= recipe.ticks) {
+				craftRecipe(level, recipe)
+				progress = 0
+			}
 		}
 	}
 
@@ -165,6 +180,7 @@ class EnchanterBlockEntity(
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
+		tag.saveEnergy(ENERGY_NBT, energyStorage, registries)
 		tag.saveItems(container, registries)
 		tag.putInt(PROGRESS_NBT, progress)
 	}
@@ -172,12 +188,14 @@ class EnchanterBlockEntity(
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
+		tag.loadEnergy(ENERGY_NBT, energyStorage, registries)
 		tag.loadItems(container, registries)
 		progress = tag.getInt(PROGRESS_NBT)
 	}
 
 	companion object {
 		const val PROGRESS_NBT = "Progress"
+		const val ENERGY_NBT = "Energy"
 
 		const val CONTAINER_SIZE = 4
 		const val LEFT_INPUT_SLOT = 0

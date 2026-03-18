@@ -46,6 +46,7 @@ class QuantumQuarryBlockEntity(
 ) : BlockEntity(ModBlockEntityTypes.QUANTUM_QUARRY.get(), pos, state), ContainerContainer {
 
 	private val energyStorage = EnergyStorage(1_000_000)
+	fun getEnergyCapability(direction: Direction?): IEnergyStorage = energyStorage
 
 	private val bufferContainer: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 27)
 	private val bufferItemHandler: ExtractOnlyInvWrapper = ExtractOnlyInvWrapper(bufferContainer)
@@ -355,10 +356,6 @@ class QuantumQuarryBlockEntity(
 
 				blockEntity.serverTick(level, miningDimensionLevel)
 			}
-		}
-
-		fun getEnergyCapability(quarry: QuantumQuarryBlockEntity, direction: Direction?): IEnergyStorage {
-			return quarry.energyStorage
 		}
 
 		private fun setChunkForced(quarryLevel: Level?, chunkPos: ChunkPos?, forced: Boolean) {
