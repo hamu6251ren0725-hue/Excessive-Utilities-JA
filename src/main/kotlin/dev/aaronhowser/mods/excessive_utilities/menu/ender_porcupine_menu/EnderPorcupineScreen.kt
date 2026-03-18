@@ -16,8 +16,7 @@ class EnderPorcupineScreen(
 	title: Component
 ) : BaseScreen<EnderPorcupineMenu>(menu, playerInventory, title) {
 
-	override val background: ScreenBackground
-		get() = TODO("Not yet implemented")
+	override val background: ScreenBackground = BACKGROUND
 
 	private lateinit var minXIncreaseButton: Button
 	private lateinit var minYIncreaseButton: Button
