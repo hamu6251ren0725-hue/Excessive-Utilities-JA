@@ -64,6 +64,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("magical_snow_globe", ::MagicalSnowGlobeBlockEntity, ModBlocks.MAGICAL_SNOW_GLOBE)
 	val RESTURBED_MOB_SPAWNER: DeferredHolder<BlockEntityType<*>, BlockEntityType<ResturbedMobSpawnerBlockEntity>> =
 		register("resturbed_mob_spawner", ::ResturbedMobSpawnerBlockEntity, ModBlocks.RESTURBED_MOB_SPAWNER)
+	val ENDER_PORCUPINE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnderPorcupineBlockEntity>> =
+		register("ender_porcupine", ::EnderPorcupineBlockEntity, ModBlocks.ENDER_PORCUPINE)
 
 	val ENDER_QUARRY_UPGRADE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnderQuarryUpgradeBlockEntity>> =
 		register(

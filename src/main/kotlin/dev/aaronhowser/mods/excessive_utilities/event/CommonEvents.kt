@@ -228,6 +228,24 @@ object CommonEvents {
 			ModBlockEntityTypes.FURNACE.get(),
 			EUFurnaceBlockEntity::getItemHandler
 		)
+
+		event.registerBlockEntity(
+			Capabilities.ItemHandler.BLOCK,
+			ModBlockEntityTypes.ENDER_PORCUPINE.get(),
+			EnderPorcupineBlockEntity::getItemHandler
+		)
+
+		event.registerBlockEntity(
+			Capabilities.FluidHandler.BLOCK,
+			ModBlockEntityTypes.ENDER_PORCUPINE.get(),
+			EnderPorcupineBlockEntity::getFluidHandler
+		)
+
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ModBlockEntityTypes.ENDER_PORCUPINE.get(),
+			EnderPorcupineBlockEntity::getEnergyHandler
+		)
 	}
 
 	@SubscribeEvent

@@ -1,0 +1,53 @@
+package dev.aaronhowser.mods.excessive_utilities.block_entity
+
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
+import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.capabilities.Capabilities
+import net.neoforged.neoforge.energy.IEnergyStorage
+import net.neoforged.neoforge.fluids.capability.IFluidHandler
+import net.neoforged.neoforge.items.IItemHandler
+
+class EnderPorcupineBlockEntity(
+	pos: BlockPos,
+	blockState: BlockState
+) : GpDrainBlockEntity(ModBlockEntityTypes.ENDER_PORCUPINE.get(), pos, blockState) {
+
+	var linkedPosition: BlockPos? = null
+		set(value) {
+			field = value
+			setChanged()
+		}
+
+	override fun getGpUsage(): Double {
+		val linkPos = linkedPosition ?: return 0.0
+		return linkPos.distManhattan(blockPos).toDouble()
+	}
+
+	fun getItemHandler(direction: Direction?): IItemHandler? {
+		val level = level ?: return null
+		val linkPos = linkedPosition ?: return null
+
+		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+		return level.getCapability(Capabilities.ItemHandler.BLOCK, linkPos, direction)
+	}
+
+	fun getFluidHandler(direction: Direction?): IFluidHandler? {
+		val level = level ?: return null
+		val linkPos = linkedPosition ?: return null
+
+		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+		return level.getCapability(Capabilities.FluidHandler.BLOCK, linkPos, direction)
+	}
+
+	fun getEnergyHandler(direction: Direction?): IEnergyStorage? {
+		val level = level ?: return null
+		val linkPos = linkedPosition ?: return null
+
+		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+		return level.getCapability(Capabilities.EnergyStorage.BLOCK, linkPos, direction)
+	}
+
+}
