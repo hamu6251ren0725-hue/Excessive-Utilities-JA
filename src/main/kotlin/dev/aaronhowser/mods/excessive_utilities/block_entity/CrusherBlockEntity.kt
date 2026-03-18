@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadEnergy
@@ -12,7 +13,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEn
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import dev.aaronhowser.mods.excessive_utilities.menu.enchanter.EnchanterMenu
-import dev.aaronhowser.mods.excessive_utilities.recipe.EnchanterRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
+import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.energy.IEnergyStorage
@@ -105,37 +107,48 @@ class CrusherBlockEntity(
 		}
 	}
 
-	private fun craftRecipe(level: ServerLevel, recipe: EnchanterRecipe) {
-		val leftStack = container.getItem(INPUT_SLOT)
-		val rightStack = container.getItem(PRIMARY_OUTPUT_SLOT)
+	private fun craftRecipe(level: ServerLevel, recipe: CrusherRecipe) {
+		val inputStack = container.getItem(INPUT_SLOT)
+		inputStack.shrink(1)
 
-		leftStack.shrink(recipe.leftCount)
-		rightStack.shrink(recipe.rightCount)
+		val primaryOutputStack = recipe.getPrimaryOutput()
+		val stackInOutput = container.getItem(PRIMARY_OUTPUT_SLOT)
 
-		val outputStack = container.getItem(SECONDARY_OUTPUT_SLOT)
-		val resultStack = recipe.getResultItem(level.registryAccess()).copy()
-
-		if (outputStack.isNotEmpty()) {
-			outputStack.grow(resultStack.count)
+		if (stackInOutput.isNotEmpty()) {
+			stackInOutput.grow(primaryOutputStack.count)
 		} else {
-			container.setItem(SECONDARY_OUTPUT_SLOT, resultStack)
+			container.setItem(SECONDARY_OUTPUT_SLOT, primaryOutputStack)
+		}
+
+		val secondaryOutputStack = recipe.getSecondaryOutput()
+		if (secondaryOutputStack.isNotEmpty() && level.random.chance(recipe.secondaryChance)) {
+			val stackInSecondaryOutput = container.getItem(SECONDARY_OUTPUT_SLOT)
+
+			if (stackInSecondaryOutput.isEmpty) {
+				container.setItem(SECONDARY_OUTPUT_SLOT, secondaryOutputStack)
+			} else if (ItemStack.isSameItemSameComponents(stackInSecondaryOutput, secondaryOutputStack)) {
+				val amountCanFit = stackInSecondaryOutput.maxStackSize - stackInSecondaryOutput.count
+				if (amountCanFit > 0) {
+					val amountToAdd = secondaryOutputStack.count.coerceAtMost(amountCanFit)
+					stackInSecondaryOutput.grow(amountToAdd)
+				}
+			}
 		}
 
 		setChanged()
 	}
 
-	private var recipeCache: RecipeHolder<EnchanterRecipe>? = null
-	private fun getRecipe(): RecipeHolder<EnchanterRecipe>? {
+	private var recipeCache: RecipeHolder<CrusherRecipe>? = null
+	private fun getRecipe(): RecipeHolder<CrusherRecipe>? {
 		val level = level ?: return null
 
-		val leftStack = container.getItem(INPUT_SLOT)
-		val rightStack = container.getItem(PRIMARY_OUTPUT_SLOT)
+		val input = container.getItem(INPUT_SLOT)
 
 		val cache = recipeCache
 		if (cache != null) {
 			if (cache.value
 					.matches(
-						EnchanterRecipe.Input(leftStack, rightStack),
+						SingleRecipeInput(input),
 						level
 					)
 			) {
@@ -143,14 +156,14 @@ class CrusherBlockEntity(
 			}
 		}
 
-		var recipe = EnchanterRecipe.getRecipe(level, leftStack, rightStack)
+		var recipe = CrusherRecipe.getRecipe(level, input)
 
 		if (recipe != null) {
-			val stackInOutput = container.getItem(SECONDARY_OUTPUT_SLOT)
-			val recipeOutput = recipe.value.getResultItem(level.registryAccess())
+			val stackInPrimaryOutput = container.getItem(PRIMARY_OUTPUT_SLOT)
+			val recipeOutput = recipe.value.getPrimaryOutput()
 
-			if (stackInOutput.isNotEmpty() && ItemStack.isSameItemSameComponents(stackInOutput, recipeOutput)) {
-				val canFit = stackInOutput.count + recipeOutput.count <= stackInOutput.maxStackSize
+			if (stackInPrimaryOutput.isNotEmpty() && ItemStack.isSameItemSameComponents(stackInPrimaryOutput, recipeOutput)) {
+				val canFit = stackInPrimaryOutput.count + recipeOutput.count <= stackInPrimaryOutput.maxStackSize
 				if (!canFit) recipe = null
 			}
 		}

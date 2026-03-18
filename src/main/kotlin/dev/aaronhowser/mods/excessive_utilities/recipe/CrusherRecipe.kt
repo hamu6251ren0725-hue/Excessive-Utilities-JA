@@ -15,10 +15,13 @@ import net.minecraft.world.level.Level
 
 class CrusherRecipe(
 	val ingredient: Ingredient,
-	val primaryOutput: ItemStack,
-	val secondaryOutput: ItemStack,
+	private val primaryOutput: ItemStack,
+	private val secondaryOutput: ItemStack,
 	val secondaryChance: Float,
 ) : Recipe<SingleRecipeInput> {
+
+	fun getPrimaryOutput(): ItemStack = primaryOutput.copy()
+	fun getSecondaryOutput(): ItemStack = secondaryOutput.copy()
 
 	override fun matches(input: SingleRecipeInput, level: Level): Boolean = ingredient.test(input.item())
 	override fun assemble(input: SingleRecipeInput, registries: HolderLookup.Provider): ItemStack = primaryOutput.copy()
