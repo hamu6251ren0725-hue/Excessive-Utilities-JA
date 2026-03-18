@@ -19,14 +19,4 @@ class EnchanterBlock : GpDrainBlock(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 		return ModBlockEntityTypes.ENCHANTER.get()
 	}
 
-	override fun useWithoutItem(state: BlockState, level: Level, pos: BlockPos, player: Player, hitResult: BlockHitResult): InteractionResult {
-		val be = level.getBlockEntity(pos)
-		if (be is MenuProvider) {
-			player.openMenu(be)
-			return InteractionResult.sidedSuccess(level.isClientSide)
-		}
-
-		return InteractionResult.PASS
-	}
-
 }

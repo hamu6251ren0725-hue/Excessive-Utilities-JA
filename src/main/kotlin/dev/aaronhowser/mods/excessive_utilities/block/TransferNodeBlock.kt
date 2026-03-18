@@ -124,17 +124,6 @@ class TransferNodeBlock(
 		}
 	}
 
-	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
-		if (!state.isBlock(newState.block)) {
-			val be = level.getBlockEntity(pos)
-			if (be is ContainerContainer) {
-				be.dropContents(level, pos)
-			}
-		}
-
-		super.onRemove(state, level, pos, newState, movedByPiston)
-	}
-
 	override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, placer: LivingEntity?, stack: ItemStack) {
 		val blockEntity = level.getBlockEntity(pos)
 		if (blockEntity is TransferNodeBlockEntity && placer != null) {

@@ -28,26 +28,6 @@ class ResonatorBlock : GpDrainBlock(Properties.ofFullCopy(Blocks.COAL_BLOCK)) {
 		return ModBlockEntityTypes.RESONATOR.get()
 	}
 
-	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
-		if (!state.isBlock(newState.block)) {
-			val be = level.getBlockEntity(pos)
-			if (be is ContainerContainer) {
-				be.dropContents(level, pos)
-			}
-		}
-		super.onRemove(state, level, pos, newState, movedByPiston)
-	}
-
-	override fun useWithoutItem(state: BlockState, level: Level, pos: BlockPos, player: Player, hitResult: BlockHitResult): InteractionResult {
-		val be = level.getBlockEntity(pos)
-		if (be is MenuProvider) {
-			player.openMenu(be)
-			return InteractionResult.sidedSuccess(level.isClientSide)
-		}
-
-		return InteractionResult.PASS
-	}
-
 	companion object {
 		val SHAPE: VoxelShape = box(0.0, 0.0, 0.0, 16.0, 15.0, 16.0)
 	}

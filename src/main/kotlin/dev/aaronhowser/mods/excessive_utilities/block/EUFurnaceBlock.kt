@@ -1,32 +1,21 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.excessive_utilities.block.base.SimpleContainerBlock
-import dev.aaronhowser.mods.excessive_utilities.block_entity.EUFurnaceBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block.base.GpDrainBlock
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
-import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.InteractionResult
-import net.minecraft.world.MenuProvider
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
-import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.EntityBlock
-import net.minecraft.world.level.block.entity.BlockEntity
-import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.block.state.properties.DirectionProperty
-import net.minecraft.world.phys.BlockHitResult
 
-class EUFurnaceBlock : SimpleContainerBlock(Properties.ofFullCopy(Blocks.IRON_BLOCK)), EntityBlock {
+class EUFurnaceBlock : GpDrainBlock(Properties.ofFullCopy(Blocks.IRON_BLOCK)), EntityBlock {
 
 	init {
 		registerDefaultState(
@@ -45,37 +34,8 @@ class EUFurnaceBlock : SimpleContainerBlock(Properties.ofFullCopy(Blocks.IRON_BL
 			.setValue(FACING, context.horizontalDirection.opposite)
 	}
 
-	override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, placer: LivingEntity?, stack: ItemStack) {
-		val blockEntity = level.getBlockEntity(pos)
-		if (blockEntity is EUFurnaceBlockEntity && placer != null) {
-			blockEntity.ownerUuid = placer.uuid
-		}
-	}
-
-	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
-		return EUFurnaceBlockEntity(pos, state)
-	}
-
-	override fun <T : BlockEntity> getTicker(
-		level: Level,
-		state: BlockState,
-		blockEntityType: BlockEntityType<T>
-	): BlockEntityTicker<T>? {
-		return BaseEntityBlock.createTickerHelper(
-			blockEntityType,
-			ModBlockEntityTypes.FURNACE.get(),
-			EUFurnaceBlockEntity::tick
-		)
-	}
-
-	override fun useWithoutItem(state: BlockState, level: Level, pos: BlockPos, player: Player, hitResult: BlockHitResult): InteractionResult {
-		val be = level.getBlockEntity(pos)
-		if (be is MenuProvider && level.mayInteract(player, pos)) {
-			player.openMenu(be)
-			return InteractionResult.sidedSuccess(level.isClientSide)
-		}
-
-		return InteractionResult.PASS
+	override fun getBlockEntityType(): BlockEntityType<out GpDrainBlockEntity> {
+		return ModBlockEntityTypes.FURNACE.get()
 	}
 
 	companion object {
