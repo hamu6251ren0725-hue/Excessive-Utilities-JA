@@ -74,7 +74,7 @@ class CrusherRecipe(
 				StreamCodec.composite(
 					Ingredient.CONTENTS_STREAM_CODEC, CrusherRecipe::ingredient,
 					ItemStack.STREAM_CODEC, CrusherRecipe::primaryOutput,
-					ItemStack.STREAM_CODEC, CrusherRecipe::secondaryOutput,
+					ItemStack.OPTIONAL_STREAM_CODEC, CrusherRecipe::secondaryOutput,
 					ByteBufCodecs.FLOAT, CrusherRecipe::secondaryChance,
 					::CrusherRecipe
 				)
