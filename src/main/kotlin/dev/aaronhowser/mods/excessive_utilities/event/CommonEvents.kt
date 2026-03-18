@@ -88,6 +88,18 @@ object CommonEvents {
 		)
 
 		event.registerBlockEntity(
+			Capabilities.ItemHandler.BLOCK,
+			ModBlockEntityTypes.CRUSHER.get(),
+			CrusherBlockEntity::getItemHandler
+		)
+
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ModBlockEntityTypes.CRUSHER.get(),
+			CrusherBlockEntity::getEnergyCapability
+		)
+
+		event.registerBlockEntity(
 			Capabilities.EnergyStorage.BLOCK,
 			ModBlockEntityTypes.WIRELESS_FE_BATTERY.get(),
 			WirelessFeBatteryBlockEntity::getEnergyCapability
