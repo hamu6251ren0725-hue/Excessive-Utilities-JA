@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toBlockPos
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
@@ -12,6 +13,7 @@ import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.fluids.capability.IFluidHandler
 import net.neoforged.neoforge.items.IItemHandler
+import kotlin.math.absoluteValue
 
 class EnderPorcupineBlockEntity(
 	pos: BlockPos,
@@ -52,55 +54,45 @@ class EnderPorcupineBlockEntity(
 		return allOffsets[index]
 	}
 
+	fun getLinkedPosition(): BlockPos = blockPos.offset(getCurrentOffset())
+
 	override fun getGpUsage(): Double {
-		val linkPos = linkedPosition ?: return 0.0
-		return linkPos.distManhattan(blockPos).toDouble()
+		val offset = getCurrentOffset()
+		return offset.x.absoluteValue + offset.y.absoluteValue + offset.z.absoluteValue.toDouble()
 	}
 
 	fun getItemHandler(direction: Direction?): IItemHandler? {
-		val level = level ?: return null
-		val linkPos = linkedPosition ?: return null
-
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-		return level.getCapability(Capabilities.ItemHandler.BLOCK, linkPos, direction)
+		return level?.getCapability(Capabilities.ItemHandler.BLOCK, getLinkedPosition(), direction)
 	}
 
 	fun getFluidHandler(direction: Direction?): IFluidHandler? {
-		val level = level ?: return null
-		val linkPos = linkedPosition ?: return null
-
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-		return level.getCapability(Capabilities.FluidHandler.BLOCK, linkPos, direction)
+		return level?.getCapability(Capabilities.FluidHandler.BLOCK, getLinkedPosition(), direction)
 	}
 
 	fun getEnergyHandler(direction: Direction?): IEnergyStorage? {
-		val level = level ?: return null
-		val linkPos = linkedPosition ?: return null
-
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-		return level.getCapability(Capabilities.EnergyStorage.BLOCK, linkPos, direction)
+		return level?.getCapability(Capabilities.EnergyStorage.BLOCK, getLinkedPosition(), direction)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
-		val linkPos = linkedPosition
-		if (linkPos != null) {
-			tag.putLong(LINKED_POSITION_NBT, linkPos.asLong())
-		}
+		tag.putLong(MINIMUM_OFFSET_NBT, minimumOffset.asLong())
+		tag.putLong(MAXIMUM_OFFSET_NBT, maximumOffset.asLong())
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
-		if (tag.contains(LINKED_POSITION_NBT)) {
-			val linkPosLong = tag.getLong(LINKED_POSITION_NBT)
-			linkedPosition = BlockPos.of(linkPosLong)
-		}
+		minimumOffset = tag.getLong(MINIMUM_OFFSET_NBT).toBlockPos()
+		maximumOffset = tag.getLong(MAXIMUM_OFFSET_NBT).toBlockPos()
 	}
 
 	companion object {
-		const val LINKED_POSITION_NBT = "LinkedPosition"
+		const val MINIMUM_OFFSET_NBT = "MinimumOffset"
+		const val MAXIMUM_OFFSET_NBT = "MaximumOffset"
 	}
 
 }
