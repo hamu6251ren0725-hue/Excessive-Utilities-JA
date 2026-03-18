@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.registry
 import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.menu.enchanter.EnchanterMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.enchanter.EnchanterScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.ender_porcupine_menu.EnderPorcupineMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.ender_porcupine_menu.EnderPorcupineScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.flat_transfer_node.FlatTransferNodeMenu
@@ -76,6 +77,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		event.register(ITEM_FILTER.get(), ::ItemFilterScreen)
 		event.register(FLUID_FILTER.get(), ::FluidFilterScreen)
 		event.register(ENDER_PORCUPINE.get(), ::EnderPorcupineScreen)
+		event.register(ENCHANTER.get(), ::EnchanterScreen)
 	}
 
 }
