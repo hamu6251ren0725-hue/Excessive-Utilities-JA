@@ -36,7 +36,7 @@ class EnchanterScreen(
 	}
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/furnace.png"), 176, 172)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/enchanter.png"), 176, 172)
 	}
 
 }

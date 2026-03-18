@@ -35,10 +35,10 @@ class EnchanterMenu(
 	}
 
 	override fun addSlots() {
-		val leftInputSlot = Slot(enchanterContainer, EnchanterBlockEntity.LEFT_INPUT_SLOT, 63, 42)
-		val rightOutputSlot = Slot(enchanterContainer, EnchanterBlockEntity.RIGHT_INPUT_SLOT, 63, 52)
+		val leftInputSlot = Slot(enchanterContainer, EnchanterBlockEntity.LEFT_INPUT_SLOT, 56, 42)
+		val rightOutputSlot = Slot(enchanterContainer, EnchanterBlockEntity.RIGHT_INPUT_SLOT, 80, 42)
 
-		val outputSlot = OutputSlot(enchanterContainer, EnchanterBlockEntity.OUTPUT_SLOT, 110, 42)
+		val outputSlot = OutputSlot(enchanterContainer, EnchanterBlockEntity.OUTPUT_SLOT, 127, 42)
 
 		val upgradeSlot = FilteredSlot(enchanterContainer, EnchanterBlockEntity.UPGRADE_SLOT, 26, 54) {
 			it.isItem(ModItemTagsProvider.SPEED_UPGRADES)
