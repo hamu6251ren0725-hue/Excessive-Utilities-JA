@@ -85,16 +85,17 @@ class ModBlockStateProvider(
 			.withExistingParent(name(block), mcLoc("block/block"))
 			.texture("texture", modLoc("block/ender_porcupine"))
 			.texture("particle", modLoc("block/ender_porcupine"))
+			.renderType(RenderType.cutout().name)
 
 			.element {
 				from(2f, 0f, 0f)
 				to(2f, 16f, 16f)
 
-				face(Direction.NORTH) {
+				face(Direction.EAST) {
 					texture("#texture")
 				}
 
-				face(Direction.SOUTH) {
+				face(Direction.WEST) {
 					texture("#texture")
 				}
 			}
@@ -103,11 +104,63 @@ class ModBlockStateProvider(
 				from(14f, 0f, 0f)
 				to(14f, 16f, 16f)
 
-				face(Direction.NORTH) {
+				face(Direction.EAST) {
 					texture("#texture")
 				}
 
+				face(Direction.WEST) {
+					texture("#texture")
+				}
+			}
+
+			.element {
+				from(0f, 0f, 2f)
+				to(16f, 16f, 2f)
+
 				face(Direction.SOUTH) {
+					texture("#texture")
+				}
+
+				face(Direction.NORTH) {
+					texture("#texture")
+				}
+			}
+
+			.element {
+				from(0f, 0f, 14f)
+				to(16f, 16f, 14f)
+
+				face(Direction.SOUTH) {
+					texture("#texture")
+				}
+
+				face(Direction.NORTH) {
+					texture("#texture")
+				}
+			}
+
+			.element {
+				from(0f, 2f, 0f)
+				to(16f, 2f, 16f)
+
+				face(Direction.UP) {
+					texture("#texture")
+				}
+
+				face(Direction.DOWN) {
+					texture("#texture")
+				}
+			}
+
+			.element {
+				from(0f, 14f, 0f)
+				to(16f, 14f, 16f)
+
+				face(Direction.UP) {
+					texture("#texture")
+				}
+
+				face(Direction.DOWN) {
 					texture("#texture")
 				}
 			}
