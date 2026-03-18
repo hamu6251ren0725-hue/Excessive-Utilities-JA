@@ -10,11 +10,42 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.material.FluidState
 
 class EnderPorcupineBlock : Block(Properties.ofFullCopy(Blocks.STONE)), EntityBlock {
 
 	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
 		return EnderPorcupineBlockEntity(pos, state)
+	}
+
+	override fun onDestroyedByPlayer(
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		player: Player,
+		willHarvest: Boolean,
+		fluid: FluidState
+	): Boolean {
+		if (level.isClientSide) {
+			return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid)
+		}
+
+		val blockEntity = level.getBlockEntity(pos)
+		if (blockEntity !is EnderPorcupineBlockEntity) {
+			return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid)
+		}
+
+		val linkPos = blockEntity.linkedPosition
+		if (linkPos == null || !level.mayInteract(player, linkPos)) {
+			return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid)
+		}
+
+		val stateThere = level.getBlockState(linkPos)
+		return if (stateThere.isAir) {
+			super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid)
+		} else {
+			stateThere.onDestroyedByPlayer(level, linkPos, player, willHarvest, fluid)
+		}
 	}
 
 	override fun playerWillDestroy(
