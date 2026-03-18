@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.Vec3i
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.capabilities.Capabilities
@@ -17,13 +18,39 @@ class EnderPorcupineBlockEntity(
 	blockState: BlockState
 ) : GpDrainBlockEntity(ModBlockEntityTypes.ENDER_PORCUPINE.get(), pos, blockState) {
 
-	var linkedPosition: BlockPos? = null
+	var minimumOffset: BlockPos = BlockPos.ZERO
 		set(value) {
-			if (value != field || value != this.blockPos) {
-				field = value
-				setChanged()
-			}
+			field = value
+			setChanged()
+			updateOffsets()
 		}
+
+	var maximumOffset: BlockPos = BlockPos.ZERO
+		set(value) {
+			field = value
+			setChanged()
+			updateOffsets()
+		}
+
+	var allOffsets: List<BlockPos> = emptyList()
+		private set
+
+	private fun updateOffsets() {
+		allOffsets = BlockPos.betweenClosed(minimumOffset, maximumOffset).toList()
+	}
+
+	// Every second, move to the next offset in the list
+	fun getCurrentOffset(): Vec3i {
+		val level = level ?: return Vec3i.ZERO
+		val second = level.gameTime % 20
+
+		val volume = allOffsets.size
+		if (volume == 0) return Vec3i.ZERO
+
+		val index = (second % volume).toInt()
+
+		return allOffsets[index]
+	}
 
 	override fun getGpUsage(): Double {
 		val linkPos = linkedPosition ?: return 0.0
