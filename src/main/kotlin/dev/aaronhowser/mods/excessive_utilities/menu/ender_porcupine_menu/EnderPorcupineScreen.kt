@@ -231,11 +231,13 @@ class EnderPorcupineScreen(
 			false
 		)
 
+		val minStringY = 72
+
 		guiGraphics.drawString(
 			font,
 			minX,
 			xStringX - (font.width(minX) / 2),
-			72,
+			minStringY,
 			4210752,
 			false
 		)
@@ -244,7 +246,7 @@ class EnderPorcupineScreen(
 			font,
 			minY,
 			yStringX - (font.width(minY) / 2),
-			72,
+			minStringY,
 			4210752,
 			false
 		)
@@ -253,7 +255,7 @@ class EnderPorcupineScreen(
 			font,
 			minZ,
 			zStringX - (font.width(minZ) / 2),
-			72,
+			minStringY,
 			4210752,
 			false
 		)
@@ -266,16 +268,18 @@ class EnderPorcupineScreen(
 			font,
 			Component.literal("Maximum Offset: ($maxX, $maxY, $maxZ)"),
 			8,
-			116,
+			108,
 			4210752,
 			false
 		)
+
+		val maxStringY = 144
 
 		guiGraphics.drawString(
 			font,
 			maxX,
 			xStringX - (font.width(maxX) / 2),
-			148,
+			maxStringY,
 			4210752,
 			false
 		)
@@ -284,7 +288,7 @@ class EnderPorcupineScreen(
 			font,
 			maxY,
 			yStringX - (font.width(maxY) / 2),
-			148,
+			maxStringY,
 			4210752,
 			false
 		)
@@ -293,7 +297,7 @@ class EnderPorcupineScreen(
 			font,
 			maxZ,
 			zStringX - (font.width(maxZ) / 2),
-			148,
+			maxStringY,
 			4210752,
 			false
 		)
