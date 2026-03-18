@@ -5,15 +5,22 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toBlockPos
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.menu.ender_porcupine_menu.EnderPorcupineMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Vec3i
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
+import net.minecraft.world.MenuProvider
+import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.capabilities.Capabilities
@@ -25,7 +32,7 @@ import kotlin.math.absoluteValue
 class EnderPorcupineBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : GpDrainBlockEntity(ModBlockEntityTypes.ENDER_PORCUPINE.get(), pos, blockState) {
+) : GpDrainBlockEntity(ModBlockEntityTypes.ENDER_PORCUPINE.get(), pos, blockState), MenuProvider {
 
 	var minimumOffset: BlockPos = BlockPos(-2, -2, -2)
 		set(value) {
@@ -112,6 +119,40 @@ class EnderPorcupineBlockEntity(
 		maximumOffset = tag.getLong(MAXIMUM_OFFSET_NBT).toBlockPos()
 	}
 
+	private val containerData =
+		object : ContainerData {
+			override fun getCount(): Int = CONTAINER_DATA_SIZE
+
+			override fun get(index: Int): Int {
+				return when (index) {
+					MIN_X_DATA_INDEX -> minimumOffset.x
+					MIN_Y_DATA_INDEX -> minimumOffset.y
+					MIN_Z_DATA_INDEX -> minimumOffset.z
+					MAX_X_DATA_INDEX -> maximumOffset.x
+					MAX_Y_DATA_INDEX -> maximumOffset.y
+					MAX_Z_DATA_INDEX -> maximumOffset.z
+					else -> 0
+				}
+			}
+
+			override fun set(index: Int, value: Int) {
+				when (index) {
+					MIN_X_DATA_INDEX -> minimumOffset = BlockPos(value, minimumOffset.y, minimumOffset.z)
+					MIN_Y_DATA_INDEX -> minimumOffset = BlockPos(minimumOffset.x, value, minimumOffset.z)
+					MIN_Z_DATA_INDEX -> minimumOffset = BlockPos(minimumOffset.x, minimumOffset.y, value)
+					MAX_X_DATA_INDEX -> maximumOffset = BlockPos(value, maximumOffset.y, maximumOffset.z)
+					MAX_Y_DATA_INDEX -> maximumOffset = BlockPos(maximumOffset.x, value, maximumOffset.z)
+					MAX_Z_DATA_INDEX -> maximumOffset = BlockPos(maximumOffset.x, maximumOffset.y, value)
+				}
+			}
+		}
+
+	override fun getDisplayName(): Component = blockState.block.name
+
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
+		return EnderPorcupineMenu(containerId, containerData)
+	}
+
 	// Syncs with client
 	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
 	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
@@ -125,6 +166,14 @@ class EnderPorcupineBlockEntity(
 	companion object {
 		const val MINIMUM_OFFSET_NBT = "MinimumOffset"
 		const val MAXIMUM_OFFSET_NBT = "MaximumOffset"
+
+		const val CONTAINER_DATA_SIZE = 6
+		const val MIN_X_DATA_INDEX = 0
+		const val MIN_Y_DATA_INDEX = 1
+		const val MIN_Z_DATA_INDEX = 2
+		const val MAX_X_DATA_INDEX = 3
+		const val MAX_Y_DATA_INDEX = 4
+		const val MAX_Z_DATA_INDEX = 5
 	}
 
 }
