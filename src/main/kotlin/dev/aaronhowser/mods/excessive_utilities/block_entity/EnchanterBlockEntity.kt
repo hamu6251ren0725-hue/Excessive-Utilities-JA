@@ -94,7 +94,7 @@ class EnchanterBlockEntity(
 		val fePerTick = recipe.fePerTick
 		val speedUpgrades = container.getItem(UPGRADE_SLOT).count
 
-		for (i in 0 until speedUpgrades) {
+		for (i in 0 until speedUpgrades + 1) {
 			if (energyStorage.energyStored < fePerTick) break
 
 			progress++
