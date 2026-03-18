@@ -34,6 +34,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("wireless_fe_transmitter", ::WirelessFeTransmitterBlockEntity, ModBlocks.WIRELESS_FE_TRANSMITTER)
 	val ENCHANTER: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnchanterBlockEntity>> =
 		register("enchanter", ::EnchanterBlockEntity, ModBlocks.ENCHANTER)
+	val CRUSHER: DeferredHolder<BlockEntityType<*>, BlockEntityType<CrusherBlockEntity>> =
+		register("crusher", ::CrusherBlockEntity, ModBlocks.CRUSHER)
 	val SLIGHTLY_LARGER_CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<SlightlyLargerChestBlockEntity>> =
 		register("slightly_larger_chest", ::SlightlyLargerChestBlockEntity, ModBlocks.SLIGHTLY_LARGER_CHEST)
 	val MINI_CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<MiniChestBlockEntity>> =
