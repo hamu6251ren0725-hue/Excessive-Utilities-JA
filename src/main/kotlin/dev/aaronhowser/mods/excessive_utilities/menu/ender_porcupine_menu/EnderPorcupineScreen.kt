@@ -305,7 +305,7 @@ class EnderPorcupineScreen(
 	}
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/ender_porcupine.png"), 256, 256)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/ender_porcupine.png"), 155, 178)
 
 		val UP = WidgetSprites(
 			ExcessiveUtilities.modResource("button_up"),
