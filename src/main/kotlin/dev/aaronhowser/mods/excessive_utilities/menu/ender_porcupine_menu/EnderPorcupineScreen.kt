@@ -40,9 +40,16 @@ class EnderPorcupineScreen(
 	override fun baseInit() {
 		super.baseInit()
 
+		val increaseMinButtonY = topPos + 52
+		val decreaseMinButtonY = topPos + 84
+
+		val xButtonX = leftPos + 8
+		val yButtonX = leftPos + 24
+		val zButtonX = leftPos + 40
+
 		minXIncreaseButton = ImageButton(
-			leftPos + 8,
-			topPos + 20,
+			xButtonX,
+			increaseMinButtonY,
 			16,
 			16,
 			UP
@@ -51,35 +58,169 @@ class EnderPorcupineScreen(
 			packet.messageServer()
 		}
 
+		minXDecreaseButton = ImageButton(
+			xButtonX,
+			decreaseMinButtonY,
+			16,
+			16,
+			DOWN
+		) {
+			val packet = ClientClickedMenuButton(EnderPorcupineMenu.DECREASE_MIN_X_BUTTON_ID)
+			packet.messageServer()
+		}
+
+		minYIncreaseButton = ImageButton(
+			yButtonX,
+			increaseMinButtonY,
+			16,
+			16,
+			UP
+		) {
+			val packet = ClientClickedMenuButton(EnderPorcupineMenu.INCREASE_MIN_Y_BUTTON_ID)
+			packet.messageServer()
+		}
+
+		minYDecreaseButton = ImageButton(
+			yButtonX,
+			decreaseMinButtonY,
+			16,
+			16,
+			DOWN
+		) {
+			val packet = ClientClickedMenuButton(EnderPorcupineMenu.DECREASE_MIN_Y_BUTTON_ID)
+			packet.messageServer()
+		}
+
+		minZIncreaseButton = ImageButton(
+			zButtonX,
+			increaseMinButtonY,
+			16,
+			16,
+			UP
+		) {
+			val packet = ClientClickedMenuButton(EnderPorcupineMenu.INCREASE_MIN_Z_BUTTON_ID)
+			packet.messageServer()
+		}
+
+		minZDecreaseButton = ImageButton(
+			zButtonX,
+			decreaseMinButtonY,
+			16,
+			16,
+			DOWN
+		) {
+			val packet = ClientClickedMenuButton(EnderPorcupineMenu.DECREASE_MIN_Z_BUTTON_ID)
+			packet.messageServer()
+		}
+
 		addRenderableWidget(minXIncreaseButton)
+		addRenderableWidget(minXDecreaseButton)
+		addRenderableWidget(minYIncreaseButton)
+		addRenderableWidget(minYDecreaseButton)
+		addRenderableWidget(minZIncreaseButton)
+		addRenderableWidget(minZDecreaseButton)
+
 	}
 
 	override fun renderLabels(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int) {
 		super.renderLabels(guiGraphics, mouseX, mouseY)
 
-		val minX = menu.getMinX()
-		val minY = menu.getMinY()
-		val minZ = menu.getMinZ()
-
-		val maxX = menu.getMaxX()
-		val maxY = menu.getMaxY()
-		val maxZ = menu.getMaxZ()
-
 		val currentOffsetX = menu.getCurrentOffsetX()
 		val currentOffsetY = menu.getCurrentOffsetY()
 		val currentOffsetZ = menu.getCurrentOffsetZ()
 
-		guiGraphics.drawString(font, "Min X: $minX", 8, 8, 0xFFFFFF)
-		guiGraphics.drawString(font, "Min Y: $minY", 8, 28, 0xFFFFFF)
-		guiGraphics.drawString(font, "Min Z: $minZ", 8, 48, 0xFFFFFF)
+		guiGraphics.drawString(
+			font,
+			Component.literal("Current Offset: ($currentOffsetX, $currentOffsetY, $currentOffsetZ)"),
+			8,
+			24,
+			4210752,
+			false
+		)
 
-		guiGraphics.drawString(font, "Max X: $maxX", 8, 68, 0xFFFFFF)
-		guiGraphics.drawString(font, "Max Y: $maxY", 8, 88, 0xFFFFFF)
-		guiGraphics.drawString(font, "Max Z: $maxZ", 8, 108, 0xFFFFFF)
+		val minX = menu.getMinX().toString()
+		val minY = menu.getMinY().toString()
+		val minZ = menu.getMinZ().toString()
 
-		guiGraphics.drawString(font, "Current Offset X: $currentOffsetX", 8, 128, 0xFFFFFF)
-		guiGraphics.drawString(font, "Current Offset Y: $currentOffsetY", 8, 148, 0xFFFFFF)
-		guiGraphics.drawString(font, "Current Offset Z: $currentOffsetZ", 8, 168, 0xFFFFFF)
+		val xStringX = 16
+		val yStringX = 32
+		val zStringX = 48
+
+		guiGraphics.drawString(
+			font,
+			Component.literal("Minimum Offset: ($minX, $minY, $minZ)"),
+			8,
+			40,
+			4210752,
+			false
+		)
+
+		guiGraphics.drawString(
+			font,
+			minX,
+			xStringX - (font.width(minX) / 2),
+			72,
+			4210752,
+			false
+		)
+
+		guiGraphics.drawString(
+			font,
+			minY,
+			yStringX - (font.width(minY) / 2),
+			72,
+			4210752,
+			false
+		)
+
+		guiGraphics.drawString(
+			font,
+			minZ,
+			zStringX - (font.width(minZ) / 2),
+			72,
+			4210752,
+			false
+		)
+
+		val maxX = menu.getMaxX().toString()
+		val maxY = menu.getMaxY().toString()
+		val maxZ = menu.getMaxZ().toString()
+
+		guiGraphics.drawString(
+			font,
+			Component.literal("Maximum Offset: ($maxX, $maxY, $maxZ)"),
+			8,
+			116,
+			4210752,
+			false
+		)
+
+		guiGraphics.drawString(
+			font,
+			maxX,
+			xStringX - (font.width(maxX) / 2),
+			148,
+			4210752,
+			false
+		)
+
+		guiGraphics.drawString(
+			font,
+			maxY,
+			yStringX - (font.width(maxY) / 2),
+			148,
+			4210752,
+			false
+		)
+
+		guiGraphics.drawString(
+			font,
+			maxZ,
+			zStringX - (font.width(maxZ) / 2),
+			148,
+			4210752,
+			false
+		)
 
 	}
 
