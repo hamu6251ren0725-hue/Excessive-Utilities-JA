@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEn
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.energy.IEnergyStorage
@@ -48,6 +50,28 @@ class EnderPorcupineBlockEntity(
 
 		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 		return level.getCapability(Capabilities.EnergyStorage.BLOCK, linkPos, direction)
+	}
+
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+
+		val linkPos = linkedPosition
+		if (linkPos != null) {
+			tag.putLong(LINKED_POSITION_NBT, linkPos.asLong())
+		}
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+
+		if (tag.contains(LINKED_POSITION_NBT)) {
+			val linkPosLong = tag.getLong(LINKED_POSITION_NBT)
+			linkedPosition = BlockPos.of(linkPosLong)
+		}
+	}
+
+	companion object {
+		const val LINKED_POSITION_NBT = "LinkedPosition"
 	}
 
 }

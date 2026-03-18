@@ -50,8 +50,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("trading_post")
 	val CREATIVE_HARVEST: DeferredBlock<CreativeHarvestBlock> =
 		registerBlock("creative_harvest", ::CreativeHarvestBlock)
-	val ENDER_PORCUPINE =
-		basicBlock("ender_porcupine")
+	val ENDER_PORCUPINE: DeferredBlock<EnderPorcupineBlock> =
+		registerBlock("ender_porcupine", ::EnderPorcupineBlock)
 	val INDEXER =
 		basicBlock("indexer")
 	val MAGICAL_SNOW_GLOBE: DeferredBlock<MagicalSnowGlobeBlock> =
