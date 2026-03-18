@@ -13,7 +13,7 @@
         },
         "north": {
           "cullface": "north",
-          "texture": "#side"
+          "texture": "#front"
         },
         "south": {
           "cullface": "south",
@@ -58,10 +58,11 @@
       "to": [
         16,
         16,
-        0
+        16
       ]
     }
   ],
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "excessive_utilities:block/machine_base/bottom",
     "front": "excessive_utilities:block/machine_base/side",

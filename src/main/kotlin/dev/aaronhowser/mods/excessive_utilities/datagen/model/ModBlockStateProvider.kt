@@ -94,6 +94,7 @@ class ModBlockStateProvider(
 			.texture("bottom", modLoc("block/machine_base/bottom"))
 			.texture("overlay", modLoc("block/enchanter/face_off"))
 			.texture("particle", modLoc("block/enchanter/top"))
+			.renderType(RenderType.cutout().name)
 
 			.element {
 				from(0f, 0f, 0f)
@@ -103,6 +104,7 @@ class ModBlockStateProvider(
 					val texture = when (dir) {
 						Direction.UP -> "#top"
 						Direction.DOWN -> "#bottom"
+						Direction.NORTH -> "#front"
 						else -> "#side"
 					}
 
@@ -113,7 +115,7 @@ class ModBlockStateProvider(
 
 			.element {
 				from(0f, 0f, 0f)
-				to(16f, 16f, 0f)
+				to(16f, 16f, 16f)
 
 				face(Direction.NORTH) {
 					texture("#overlay")
