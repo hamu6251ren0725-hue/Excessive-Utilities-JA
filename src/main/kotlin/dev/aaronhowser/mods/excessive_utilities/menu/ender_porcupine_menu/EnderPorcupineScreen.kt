@@ -65,7 +65,21 @@ class EnderPorcupineScreen(
 		val maxY = menu.getMaxY()
 		val maxZ = menu.getMaxZ()
 
+		val currentOffsetX = menu.getCurrentOffsetX()
+		val currentOffsetY = menu.getCurrentOffsetY()
+		val currentOffsetZ = menu.getCurrentOffsetZ()
 
+		guiGraphics.drawString(font, "Min X: $minX", 8, 8, 0xFFFFFF)
+		guiGraphics.drawString(font, "Min Y: $minY", 8, 28, 0xFFFFFF)
+		guiGraphics.drawString(font, "Min Z: $minZ", 8, 48, 0xFFFFFF)
+
+		guiGraphics.drawString(font, "Max X: $maxX", 8, 68, 0xFFFFFF)
+		guiGraphics.drawString(font, "Max Y: $maxY", 8, 88, 0xFFFFFF)
+		guiGraphics.drawString(font, "Max Z: $maxZ", 8, 108, 0xFFFFFF)
+
+		guiGraphics.drawString(font, "Current Offset X: $currentOffsetX", 8, 128, 0xFFFFFF)
+		guiGraphics.drawString(font, "Current Offset Y: $currentOffsetY", 8, 148, 0xFFFFFF)
+		guiGraphics.drawString(font, "Current Offset Z: $currentOffsetZ", 8, 168, 0xFFFFFF)
 
 	}
 

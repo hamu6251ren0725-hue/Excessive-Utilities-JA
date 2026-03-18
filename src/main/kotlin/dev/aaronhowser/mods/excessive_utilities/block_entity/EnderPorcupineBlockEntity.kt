@@ -131,6 +131,9 @@ class EnderPorcupineBlockEntity(
 					MAX_X_DATA_INDEX -> maximumOffset.x
 					MAX_Y_DATA_INDEX -> maximumOffset.y
 					MAX_Z_DATA_INDEX -> maximumOffset.z
+					CURRENT_OFFSET_X_DATA_INDEX -> getCurrentOffset().x
+					CURRENT_OFFSET_Y_DATA_INDEX -> getCurrentOffset().y
+					CURRENT_OFFSET_Z_DATA_INDEX -> getCurrentOffset().z
 					else -> 0
 				}
 			}
@@ -167,13 +170,16 @@ class EnderPorcupineBlockEntity(
 		const val MINIMUM_OFFSET_NBT = "MinimumOffset"
 		const val MAXIMUM_OFFSET_NBT = "MaximumOffset"
 
-		const val CONTAINER_DATA_SIZE = 6
+		const val CONTAINER_DATA_SIZE = 9
 		const val MIN_X_DATA_INDEX = 0
 		const val MIN_Y_DATA_INDEX = 1
 		const val MIN_Z_DATA_INDEX = 2
 		const val MAX_X_DATA_INDEX = 3
 		const val MAX_Y_DATA_INDEX = 4
 		const val MAX_Z_DATA_INDEX = 5
+		const val CURRENT_OFFSET_X_DATA_INDEX = 6
+		const val CURRENT_OFFSET_Y_DATA_INDEX = 7
+		const val CURRENT_OFFSET_Z_DATA_INDEX = 8
 	}
 
 }
