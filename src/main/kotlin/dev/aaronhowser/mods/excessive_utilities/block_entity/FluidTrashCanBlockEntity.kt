@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
+import dev.aaronhowser.mods.excessive_utilities.item.FluidFilterItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -35,8 +36,7 @@ class FluidTrashCanBlockEntity(
 			override fun drain(resource: FluidStack, action: IFluidHandler.FluidAction): FluidStack = FluidStack.EMPTY
 			override fun drain(maxDrain: Int, action: IFluidHandler.FluidAction): FluidStack = FluidStack.EMPTY
 			override fun isFluidValid(tank: Int, stack: FluidStack): Boolean {
-				//TODO: Implement filter logic
-				return true
+				return passesFilter(stack)
 			}
 		}
 
@@ -46,7 +46,12 @@ class FluidTrashCanBlockEntity(
 		return blockState.block.name
 	}
 
-	// TODO: Make menu for the filter
+	fun passesFilter(stack: FluidStack): Boolean {
+		if (filterStack.isEmpty) return true
+		return FluidFilterItem.passesFilter(filterStack, stack)
+	}
+
+	// TODO: Make menu
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
 		return null
 	}

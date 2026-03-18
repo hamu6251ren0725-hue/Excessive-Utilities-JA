@@ -77,7 +77,7 @@ object ModItems : AaronItemRegistry() {
 		register("glass_cutter", ::GlassCutterItem, GlassCutterItem.DEFAULT_PROPERTIES)
 	val TROWEL: DeferredItem<TrowelItem> =
 		register("trowel", ::TrowelItem, TrowelItem.DEFAULT_PROPERTIES)
-	val WRENCH =
+	val WRENCH: DeferredItem<Item> =
 		basic("wrench")
 	val WATERING_CAN: DeferredItem<WateringCanItem> =
 		register("watering_can", { WateringCanItem(isReinforced = false, it) }, WateringCanItem.DEFAULT_PROPERTIES)
@@ -193,10 +193,10 @@ object ModItems : AaronItemRegistry() {
 		basic("depth_first_search_upgrade")
 	val PSEUDO_ROUND_ROBIN_UPGRADE =
 		basic("pseudo_round_robin_upgrade")
-	val ENDER_RECEIVER =
-		basic("ender_receiver")
 	val ENDER_TRANSMITTER =
 		basic("ender_transmitter")
+	val ENDER_RECEIVER =
+		basic("ender_receiver")
 	val CREATIVE_UPGRADE: DeferredItem<Item> =
 		basic("creative_upgrade")
 

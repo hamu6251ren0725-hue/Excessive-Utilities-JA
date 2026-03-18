@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
+import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -18,7 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
 
-open class TrashCanBlockEntity(
+class TrashCanBlockEntity(
 	pos: BlockPos,
 	state: BlockState
 ) : BlockEntity(ModBlockEntityTypes.TRASH_CAN.get(), pos, state), MenuProvider {
@@ -51,10 +52,9 @@ open class TrashCanBlockEntity(
 
 	fun getItemHandler(direction: Direction?): IItemHandler = itemHandler
 
-	// TODO: Implement filter logic
 	fun passesFilter(stack: ItemStack): Boolean {
 		if (filterStack.isEmpty) return true
-		return true
+		return ItemFilterItem.passesFilter(filterStack, stack)
 	}
 
 	override fun getDisplayName(): Component {
