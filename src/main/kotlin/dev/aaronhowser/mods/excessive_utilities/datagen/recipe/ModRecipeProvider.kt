@@ -2227,8 +2227,8 @@ class ModRecipeProvider(
 			0.5f
 		)
 
-		fun flower(flower: Item, dye: Item, name: String = "") = recipe(flower.asIngredient(), dye.withCount(2), name = name)
-		fun tallFlower(flower: Item, dye: Item, name: String = "") = recipe(flower.asIngredient(), dye.withCount(4), name = name)
+		fun flower(flower: Item, dye: Item, name: String) = recipe(flower.asIngredient(), dye.withCount(2), name = name)
+		fun tallFlower(flower: Item, dye: Item, name: String) = recipe(flower.asIngredient(), dye.withCount(4), name = name)
 
 		flower(Items.LILY_OF_THE_VALLEY, Items.WHITE_DYE, "lily_of_the_valley_to_white_dye")
 		flower(Items.AZURE_BLUET, Items.LIGHT_GRAY_DYE, "azure_bluet_to_light_gray_dye")
@@ -2251,6 +2251,22 @@ class ModRecipeProvider(
 		tallFlower(Items.LILAC, Items.MAGENTA_DYE, "lilac_to_magenta_dye")
 		tallFlower(Items.PEONY, Items.PINK_DYE, "peony_to_pink_dye")
 		flower(Items.PINK_TULIP, Items.PINK_DYE, "pink_tulip_to_pink_dye")
+
+		fun carpet(carpet: Item, dye: Item, name: String) = recipe(carpet.asIngredient(), Items.STRING.withCount(3), dye.defaultInstance, 0.1f, name)
+
+		carpet(Items.WHITE_CARPET, Items.WHITE_DYE, "white_carpet")
+		carpet(Items.LIGHT_GRAY_CARPET, Items.LIGHT_GRAY_DYE, "light_gray_carpet")
+		carpet(Items.GRAY_CARPET, Items.GRAY_DYE, "gray_carpet")
+		carpet(Items.BLACK_CARPET, Items.BLACK_DYE, "black_carpet")
+		carpet(Items.BROWN_CARPET, Items.BROWN_DYE, "brown_carpet")
+		carpet(Items.RED_CARPET, Items.RED_DYE, "red_carpet")
+		carpet(Items.ORANGE_CARPET, Items.ORANGE_DYE, "orange_carpet")
+		carpet(Items.YELLOW_CARPET, Items.YELLOW_DYE, "yellow_carpet")
+		carpet(Items.GREEN_CARPET, Items.GREEN_DYE, "green_carpet")
+		carpet(Items.CYAN_CARPET, Items.CYAN_DYE, "cyan_carpet")
+		carpet(Items.BLUE_CARPET, Items.BLUE_DYE, "blue_carpet")
+		carpet(Items.MAGENTA_CARPET, Items.MAGENTA_DYE, "magenta_carpet")
+		carpet(Items.PINK_CARPET, Items.PINK_DYE, "pink_carpet")
 
 	}
 
