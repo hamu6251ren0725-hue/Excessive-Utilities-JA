@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleFlui
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -23,6 +24,8 @@ object ModRecipeSerializers {
 		registerRecipeSerializer("qed", QedRecipe::Serializer)
 	val CRUSHER: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("crusher", CrusherRecipe::Serializer)
+	val UNSTABLE_INGOT: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
+		registerRecipeSerializer("unstable_ingot", UnstableIngotRecipe::Serializer)
 
 	val WORLD_INTERACTION_ITEM: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("world_interaction_item", WorldInteractionItemRecipe::Serializer)
