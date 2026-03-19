@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "excessive_utilities:item/unstable_nugget/base",
-    "layer1": "excessive_utilities:item/unstable_nugget/glow"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "excessive_utilities:item/semi_unstable_nugget"
+	}
 }
