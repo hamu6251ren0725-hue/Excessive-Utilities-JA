@@ -69,5 +69,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		register("color", DyeColor.CODEC, DyeColor.STREAM_CODEC)
 	val ANGEL_RING_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<AngelRingItem.Type>> =
 		register("angel_ring_type", AngelRingItem.Type.CODEC, AngelRingItem.Type.STREAM_CODEC)
+	val REMAINING_USES: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
+		int("remaining_uses")
 
 }

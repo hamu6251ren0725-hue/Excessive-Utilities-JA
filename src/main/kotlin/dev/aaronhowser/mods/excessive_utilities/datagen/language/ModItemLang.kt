@@ -21,6 +21,7 @@ object ModItemLang {
 	const val OPINIUM_CORE_PERFECTED = "item.excessive_utilities.opinium_core.perfected"
 
 	const val MOBIUS_INGOT = "item.excessive_utilities.mobius_ingot"
+	const val PSEUDO_INVERSION_SIGIL = "item.excessive_utilities.pseudo_inversion_sigil"
 
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
@@ -42,8 +43,12 @@ object ModItemLang {
 			addItem(ModItems.UPGRADE_BASE, "Upgrade Base")
 			addItem(ModItems.OPINIUM_CORE, "Opinium Core")
 			addItem(ModItems.UNSTABLE_INGOT, "Unstable Ingot")
+
 			addItem(ModItems.SEMI_UNSTABLE_NUGGET, "Semi-Unstable Nugget")
 			add(MOBIUS_INGOT, "Mobius \"Unstable/Stable\" Ingot")
+			addItem(ModItems.DIVISION_SIGIL, "Division Sigil")
+			add(PSEUDO_INVERSION_SIGIL, "Pseudo-Inversion Sigil")
+
 			addItem(ModItems.KLEIN_BOTTLE, "Klein Bottle")
 
 			addItem(ModItems.DESTRUCTION_PICKAXE, "Destruction Pickaxe")

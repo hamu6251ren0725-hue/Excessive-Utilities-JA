@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
@@ -73,6 +74,14 @@ object ModCreativeModeTabs {
 						}
 
 						continue
+					}
+
+					if (item == ModItems.DIVISION_SIGIL.get()) {
+						val withUses = ModItems.DIVISION_SIGIL.withComponent(ModDataComponents.REMAINING_USES.get(), 256)
+						val inverted = ModItems.DIVISION_SIGIL.withComponent(ModDataComponents.REMAINING_USES.get(), -1)
+
+						output.accept(withUses)
+						output.accept(inverted)
 					}
 
 					output.accept(item)
