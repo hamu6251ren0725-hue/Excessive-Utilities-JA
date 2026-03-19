@@ -860,7 +860,7 @@ class ModRecipeProvider(
 			ModBlocks.DEEP_DARK_PORTAL,
 			"CCC,C C,CCC",
 			mapOf(
-				'C' to ModBlocks.COMPRESSED_BLOCK.asIngredient()
+				'C' to ModBlocks.getCompressedCobblestone(1).asIngredient()
 			)
 		).save(recipeOutput)
 
@@ -1163,30 +1163,35 @@ class ModRecipeProvider(
 			ItemTags.PLANKS.asIngredient(),
 			ItemTags.LOGS.asIngredient()
 		)
+
 		spike(
 			ModBlocks.STONE_SPIKE,
 			Items.STONE_SWORD.asIngredient(),
 			Tags.Items.COBBLESTONES_NORMAL.asIngredient(),
-			ModBlocks.COMPRESSED_BLOCK.asIngredient()
+			ModBlocks.getCompressedCobblestone(1).asIngredient()
 		)
+
 		spike(
 			ModBlocks.IRON_SPIKE,
 			Items.IRON_SWORD.asIngredient(),
 			Tags.Items.INGOTS_IRON.asIngredient(),
 			Tags.Items.STORAGE_BLOCKS_IRON.asIngredient()
 		)
+
 		spike(
 			ModBlocks.GOLDEN_SPIKE,
 			Items.GOLDEN_SWORD.asIngredient(),
 			Tags.Items.INGOTS_GOLD.asIngredient(),
 			Tags.Items.STORAGE_BLOCKS_GOLD.asIngredient()
 		)
+
 		spike(
 			ModBlocks.DIAMOND_SPIKE,
 			Items.DIAMOND_SWORD.asIngredient(),
 			Tags.Items.GEMS_DIAMOND.asIngredient(),
 			Tags.Items.STORAGE_BLOCKS_DIAMOND.asIngredient()
 		)
+
 		spike(
 			ModBlocks.NETHERITE_SPIKE,
 			Items.NETHERITE_SWORD.asIngredient(),

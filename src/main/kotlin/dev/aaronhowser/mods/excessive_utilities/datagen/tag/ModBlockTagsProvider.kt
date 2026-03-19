@@ -25,7 +25,6 @@ class ModBlockTagsProvider(
 	override fun addTags(provider: HolderLookup.Provider) {
 		tag(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(
-				ModBlocks.COMPRESSED_BLOCK,
 				ModBlocks.ANGEL_BLOCK,
 				ModBlocks.CONVEYOR_BELT,
 				ModBlocks.ENDER_COLLECTOR,
@@ -175,6 +174,7 @@ class ModBlockTagsProvider(
 				ModBlocks.INVERTED_INEFFABLE_GLASS,
 				ModBlocks.DARK_INEFFABLE_GLASS,
 			)
+			.add(*ModBlocks.COMPRESSED_COBBLESTONES.toTypedArray())
 			.add(*ModBlocks.COLORED_STONES.map { it.value }.toTypedArray())
 			.add(*ModBlocks.COLORED_COBBLESTONES.map { it.value }.toTypedArray())
 			.add(*ModBlocks.COLORED_STONE_BRICKS.map { it.value }.toTypedArray())

@@ -8,7 +8,6 @@ object ModBlockLang {
 
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
-			addBlock(ModBlocks.COMPRESSED_BLOCK, "Compressed Block")
 			addBlock(ModBlocks.ANGEL_BLOCK, "Angel Block")
 			addBlock(ModBlocks.BLACKOUT_CURTAIN, "Blackout Curtain")
 			addBlock(ModBlocks.CONVEYOR_BELT, "Conveyor Belt")
@@ -194,6 +193,31 @@ object ModBlockLang {
 				addBlock(ModBlocks.getColoredRedstoneLamp(color), "Colored Redstone Lamp ($englishName)")
 				addBlock(ModBlocks.getColoredSoulSand(color), "Colored Soul Sand ($englishName)")
 				addBlock(ModBlocks.getColoredGlowstone(color), "Colored Glowstone ($englishName)")
+			}
+
+			for (i in 1..9) {
+				val amount = when (i) {
+					1 -> "Single"
+					2 -> "Double"
+					3 -> "Triple"
+					4 -> "Quadruple"
+					5 -> "Quintuple"
+					6 -> "Sextuple"
+					7 -> "Septuple"
+					8 -> "Octuple"
+					9 -> "Nonuple"
+					else -> "$i×"
+				}
+
+				val cobble = ModBlocks.getCompressedCobblestone(i)
+				val dirt = ModBlocks.getCompressedDirt(i)
+				val gravel = ModBlocks.getCompressedGravel(i)
+				val sand = ModBlocks.getCompressedSand(i)
+
+				addBlock(cobble, "$amount Compressed Cobblestone")
+				addBlock(dirt, "$amount Compressed Dirt")
+				addBlock(gravel, "$amount Compressed Gravel")
+				addBlock(sand, "$amount Compressed Sand")
 			}
 		}
 	}

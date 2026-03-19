@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "excessive_utilities:compressed_block"
+          "name": "excessive_utilities:compressed_gravel_5"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "excessive_utilities:blocks/compressed_block"
+  "random_sequence": "excessive_utilities:blocks/compressed_gravel_5"
 }

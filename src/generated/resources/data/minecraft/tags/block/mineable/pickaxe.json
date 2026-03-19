@@ -1,6 +1,5 @@
 {
   "values": [
-    "excessive_utilities:compressed_block",
     "excessive_utilities:angel_block",
     "excessive_utilities:conveyor_belt",
     "excessive_utilities:ender_collector",
@@ -149,6 +148,15 @@
     "excessive_utilities:ineffable_glass",
     "excessive_utilities:inverted_ineffable_glass",
     "excessive_utilities:dark_ineffable_glass",
+    "excessive_utilities:compressed_cobblestone_1",
+    "excessive_utilities:compressed_cobblestone_2",
+    "excessive_utilities:compressed_cobblestone_3",
+    "excessive_utilities:compressed_cobblestone_4",
+    "excessive_utilities:compressed_cobblestone_5",
+    "excessive_utilities:compressed_cobblestone_6",
+    "excessive_utilities:compressed_cobblestone_7",
+    "excessive_utilities:compressed_cobblestone_8",
+    "excessive_utilities:compressed_cobblestone_9",
     "excessive_utilities:colored_stone_white",
     "excessive_utilities:colored_stone_orange",
     "excessive_utilities:colored_stone_magenta",
