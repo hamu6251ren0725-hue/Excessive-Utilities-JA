@@ -1,38 +1,14 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
-import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
-import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
-import net.minecraft.world.item.context.UseOnContext
-import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Blocks
 
 class DivisionSigilItem(properties: Properties) : Item(properties) {
-
-	override fun useOn(context: UseOnContext): InteractionResult {
-		val level = context.level
-		if (level.isClientSide) return InteractionResult.SUCCESS
-
-		val player = context.player ?: return InteractionResult.SUCCESS
-
-		val pos = context.clickedPos
-		val stack = context.itemInHand
-
-		if (activate(level, player, pos, stack)) {
-			return InteractionResult.SUCCESS
-		}
-
-		return InteractionResult.PASS
-	}
 
 	override fun getName(stack: ItemStack): Component {
 		val remainingUses = stack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
@@ -73,23 +49,6 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 					.fireResistant()
 					.component(ModDataComponents.REMAINING_USES, 0)
 			}
-
-		fun activate(
-			level: Level,
-			player: Player,
-			pos: BlockPos,
-			stack: ItemStack
-		): Boolean {
-			val state = level.getBlockState(pos)
-
-			if (!state.isBlock(Blocks.ENCHANTING_TABLE)) return false
-			if (level.dimension() != Level.OVERWORLD) {
-				player.tell(Component.literal("You can only activate the Division Sigil in the Overworld..."))
-				return false
-			}
-
-			return true
-		}
 	}
 
 }

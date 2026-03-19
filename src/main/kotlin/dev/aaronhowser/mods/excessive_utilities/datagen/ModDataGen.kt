@@ -73,36 +73,35 @@ object ModDataGen {
 			event.includeServer(),
 			ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
 		)
-
 		generator.addProvider(
 			event.includeServer(),
 			ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
 		)
-
+//		generator.addProvider(
+//			event.includeServer(),
+//			ModFluidTagsProvider(output, lookupProvider, existingFileHelper)
+//		)
 		generator.addProvider(
 			event.includeServer(),
 			ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
 		)
-
 		generator.addProvider(
 			event.includeServer(),
 			ModDamageTypeTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
-
 		generator.addProvider(
 			event.includeServer(),
 			ModEnchantmentTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
-
 		generator.addProvider(
 			event.includeServer(),
 			ModBiomeTagsProvider(output, lookupProvider, existingFileHelper)
 		)
 
-		generator.addProvider(
-			event.includeServer(),
-			ModDimensionTagsProvider(output, lookupProvider)
-		)
+//		generator.addProvider(
+//			event.includeServer(),
+//			ModCurioProvider(output, existingFileHelper, lookupProvider)
+//		)
 
 		val languageProvider = ModLanguageProvider(output)
 
