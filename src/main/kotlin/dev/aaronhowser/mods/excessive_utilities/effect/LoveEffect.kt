@@ -7,7 +7,7 @@ import net.minecraft.world.entity.animal.Animal
 
 class LoveEffect : MobEffect(
 	MobEffectCategory.BENEFICIAL,
-	0x000000
+	0xF1AAFF
 ) {
 
 	override fun shouldApplyEffectTickThisTick(duration: Int, amplifier: Int): Boolean {

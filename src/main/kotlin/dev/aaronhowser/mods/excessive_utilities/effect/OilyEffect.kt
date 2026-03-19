@@ -8,7 +8,7 @@ import net.minecraft.world.phys.Vec3
 
 class OilyEffect : MobEffect(
 	MobEffectCategory.HARMFUL,
-	0x000000
+	0x1E377E
 ) {
 
 	override fun shouldApplyEffectTickThisTick(duration: Int, amplifier: Int): Boolean {

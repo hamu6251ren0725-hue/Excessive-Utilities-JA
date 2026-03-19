@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.effect.*
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectCategory
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -25,6 +26,8 @@ object ModMobEffects : AaronMobEffectsRegistry() {
 		register("greek_fire", ::GreekFireEffect)
 	val LOVE: DeferredHolder<MobEffect, LoveEffect> =
 		register("love", ::LoveEffect)
+	val SECOND_CHANCE =
+		registerSimple("second_chance", MobEffectCategory.BENEFICIAL, 0x92FAF0)
 
 
 }

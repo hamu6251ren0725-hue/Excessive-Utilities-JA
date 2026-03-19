@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity
 
 class GreekFireEffect : MobEffect(
 	MobEffectCategory.HARMFUL,
-	0x000000
+	0xEF6094
 ) {
 
 	override fun shouldApplyEffectTickThisTick(duration: Int, amplifier: Int): Boolean {

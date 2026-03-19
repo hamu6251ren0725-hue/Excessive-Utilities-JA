@@ -10,7 +10,7 @@ import kotlin.math.abs
 
 class GravityEffect : MobEffect(
 	MobEffectCategory.HARMFUL,
-	0xFFFFFF
+	0x432986
 ) {
 
 	override fun shouldApplyEffectTickThisTick(duration: Int, amplifier: Int): Boolean {
