@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.data.BlockTagsProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
+import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 import java.util.concurrent.CompletableFuture
 
 class ModBlockTagsProvider(
@@ -212,6 +213,9 @@ class ModBlockTagsProvider(
 				ModBlocks.CURSED_EARTH
 			)
 			.add(*ModBlocks.COLORED_SOUL_SANDS.map { it.value }.toTypedArray())
+			.add(*ModBlocks.COMPRESSED_DIRTS.toTypedArray())
+			.add(*ModBlocks.COMPRESSED_SANDS.toTypedArray())
+			.add(*ModBlocks.COMPRESSED_GRAVELS.toTypedArray())
 
 		tag(BlockTags.MINEABLE_WITH_AXE)
 			.add(
