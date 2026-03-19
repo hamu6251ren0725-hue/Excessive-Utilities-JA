@@ -219,13 +219,14 @@ class ModBlockStateProvider(
 		terraformerBlock(ModBlocks.HUMIDIFIER.get(), "humidifier")
 		terraformerBlock(ModBlocks.MAGIC_ABSORPTION.get(), "magic_absorption")
 		terraformerBlock(ModBlocks.MAGIC_INFUSER.get(), "magic_infuser")
+		terraformerBlock(ModBlocks.CLIMOGRAPH_BASE_UNIT.get(), "base")
 	}
 
 	private fun terraformerBlock(
 		block: Block,
 		sideName: String
 	) {
-		val bottom = modLoc("block/terraformer/base")
+		val bottom = modLoc("block/terraformer/top")
 		val side = modLoc("block/terraformer/$sideName")
 		val top = modLoc("block/terraformer/top")
 
