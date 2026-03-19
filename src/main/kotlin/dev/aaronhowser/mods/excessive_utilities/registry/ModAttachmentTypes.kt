@@ -10,7 +10,7 @@ import java.util.function.Supplier
 
 object ModAttachmentTypes {
 
-	val ATTACHMENT_TYPES_REGISTRY: DeferredRegister<AttachmentType<*>> =
+	val ATTACHMENT_TYPE_REGISTRY: DeferredRegister<AttachmentType<*>> =
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ExcessiveUtilities.MOD_ID)
 
 	val SOUL_DEBT: DeferredHolder<AttachmentType<*>, AttachmentType<SoulDebt>> =
@@ -25,7 +25,7 @@ object ModAttachmentTypes {
 		)
 
 	private fun <T> register(name: String, type: AttachmentType<T>): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
-		return ATTACHMENT_TYPES_REGISTRY.register(name, Supplier { type })
+		return ATTACHMENT_TYPE_REGISTRY.register(name, Supplier { type })
 	}
 
 }
