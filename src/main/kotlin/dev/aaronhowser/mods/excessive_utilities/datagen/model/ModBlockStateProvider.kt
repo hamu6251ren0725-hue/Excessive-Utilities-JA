@@ -78,6 +78,7 @@ class ModBlockStateProvider(
 		enderPorcupine()
 		crusher()
 		enchanter()
+		playerChest()
 	}
 
 	private fun enchanter() {
@@ -1557,6 +1558,81 @@ class ModBlockStateProvider(
 		}
 	}
 
+	// TODO: Rotation
+	private fun playerChest() {
+		val block = ModBlocks.PLAYER_CHEST.get()
+
+		val side = modLoc("block/player_chest/side")
+		val front = modLoc("block/player_chest/front")
+		val top = modLoc("block/player_chest/top")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("side", side)
+			.texture("front", front)
+			.texture("top", top)
+			.texture("particle", side)
+
+			// Bottom half
+			.element {
+				from(1f, 0f, 1f)
+				to(15f, 14f, 15f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP, Direction.DOWN -> "#top"
+						Direction.NORTH -> "#front"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+					fb.cullface(dir)
+				}
+			}
+
+			// Latch
+			.element {
+				from(6f, 6f, 0f)
+				to(10f, 11f, 1f)
+
+				allFacesExcept(
+					{ dir, fb ->
+						val texture = when (dir) {
+							Direction.UP -> "#top"
+							Direction.DOWN -> "#bottom"
+							Direction.NORTH -> "#front"
+							else -> "#side"
+						}
+
+						fb.texture(texture)
+						fb.cullface(dir)
+					},
+					setOf(Direction.SOUTH)
+				)
+			}
+
+//		getVariantBuilder(block)
+//			.forAllStates {
+//				val facing = it.getValue(TrashCanBlock.FACING)
+//
+//				val yRot = when (facing) {
+//					Direction.NORTH -> 0
+//					Direction.EAST -> 90
+//					Direction.SOUTH -> 180
+//					Direction.WEST -> 270
+//					else -> 0
+//				}
+//
+//				ConfiguredModel
+//					.builder()
+//					.modelFile(model)
+//					.rotationY(yRot)
+//					.build()
+//			}
+
+		simpleBlockWithItem(block, model)
+	}
+
 	private fun creativeChest() {
 		val block = ModBlocks.CREATIVE_CHEST.get()
 
@@ -2704,6 +2780,7 @@ class ModBlockStateProvider(
 			ModBlocks.QUANTUM_QUARRY.get(),
 			ModBlocks.DIAMOND_ETCHED_COMPUTATIONAL_MATRIX.get(),
 			ModBlocks.MAGICAL_WOOD.get(),
+			ModBlocks.LAST_MILLENNIUM_PORTAL.get()
 		)
 
 		for (block in blocks) {
