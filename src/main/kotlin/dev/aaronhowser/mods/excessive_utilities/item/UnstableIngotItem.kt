@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import net.neoforged.neoforge.event.entity.player.PlayerEvent
 
 class UnstableIngotItem(properties: Properties) : Item(properties) {
 
@@ -45,12 +46,8 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 			val currentMenuId = if (currentMenu != null) BuiltInRegistries.MENU.getKey(currentMenu) else null
 
 			val oldMenu = stack.get(ModDataComponents.CRAFTED_IN_MENU)
-			if (oldMenu == null) {
-				stack.set(ModDataComponents.CRAFTED_IN_MENU, currentMenuId)
-			} else {
-				if (currentMenuId != oldMenu) {
-					shouldExplode = true
-				}
+			if (currentMenuId != oldMenu) {
+				shouldExplode = true
 			}
 		}
 
@@ -104,6 +101,24 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 			return stack.has(ModDataComponents.COUNTDOWN) && !stack.has(ModDataComponents.CRAFTED_IN_MENU)
 		}
 
+		fun handleCraftEvent(event: PlayerEvent.ItemCraftedEvent) {
+			val stack = event.crafting
+			if (!stack.isItem(ModItems.UNSTABLE_INGOT)) return
+
+			val player = event.entity
+			val currentMenu = try {
+				player.containerMenu.type
+			} catch (e: UnsupportedOperationException) {
+				null
+			}
+
+			val currentMenuId = if (currentMenu != null) BuiltInRegistries.MENU.getKey(currentMenu) else null
+
+			if (currentMenuId != null) {
+				stack.set(ModDataComponents.CRAFTED_IN_MENU, currentMenuId)
+			}
+		}
+
 		fun handleTooltip(event: ItemTooltipEvent) {
 			val stack = event.itemStack
 			if (!stack.isItem(ModItems.UNSTABLE_INGOT)) return
@@ -129,6 +144,7 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 				event.toolTip.add(Component.literal("Naughty naughty!"))
 				event.toolTip.add(Component.literal("You have to craft the item YOURSELF for it to work!"))
 				event.toolTip.add(Component.literal("This stack is unusable for that reason."))
+				event.toolTip.add(Component.literal("If you DID craft this item yourself, try again in a vanilla Crafting Table."))
 			}
 		}
 	}

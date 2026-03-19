@@ -404,4 +404,9 @@ object CommonEvents {
 		DivisionSigilItem.handleEntityDeath(event)
 	}
 
+	@SubscribeEvent
+	fun onItemCrafted(event: PlayerEvent.ItemCraftedEvent) {
+		UnstableIngotItem.handleCraftEvent(event)
+	}
+
 }
