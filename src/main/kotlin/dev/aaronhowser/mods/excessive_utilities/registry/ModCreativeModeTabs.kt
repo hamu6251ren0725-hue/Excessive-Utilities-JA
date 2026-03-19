@@ -80,8 +80,10 @@ object ModCreativeModeTabs {
 						val withUses = ModItems.DIVISION_SIGIL.withComponent(ModDataComponents.REMAINING_USES.get(), 256)
 						val inverted = ModItems.DIVISION_SIGIL.withComponent(ModDataComponents.REMAINING_USES.get(), -1)
 
+						output.accept(item)
 						output.accept(withUses)
 						output.accept(inverted)
+						continue
 					}
 
 					output.accept(item)

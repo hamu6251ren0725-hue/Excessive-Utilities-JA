@@ -20,6 +20,10 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 		}
 	}
 
+	override fun isFoil(stack: ItemStack): Boolean {
+		return stack.getOrDefault(ModDataComponents.REMAINING_USES, 0) < 0
+	}
+
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
