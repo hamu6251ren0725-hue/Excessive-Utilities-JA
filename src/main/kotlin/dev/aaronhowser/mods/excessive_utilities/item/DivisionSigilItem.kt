@@ -110,7 +110,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			}
 
 		fun isInverted(stack: ItemStack): Boolean {
-			return !stack.has(ModDataComponents.COUNTDOWN)
+			return !stack.has(ModDataComponents.REMAINING_USES)
 		}
 
 		private class ResultWithMessage(
