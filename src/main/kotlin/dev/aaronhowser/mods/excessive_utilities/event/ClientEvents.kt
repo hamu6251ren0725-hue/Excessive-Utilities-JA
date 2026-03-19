@@ -33,6 +33,7 @@ import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
 	modid = ExcessiveUtilities.MOD_ID,
@@ -313,6 +314,11 @@ object ClientEvents {
 	@SubscribeEvent
 	fun onRenderBlockHighlight(event: RenderHighlightEvent.Block) {
 		WandRenderer.renderTargetBlocks(event)
+	}
+
+	@SubscribeEvent
+	fun onItemTooltip(event: ItemTooltipEvent) {
+		UnstableIngotItem.handleTooltip(event)
 	}
 
 }
