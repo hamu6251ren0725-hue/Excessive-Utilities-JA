@@ -90,6 +90,18 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 		tooltipComponents.add(component)
 	}
 
+	override fun isBarVisible(stack: ItemStack): Boolean {
+		val remainingUses = stack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
+		return remainingUses >= 0
+	}
+
+	override fun getBarWidth(stack: ItemStack): Int {
+		val remainingUses = stack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
+		if (remainingUses < 0) return 13
+
+		return (remainingUses * 13) / USES_AFTER_ACTIVATION
+	}
+
 	companion object {
 		const val USES_AFTER_ACTIVATION = 256
 		const val USES_AFTER_INVERSION = -1
