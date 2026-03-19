@@ -211,7 +211,7 @@ object ModItems : AaronItemRegistry() {
 	val RING_OF_THE_FLYING_SQUID: DeferredItem<FlyingSquidRingItem> =
 		register("ring_of_the_flying_squid", ::FlyingSquidRingItem, FlyingSquidRingItem.DEFAULT_PROPERTIES)
 	val ANGEL_RING: DeferredItem<AngelRingItem> =
-		register("angel_ring", ::AngelRingItem, PROPERTIES_SINGLE_STACK)
+		register("angel_ring", ::AngelRingItem, AngelRingItem.DEFAULT_PROPERTIES)
 
 	// Items not reimplemented:
 	// - Contract (used only for Chunk Loading Ward)

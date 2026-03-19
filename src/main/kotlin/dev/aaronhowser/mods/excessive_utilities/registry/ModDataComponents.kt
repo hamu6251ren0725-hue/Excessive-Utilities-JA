@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
@@ -66,5 +67,7 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		int("frequency")
 	val COLOR: DeferredHolder<DataComponentType<*>, DataComponentType<DyeColor>> =
 		register("color", DyeColor.CODEC, DyeColor.STREAM_CODEC)
+	val ANGEL_RING_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<AngelRingItem.Type>> =
+		register("angel_ring_type", AngelRingItem.Type.CODEC, AngelRingItem.Type.STREAM_CODEC)
 
 }

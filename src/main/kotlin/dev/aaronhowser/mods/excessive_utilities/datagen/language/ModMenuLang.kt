@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.language
 
+import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
+
 object ModMenuLang {
 
 	const val SOUL_OF_A_FORGOTTEN_DEITY = "tooltip.excessive_utilities.soul_of_a_forgotten_deity"
@@ -29,6 +31,13 @@ object ModMenuLang {
 			add(FLUID_FILTER_INVERTED, "Inverted")
 			add(FLUID_FILTER_TAGS, "Use Tags")
 			add(FLUID_FILTER_IGNORE_ALL_COMPONENTS, "Ignore All Components")
+
+			add(AngelRingItem.Type.INVISIBLE.langKey, "Invisible")
+			add(AngelRingItem.Type.FEATHER, "Feather")
+			add(AngelRingItem.Type.BUTTERFLY, "Butterfly")
+			add(AngelRingItem.Type.DEMON, "Demon")
+			add(AngelRingItem.Type.GOLD, "Gold")
+			add(AngelRingItem.Type.BAT, "Bat")
 		}
 	}
 

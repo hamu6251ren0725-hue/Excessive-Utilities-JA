@@ -1,15 +1,22 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
+import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerContribution
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerHandler
+import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
+import io.netty.buffer.ByteBuf
 import net.minecraft.network.chat.Component
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.StringRepresentable
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.NeoForgeMod
 
@@ -33,8 +40,25 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 
 	}
 
+	override fun appendHoverText(
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
+	) {
+		val type = stack.getOrDefault(ModDataComponents.ANGEL_RING_TYPE, Type.INVISIBLE)
+		tooltipComponents.add(Component.translatable(type.langKey))
+	}
+
 	companion object {
 		val ATTRIBUTE_MODIFIER_NAME = ExcessiveUtilities.modResource("angel_ring_flight")
+
+		val DEFAULT_PROPERTIES: () -> Properties =
+			{
+				Properties()
+					.stacksTo(1)
+					.component(ModDataComponents.ANGEL_RING_TYPE, Type.INVISIBLE)
+			}
 
 		fun addGpConsumer(player: ServerPlayer, ringStack: ItemStack): GridPowerContribution.HeldItem {
 			val handler = GridPowerHandler.get(player.serverLevel()).getGrid(player)
@@ -107,6 +131,26 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 			}
 		}
 
+	}
+
+	enum class Type(
+		val id: String
+	) : StringRepresentable {
+		INVISIBLE("invisible"),
+		FEATHER("feather"),
+		BUTTERFLY("butterfly"),
+		DEMON("demon"),
+		GOLD("gold"),
+		BAT("bat")
+		;
+
+		val langKey = "tooltip.excessive_utilities.angel_ring.type.$id"
+		override fun getSerializedName(): String = id
+
+		companion object {
+			val CODEC: Codec<Type> = StringRepresentable.fromValues { entries.toTypedArray() }
+			val STREAM_CODEC: StreamCodec<ByteBuf, Type> = ByteBufCodecs.fromCodec(CODEC)
+		}
 	}
 
 }
