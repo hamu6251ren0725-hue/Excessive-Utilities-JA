@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.SingleItemFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
+import dev.aaronhowser.mods.excessive_utilities.item.UnstableIngotItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import dev.aaronhowser.mods.excessive_utilities.recipe.base.BlockStateIngredient
@@ -1156,7 +1157,7 @@ class ModRecipeProvider(
 		shapedRecipe(
 			ModItems.UNSTABLE_INGOT.withComponent(
 				ModDataComponents.COUNTDOWN.get(),
-				20 * 10
+				UnstableIngotItem.MAX_COUNTDOWN
 			),
 			"I,S,D",
 			mapOf(
