@@ -80,6 +80,134 @@ class ModBlockStateProvider(
 		enchanter()
 		playerChest()
 		terraformerBlocks()
+		antenna()
+	}
+
+	private fun antenna() {
+		val block = ModBlocks.ANTENNA.get()
+
+		val base = modLoc("block/terraformer/antenna/base")
+		val side = modLoc("block/terraformer/antenna/side")
+		val top = modLoc("block/terraformer/antenna/top")
+
+		val model = models()
+			.withExistingParent(name(block), mcLoc("block/block"))
+			.texture("base", base)
+			.texture("side", side)
+			.texture("top", top)
+			.texture("particle", side)
+			.renderType(RenderType.cutout().name)
+
+			// Base
+			.element {
+				from(2f, 0f, 2f)
+				to(14f, 1f, 14f)
+
+				allFaces { dir, fb ->
+					texture("#base")
+				}
+			}
+
+			// Pole
+			.element {
+				from(7f, 1f, 7f)
+				to(9f, 6f, 9f)
+
+				allFaces { dir, fb ->
+					texture("#side")
+				}
+			}
+
+			// Arm
+			.element {
+				from(4f, 6f, 6f)
+				to(12f, 10f, 10f)
+
+				allFaces { dir, fb ->
+					texture("#top")
+				}
+			}
+
+			// Arm
+			.element {
+				from(6f, 6f, 4f)
+				to(10f, 10f, 12f)
+
+				allFaces { dir, fb ->
+					texture("#top")
+				}
+
+				allFaces { dir, fb ->
+					val texture = when (dir.axis) {
+						Direction.Axis.Y -> "#top"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			// North prong
+			.element {
+				from(0f, 5f, 6f)
+				to(4f, 16f, 10f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir.axis) {
+						Direction.Axis.Y -> "#top"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			// South prong
+			.element {
+				from(12f, 5f, 6f)
+				to(16f, 16f, 10f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir.axis) {
+						Direction.Axis.Y -> "#top"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			// West prong
+			.element {
+				from(6f, 5f, 0f)
+				to(10f, 16f, 4f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir.axis) {
+						Direction.Axis.Y -> "#top"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			// East prong
+			.element {
+				from(6f, 5f, 12f)
+				to(10f, 16f, 16f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir.axis) {
+						Direction.Axis.Y -> "#top"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun terraformerBlocks() {
