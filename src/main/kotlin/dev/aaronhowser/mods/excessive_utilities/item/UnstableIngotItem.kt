@@ -50,6 +50,11 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 			}
 		}
 
+		val requiredMenu = stack.get(ModDataComponents.CRAFTED_IN_MENU)
+		if (requiredMenu == null) {
+			shouldExplode = false
+		}
+
 		if (shouldExplode) {
 			//TODO: Explode
 			stack.count = 0
@@ -69,7 +74,11 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-
+		if (isCheesed(stack)) {
+			tooltipComponents.add(Component.literal("Naughty naughty!"))
+			tooltipComponents.add(Component.literal("You have to craft the item YOURSELF for it to work!"))
+			tooltipComponents.add(Component.literal("This stack is unusable for that reason."))
+		}
 	}
 
 	companion object {
