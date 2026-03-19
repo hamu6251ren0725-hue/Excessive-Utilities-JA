@@ -95,6 +95,11 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 					.component(ModDataComponents.REMAINING_USES, 0)
 			}
 
+		private class ResultWithMessage(
+			val isReady: Boolean,
+			vararg val messages: Component
+		)
+
 		private fun checkActivationReady(
 			player: Player,
 			pos: BlockPos
@@ -104,54 +109,84 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 
 			if (!state.isBlock(Blocks.ENCHANTING_TABLE)) return false
 
-			if (!level.getBiome(pos).isHolder(Tags.Biomes.IS_OVERWORLD)) {
-				player.tell(Component.literal("You can only activate the Division Sigil in the Overworld!"))
-				return true
+			val result = isActivationReady(level, pos)
+
+			for (component in result.messages) {
+				player.tell(component)
 			}
 
-			if (!level.canSeeSky(pos)) {
-				player.tell(Component.literal("The Enchanting Table must be able to see the sky."))
-				return true
+			return result.isReady
+		}
+
+		private fun isActivationReady(
+			level: ServerLevel,
+			catalystPos: BlockPos
+		): ResultWithMessage {
+			val state = level.getBlockState(catalystPos)
+
+			if (!state.isBlock(Blocks.ENCHANTING_TABLE)) return ResultWithMessage(false)
+
+			if (!level.getBiome(catalystPos).isHolder(Tags.Biomes.IS_OVERWORLD)) {
+				return ResultWithMessage(
+					false,
+					Component.literal("You can only activate the Division Sigil in the Overworld!")
+				)
+			}
+
+			if (!level.canSeeSky(catalystPos)) {
+				return ResultWithMessage(
+					false,
+					Component.literal("The Enchanting Table must be able to see the sky.")
+				)
 			}
 
 			for (dx in -1..1) for (dz in -1..1) {
 				if (dx == 0 && dz == 0) continue
 
-				val checkPos = pos.offset(dx, 0, dz)
+				val checkPos = catalystPos.offset(dx, 0, dz)
 				val checkState = level.getBlockState(checkPos)
 
 				if (!checkState.isBlock(Blocks.REDSTONE_WIRE)) {
-					player.tell(Component.literal("You must have Redstone surrounding the Enchanting Table."))
-					player.tell(Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
-					return true
+					return ResultWithMessage(
+						false,
+						Component.literal("You must have Redstone surrounding the Enchanting Table."),
+						Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+					)
 				}
 			}
 
 			for (dx in -5..5) for (dz in -5..5) {
-				val checkPos = pos.offset(dx, -1, dz)
+				val checkPos = catalystPos.offset(dx, -1, dz)
 				val checkState = level.getBlockState(checkPos)
 
 				if (!checkState.isBlock(BlockTags.DIRT)) {
-					player.tell(Component.literal("You must have a 5x5 layer of Dirt under the Enchanting Table."))
-					player.tell(Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
-					return true
+					return ResultWithMessage(
+						false,
+						Component.literal("You must have a 5x5 layer of Dirt under the Enchanting Table."),
+						Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+					)
 				}
 			}
 
 			if (level.dayTime !in 17500..18500) {
-				player.tell(Component.literal("You can only activate the Division Sigil at midnight."))
-				return true
+				return ResultWithMessage(
+					false,
+					Component.literal("You can only activate the Division Sigil at midnight.")
+				)
 			}
 
-			if (level.getBrightness(LightLayer.BLOCK, pos.above()) > 7) {
-				player.tell(Component.literal("The Enchanting Table must be in darkness."))
-				return true
+			if (level.getBrightness(LightLayer.BLOCK, catalystPos.above()) > 7) {
+				return ResultWithMessage(
+					false,
+					Component.literal("The Enchanting Table must be in darkness.")
+				)
 			}
 
-			player.tell(Component.literal("The Division Sigil is ready to be activated!"))
-			player.tell(Component.literal("Kill a mob nearby the Enchanting Table."))
-
-			return true
+			return ResultWithMessage(
+				true,
+				Component.literal("The Division Sigil is ready to be activated!"),
+				Component.literal("Kill a mob nearby the Enchanting Table.")
+			)
 		}
 
 		private fun checkInversionReady(
