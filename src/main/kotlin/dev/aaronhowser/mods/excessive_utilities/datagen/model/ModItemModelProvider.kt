@@ -37,7 +37,26 @@ class ModItemModelProvider(
 		creativeBuildersWand()
 		creativeDestructionWand()
 
+		handheld()
+
 		basicItems()
+	}
+
+	private fun handheld() {
+		val items = listOf(
+			ModItems.FIRE_AXE.get(),
+			ModItems.WOODEN_SICKLE.get(),
+			ModItems.STONE_SICKLE.get(),
+			ModItems.IRON_SICKLE.get(),
+			ModItems.GOLDEN_SICKLE.get(),
+			ModItems.DIAMOND_SICKLE.get(),
+			ModItems.NETHERITE_SICKLE.get(),
+		)
+
+		for (item in items) {
+			handheldItem(item)
+			handledItems.add(item)
+		}
 	}
 
 	private fun creativeBuildersWand() {
