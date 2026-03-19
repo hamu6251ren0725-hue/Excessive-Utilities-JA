@@ -197,23 +197,41 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			val state = level.getBlockState(pos)
 
 			if (!state.isBlock(Blocks.BEACON)) return false
+			val result = isInversionReady(level, pos)
 
-			if (!level.getBiome(pos).isHolder(Tags.Biomes.IS_END)) {
-				player.tell(Component.literal("You can only invert the Division Sigil in the End!"))
-				return true
+			for (component in result.messages) {
+				player.tell(component)
+			}
+
+			return result.isReady
+		}
+
+		private fun isInversionReady(
+			level: ServerLevel,
+			catalystPos: BlockPos
+		): ResultWithMessage {
+
+			if (!level.getBiome(catalystPos).isHolder(Tags.Biomes.IS_END)) {
+				return ResultWithMessage(
+					false,
+					Component.literal("You can only invert the Division Sigil in the End!")
+				)
 			}
 
 			val directions = Direction.Plane.HORIZONTAL
 
 			for (dir in directions) {
 				val offset = dir.normal.multiply(5)
-				val checkPos = pos.offset(offset)
+				val checkPos = catalystPos.offset(offset)
 
 				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null)
+				@Suppress("FoldInitializerAndIfToElvis", "RedundantSuppression")
 				if (itemHandler == null) {
-					player.tell(Component.literal("You must have Chests 5 blocks from the Beacon in each direction."))
-					player.tell(Component.literal("One is missing to the ${dir.getDirectionName()}."))
-					return true
+					return ResultWithMessage(
+						false,
+						Component.literal("You must have Chests 5 blocks from the Beacon in each direction."),
+						Component.literal("One is missing to the ${dir.getDirectionName()}.")
+					)
 				}
 			}
 
@@ -234,17 +252,21 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 				val north = row - 4
 				for ((column, char) in line.withIndex()) {
 					val west = column - 4
-					val checkPos = pos.north(north).west(west)
+					val checkPos = catalystPos.north(north).west(west)
 					val checkState = level.getBlockState(checkPos)
 
 					if (char == 'R' && !checkState.isBlock(Blocks.REDSTONE_WIRE)) {
-						player.tell(Component.literal("You are missing a Redstone at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
-						return true
+						return ResultWithMessage(
+							false,
+							Component.literal("You are missing a Redstone at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+						)
 					}
 
 					if (char == 'S' && !checkState.isBlock(Blocks.TRIPWIRE)) {
-						player.tell(Component.literal("You are missing a String at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
-						return true
+						return ResultWithMessage(
+							false,
+							Component.literal("You are missing a String at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+						)
 					}
 				}
 			}
@@ -258,9 +280,9 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 
 			for ((dir, tag) in contentRequirements) {
 				val offset = dir.normal.multiply(5)
-				val checkPos = pos.offset(offset)
+				val checkPos = catalystPos.offset(offset)
 
-				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null) ?: return false
+				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null) ?: continue
 
 				var count = 0
 
@@ -286,15 +308,18 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 
 				val amountNeeded = 12
 				if (count < amountNeeded) {
-					player.tell(Component.literal("You need at least $amountNeeded items from the tag #${tag.location()} in the Chest to the ${dir.getDirectionName()}, but you only have $count."))
-					return true
+					return ResultWithMessage(
+						false,
+						Component.literal("You need at least $amountNeeded items from the tag #${tag.location()} in the Chest to the ${dir.getDirectionName()}, but you only have $count.")
+					)
 				}
 			}
 
-			player.tell(Component.literal("The Division Sigil is ready to be inverted!"))
-			player.tell(Component.literal("Kill an Iron Golem near the Beacon to begin the ritual."))
-
-			return true
+			return ResultWithMessage(
+				true,
+				Component.literal("The Division Sigil is ready to be inverted!"),
+				Component.literal("Kill an Iron Golem near the Beacon to begin the ritual.")
+			)
 		}
 	}
 
