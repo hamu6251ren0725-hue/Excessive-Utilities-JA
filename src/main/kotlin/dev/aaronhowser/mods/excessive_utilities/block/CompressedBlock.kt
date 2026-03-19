@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.block.Block
 import java.util.*
+import kotlin.math.pow
 
 class CompressedBlock(
 	val compressionLevel: Int,
@@ -18,7 +19,7 @@ class CompressedBlock(
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val amount = compressionLevel.toLong() * compressionLevel.toLong() * compressionLevel.toLong()
+		val amount = 9.0.pow(compressionLevel.toDouble()).toLong()
 		val formatted = "%,d".format(Locale.US, amount)
 		tooltipComponents.add(Component.literal(formatted))
 	}
