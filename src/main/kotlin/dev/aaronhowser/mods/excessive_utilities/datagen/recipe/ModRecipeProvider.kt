@@ -485,7 +485,7 @@ class ModRecipeProvider(
 		).save(recipeOutput)
 
 		shapedRecipe(
-			ModItems.WRENCH,
+			ModItems.PIPE_WRENCH,
 			" DI, IR,I  ",
 			mapOf(
 				'D' to Tags.Items.DYES_RED.asIngredient(),

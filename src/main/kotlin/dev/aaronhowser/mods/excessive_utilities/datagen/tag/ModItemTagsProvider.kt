@@ -72,7 +72,7 @@ class ModItemTagsProvider(
 
 		tag(INTERACT_WITH_FLAT_TRANSFER_NODES)
 			.add(
-				ModItems.WRENCH,
+				ModItems.PIPE_WRENCH,
 				ModItems.FLAT_TRANSFER_NODE_ITEMS,
 				ModItems.FLAT_TRANSFER_NODE_FLUIDS,
 			)
@@ -88,7 +88,7 @@ class ModItemTagsProvider(
 
 		tag(Tags.Items.TOOLS_WRENCH)
 			.add(
-				ModItems.WRENCH
+				ModItems.PIPE_WRENCH
 			)
 
 		tag(Tags.Items.DYES_MAGENTA)
@@ -292,7 +292,7 @@ class ModItemTagsProvider(
 		tag(RENDER_ENDER_PORCUPINE_WHILE_HOLDING)
 			.add(
 				ModBlocks.ENDER_PORCUPINE.asItem(),
-				ModItems.WRENCH.get()
+				ModItems.PIPE_WRENCH.get()
 			)
 	}
 

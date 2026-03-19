@@ -51,7 +51,7 @@ object ModItemLang {
 			addItem(ModItems.PAINTBRUSH, "Paintbrush")
 			addItem(ModItems.GLASS_CUTTER, "Glass Cutter")
 			addItem(ModItems.TROWEL, "Trowel")
-			addItem(ModItems.WRENCH, "Wrench")
+			addItem(ModItems.PIPE_WRENCH, "Pipe Wrench")
 			addItem(ModItems.WATERING_CAN, "Watering Can")
 			addItem(ModItems.REINFORCED_WATERING_CAN, "Reinforced Watering Can")
 			addItem(ModItems.GOLDEN_LASSO, "Golden Lasso")

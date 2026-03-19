@@ -77,8 +77,8 @@ object ModItems : AaronItemRegistry() {
 		register("glass_cutter", ::GlassCutterItem, GlassCutterItem.DEFAULT_PROPERTIES)
 	val TROWEL: DeferredItem<TrowelItem> =
 		register("trowel", ::TrowelItem, TrowelItem.DEFAULT_PROPERTIES)
-	val WRENCH: DeferredItem<Item> =
-		basic("wrench")
+	val PIPE_WRENCH: DeferredItem<Item> =
+		basic("pipe_wrench")
 	val WATERING_CAN: DeferredItem<WateringCanItem> =
 		register("watering_can", { WateringCanItem(isReinforced = false, it) }, WateringCanItem.DEFAULT_PROPERTIES)
 	val REINFORCED_WATERING_CAN: DeferredItem<WateringCanItem> =
