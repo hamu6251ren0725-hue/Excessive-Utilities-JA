@@ -23,19 +23,41 @@ class ModItemModelProvider(
 	private val handledItems: MutableSet<Item> = mutableSetOf()
 
 	override fun registerModels() {
-		lassos()
-		unstableItems()
+//		lassos()
+//		unstableItems()
 		bewlrs()
-		flatTransferNodes()
+//		flatTransferNodes()
 		enderShard()
-		wateringCan()
+//		wateringCan()
 		magicalBoomerang()
 		compoundBow()
-		sunCrystal()
+//		sunCrystal()
 		biomeMarker()
-		paintbrush()
+//		paintbrush()
+		creativeBuildersWand()
+		creativeDestructionWand()
 
 		basicItems()
+	}
+
+	private fun creativeBuildersWand() {
+		val item = ModItems.CREATIVE_BUILDERS_WAND.get()
+
+		withExistingParent(getName(item), mcLoc("item/generated"))
+			.texture("layer0", modLoc("item/creative_builders_wand/base"))
+			.texture("layer1", modLoc("item/creative_builders_wand/outline"))
+
+		handledItems.add(item)
+	}
+
+	private fun creativeDestructionWand() {
+		val item = ModItems.CREATIVE_DESTRUCTION_WAND.get()
+
+		withExistingParent(getName(item), mcLoc("item/generated"))
+			.texture("layer0", modLoc("item/creative_destruction_wand/base"))
+			.texture("layer1", modLoc("item/creative_destruction_wand/outline"))
+
+		handledItems.add(item)
 	}
 
 	private fun paintbrush() {
@@ -306,15 +328,44 @@ class ModItemModelProvider(
 	}
 
 	private fun basicItems() {
+		val notDoneYet = setOf(
+			ModItems.CURSED_LASSO.get(),
+			ModItems.GOLDEN_LASSO.get(),
+			ModItems.HEALING_AXE.get(),
+			ModItems.DESTRUCTION_PICKAXE.get(),
+			ModItems.REVERSING_HOE.get(),
+			ModItems.EROSION_SHOVEL.get(),
+			ModItems.ETHERIC_SWORD.get(),
+			ModItems.PRECISION_SHEARS.get(),
+			ModItems.FLAT_TRANSFER_NODE_ITEMS.get(),
+			ModItems.FLAT_TRANSFER_NODE_FLUIDS.get(),
+			ModItems.WATERING_CAN.get(),
+			ModItems.REINFORCED_WATERING_CAN.get(),
+			ModItems.SUN_CRYSTAL.get(),
+			ModItems.PAINTBRUSH.get(),
+			ModItems.BEDROCKIUM_INGOT.get(),
+			ModItems.SOUL_FRAGMENT.get(),
+			ModItems.DIVISION_SIGIL.get(),
+			ModItems.PORTABLE_SCANNER.get(),
+			ModItems.SONAR_GOGGLES.get(),
+			ModItems.BREADTH_FIRST_SEARCH_UPGRADE.get(),
+			ModItems.DEPTH_FIRST_SEARCH_UPGRADE.get(),
+			ModItems.PSEUDO_ROUND_ROBIN_UPGRADE.get(),
+			ModItems.ENDER_TRANSMITTER.get(),
+			ModItems.ENDER_RECEIVER.get(),
+			ModItems.CREATIVE_UPGRADE.get(),
+			ModItems.CHICKEN_WING_RING.get(),
+			ModItems.RING_OF_THE_FLYING_SQUID.get(),
+		)
+
 		val skipThese = setOf(
-			ModItems.UNSTABLE_INGOT.get(),
-			ModItems.SEMI_UNSTABLE_NUGGET.get(),
 			ModItems.KLEIN_BOTTLE.get(),
 			ModItems.BIOME_MARKER.get(),
 			ModItems.SUN_CRYSTAL.get(),
 			ModItems.KIKOKU.get(),
 			ModItems.LUX_SABER.get(),
-			ModItems.MAGICAL_BOOMERANG.get()
+			ModItems.MAGICAL_BOOMERANG.get(),
+			ModItems.ANGEL_RING.get()
 		)
 
 		val blockItemsToModel = listOf(
@@ -324,7 +375,7 @@ class ModItemModelProvider(
 
 		for (deferred in ModItems.ITEM_REGISTRY.entries) {
 			val item = deferred.get()
-			if (item in handledItems || item in skipThese) continue
+			if (item in handledItems || item in skipThese || item in notDoneYet) continue
 
 			if (item !is BlockItem || item in blockItemsToModel) {
 				basicItem(item)
