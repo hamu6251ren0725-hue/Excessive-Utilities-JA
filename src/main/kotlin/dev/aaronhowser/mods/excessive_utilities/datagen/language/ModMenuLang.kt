@@ -33,11 +33,11 @@ object ModMenuLang {
 			add(FLUID_FILTER_IGNORE_ALL_COMPONENTS, "Ignore All Components")
 
 			add(AngelRingItem.Type.INVISIBLE.langKey, "Invisible")
-			add(AngelRingItem.Type.FEATHER, "Feather")
-			add(AngelRingItem.Type.BUTTERFLY, "Butterfly")
-			add(AngelRingItem.Type.DEMON, "Demon")
-			add(AngelRingItem.Type.GOLD, "Gold")
-			add(AngelRingItem.Type.BAT, "Bat")
+			add(AngelRingItem.Type.FEATHER.langKey, "Feather")
+			add(AngelRingItem.Type.BUTTERFLY.langKey, "Butterfly")
+			add(AngelRingItem.Type.DEMON.langKey, "Demon")
+			add(AngelRingItem.Type.GOLD.langKey, "Gold")
+			add(AngelRingItem.Type.BAT.langKey, "Bat")
 		}
 	}
 

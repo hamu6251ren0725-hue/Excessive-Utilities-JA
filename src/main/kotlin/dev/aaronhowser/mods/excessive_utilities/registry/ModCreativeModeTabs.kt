@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.BiomeMarkerItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import net.minecraft.core.registries.BuiltInRegistries
@@ -66,9 +68,16 @@ object ModCreativeModeTabs {
 						continue
 					}
 
-					val skipThese = setOf(
-						ModItems.BIOME_MARKER.get()
-					)
+					if (item == ModItems.ANGEL_RING.get()) {
+						for (type in AngelRingItem.Type.entries) {
+							val stack = ModItems.ANGEL_RING
+								.withComponent(ModDataComponents.ANGEL_RING_TYPE.get(), type)
+
+							output.accept(stack)
+						}
+
+						continue
+					}
 
 					output.accept(item)
 				}
