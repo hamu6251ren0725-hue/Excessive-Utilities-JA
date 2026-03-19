@@ -2366,6 +2366,64 @@ class ModRecipeProvider(
 		angelRing(AngelRingItem.Type.GOLD, Tags.Items.NUGGETS_GOLD.asIngredient())
 		angelRing(AngelRingItem.Type.BAT, ItemTags.COALS.asIngredient())
 
+		UnstableIngotRecipeBuilder(ModItems.HEALING_AXE)
+			.pattern(
+				"II",
+				"IO",
+				" O"
+			)
+			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
+			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
+			.save(recipeOutput)
+
+		UnstableIngotRecipeBuilder(ModItems.REVERSING_HOE)
+			.pattern(
+				"II",
+				"O ",
+				"O "
+			)
+			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
+			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
+			.save(recipeOutput)
+
+		UnstableIngotRecipeBuilder(ModItems.ETHERIC_SWORD)
+			.pattern(
+				"I",
+				"I",
+				"O"
+			)
+			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
+			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
+			.save(recipeOutput)
+
+		UnstableIngotRecipeBuilder(ModItems.EROSION_SHOVEL)
+			.pattern(
+				"I",
+				"O",
+				"O"
+			)
+			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
+			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
+			.save(recipeOutput)
+
+		UnstableIngotRecipeBuilder(ModItems.PRECISION_SHEARS)
+			.pattern(
+				"AI",
+				"IA"
+			)
+			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
+			.define('A', ModBlocks.ANGEL_BLOCK.asIngredient())
+			.save(recipeOutput)
+
+		UnstableIngotRecipeBuilder(ModItems.SONAR_GOGGLES)
+			.pattern(
+				"III",
+				"EIE"
+			)
+			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
+			.define('E', Items.ENDER_EYE.asIngredient())
+			.save(recipeOutput)
+
 	}
 
 }
