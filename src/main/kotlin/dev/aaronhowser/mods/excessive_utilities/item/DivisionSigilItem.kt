@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDirectionName
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
@@ -167,21 +168,16 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 				return true
 			}
 
-			if (!level.canSeeSky(pos)) {
-				player.tell(Component.literal("The Beacon must be able to see the sky."))
-				return true
-			}
-
 			val directions = Direction.Plane.HORIZONTAL
 
 			for (dir in directions) {
-				val offset = dir.normal.multiply(4)
+				val offset = dir.normal.multiply(5)
 				val checkPos = pos.offset(offset)
 
 				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null)
 				if (itemHandler == null) {
-					player.tell(Component.literal("You must have Chests at the cardinal directions around the Beacon."))
-					player.tell(Component.literal("One is missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+					player.tell(Component.literal("You must have Chests 5 blocks from the Beacon in each direction."))
+					player.tell(Component.literal("One is missing to the ${dir.getDirectionName()}."))
 					return true
 				}
 			}
@@ -189,6 +185,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			val stringRedstonePositions = """
 				RSSSSSSSS
 				RSRRRRRRR
+				RSRSSSSSR
 				RSRSRRRSR
 				RSRSBSRSR
 				RSRRRSRSR
@@ -199,10 +196,10 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 				.lines()
 
 			for ((row, line) in stringRedstonePositions.withIndex()) {
-				val dx = row - 4
+				val north = row - 4
 				for ((column, char) in line.withIndex()) {
-					val dz = column - 4
-					val checkPos = pos.offset(dx, 0, dz)
+					val west = column - 4
+					val checkPos = pos.north(north).west(west)
 					val checkState = level.getBlockState(checkPos)
 
 					if (char == 'R' && !checkState.isBlock(Blocks.REDSTONE_WIRE)) {
@@ -225,7 +222,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			)
 
 			for ((dir, tag) in contentRequirements) {
-				val offset = dir.normal.multiply(4)
+				val offset = dir.normal.multiply(5)
 				val checkPos = pos.offset(offset)
 
 				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null) ?: return false
@@ -241,7 +238,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 
 				val amountNeeded = 12
 				if (matchedItems.size < amountNeeded) {
-					player.tell(Component.literal("You need at least $amountNeeded different items of the tag ${tag.location}, but you only have ${matchedItems.size} in the chest at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+					player.tell(Component.literal("You need at least $amountNeeded different items of the tag #${tag.location}, but you only have ${matchedItems.size} in the chest to the ${dir.getDirectionName()}."))
 					return true
 				}
 			}
