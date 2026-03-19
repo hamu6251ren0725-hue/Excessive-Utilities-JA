@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator
 
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
 
 enum class ItemAndFluidInputDataDrivenGeneratorType(
 	val baseGeneratorType: GeneratorType

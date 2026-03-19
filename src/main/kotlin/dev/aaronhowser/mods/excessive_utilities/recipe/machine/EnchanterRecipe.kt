@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.recipe
+package dev.aaronhowser.mods.excessive_utilities.recipe.machine
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec

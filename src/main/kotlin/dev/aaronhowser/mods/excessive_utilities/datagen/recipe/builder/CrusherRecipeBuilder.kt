@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder
 
-import dev.aaronhowser.mods.excessive_utilities.recipe.CrusherRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion

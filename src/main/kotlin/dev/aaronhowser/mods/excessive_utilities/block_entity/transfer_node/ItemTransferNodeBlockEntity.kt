@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.TransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeMenu
-import dev.aaronhowser.mods.excessive_utilities.recipe.WorldInteractionItemRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.WorldInteractionItemRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos

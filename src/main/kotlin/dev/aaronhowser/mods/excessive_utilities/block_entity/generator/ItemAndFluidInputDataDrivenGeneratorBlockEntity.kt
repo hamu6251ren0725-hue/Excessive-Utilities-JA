@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.Gene
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorContainer
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.ItemAndFluidInputDataDrivenGeneratorType
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

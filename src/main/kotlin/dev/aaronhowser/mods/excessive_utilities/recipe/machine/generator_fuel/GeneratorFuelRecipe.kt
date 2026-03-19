@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel
+package dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel
 
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.ItemStack

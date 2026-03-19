@@ -14,7 +14,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEn
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import dev.aaronhowser.mods.excessive_utilities.menu.enchanter.EnchanterMenu
-import dev.aaronhowser.mods.excessive_utilities.recipe.CrusherRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

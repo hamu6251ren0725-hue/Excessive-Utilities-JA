@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
-import dev.aaronhowser.mods.excessive_utilities.recipe.QedRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos

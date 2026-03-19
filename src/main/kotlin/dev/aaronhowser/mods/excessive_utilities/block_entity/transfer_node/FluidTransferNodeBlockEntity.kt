@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.TransferNodeBl
 import dev.aaronhowser.mods.excessive_utilities.item.FluidFilterItem
 import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
 import dev.aaronhowser.mods.excessive_utilities.menu.fluid_transfer_node.FluidTransferNodeMenu
-import dev.aaronhowser.mods.excessive_utilities.recipe.WorldInteractionFluidRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.WorldInteractionFluidRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.BlockPos

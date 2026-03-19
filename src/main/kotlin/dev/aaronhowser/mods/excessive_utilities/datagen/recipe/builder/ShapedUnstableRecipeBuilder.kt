@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
-import dev.aaronhowser.mods.excessive_utilities.recipe.UnstableIngotRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedUnstableRecipe
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion
@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.ShapedRecipePattern
 import net.minecraft.world.level.ItemLike
 
-class UnstableIngotRecipeBuilder(
+class ShapedUnstableRecipeBuilder(
 	val output: ItemStack
 ) : RecipeBuilder {
 
@@ -26,12 +26,12 @@ class UnstableIngotRecipeBuilder(
 	private val key = mutableMapOf<Char, Ingredient>()
 	private val criteria = mutableMapOf<String, Criterion<*>>()
 
-	fun define(symbol: Char, ingredient: Ingredient): UnstableIngotRecipeBuilder {
+	fun define(symbol: Char, ingredient: Ingredient): ShapedUnstableRecipeBuilder {
 		key[symbol] = ingredient
 		return this
 	}
 
-	fun pattern(vararg rows: String): UnstableIngotRecipeBuilder {
+	fun pattern(vararg rows: String): ShapedUnstableRecipeBuilder {
 		this.rows.addAll(rows)
 
 		val width = rows.first().length
@@ -72,7 +72,7 @@ class UnstableIngotRecipeBuilder(
 		}
 
 		val pattern = ShapedRecipePattern.of(key, rows)
-		val recipe = UnstableIngotRecipe(pattern, output)
+		val recipe = ShapedUnstableRecipe(pattern, output)
 		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/unstable_ingot/")))
 	}
 

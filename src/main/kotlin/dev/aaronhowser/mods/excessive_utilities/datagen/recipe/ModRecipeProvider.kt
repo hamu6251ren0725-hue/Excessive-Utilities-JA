@@ -15,8 +15,8 @@ import dev.aaronhowser.mods.excessive_utilities.item.UnstableIngotItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import dev.aaronhowser.mods.excessive_utilities.recipe.base.BlockStateIngredient
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -2279,7 +2279,7 @@ class ModRecipeProvider(
 
 	private fun buildUnstableRecipes(recipeOutput: RecipeOutput) {
 
-		UnstableIngotRecipeBuilder(ModItems.MOON_STONE.withCount(9))
+		ShapedUnstableRecipeBuilder(ModItems.MOON_STONE.withCount(9))
 			.pattern(
 				"LLL",
 				"LIL",
@@ -2289,7 +2289,7 @@ class ModRecipeProvider(
 			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
 			.save(recipeOutput, modLoc("moon_stone_from_unstable_ingot"))
 
-		UnstableIngotRecipeBuilder(ModBlocks.BLOCK_OF_UNSTABLE_INGOT)
+		ShapedUnstableRecipeBuilder(ModBlocks.BLOCK_OF_UNSTABLE_INGOT)
 			.pattern(
 				"III",
 				"III",
@@ -2298,7 +2298,7 @@ class ModRecipeProvider(
 			.define('I', ModItems.UNSTABLE_INGOT.asIngredient())
 			.save(recipeOutput, modLoc("block_of_unstable_ingot_from_unstable_ingots"))
 
-		UnstableIngotRecipeBuilder(ModBlocks.DEEP_DARK_PORTAL)
+		ShapedUnstableRecipeBuilder(ModBlocks.DEEP_DARK_PORTAL)
 			.pattern(
 				"4I4",
 				"I5I",
@@ -2313,7 +2313,7 @@ class ModRecipeProvider(
 			val bricks = ModBlocks.getColoredBricks(color)
 			val lapisCaelestis = ModBlocks.getLapisCaelestis(color)
 
-			UnstableIngotRecipeBuilder(lapisCaelestis.toStack(4))
+			ShapedUnstableRecipeBuilder(lapisCaelestis.toStack(4))
 				.pattern(
 					"LLL",
 					"LIL",
@@ -2325,7 +2325,7 @@ class ModRecipeProvider(
 		}
 
 		fun angelRing(type: AngelRingItem.Type, base: Ingredient) {
-			UnstableIngotRecipeBuilder(type.getStack())
+			ShapedUnstableRecipeBuilder(type.getStack())
 				.pattern(
 					"GIG",
 					"ISI",
@@ -2366,7 +2366,7 @@ class ModRecipeProvider(
 		angelRing(AngelRingItem.Type.GOLD, Tags.Items.NUGGETS_GOLD.asIngredient())
 		angelRing(AngelRingItem.Type.BAT, ItemTags.COALS.asIngredient())
 
-		UnstableIngotRecipeBuilder(ModItems.HEALING_AXE)
+		ShapedUnstableRecipeBuilder(ModItems.HEALING_AXE)
 			.pattern(
 				"II",
 				"IO",
@@ -2376,7 +2376,7 @@ class ModRecipeProvider(
 			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
 			.save(recipeOutput)
 
-		UnstableIngotRecipeBuilder(ModItems.REVERSING_HOE)
+		ShapedUnstableRecipeBuilder(ModItems.REVERSING_HOE)
 			.pattern(
 				"II",
 				"O ",
@@ -2386,7 +2386,7 @@ class ModRecipeProvider(
 			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
 			.save(recipeOutput)
 
-		UnstableIngotRecipeBuilder(ModItems.ETHERIC_SWORD)
+		ShapedUnstableRecipeBuilder(ModItems.ETHERIC_SWORD)
 			.pattern(
 				"I",
 				"I",
@@ -2396,7 +2396,7 @@ class ModRecipeProvider(
 			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
 			.save(recipeOutput)
 
-		UnstableIngotRecipeBuilder(ModItems.EROSION_SHOVEL)
+		ShapedUnstableRecipeBuilder(ModItems.EROSION_SHOVEL)
 			.pattern(
 				"I",
 				"O",
@@ -2406,7 +2406,7 @@ class ModRecipeProvider(
 			.define('O', Tags.Items.OBSIDIANS_NORMAL.asIngredient())
 			.save(recipeOutput)
 
-		UnstableIngotRecipeBuilder(ModItems.PRECISION_SHEARS)
+		ShapedUnstableRecipeBuilder(ModItems.PRECISION_SHEARS)
 			.pattern(
 				"AI",
 				"IA"
@@ -2415,7 +2415,7 @@ class ModRecipeProvider(
 			.define('A', ModBlocks.ANGEL_BLOCK.asIngredient())
 			.save(recipeOutput)
 
-		UnstableIngotRecipeBuilder(ModItems.SONAR_GOGGLES)
+		ShapedUnstableRecipeBuilder(ModItems.SONAR_GOGGLES)
 			.pattern(
 				"III",
 				"EIE"

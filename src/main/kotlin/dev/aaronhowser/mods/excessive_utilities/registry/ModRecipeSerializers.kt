@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
-import dev.aaronhowser.mods.excessive_utilities.recipe.*
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleFluidFuelRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.SingleItemFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedUnstableRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.*
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -24,8 +24,8 @@ object ModRecipeSerializers {
 		registerRecipeSerializer("qed", QedRecipe::Serializer)
 	val CRUSHER: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("crusher", CrusherRecipe::Serializer)
-	val UNSTABLE_INGOT: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-		registerRecipeSerializer("unstable_ingot", UnstableIngotRecipe::Serializer)
+	val SHAPED_UNSTABLE: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
+		registerRecipeSerializer("shaped_unstable", ShapedUnstableRecipe::Serializer)
 
 	val WORLD_INTERACTION_ITEM: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("world_interaction_item", WorldInteractionItemRecipe::Serializer)

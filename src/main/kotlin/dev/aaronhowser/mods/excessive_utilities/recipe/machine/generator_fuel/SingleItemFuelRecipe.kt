@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel
+package dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
