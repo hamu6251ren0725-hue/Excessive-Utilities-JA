@@ -24,12 +24,16 @@ object ModItems : AaronItemRegistry() {
 		basic("ender_shard")
 	val DEMON_INGOT: DeferredItem<Item> =
 		basic("demon_ingot", Item.Properties().fireResistant())
+	val DEMON_NUGGET: DeferredItem<Item> =
+		basic("demon_nugget", Item.Properties().fireResistant())
 	val DROP_OF_EVIL: DeferredItem<DropOfEvilItem> =
 		register("drop_of_evil", ::DropOfEvilItem)
 	val ENCHANTED_INGOT: DeferredItem<Item> =
 		basic("enchanted_ingot")
 	val EVIL_INFUSED_IRON_INGOT: DeferredItem<Item> =
 		basic("evil_infused_iron_ingot")
+	val EVIL_INFUSED_IRON_NUGGET: DeferredItem<Item> =
+		basic("evil_infused_iron_nugget")
 	val EYE_OF_REDSTONE: DeferredItem<Item> =
 		basic("eye_of_redstone")
 	val LUNAR_REACTIVE_DUST: DeferredItem<Item> =
