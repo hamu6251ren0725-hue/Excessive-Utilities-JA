@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.ItemAndFl
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.MagmaticGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.datamap.NetherLavaDunkConversion
+import dev.aaronhowser.mods.excessive_utilities.effect.SecondChanceEffect
 import dev.aaronhowser.mods.excessive_utilities.entity.FlatTransferNodeEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerHandler
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.KeyHandler
@@ -19,7 +20,6 @@ import dev.aaronhowser.mods.excessive_utilities.item.*
 import dev.aaronhowser.mods.excessive_utilities.packet.ModPacketHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
-import dev.aaronhowser.mods.excessive_utilities.registry.ModMobEffects
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.FluidTags
 import net.minecraft.world.entity.item.ItemEntity
@@ -381,7 +381,7 @@ object CommonEvents {
 
 	@SubscribeEvent
 	fun onIncomingDamage(event: LivingIncomingDamageEvent) {
-		ModMobEffects.handleSecondChance(event)
+		SecondChanceEffect.cancelDeath(event)
 	}
 
 }
