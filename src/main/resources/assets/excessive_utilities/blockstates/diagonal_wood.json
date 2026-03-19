@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": {
+			"model": "excessive_utilities:block/diagonal_wood"
+		}
+	},
+	"athena:loader": "athena:ctm",
+	"ctm_textures": {
+		"center": "excessive_utilities:block/diagonal_wood/center",
+		"empty": "excessive_utilities:block/diagonal_wood/empty",
+		"horizontal": "excessive_utilities:block/diagonal_wood/horizontal",
+		"particle": "excessive_utilities:block/diagonal_wood/particle",
+		"vertical": "excessive_utilities:block/diagonal_wood/vertical"
+	}
+}

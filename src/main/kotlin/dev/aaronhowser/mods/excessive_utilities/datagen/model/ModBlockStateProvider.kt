@@ -3023,7 +3023,9 @@ class ModBlockStateProvider(
 			ModBlocks.GRAVEL_ROAD.get(),
 			ModBlocks.GRAVEL_BRICKS.get(),
 			ModBlocks.FROSTED_STONE.get(),
-			ModBlocks.EMINENCE_STONE.get()
+			ModBlocks.EMINENCE_STONE.get(),
+			ModBlocks.RAINBOW_STONE.get(),
+			ModBlocks.DIAGONAL_WOOD.get()
 		)
 
 		val translucent = listOf(
