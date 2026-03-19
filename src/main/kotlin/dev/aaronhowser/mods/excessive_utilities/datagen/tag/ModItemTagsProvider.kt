@@ -296,6 +296,51 @@ class ModItemTagsProvider(
 				ModBlocks.ENDER_PORCUPINE.asItem(),
 				ModItems.PIPE_WRENCH.get()
 			)
+
+		tag(CHILDREN_OF_FIRE)
+			.addTags(
+				Tags.Items.STONES,
+				Tags.Items.GLASS_BLOCKS,
+				ItemTags.TERRACOTTA,
+				ItemTags.COALS,
+				Tags.Items.INGOTS_IRON,
+				Tags.Items.INGOTS_GOLD,
+				Tags.Items.FOODS_COOKED_FISH,
+				Tags.Items.FOODS_COOKED_MEAT,
+				Tags.Items.BRICKS_NORMAL,
+				Tags.Items.BRICKS_NETHER,
+				Tags.Items.FOODS_BREAD
+			)
+			.add(
+				Items.GREEN_DYE
+			)
+
+		tag(GIFTS_OF_EARTH)
+			.addTags(
+				ItemTags.DIRT,
+				ItemTags.SAND,
+				Tags.Items.GRAVELS,
+				Tags.Items.ORES_GOLD,
+				Tags.Items.ORES_IRON,
+				Tags.Items.ORES_COAL,
+				Tags.Items.ORES_LAPIS,
+				Tags.Items.OBSIDIANS_NORMAL,
+				Tags.Items.ORES_DIAMOND,
+				Tags.Items.ORES_REDSTONE,
+				Tags.Items.ORES_EMERALD
+			)
+			.add(
+				Items.GRASS_BLOCK,
+				Items.CLAY
+			)
+
+		tag(DESCENDANTS_OF_WATER)
+			.add(Items.POTION)
+
+		tag(SPICES_OF_AIR)
+			.addTags(
+				Tags.Items.MUSIC_DISCS
+			)
 	}
 
 	companion object {
@@ -326,6 +371,11 @@ class ModItemTagsProvider(
 		val DOUBLE_ANVIL_ENCHANTMENTS = create("double_anvil_enchantments")
 
 		val NOT_YET_IMPLEMENTED = create("not_yet_implemented")
+
+		val CHILDREN_OF_FIRE = create("children_of_fire")
+		val GIFTS_OF_EARTH = create("gifts_of_earth")
+		val DESCENDANTS_OF_WATER = create("descendants_of_water")
+		val SPICES_OF_AIR = create("spices_of_air")
 	}
 
 }
