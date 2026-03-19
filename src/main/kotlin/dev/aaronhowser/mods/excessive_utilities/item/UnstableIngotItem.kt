@@ -1,17 +1,21 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
+import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.ResultContainer
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 class UnstableIngotItem(properties: Properties) : Item(properties) {
 
@@ -74,10 +78,10 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		if (isCheesed(stack)) {
-			tooltipComponents.add(Component.literal("Naughty naughty!"))
-			tooltipComponents.add(Component.literal("You have to craft the item YOURSELF for it to work!"))
-			tooltipComponents.add(Component.literal("This stack is unusable for that reason."))
+		val countdown = stack.get(ModDataComponents.COUNTDOWN)
+		if (countdown != null) {
+			val seconds = countdown / 20f
+			tooltipComponents.add(Component.literal("Time until explosion: %.1f seconds".format(seconds)))
 		}
 	}
 
@@ -98,6 +102,34 @@ class UnstableIngotItem(properties: Properties) : Item(properties) {
 
 		fun isCheesed(stack: ItemStack): Boolean {
 			return stack.has(ModDataComponents.COUNTDOWN) && !stack.has(ModDataComponents.CRAFTED_IN_MENU)
+		}
+
+		fun handleTooltip(event: ItemTooltipEvent) {
+			val stack = event.itemStack
+			if (!stack.isItem(ModItems.UNSTABLE_INGOT)) return
+
+			if (isCheesed(stack)) {
+				val localPlayer = event.entity ?: return
+				val menu = localPlayer.containerMenu
+
+				var isInCraftingOutputSlot = false
+
+				for (slot in menu.slots) {
+					val isResultContainer = slot.container is ResultContainer
+					if (!isResultContainer) continue
+
+					if (slot.item === stack) {
+						isInCraftingOutputSlot = true
+						break
+					}
+				}
+
+				if (isInCraftingOutputSlot) return
+
+				event.toolTip.add(Component.literal("Naughty naughty!"))
+				event.toolTip.add(Component.literal("You have to craft the item YOURSELF for it to work!"))
+				event.toolTip.add(Component.literal("This stack is unusable for that reason."))
+			}
 		}
 	}
 
