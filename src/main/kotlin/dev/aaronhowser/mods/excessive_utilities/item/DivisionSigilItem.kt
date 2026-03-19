@@ -2,12 +2,16 @@ package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.BlockTags
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
@@ -15,9 +19,9 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.context.UseOnContext
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.minecraft.world.level.block.Blocks
+import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.common.Tags
 
 class DivisionSigilItem(properties: Properties) : Item(properties) {
@@ -36,7 +40,11 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			return InteractionResult.SUCCESS
 		}
 
-		if (findActivationProblems(level, player, pos, stack)) {
+		if (checkActivationReady(player, pos)) {
+			return InteractionResult.SUCCESS
+		}
+
+		if (checkInversionReady(player, pos)) {
 			return InteractionResult.SUCCESS
 		}
 
@@ -86,15 +94,15 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 					.component(ModDataComponents.REMAINING_USES, 0)
 			}
 
-		fun findActivationProblems(
-			level: Level,
+		private fun checkActivationReady(
 			player: Player,
-			pos: BlockPos,
-			stack: ItemStack
+			pos: BlockPos
 		): Boolean {
+			val level = player.level() as? ServerLevel ?: return false
 			val state = level.getBlockState(pos)
 
 			if (!state.isBlock(Blocks.ENCHANTING_TABLE)) return false
+
 			if (!level.getBiome(pos).isHolder(Tags.Biomes.IS_OVERWORLD)) {
 				player.tell(Component.literal("You can only activate the Division Sigil in the Overworld!"))
 				return true
@@ -140,7 +148,106 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			}
 
 			player.tell(Component.literal("The Division Sigil is ready to be activated!"))
-			player.tell(Component.literal("Kill a mob nearby the Enchanting Table!"))
+			player.tell(Component.literal("Kill a mob nearby the Enchanting Table."))
+
+			return true
+		}
+
+		private fun checkInversionReady(
+			player: Player,
+			pos: BlockPos
+		): Boolean {
+			val level = player.level() as? ServerLevel ?: return false
+			val state = level.getBlockState(pos)
+
+			if (!state.isBlock(Blocks.BEACON)) return false
+
+			if (!level.getBiome(pos).isHolder(Tags.Biomes.IS_END)) {
+				player.tell(Component.literal("You can only invert the Division Sigil in the End!"))
+				return true
+			}
+
+			if (!level.canSeeSky(pos)) {
+				player.tell(Component.literal("The Beacon must be able to see the sky."))
+				return true
+			}
+
+			val directions = Direction.Plane.HORIZONTAL
+
+			for (dir in directions) {
+				val offset = dir.normal.multiply(4)
+				val checkPos = pos.offset(offset)
+
+				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null)
+				if (itemHandler == null) {
+					player.tell(Component.literal("You must have Chests at the cardinal directions around the Beacon."))
+					player.tell(Component.literal("One is missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+					return true
+				}
+			}
+
+			val stringRedstonePositions = """
+				RSSSSSSSS
+				RSRRRRRRR
+				RSRSRRRSR
+				RSRSBSRSR
+				RSRRRSRSR
+				RSSSSSRSR
+				RRRRRRRSR
+				SSSSSSSSR
+			""".trimIndent()
+				.lines()
+
+			for ((row, line) in stringRedstonePositions.withIndex()) {
+				val dx = row - 4
+				for ((column, char) in line.withIndex()) {
+					val dz = column - 4
+					val checkPos = pos.offset(dx, 0, dz)
+					val checkState = level.getBlockState(checkPos)
+
+					if (char == 'R' && !checkState.isBlock(Blocks.REDSTONE_WIRE)) {
+						player.tell(Component.literal("You are missing a Redstone at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+						return true
+					}
+
+					if (char == 'S' && !checkState.isBlock(Blocks.TRIPWIRE)) {
+						player.tell(Component.literal("You are missing a String at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+						return true
+					}
+				}
+			}
+
+			val contentRequirements = mapOf(
+				Direction.NORTH to ModItemTagsProvider.CHILDREN_OF_FIRE,
+				Direction.SOUTH to ModItemTagsProvider.GIFTS_OF_EARTH,
+				Direction.EAST to ModItemTagsProvider.DESCENDANTS_OF_WATER,
+				Direction.WEST to ModItemTagsProvider.SPICES_OF_AIR,
+			)
+
+			for ((dir, tag) in contentRequirements) {
+				val offset = dir.normal.multiply(4)
+				val checkPos = pos.offset(offset)
+
+				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null) ?: return false
+
+				val matchedItems = mutableSetOf<Item>()
+
+				for (slot in 0 until itemHandler.slots) {
+					val stack = itemHandler.getStackInSlot(slot)
+					if (!stack.isItem(tag)) continue
+
+					matchedItems.add(stack.item)
+				}
+
+				val amountNeeded = 12
+				if (matchedItems.size < amountNeeded) {
+					player.tell(Component.literal("You need at least $amountNeeded different items of the tag ${tag.location}, but you only have ${matchedItems.size} in the chest at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+					return true
+				}
+			}
+
+			player.tell(Component.literal("The Division Sigil is ready to be inverted!"))
+			player.tell(Component.literal("Kill an Iron Golem near the Beacon."))
 
 			return true
 		}
