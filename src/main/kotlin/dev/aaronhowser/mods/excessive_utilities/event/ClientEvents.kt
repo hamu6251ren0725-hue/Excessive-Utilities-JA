@@ -139,7 +139,7 @@ object ClientEvents {
 
 	@SubscribeEvent
 	fun registerItemColors(event: RegisterColorHandlersEvent.Item) {
-		event.register(HeatingCoilItem::getItemColor, ModItems.HEATING_COIL.get())
+//		event.register(HeatingCoilItem::getItemColor, ModItems.HEATING_COIL.get())
 
 		val generatorColors = GeneratorBlock.getColors()
 

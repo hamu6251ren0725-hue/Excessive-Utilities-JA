@@ -296,6 +296,12 @@ object ModBlocks : AaronBlockRegistry() {
 	val RAINBOW_GENERATOR: DeferredBlock<GeneratorBlock> =
 		registerBlock("rainbow_generator") { GeneratorBlock { ModBlockEntityTypes.RAINBOW_GENERATOR.get() } }
 
+	// TODO
+	val RAINBOW_GENERATOR_TOP_SLAB =
+		basicBlock("rainbow_generator_top_slab")
+	val RAINBOW_GENERATOR_BOTTOM_SLAB =
+		basicBlock("rainbow_generator_bottom_slab")
+
 	// GP Generators
 
 	val MANUAL_MILL: DeferredBlock<ManualMillBlock> =

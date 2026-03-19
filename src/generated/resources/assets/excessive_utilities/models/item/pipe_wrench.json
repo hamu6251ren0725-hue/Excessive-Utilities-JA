@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "excessive_utilities:item/wrench"
+    "layer0": "excessive_utilities:item/pipe_wrench"
   }
 }
