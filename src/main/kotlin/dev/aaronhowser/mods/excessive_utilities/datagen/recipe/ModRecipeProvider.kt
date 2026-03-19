@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.SingleFluidFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.recipe.builder.generator_fuel.SingleItemFuelRecipeBuilder
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import dev.aaronhowser.mods.excessive_utilities.recipe.base.BlockStateIngredient
 import dev.aaronhowser.mods.excessive_utilities.recipe.generator_fuel.ItemAndFluidFuelRecipe
@@ -942,7 +943,12 @@ class ModRecipeProvider(
 			mapOf(
 				'E' to Tags.Items.END_STONES.asIngredient(),
 				'S' to ModBlocks.STONEBURNT.asIngredient(),
-				'G' to ModBlocks.MAGICAL_SNOW_GLOBE.asIngredient()
+				'G' to ModBlocks.MAGICAL_SNOW_GLOBE
+					.withComponent(
+						ModDataComponents.MAGICAL_SNOW_GLOBE_PROGRESS.get(),
+						MagicalSnowGlobeProgressComponent.DEFAULT_COMPLETED
+					)
+					.asIngredient()
 			)
 		).save(recipeOutput)
 

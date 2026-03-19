@@ -70,6 +70,12 @@ data class MagicalSnowGlobeProgressComponent(
 					Tags.Biomes.IS_SWAMP to false
 				)
 			)
+
+		val DEFAULT_COMPLETED: MagicalSnowGlobeProgressComponent =
+			DEFAULT.requirements
+				.keys
+				.associateWith { true }
+				.let(::MagicalSnowGlobeProgressComponent)
 	}
 
 }
