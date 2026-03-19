@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.registry
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
@@ -8,6 +9,7 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProv
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.BiomeMarkerItem
+import dev.aaronhowser.mods.excessive_utilities.item.DivisionSigilItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
@@ -77,8 +79,12 @@ object ModCreativeModeTabs {
 					}
 
 					if (item == ModItems.DIVISION_SIGIL.get()) {
-						val withUses = ModItems.DIVISION_SIGIL.withComponent(ModDataComponents.REMAINING_USES.get(), 256)
-						val inverted = ModItems.DIVISION_SIGIL.withComponent(ModDataComponents.REMAINING_USES.get(), -1)
+						val withUses = ModItems.DIVISION_SIGIL.withComponent(
+							ModDataComponents.REMAINING_USES.get(),
+							DivisionSigilItem.USES_AFTER_ACTIVATION
+						)
+						val inverted = ModItems.DIVISION_SIGIL.getDefaultInstance()
+						inverted.remove(ModDataComponents.REMAINING_USES)
 
 						output.accept(item)
 						output.accept(withUses)

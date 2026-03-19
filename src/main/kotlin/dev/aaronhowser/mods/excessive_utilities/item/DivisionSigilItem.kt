@@ -36,7 +36,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 
 	override fun useOn(context: UseOnContext): InteractionResult {
 		val level = context.level
-		if (level.isClientSide) return InteractionResult.SUCCESS
+		if (level.isClientSide) return InteractionResult.PASS
 
 		val player = context.player ?: return InteractionResult.SUCCESS
 
@@ -44,8 +44,8 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 		val stack = context.itemInHand
 
 		// If inverted already, don't do anything
-		if (stack.getOrDefault(ModDataComponents.REMAINING_USES, 0) < 0) {
-			return InteractionResult.SUCCESS
+		if (isInverted(stack)) {
+			return InteractionResult.PASS
 		}
 
 		if (checkActivationReady(player, pos)) {
@@ -60,9 +60,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 	}
 
 	override fun getName(stack: ItemStack): Component {
-		val remainingUses = stack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
-
-		return if (remainingUses < 0) {
+		return if (isInverted(stack)) {
 			ModItemLang.PSEUDO_INVERSION_SIGIL.toComponent()
 		} else {
 			super.getName(stack)
@@ -70,7 +68,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 	}
 
 	override fun isFoil(stack: ItemStack): Boolean {
-		return stack.getOrDefault(ModDataComponents.REMAINING_USES, 0) < 0
+		return isInverted(stack)
 	}
 
 	override fun appendHoverText(
