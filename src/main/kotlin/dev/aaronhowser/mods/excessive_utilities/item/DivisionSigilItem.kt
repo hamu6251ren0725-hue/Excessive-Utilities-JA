@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProv
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
+import net.minecraft.tags.BlockTags
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -15,6 +16,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LightLayer
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
 
@@ -34,7 +36,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			return InteractionResult.SUCCESS
 		}
 
-		if (activate(level, player, pos, stack)) {
+		if (findActivationProblems(level, player, pos, stack)) {
 			return InteractionResult.SUCCESS
 		}
 
@@ -84,7 +86,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 					.component(ModDataComponents.REMAINING_USES, 0)
 			}
 
-		fun activate(
+		fun findActivationProblems(
 			level: Level,
 			player: Player,
 			pos: BlockPos,
@@ -95,8 +97,50 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			if (!state.isBlock(Blocks.ENCHANTING_TABLE)) return false
 			if (!level.getBiome(pos).isHolder(Tags.Biomes.IS_OVERWORLD)) {
 				player.tell(Component.literal("You can only activate the Division Sigil in the Overworld!"))
-				return false
+				return true
 			}
+
+			if (!level.canSeeSky(pos)) {
+				player.tell(Component.literal("The Enchanting Table must be able to see the sky."))
+				return true
+			}
+
+			if (level.dayTime !in 17500..18500) {
+				player.tell(Component.literal("You can only activate the Division Sigil at midnight."))
+				return true
+			}
+
+			if (level.getBrightness(LightLayer.BLOCK, pos) > 0) {
+				player.tell(Component.literal("The Enchanting Table must be in complete darkness."))
+				return true
+			}
+
+			for (dx in -1..1) for (dz in -1..1) {
+				if (dx == 0 && dz == 0) continue
+
+				val checkPos = pos.offset(dx, 0, dz)
+				val checkState = level.getBlockState(checkPos)
+
+				if (!checkState.isBlock(Blocks.REDSTONE_WIRE)) {
+					player.tell(Component.literal("You must have Redstone surrounding the Enchanting Table."))
+					player.tell(Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+					return true
+				}
+			}
+
+			for (dx in -5..5) for (dz in -5..5) {
+				val checkPos = pos.offset(dx, -1, dz)
+				val checkState = level.getBlockState(checkPos)
+
+				if (!checkState.isBlock(BlockTags.DIRT)) {
+					player.tell(Component.literal("You must have a 5x5 layer of Dirt under the Enchanting Table."))
+					player.tell(Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}."))
+					return true
+				}
+			}
+
+			player.tell(Component.literal("The Division Sigil is ready to be activated!"))
+			player.tell(Component.literal("Kill a mob nearby the Enchanting Table!"))
 
 			return true
 		}
