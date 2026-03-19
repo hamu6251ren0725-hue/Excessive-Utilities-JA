@@ -286,7 +286,9 @@ class ModItemTagsProvider(
 				ModBlocks.DEEP_DARK_PORTAL.asItem(),
 				ModBlocks.LAST_MILLENNIUM_PORTAL.asItem(),
 				ModBlocks.TRADING_POST.asItem(),
-				ModBlocks.INDEXER.asItem()
+				ModBlocks.INDEXER.asItem(),
+				ModBlocks.TRANSFER_FILTER.asItem(),
+				ModBlocks.TRANSFER_PIPE_FILTER.asItem()
 			)
 
 		tag(RENDER_ENDER_PORCUPINE_WHILE_HOLDING)
