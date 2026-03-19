@@ -118,7 +118,7 @@ class ModBlockStateProvider(
 
 		val bottomModel = models()
 			.withExistingParent(name(bottomBlock), mcLoc("block/block"))
-			.texture("center", center)
+			.texture("top", center)
 			.texture("side", bottomSide)
 			.texture("bottom", topSide)
 			.texture("particle", actual)
