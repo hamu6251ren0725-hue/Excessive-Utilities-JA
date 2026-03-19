@@ -20,6 +20,7 @@ import dev.aaronhowser.mods.excessive_utilities.item.*
 import dev.aaronhowser.mods.excessive_utilities.packet.ModPacketHandler
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import dev.aaronhowser.mods.excessive_utilities.registry.ModMobEffects
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.tags.FluidTags
 import net.minecraft.world.entity.item.ItemEntity
@@ -35,6 +36,7 @@ import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.event.AnvilUpdateEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
@@ -382,6 +384,11 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onIncomingDamage(event: LivingIncomingDamageEvent) {
 		SecondChanceEffect.cancelDeath(event)
+	}
+
+	@SubscribeEvent
+	fun onMobEffectRemove(event: MobEffectEvent.Remove) {
+		ModMobEffects.handleRelapse(event)
 	}
 
 }
