@@ -20,8 +20,6 @@ object ModBlocks : AaronBlockRegistry() {
 
 	// Functional
 
-	val COMPRESSED_BLOCK =
-		basicBlock("compressed_block")
 	val ANGEL_BLOCK: DeferredBlock<AngelBlock> =
 		registerBlockWithoutItem("angel_block", ::AngelBlock)
 	val BLACKOUT_CURTAIN: DeferredBlock<BlackoutCurtainBlock> =
@@ -443,6 +441,30 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("inverted_ineffable_glass") { SemiPermeableGlassBlock(isSolidForMobsOnly = true) }
 	val DARK_INEFFABLE_GLASS: DeferredBlock<SemiPermeableGlassBlock> =
 		registerBlock("dark_ineffable_glass") { SemiPermeableGlassBlock.Dark(isSolidForMobsOnly = false) }
+
+	// Compressed Blocks
+
+	val COMPRESSED_COBBLESTONES: List<DeferredBlock<Block>> =
+		getCompressedBlockList("cobblestone", Blocks.COBBLESTONE)
+	val COMPRESSED_DIRTS: List<DeferredBlock<Block>> =
+		getCompressedBlockList("dirt", Blocks.DIRT)
+	val COMPRESSED_SANDS: List<DeferredBlock<Block>> =
+		getCompressedBlockList("sand", Blocks.SAND)
+	val COMPRESSED_GRAVELS: List<DeferredBlock<Block>> =
+		getCompressedBlockList("gravel", Blocks.GRAVEL)
+
+	fun getCompressedCobblestone(level: Int): DeferredBlock<out Block> = COMPRESSED_COBBLESTONES[level - 1]
+	fun getCompressedDirt(level: Int): DeferredBlock<out Block> = COMPRESSED_DIRTS[level - 1]
+	fun getCompressedSand(level: Int): DeferredBlock<out Block> = COMPRESSED_SANDS[level - 1]
+	fun getCompressedGravel(level: Int): DeferredBlock<out Block> = COMPRESSED_GRAVELS[level - 1]
+
+	private fun getCompressedBlockList(name: String, blockToCopy: Block): List<DeferredBlock<Block>> {
+		return List(9) { i ->
+			basicCopiedBlock("compressed_${name}_${i + 1}", blockToCopy)
+		}
+	}
+
+	// Colored blocks
 
 	val COLORED_STONES: Map<DyeColor, DeferredBlock<Block>> =
 		getColorBlockMap("colored_stone", Blocks.STONE)
