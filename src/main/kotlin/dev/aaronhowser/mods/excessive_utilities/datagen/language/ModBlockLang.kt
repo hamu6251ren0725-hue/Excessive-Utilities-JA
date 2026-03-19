@@ -137,7 +137,6 @@ object ModBlockLang {
 			addBlock(ModBlocks.GLASS_BRICKS, "Glass Bricks")
 			addBlock(ModBlocks.GRAVEL_BRICKS, "Gravel Bricks")
 			addBlock(ModBlocks.GRAVEL_ROAD, "Gravel Road")
-			addBlock(ModBlocks.LAPIS_CAELESTIS, "Lapis Caelestis")
 			addBlock(ModBlocks.CHANDELIER, "Chandelier")
 			addBlock(ModBlocks.BEDROCK_BRICKS, "Bedrock Bricks")
 			addBlock(ModBlocks.BEDROCK_COBBLESTONE, "Bedrock Cobblestone")
@@ -180,6 +179,7 @@ object ModBlockLang {
 					.split(' ')
 					.joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
 
+				addBlock(ModBlocks.getLapisCaelestis(color), "Lapis Caelestis ($englishName)")
 				addBlock(ModBlocks.getColoredStone(color), "Colored Stone ($englishName)")
 				addBlock(ModBlocks.getColoredStoneBricks(color), "Colored Stone Bricks ($englishName)")
 				addBlock(ModBlocks.getColoredBricks(color), "Colored Bricks ($englishName)")

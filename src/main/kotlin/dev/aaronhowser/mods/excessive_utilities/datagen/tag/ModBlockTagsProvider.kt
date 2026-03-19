@@ -146,7 +146,6 @@ class ModBlockTagsProvider(
 				ModBlocks.FROSTED_STONE,
 				ModBlocks.GRAVEL_BRICKS,
 				ModBlocks.GRAVEL_ROAD,
-				ModBlocks.LAPIS_CAELESTIS,
 				ModBlocks.BEDROCK_BRICKS,
 				ModBlocks.BEDROCK_COBBLESTONE,
 				ModBlocks.BEDROCK_SLABS,
@@ -185,6 +184,7 @@ class ModBlockTagsProvider(
 			.add(*ModBlocks.COLORED_LAPIS_BLOCKS.map { it.value }.toTypedArray())
 			.add(*ModBlocks.COLORED_OBSIDIANS.map { it.value }.toTypedArray())
 			.add(*ModBlocks.COLORED_QUARTZES.map { it.value }.toTypedArray())
+			.add(*ModBlocks.LAPIS_CAELESTI.map { it.value }.toTypedArray())
 
 		tag(Tags.Blocks.GLASS_BLOCKS)
 			.add(

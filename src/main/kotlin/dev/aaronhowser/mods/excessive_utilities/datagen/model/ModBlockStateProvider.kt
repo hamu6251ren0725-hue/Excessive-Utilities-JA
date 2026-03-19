@@ -62,6 +62,7 @@ class ModBlockStateProvider(
 		conveyorBelt()
 		tradingPost()
 		coloredBlocks()
+		lapisCaelesti()
 		qed()
 		enderFluxCrystal()
 		furnace()
@@ -1258,6 +1259,35 @@ class ModBlockStateProvider(
 			.cubeBottomTop(name(block), side, bottom, top)
 
 		simpleBlockWithItem(block, model)
+	}
+
+	private fun lapisCaelesti() {
+		models()
+			.withExistingParent("lapis_caelestis_template", mcLoc("block/block"))
+			.texture("all", modLoc("block/lapis_caelestis"))
+			.texture("particle", modLoc("block/lapis_caelestis"))
+
+			.element {
+				from(0f, 0f, 0f)
+				to(16f, 16f, 16f)
+				shade(false)
+
+				allFaces { dir, fb ->
+					fb.texture("#all")
+					fb.cullface(dir)
+					fb.tintindex(0)
+					fb.emissivity(15, 15)
+				}
+			}
+
+		for (dyeColor in DyeColor.entries) {
+			val block = ModBlocks.getLapisCaelestis(dyeColor).get()
+
+			val model = models()
+				.withExistingParent(name(block), modLoc("block/lapis_caelestis_template"))
+
+			simpleBlockWithItem(block, model)
+		}
 	}
 
 	private fun coloredBlocks() {

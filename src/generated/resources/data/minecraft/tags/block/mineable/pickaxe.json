@@ -120,7 +120,6 @@
     "excessive_utilities:frosted_stone",
     "excessive_utilities:gravel_bricks",
     "excessive_utilities:gravel_road",
-    "excessive_utilities:lapis_caelestis",
     "excessive_utilities:bedrock_bricks",
     "excessive_utilities:bedrock_cobblestone",
     "excessive_utilities:bedrock_slabs",
@@ -300,6 +299,22 @@
     "excessive_utilities:colored_quartz_block_brown",
     "excessive_utilities:colored_quartz_block_green",
     "excessive_utilities:colored_quartz_block_red",
-    "excessive_utilities:colored_quartz_block_black"
+    "excessive_utilities:colored_quartz_block_black",
+    "excessive_utilities:lapis_caelestis_white",
+    "excessive_utilities:lapis_caelestis_orange",
+    "excessive_utilities:lapis_caelestis_magenta",
+    "excessive_utilities:lapis_caelestis_light_blue",
+    "excessive_utilities:lapis_caelestis_yellow",
+    "excessive_utilities:lapis_caelestis_lime",
+    "excessive_utilities:lapis_caelestis_pink",
+    "excessive_utilities:lapis_caelestis_gray",
+    "excessive_utilities:lapis_caelestis_light_gray",
+    "excessive_utilities:lapis_caelestis_cyan",
+    "excessive_utilities:lapis_caelestis_purple",
+    "excessive_utilities:lapis_caelestis_blue",
+    "excessive_utilities:lapis_caelestis_brown",
+    "excessive_utilities:lapis_caelestis_green",
+    "excessive_utilities:lapis_caelestis_red",
+    "excessive_utilities:lapis_caelestis_black"
   ]
 }

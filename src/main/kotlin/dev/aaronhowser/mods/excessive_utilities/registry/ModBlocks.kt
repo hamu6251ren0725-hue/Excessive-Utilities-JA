@@ -376,8 +376,6 @@ object ModBlocks : AaronBlockRegistry() {
 		basicCopiedBlock("gravel_bricks", Blocks.GRAVEL)
 	val GRAVEL_ROAD: DeferredBlock<Block> =
 		basicCopiedBlock("gravel_road", Blocks.GRAVEL)
-	val LAPIS_CAELESTIS =
-		basicBlock("lapis_caelestis")
 	val CHANDELIER: DeferredBlock<ChandelierBlock> =
 		registerBlock("chandelier", ::ChandelierBlock)
 	val BEDROCK_BRICKS =
@@ -478,6 +476,8 @@ object ModBlocks : AaronBlockRegistry() {
 
 	// Colored blocks
 
+	val LAPIS_CAELESTI: Map<DyeColor, DeferredBlock<Block>> =
+		getColorBlockMap("lapis_caelestis", Blocks.LAPIS_BLOCK)
 	val COLORED_STONES: Map<DyeColor, DeferredBlock<Block>> =
 		getColorBlockMap("colored_stone", Blocks.STONE)
 	val COLORED_COBBLESTONES: Map<DyeColor, DeferredBlock<Block>> =
@@ -505,6 +505,7 @@ object ModBlocks : AaronBlockRegistry() {
 	val COLORED_SOUL_SANDS: Map<DyeColor, DeferredBlock<SoulSandBlock>> =
 		getColorBlockMap("colored_soul_sand", Blocks.SOUL_SAND, ::SoulSandBlock)
 
+	fun getLapisCaelestis(color: DyeColor): DeferredBlock<out Block> = LAPIS_CAELESTI.getValue(color)
 	fun getColoredStone(color: DyeColor): DeferredBlock<out Block> = COLORED_STONES.getValue(color)
 	fun getColoredCobblestone(color: DyeColor): DeferredBlock<out Block> = COLORED_COBBLESTONES.getValue(color)
 	fun getColoredStoneBricks(color: DyeColor): DeferredBlock<out Block> = COLORED_STONE_BRICKS.getValue(color)

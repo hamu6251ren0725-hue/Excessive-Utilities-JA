@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "excessive_utilities:lapis_caelestis"
+          "name": "excessive_utilities:lapis_caelestis_orange"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "excessive_utilities:blocks/lapis_caelestis"
+  "random_sequence": "excessive_utilities:blocks/lapis_caelestis_orange"
 }
