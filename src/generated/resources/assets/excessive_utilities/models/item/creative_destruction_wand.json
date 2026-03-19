@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "excessive_utilities:item/creative_destruction_wand"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "excessive_utilities:item/creative_destruction_wand/base",
+		"layer1": "excessive_utilities:item/creative_destruction_wand/outline"
+	}
 }
