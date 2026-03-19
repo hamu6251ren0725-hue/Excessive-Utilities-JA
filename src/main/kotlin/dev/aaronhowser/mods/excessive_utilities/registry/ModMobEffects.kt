@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.registry.AaronMobEffectsRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.effect.DoomEffect
 import dev.aaronhowser.mods.excessive_utilities.effect.GravityEffect
+import dev.aaronhowser.mods.excessive_utilities.effect.OilyEffect
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffect
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -20,5 +21,7 @@ object ModMobEffects : AaronMobEffectsRegistry() {
 		register("gravity", ::GravityEffect)
 	val DOOM =
 		register("doom", ::DoomEffect)
+	val OILY: DeferredHolder<MobEffect, OilyEffect> =
+		register("oily", ::OilyEffect)
 
 }
