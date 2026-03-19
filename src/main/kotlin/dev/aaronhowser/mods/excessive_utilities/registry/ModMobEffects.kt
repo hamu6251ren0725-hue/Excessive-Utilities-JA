@@ -6,6 +6,9 @@ import dev.aaronhowser.mods.excessive_utilities.effect.*
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -29,5 +32,26 @@ object ModMobEffects : AaronMobEffectsRegistry() {
 	val SECOND_CHANCE =
 		registerSimple("second_chance", MobEffectCategory.BENEFICIAL, 0x92FAF0)
 
+	// TODO: Only work once per life
+	fun handleSecondChance(event: LivingIncomingDamageEvent) {
+		if (event.isCanceled) return
+
+		val entity = event.entity
+		if (!entity.hasEffect(SECOND_CHANCE)) return
+
+		val damageAmount = event.amount
+		if (damageAmount < entity.health) return
+
+		event.isCanceled = true
+		entity.removeEffect(SECOND_CHANCE)
+		entity.health = entity.maxHealth
+		entity.addEffect(
+			MobEffectInstance(
+				MobEffects.WEAKNESS,
+				20 * 10
+			)
+		)
+
+	}
 
 }
