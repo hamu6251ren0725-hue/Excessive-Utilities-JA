@@ -71,7 +71,7 @@ class MiniChestBlock : SimpleContainerBlock(Properties.ofFullCopy(Blocks.CHEST))
 
 	companion object {
 		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
-		val SHAPE: VoxelShape = box(5.0, 0.0, 5.0, 11.0, 5.0, 10.0)
+		val SHAPE: VoxelShape = box(5.0, 0.0, 5.0, 11.0, 6.0, 11.0)
 	}
 
 }

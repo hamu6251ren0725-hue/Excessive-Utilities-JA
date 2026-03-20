@@ -2701,6 +2701,7 @@ class ModBlockStateProvider(
 		simpleBlockItem(generatorBlock, modelOn)
 	}
 
+	//TODO: Texture needs a latch on the front
 	private fun miniChest() {
 		val block = ModBlocks.MINI_CHEST.get()
 
