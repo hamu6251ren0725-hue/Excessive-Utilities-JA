@@ -73,7 +73,7 @@ class ShapedDivisionRecipeBuilder(
 
 		val pattern = ShapedRecipePattern.of(key, rows)
 		val recipe = ShapedDivisionRecipe(pattern, output)
-		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/division/")))
+		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}
 
 }

@@ -74,7 +74,7 @@ class ShapedUnstableRecipeBuilder(
 
 		val pattern = ShapedRecipePattern.of(key, rows)
 		val recipe = ShapedUnstableRecipe(pattern, output)
-		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/unstable_ingot/")))
+		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}
 
 }
