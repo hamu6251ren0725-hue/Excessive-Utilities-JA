@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.event
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
-import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.SoundMufflerBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.client.render.GridPowerGuiRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRenderer
@@ -23,7 +22,6 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.player.PlayerRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.DyeColor
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -147,36 +145,6 @@ object ClientEvents {
 			ModItems.UNSTABLE_INGOT
 		)
 
-		val generatorColors = GeneratorBlock.getColors()
-
-		event.register(
-			{ stack, tintIndex ->
-				val item = stack.item
-				if (item is BlockItem && tintIndex == 0) {
-					val block = item.block
-					generatorColors.getOrDefault(block, 0xFFFFFF)
-				} else {
-					0xFFFFFF
-				}
-			},
-			ModBlocks.FURNACE_GENERATOR.get(),
-			ModBlocks.SURVIVAL_GENERATOR.get(),
-			ModBlocks.CULINARY_GENERATOR.get(),
-			ModBlocks.POTION_GENERATOR.get(),
-			ModBlocks.EXPLOSIVE_GENERATOR.get(),
-			ModBlocks.MAGMATIC_GENERATOR.get(),
-			ModBlocks.PINK_GENERATOR.get(),
-			ModBlocks.NETHER_STAR_GENERATOR.get(),
-			ModBlocks.ENDER_GENERATOR.get(),
-			ModBlocks.HEATED_REDSTONE_GENERATOR.get(),
-			ModBlocks.OVERCLOCKED_GENERATOR.get(),
-			ModBlocks.HALITOSIS_GENERATOR.get(),
-			ModBlocks.FROSTY_GENERATOR.get(),
-			ModBlocks.DEATH_GENERATOR.get(),
-			ModBlocks.DISENCHANTMENT_GENERATOR.get(),
-			ModBlocks.SLIMY_GENERATOR.get(),
-		)
-
 		for (color in DyeColor.entries) {
 			event.register(
 				{ stack, tintIndex -> color.textureDiffuseColor },
@@ -211,34 +179,6 @@ object ClientEvents {
 
 	@SubscribeEvent
 	fun registerBlockColors(event: RegisterColorHandlersEvent.Block) {
-
-		val generatorColors = GeneratorBlock.getColors()
-
-		event.register(
-			{ state, level, pos, tintIndex ->
-				if (tintIndex == 0) {
-					generatorColors.getOrDefault(state.block, 0xFFFFFF)
-				} else {
-					0xFFFFFF
-				}
-			},
-			ModBlocks.FURNACE_GENERATOR.get(),
-			ModBlocks.SURVIVAL_GENERATOR.get(),
-			ModBlocks.CULINARY_GENERATOR.get(),
-			ModBlocks.POTION_GENERATOR.get(),
-			ModBlocks.EXPLOSIVE_GENERATOR.get(),
-			ModBlocks.MAGMATIC_GENERATOR.get(),
-			ModBlocks.PINK_GENERATOR.get(),
-			ModBlocks.NETHER_STAR_GENERATOR.get(),
-			ModBlocks.ENDER_GENERATOR.get(),
-			ModBlocks.HEATED_REDSTONE_GENERATOR.get(),
-			ModBlocks.OVERCLOCKED_GENERATOR.get(),
-			ModBlocks.HALITOSIS_GENERATOR.get(),
-			ModBlocks.FROSTY_GENERATOR.get(),
-			ModBlocks.DEATH_GENERATOR.get(),
-			ModBlocks.DISENCHANTMENT_GENERATOR.get(),
-			ModBlocks.SLIMY_GENERATOR.get(),
-		)
 
 		for (color in DyeColor.entries) {
 			event.register(
