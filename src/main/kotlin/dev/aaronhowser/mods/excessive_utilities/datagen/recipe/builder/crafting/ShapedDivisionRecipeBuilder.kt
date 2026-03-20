@@ -60,7 +60,7 @@ class ShapedDivisionRecipeBuilder(
 			.append("division/")
 			.append(id.path)
 
-		val id = ExcessiveUtilities.Companion.modResource(idString.toString())
+		val id = ExcessiveUtilities.modResource(idString.toString())
 
 		val advancement = recipeOutput.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

@@ -20,11 +20,6 @@ class SecondChanceEffect : MobEffect(
 		return true
 	}
 
-	// TODO: Remove itself if the entity is marked as having used it already
-	override fun applyEffectTick(livingEntity: LivingEntity, amplifier: Int): Boolean {
-		return super.applyEffectTick(livingEntity, amplifier)
-	}
-
 	companion object {
 		fun cancelDeath(event: LivingIncomingDamageEvent) {
 			if (event.isCanceled) return

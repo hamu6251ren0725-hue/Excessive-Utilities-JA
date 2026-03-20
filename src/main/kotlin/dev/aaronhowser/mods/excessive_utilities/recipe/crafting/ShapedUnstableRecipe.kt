@@ -9,11 +9,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeSerializers
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.CraftingBookCategory
-import net.minecraft.world.item.crafting.CraftingInput
-import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.ShapedRecipe
-import net.minecraft.world.item.crafting.ShapedRecipePattern
+import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
 class ShapedUnstableRecipe(
@@ -25,7 +21,7 @@ class ShapedUnstableRecipe(
 		for (inputStack in input.items()) {
 			if (!inputStack.isItem(ModItems.UNSTABLE_INGOT)) continue
 
-			if (UnstableIngotItem.Companion.isCheesed(inputStack)) {
+			if (UnstableIngotItem.isCheesed(inputStack)) {
 				return false
 			}
 		}

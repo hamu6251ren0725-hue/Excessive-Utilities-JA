@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.ShapedRecipePattern
 import net.minecraft.world.level.ItemLike
-import kotlin.collections.iterator
 
 class ShapedUnstableRecipeBuilder(
 	val output: ItemStack
@@ -61,7 +60,7 @@ class ShapedUnstableRecipeBuilder(
 			.append("unstable_ingot/")
 			.append(id.path)
 
-		val id = ExcessiveUtilities.Companion.modResource(idString.toString())
+		val id = ExcessiveUtilities.modResource(idString.toString())
 
 		val advancement = recipeOutput.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

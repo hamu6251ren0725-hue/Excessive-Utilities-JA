@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
-import kotlin.collections.iterator
 
 class EnchanterRecipeBuilder(
 	val leftIngredient: Ingredient,

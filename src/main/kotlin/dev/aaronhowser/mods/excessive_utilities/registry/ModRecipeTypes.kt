@@ -1,12 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.registry
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.ResonatorRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.WorldInteractionFluidRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.WorldInteractionItemRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.*
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
