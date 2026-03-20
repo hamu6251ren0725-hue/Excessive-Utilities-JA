@@ -2670,9 +2670,11 @@ class ModBlockStateProvider(
 
 		val modelOff = models()
 			.cube(name + "_off", top, top, frontOff, side, side, side)
+			.texture("particle", side)
 
 		val modelOn = models()
 			.cube(name + "_on", top, top, frontOn, side, side, side)
+			.texture("particle", side)
 
 		getVariantBuilder(generatorBlock)
 			.forAllStates {
