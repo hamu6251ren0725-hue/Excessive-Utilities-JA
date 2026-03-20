@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.item.DivisionSigilItem
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
+import net.minecraft.core.NonNullList
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
@@ -32,20 +32,33 @@ class ShapedDivisionRecipe(
 		return super.matches(input, level)
 	}
 
-	override fun assemble(input: CraftingInput, registries: HolderLookup.Provider): ItemStack {
-		for (inputStack in input.items()) {
-			if (!inputStack.isItem(ModItems.DIVISION_SIGIL)) continue
+	override fun getRemainingItems(input: CraftingInput): NonNullList<ItemStack> {
+		val list = NonNullList.withSize(input.size(), ItemStack.EMPTY)
 
-			if (!DivisionSigilItem.isInverted(inputStack)) {
-				val remainingUses = inputStack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
+		for (i in list.indices) {
+			val stack = input.getItem(i)
+
+			if (stack.hasCraftingRemainingItem()) {
+				list[i] = stack.craftingRemainingItem
+			}
+
+			if (stack.isItem(ModItems.DIVISION_SIGIL)) {
+				if (DivisionSigilItem.isInverted(stack)) {
+					list[i] = stack.copy()
+					break
+				}
+
+				val remainingUses = stack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
 				if (remainingUses > 0) {
-					inputStack.set(ModDataComponents.REMAINING_USES, remainingUses - 1)
+					val newStack = stack.copy()
+					newStack.set(ModDataComponents.REMAINING_USES, remainingUses - 1)
+					list[i] = newStack
 					break
 				}
 			}
 		}
 
-		return super.assemble(input, registries)
+		return list
 	}
 
 	override fun isSpecial(): Boolean = true
