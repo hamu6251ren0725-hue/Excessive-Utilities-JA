@@ -48,7 +48,8 @@ class SunCrystalItem(properties: Properties) : Item(properties) {
 		tooltipFlag: TooltipFlag
 	) {
 		val charge = stack.getOrDefault(ModDataComponents.CHARGE, 0)
-		tooltipComponents.add(Component.literal("Solar power: $charge / $MAX_CHARGE"))
+		val percent = (charge / MAX_CHARGE.toFloat() * 100).toInt()
+		tooltipComponents.add(Component.literal("Solar power: $percent%"))
 	}
 
 	companion object {
