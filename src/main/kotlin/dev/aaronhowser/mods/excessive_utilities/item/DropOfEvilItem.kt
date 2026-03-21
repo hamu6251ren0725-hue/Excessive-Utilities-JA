@@ -6,16 +6,22 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.defaultBlockState
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
+import net.minecraft.core.component.DataComponents
 import net.minecraft.util.Mth
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.component.CustomData
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity
 
 class DropOfEvilItem(properties: Properties) : Item(properties) {
 
@@ -26,8 +32,13 @@ class DropOfEvilItem(properties: Properties) : Item(properties) {
 
 		val player = context.player
 
-		if (!blockState.isBlock(ModBlockTagsProvider.CURSED_EARTH_REPLACEABLE)) {
+		if (blockState.isBlock(ModBlockTagsProvider.CURSED_EARTH_REPLACEABLE)) {
 			placeCursedEarth(player, level, pos)
+			return InteractionResult.SUCCESS
+		}
+
+		if (blockState.isBlock(Blocks.SPAWNER)) {
+			makeResturbedSpawner(level, pos)
 			return InteractionResult.SUCCESS
 		}
 
@@ -35,7 +46,26 @@ class DropOfEvilItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
-		fun placeCursedEarth(
+		private fun makeResturbedSpawner(
+			level: Level,
+			pos: BlockPos
+		) {
+			val blockEntity = level.getBlockEntity(pos)
+			if (blockEntity !is SpawnerBlockEntity) return
+
+			val customData = blockEntity.saveWithoutMetadata(level.registryAccess())
+			val stack = ModBlocks.RESTURBED_MOB_SPAWNER.withComponent(
+				DataComponents.BLOCK_ENTITY_DATA,
+				CustomData.of(customData)
+			)
+
+			level.removeBlock(pos, false)
+
+			val itemEntity = ItemEntity(level, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, stack)
+			level.addFreshEntity(itemEntity)
+		}
+
+		private fun placeCursedEarth(
 			player: Player?,
 			level: Level,
 			pos: BlockPos
