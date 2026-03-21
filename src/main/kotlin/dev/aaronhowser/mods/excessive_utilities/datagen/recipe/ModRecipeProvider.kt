@@ -2338,7 +2338,7 @@ class ModRecipeProvider(
 					).asIngredient()
 				)
 				.define('U', ModItems.UNSTABLE_INGOT.asIngredient())
-				.save(recipeOutput, "angel_ring_${type.id}")
+				.save(recipeOutput, ExcessiveUtilities.modResource("angel_ring_${type.id}"))
 
 			shapedRecipe(
 				type.getStack(),
@@ -2347,7 +2347,7 @@ class ModRecipeProvider(
 					'C' to base,
 					'R' to ModItems.ANGEL_RING.asIngredient()
 				)
-			).save(recipeOutput, "angel_ring_conversion_${type.id}")
+			).save(recipeOutput, ExcessiveUtilities.modResource("angel_ring_conversion_${type.id}"))
 		}
 
 		angelRing(AngelRingItem.Type.INVISIBLE, Tags.Items.GLASS_BLOCKS.asIngredient())

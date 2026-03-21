@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:angel_ring_conversion_invisible"
+        "recipe": "excessive_utilities:angel_ring_conversion_butterfly"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:angel_ring_conversion_invisible"
+      "excessive_utilities:angel_ring_conversion_butterfly"
     ]
   }
 }
