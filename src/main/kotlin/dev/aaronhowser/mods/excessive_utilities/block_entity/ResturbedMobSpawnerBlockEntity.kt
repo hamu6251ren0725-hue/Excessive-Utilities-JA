@@ -4,6 +4,8 @@ import com.mojang.datafixers.util.Either
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentMap
+import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
@@ -12,6 +14,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.component.CustomData
 import net.minecraft.world.level.BaseSpawner
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.SpawnData
@@ -71,6 +74,15 @@ class ResturbedMobSpawnerBlockEntity(
 
 	private fun clientTick(level: Level) {
 		spawner.clientTick(level, blockPos)
+	}
+
+	override fun collectImplicitComponents(components: DataComponentMap.Builder) {
+		super.collectImplicitComponents(components)
+
+		val level = level ?: return
+		val nbt = saveCustomOnly(level.registryAccess())
+		addEntityType(nbt, type)
+		components.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt))
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
