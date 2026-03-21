@@ -19,6 +19,9 @@ class ServerConfig(
 	lateinit var peacefulTableChancePerTick: ModConfigSpec.DoubleValue
 	lateinit var healthPerSoulFragment: ModConfigSpec.DoubleValue
 	lateinit var soulFragmentResetOnDeath: ModConfigSpec.EnumValue<SoulDebt.OnDeathConfig>
+	lateinit var healingAxeChancePerTick: ModConfigSpec.DoubleValue
+	lateinit var healingAxeFoodAmount: ModConfigSpec.IntValue
+	lateinit var healingAxeSaturationAmount: ModConfigSpec.DoubleValue
 	lateinit var healingAxeHealthTransferAmount: ModConfigSpec.DoubleValue
 	lateinit var conveyorBeltSpeed: ModConfigSpec.DoubleValue
 	lateinit var funnyEnderLilyTeleporting: ModConfigSpec.BooleanValue
@@ -423,10 +426,6 @@ class ServerConfig(
 			.comment("The radius in blocks that a Magnum Torch prevents monster spawns.")
 			.defineInRange("magnumTorchRadius", 64, 1, Int.MAX_VALUE)
 
-		healingAxeHealthTransferAmount = builder
-			.comment("The amount of health that the Healing Axe will transfer between you and the entity you hit.")
-			.defineInRange("healingAxeHealthTransferAmount", 4.0, 0.0, Double.MAX_VALUE)
-
 		conveyorBeltSpeed = builder
 			.comment("The speed in blocks per tick that Conveyor Belts will move entities.")
 			.defineInRange("conveyorBeltSpeed", 0.1, 0.0, Double.MAX_VALUE)
@@ -438,6 +437,24 @@ class ServerConfig(
 		enderPorcupineMarchTime = builder
 			.comment("The number of ticks that the Ender Porcupine will wait at each position before moving to the next one")
 			.defineInRange("enderPorcupineMarchTime", 20, 1, Int.MAX_VALUE)
+
+		builder.section("healing_axe") {
+			healingAxeChancePerTick = builder
+				.comment("The chance per tick that the Healing Axe will feed you a bit.")
+				.defineInRange("healingAxeChancePerTick", 1.0 / 100, 0.0, 1.0)
+
+			healingAxeFoodAmount = builder
+				.comment("The amount of hunger points that the Healing Axe will restore when it feeds you.")
+				.defineInRange("healingAxeFoodAmount", 1, 0, Int.MAX_VALUE)
+
+			healingAxeSaturationAmount = builder
+				.comment("The amount of saturation points that the Healing Axe will restore when it feeds you.")
+				.defineInRange("healingAxeSaturationAmount", 0.2, 0.0, Double.MAX_VALUE)
+
+			healingAxeHealthTransferAmount = builder
+				.comment("The amount of health that the Healing Axe will transfer between you and the entity you hit.")
+				.defineInRange("healingAxeHealthTransferAmount", 4.0, 0.0, Double.MAX_VALUE)
+		}
 
 		builder.section("filing_cabinets") {
 			basicFilingCabinetCapacity = builder

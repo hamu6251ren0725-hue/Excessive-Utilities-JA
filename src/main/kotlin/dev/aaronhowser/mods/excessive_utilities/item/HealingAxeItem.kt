@@ -20,11 +20,15 @@ import net.minecraft.world.level.Level
 
 class HealingAxeItem(properties: Properties) : AxeItem(UnstableTier, properties) {
 
-	// 1 in 200 chance to heal the player by 1 hunger point (0.2 saturation) every tick while held
 	override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
-		if (!isSelected || level.isClientSide || entity !is Player || !level.random.chance(1.0 / 100)) return
+		if (!isSelected || level.isClientSide || entity !is Player) return
+		val chance = ServerConfig.CONFIG.healingAxeChancePerTick.get()
+		if (!level.random.chance(chance)) return
 
-		entity.foodData.eat(1, 0.2f)
+		entity.foodData.eat(
+			ServerConfig.CONFIG.healingAxeFoodAmount.get(),
+			ServerConfig.CONFIG.healingAxeSaturationAmount.get().toFloat()
+		)
 	}
 
 	override fun onLeftClickEntity(
