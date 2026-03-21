@@ -103,7 +103,8 @@ class ModItemTagsProvider(
 
 		tag(ItemTags.SHOVELS)
 			.add(
-				ModItems.EROSION_SHOVEL
+				ModItems.EROSION_SHOVEL,
+				ModItems.TROWEL
 			)
 
 		tag(ItemTags.AXES)

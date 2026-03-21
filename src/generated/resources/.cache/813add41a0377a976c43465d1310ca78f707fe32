@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-19T05:06:23.1209115	Tags for minecraft:item mod id excessive_utilities
+// 1.21.1	2026-03-21T03:04:18.7961822	Tags for minecraft:item mod id excessive_utilities
 391f936c09d7f7b43694f899344222849a8d62a1 data/c/tags/item/brick_blocks.json
 5124cada2ba7e5783038acde07858db18ecdb114 data/c/tags/item/cobblestones/normal.json
 1c83000a2817348e18f4bc04d17b3eabe7695e1f data/c/tags/item/dyes/magenta.json
@@ -41,6 +41,6 @@ f50df58aceffd77349539ef749a0add89005224d data/minecraft/tags/item/enchantable/du
 28956a9b91902468d65653ca633de74c5d8660a7 data/minecraft/tags/item/logs_that_burn.json
 0d33e599fbb6dd9714e7b08341951585ab045c34 data/minecraft/tags/item/pickaxes.json
 e6edb2ea01298da75fe2cc9675b318a520b3d0f6 data/minecraft/tags/item/planks.json
-56db331b73a46cf464e523ce69546399aee17c47 data/minecraft/tags/item/shovels.json
+4e58a882ae60d9144985bd8e3e2f17321825fcb0 data/minecraft/tags/item/shovels.json
 6387bf93cbbf037649d1254f37dd1e45f9469a11 data/minecraft/tags/item/stone_bricks.json
 246ec658cd0dafbcb3f074eb547feda6b9ae2448 data/minecraft/tags/item/swords.json
