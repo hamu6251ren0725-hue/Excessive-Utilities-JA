@@ -225,6 +225,13 @@ class ModBlockTagsProvider(
 			)
 			.add(*ModBlocks.COLORED_PLANKS.map { it.value }.toTypedArray())
 
+		tag(BlockTags.ENCHANTMENT_POWER_PROVIDER)
+			.add(
+				ModBlocks.MAGICAL_WOOD,
+				ModBlocks.ENDER_CORE,
+				ModBlocks.MAGICAL_PLANKS
+			)
+
 		tag(SICKLE_MINEABLE)
 			.addTags(
 				BlockTags.FLOWERS,

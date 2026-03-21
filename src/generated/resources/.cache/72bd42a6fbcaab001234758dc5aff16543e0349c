@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-21T09:14:53.5236997	Tags for minecraft:block mod id excessive_utilities
+// 1.21.1	2026-03-21T09:27:13.2911397	Tags for minecraft:block mod id excessive_utilities
 5124cada2ba7e5783038acde07858db18ecdb114 data/c/tags/block/cobblestones/normal.json
 cf8f2990468b42d8236e60250ebcf0bb1c8d5735 data/c/tags/block/dyed.json
 ca63a282b7eb47d59ef3ca3f57dc7b0149caa9ab data/c/tags/block/dyed/black.json
@@ -54,6 +54,7 @@ d334c196b3f7d49153402e7b01323d4dfef2c5d5 data/excessive_utilities/tags/block/pai
 2bd371f63b72eecd4710ed9ef16fcf54baec3f19 data/excessive_utilities/tags/block/render_gp_while_looking_at.json
 fdf0229f5dd8b82a9a07d37302c8eab1ed4ebeab data/excessive_utilities/tags/block/valid_for_dragon_egg_mill.json
 8126d8bca8572cc70eb7efba0151b0979b238c50 data/minecraft/tags/block/dirt.json
+955dccb127d972b5a564f2f1a375f522d3bf3edd data/minecraft/tags/block/enchantment_power_provider.json
 28956a9b91902468d65653ca633de74c5d8660a7 data/minecraft/tags/block/logs.json
 b0bb8145892fd3de83e9137fb710b8eef0f9b5ba data/minecraft/tags/block/mineable/axe.json
 52864d13ac69c0d5ee29acba4324beabb23c6b61 data/minecraft/tags/block/mineable/pickaxe.json
