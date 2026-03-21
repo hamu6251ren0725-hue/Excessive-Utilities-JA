@@ -39,6 +39,11 @@ class EntityLassoItem(
 			return InteractionResult.PASS
 		}
 
+		if (canHoldHostileMobs) {
+			val canPickUp = interactionTarget.health <= (interactionTarget.maxHealth / 2f)
+			if (!canPickUp) return InteractionResult.FAIL
+		}
+
 		val entityNbt = interactionTarget.getMinimalTag(stripUniqueness = false)
 		val customNbt = CustomData.of(entityNbt)
 
