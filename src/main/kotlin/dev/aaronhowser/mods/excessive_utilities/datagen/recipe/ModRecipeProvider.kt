@@ -17,6 +17,7 @@ import dev.aaronhowser.mods.excessive_utilities.item.UnstableIngotItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import dev.aaronhowser.mods.excessive_utilities.recipe.base.BlockStateIngredient
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.DamageGlassCutterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedDivisionRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedUnstableRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
@@ -1358,15 +1359,6 @@ class ModRecipeProvider(
 		).save(recipeOutput)
 
 		shapelessRecipe(
-			ModItems.ENDER_SHARD,
-			8,
-			listOf(
-				Tags.Items.ENDER_PEARLS.asIngredient(),
-				ModItems.GLASS_CUTTER.asIngredient() // TODO: Damage the glass cutter
-			)
-		).save(recipeOutput)
-
-		shapelessRecipe(
 			ModItems.SUN_CRYSTAL,
 			listOf(
 				Tags.Items.GEMS_DIAMOND.asIngredient(),
@@ -2444,6 +2436,14 @@ class ModRecipeProvider(
 			.define('N', Tags.Items.NUGGETS_IRON.asIngredient())
 			.define('S', ModItems.DIVISION_SIGIL.asIngredient())
 			.define('D', Tags.Items.GEMS_DIAMOND.asIngredient())
+			.save(recipeOutput)
+
+
+		SpecialShapedRecipeBuilder(ModItems.ENDER_SHARD.toStack(8))
+			.type("damage_glass_cutter", ::DamageGlassCutterRecipe)
+			.pattern("P", "C")
+			.define('P', Tags.Items.ENDER_PEARLS.asIngredient())
+			.define('C', ModItems.GLASS_CUTTER.asIngredient())
 			.save(recipeOutput)
 
 	}
