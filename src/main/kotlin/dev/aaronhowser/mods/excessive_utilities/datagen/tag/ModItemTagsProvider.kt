@@ -169,6 +169,13 @@ class ModItemTagsProvider(
 				SICKLES
 			)
 
+		tag(ItemTags.MINING_LOOT_ENCHANTABLE)
+			.remove(
+				ModItems.TROWEL.get(),
+				ModItems.EROSION_SHOVEL.get(),
+				ModItems.DESTRUCTION_PICKAXE.get()
+			)
+
 		tag(MAGICAL_BOOMERANG_ENCHANTABLE)
 			.add(
 				ModItems.MAGICAL_BOOMERANG
