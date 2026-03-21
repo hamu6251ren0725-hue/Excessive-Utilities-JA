@@ -55,6 +55,7 @@ class HealingAxeItem(properties: Properties) : AxeItem(UnstableTier, properties)
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
+			.setNoRepair()
 			.component(DataComponents.UNBREAKABLE, Unbreakable(false))
 			.attributes(
 				createAttributes(UnstableTier, 5f, -3f)

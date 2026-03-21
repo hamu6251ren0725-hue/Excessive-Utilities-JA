@@ -30,6 +30,7 @@ class DestructionPickaxeItem(properties: Properties) : PickaxeItem(UnstableTier,
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
 			.component(DataComponents.UNBREAKABLE, Unbreakable(false))
+			.setNoRepair()
 			.attributes(
 				createAttributes(UnstableTier, 1f, -2.8f)
 					.withModifierAdded(

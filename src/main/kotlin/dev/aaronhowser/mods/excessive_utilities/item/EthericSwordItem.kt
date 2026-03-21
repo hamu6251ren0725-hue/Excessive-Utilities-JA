@@ -44,6 +44,7 @@ class EthericSwordItem(properties: Properties) : SwordItem(UnstableTier, propert
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
+			.setNoRepair()
 			.component(DataComponents.UNBREAKABLE, Unbreakable(false))
 			.attributes(createAttributes(UnstableTier, 3f, -2.4f))
 	}

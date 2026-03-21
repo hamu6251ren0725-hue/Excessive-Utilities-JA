@@ -30,6 +30,7 @@ class ErosionShovelItem(properties: Properties) : ShovelItem(UnstableTier, prope
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
 			.component(DataComponents.UNBREAKABLE, Unbreakable(false))
+			.setNoRepair()
 			.attributes(
 				createAttributes(UnstableTier, 1.5f, -3f)
 					.withModifierAdded(

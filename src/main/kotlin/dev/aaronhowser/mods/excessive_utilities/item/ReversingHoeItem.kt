@@ -52,6 +52,7 @@ class ReversingHoeItem(properties: Properties) : HoeItem(UnstableTier, propertie
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
+			.setNoRepair()
 			.component(DataComponents.UNBREAKABLE, Unbreakable(false))
 			.attributes(
 				createAttributes(UnstableTier, -3f, 0f)
