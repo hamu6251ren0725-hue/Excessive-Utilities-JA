@@ -71,11 +71,12 @@ class HeatingCoilItem(properties: Properties) : Item(properties) {
 			val startR = 0x1E
 			val endR = 0xD5
 
+			val a = 0xFF
 			val r = (startR + ((endR - startR) * percent)).toInt()
 			val g = 0x1E
 			val b = 0x1E
 
-			return (0xFF shl 24) or (r shl 16) or (g shl 8) or b
+			return (a shl 24) or (r shl 16) or (g shl 8) or b
 		}
 	}
 

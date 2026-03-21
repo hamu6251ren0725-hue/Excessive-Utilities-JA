@@ -61,6 +61,24 @@ class SunCrystalItem(properties: Properties) : Item(properties) {
 					.stacksTo(1)
 					.component(ModDataComponents.CHARGE, 0)
 			}
+
+		fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
+			if (tintIndex != 1) return 0xFFFFFFFF.toInt()
+
+			val charge = stack.getOrDefault(ModDataComponents.CHARGE, 0)
+
+			val percent = charge.toFloat() / MAX_CHARGE.toFloat()
+
+			val startA = 0x1E
+			val endA = 0xFF
+
+			val a = (startA + ((endA - startA) * percent)).toInt()
+			val r = 0xFF
+			val g = 0xFF
+			val b = 0xFF
+
+			return (a shl 24) or (r shl 16) or (g shl 8) or b
+		}
 	}
 
 }

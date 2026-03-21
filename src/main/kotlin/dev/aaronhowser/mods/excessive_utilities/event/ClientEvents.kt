@@ -16,6 +16,7 @@ import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
 import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
 import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
+import dev.aaronhowser.mods.excessive_utilities.item.SunCrystalItem
 import dev.aaronhowser.mods.excessive_utilities.item.UnstableIngotItem
 import dev.aaronhowser.mods.excessive_utilities.item.WateringCanItem
 import dev.aaronhowser.mods.excessive_utilities.registry.*
@@ -147,6 +148,7 @@ object ClientEvents {
 	@SubscribeEvent
 	fun registerItemColors(event: RegisterColorHandlersEvent.Item) {
 		event.register(HeatingCoilItem::getItemColor, ModItems.HEATING_COIL.get())
+		event.register(SunCrystalItem::getItemColor, ModItems.SUN_CRYSTAL.get())
 
 		event.register(
 			UnstableIngotItem::getColor,
