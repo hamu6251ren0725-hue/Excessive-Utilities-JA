@@ -45,6 +45,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("sound_muffler", ::SoundMufflerBlock)
 	val PEACEFUL_TABLE: DeferredBlock<PeacefulTableBlock> =
 		registerBlock("peaceful_table", ::PeacefulTableBlock)
+	val CHANDELIER: DeferredBlock<ChandelierBlock> =
+		registerBlock("chandelier", ::ChandelierBlock)
 	val MAGNUM_TORCH: DeferredBlock<MagnumTorchBlock> =
 		registerBlock("magnum_torch", ::MagnumTorchBlock)
 	val CURSED_EARTH: DeferredBlock<CursedEarthBlock> =
@@ -383,8 +385,6 @@ object ModBlocks : AaronBlockRegistry() {
 		basicCopiedBlock("gravel_bricks", Blocks.GRAVEL)
 	val GRAVEL_ROAD: DeferredBlock<Block> =
 		basicCopiedBlock("gravel_road", Blocks.GRAVEL)
-	val CHANDELIER: DeferredBlock<ChandelierBlock> =
-		registerBlock("chandelier", ::ChandelierBlock)
 	val STONEBURNT: DeferredBlock<Block> =
 		basicStoneBlock("stoneburnt")
 	val QUARTZBURNT: DeferredBlock<Block> =
