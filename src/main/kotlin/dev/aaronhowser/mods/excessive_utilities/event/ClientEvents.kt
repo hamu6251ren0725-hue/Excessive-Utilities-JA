@@ -176,7 +176,10 @@ object ClientEvents {
 		event.register(
 			{ stack, tintIndex ->
 				if (tintIndex == 1) {
-					stack.getOrDefault(ModDataComponents.COLOR, DyeColor.WHITE).textureDiffuseColor
+					stack.getOrDefault(
+						ModDataComponents.COLOR,
+						DyeColor.WHITE
+					).textureDiffuseColor
 				} else {
 					0xFFFFFFFF.toInt()
 				}
