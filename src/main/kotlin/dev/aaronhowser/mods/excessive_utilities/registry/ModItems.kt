@@ -97,6 +97,8 @@ object ModItems : AaronItemRegistry() {
 		register("stone_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.STONE) }
 	val IRON_SICKLE: DeferredItem<SickleItem> =
 		register("iron_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.IRON) }
+//	val COPPER_SICKLE: DeferredItem<SickleItem> =
+//		register("copper_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.IRON) }
 	val GOLDEN_SICKLE: DeferredItem<SickleItem> =
 		register("golden_sickle", ::SickleItem) { SickleItem.getDefaultProperties(Tiers.GOLD) }
 	val DIAMOND_SICKLE: DeferredItem<SickleItem> =
