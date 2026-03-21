@@ -4,14 +4,16 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.core.BlockPos
-import net.minecraft.core.component.DataComponents
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.*
+import net.minecraft.world.item.DiggerItem
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Tier
+import net.minecraft.world.item.Tiers
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 
-class SickleItem(properties: Properties) : Item(properties) {
+class SickleItem(tier: Tier, properties: Properties) : DiggerItem(tier, ModBlockTagsProvider.SICKLE_MINEABLE, properties) {
 
 	override fun mineBlock(
 		stack: ItemStack,
@@ -50,10 +52,6 @@ class SickleItem(properties: Properties) : Item(properties) {
 		fun getDefaultProperties(tier: Tier): Properties {
 			return Properties()
 				.component(
-					DataComponents.TOOL,
-					tier.createToolProperties(ModBlockTagsProvider.SICKLE_MINEABLE)
-				)
-				.component(
 					ModDataComponents.RADIUS.get(),
 					when (tier) {
 						Tiers.WOOD -> 1
@@ -65,19 +63,8 @@ class SickleItem(properties: Properties) : Item(properties) {
 						else -> 1
 					}
 				)
-				.durability(
-					when (tier) {
-						Tiers.WOOD -> 531
-						Tiers.STONE -> 1179
-						Tiers.GOLD -> 288
-						Tiers.IRON -> 2250
-						Tiers.DIAMOND -> 14049
-						Tiers.NETHERITE -> 30074
-						else -> tier.uses
-					}
-				)
 				.attributes(
-					DiggerItem.createAttributes(tier, 0f, -3f)
+					createAttributes(tier, 0f, -3f)
 				)
 		}
 	}
