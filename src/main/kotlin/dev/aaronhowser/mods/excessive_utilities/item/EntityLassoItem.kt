@@ -94,8 +94,7 @@ class EntityLassoItem(
 	}
 
 	companion object {
-		val HAS_ENTITY = ExcessiveUtilities.modResource("has_entity")
-
+		val HAS_ENTITY: ResourceLocation = ExcessiveUtilities.modResource("has_entity")
 		fun hasEntityPredicate(
 			stack: ItemStack,
 			localLevel: Level?,

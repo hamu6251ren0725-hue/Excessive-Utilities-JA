@@ -12,9 +12,11 @@ import io.netty.buffer.ByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -62,7 +64,18 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 					.component(ModDataComponents.ANGEL_RING_TYPE, Type.INVISIBLE)
 			}
 
-		fun addGpConsumer(player: ServerPlayer, ringStack: ItemStack): GridPowerContribution.HeldItem {
+		val RING_TYPE: ResourceLocation = ExcessiveUtilities.modResource("ring_type")
+		fun hasEntityPredicate(
+			stack: ItemStack,
+			localLevel: Level?,
+			holdingEntity: LivingEntity?,
+			int: Int
+		): Float {
+			val type = stack.getOrDefault(ModDataComponents.ANGEL_RING_TYPE, Type.INVISIBLE)
+			return type.ordinal.toFloat()
+		}
+
+		private fun addGpConsumer(player: ServerPlayer, ringStack: ItemStack): GridPowerContribution.HeldItem {
 			val handler = GridPowerHandler.get(player.serverLevel()).getGrid(player)
 
 			val currentConsumers = handler.getConsumers()
@@ -112,7 +125,7 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 			return new
 		}
 
-		fun handleAttributeModifier(player: ServerPlayer) {
+		private fun handleAttributeModifier(player: ServerPlayer) {
 			val flightAttribute = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT) ?: return
 
 			val handler = GridPowerHandler.get(player.serverLevel()).getGrid(player)

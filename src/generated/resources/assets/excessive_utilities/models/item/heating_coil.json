@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "excessive_utilities:item/heating_coil"
+    "layer0": "excessive_utilities:item/heating_coil/base",
+    "layer1": "excessive_utilities:item/heating_coil/glow"
   }
 }

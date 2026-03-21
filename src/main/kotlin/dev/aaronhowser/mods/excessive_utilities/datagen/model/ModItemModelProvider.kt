@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronDsls.override
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.transform
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.transforms
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
 import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
 import dev.aaronhowser.mods.excessive_utilities.item.WateringCanItem
@@ -39,10 +40,47 @@ class ModItemModelProvider(
 		paintbrush()
 		creativeBuildersWand()
 		creativeDestructionWand()
+		heatingCoil()
+		angelRings()
 
 		handheld()
-
 		basicItems()
+	}
+
+	private fun angelRings() {
+		val item = ModItems.ANGEL_RING.get()
+
+		val baseName = getName(item)
+		val baseModel = withExistingParent(baseName, mcLoc("item/generated"))
+
+		fun makeModel(ringName: String): ItemModelBuilder {
+			return withExistingParent(baseName + "_$ringName", mcLoc("item/generated"))
+				.texture("layer0", modLoc("item/angel_ring/$ringName"))
+		}
+
+		for (type in AngelRingItem.Type.entries) {
+			baseModel.override {
+				val ordinalFloat = type.ordinal.toFloat()
+				val id = type.id
+
+				predicate(AngelRingItem.RING_TYPE, ordinalFloat)
+				val model = makeModel(id)
+				model(model)
+			}
+		}
+
+		handledItems.add(item)
+	}
+
+	private fun heatingCoil() {
+		val item = ModItems.HEATING_COIL.get()
+
+		getBuilder(getName(item))
+			.parent(ModelFile.UncheckedModelFile("item/generated"))
+			.texture("layer0", modLoc("item/heating_coil/base"))
+			.texture("layer1", modLoc("item/heating_coil/glow"))
+
+		handledItems.add(item)
 	}
 
 	private fun handheld() {

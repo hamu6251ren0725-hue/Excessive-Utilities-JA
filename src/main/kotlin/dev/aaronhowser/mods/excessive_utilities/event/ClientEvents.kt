@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.excessive_utilities.client.render.entity.MagicalBoom
 import dev.aaronhowser.mods.excessive_utilities.client.render.layer.AngelRingWingsLayer
 import dev.aaronhowser.mods.excessive_utilities.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.ClientKeyHandler
+import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
 import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
 import dev.aaronhowser.mods.excessive_utilities.item.UnstableIngotItem
@@ -85,6 +86,12 @@ object ClientEvents {
 			ModItems.CURSED_LASSO.get(),
 			EntityLassoItem.HAS_ENTITY,
 			EntityLassoItem::hasEntityPredicate
+		)
+
+		ItemProperties.register(
+			ModItems.ANGEL_RING.get(),
+			AngelRingItem.RING_TYPE,
+			AngelRingItem::hasEntityPredicate
 		)
 
 		ItemProperties.register(
