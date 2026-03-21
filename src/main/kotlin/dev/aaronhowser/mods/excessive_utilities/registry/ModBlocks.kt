@@ -55,14 +55,14 @@ object ModBlocks : AaronBlockRegistry() {
 		basicBlock("ender_collector")
 	val TRADING_POST =
 		basicBlock("trading_post")
-	val CREATIVE_HARVEST: DeferredBlock<CreativeHarvestBlock> =
-		registerBlock("creative_harvest", ::CreativeHarvestBlock)
 	val ENDER_PORCUPINE: DeferredBlock<EnderPorcupineBlock> =
 		registerBlock("ender_porcupine", ::EnderPorcupineBlock)
 	val MAGICAL_SNOW_GLOBE: DeferredBlock<MagicalSnowGlobeBlock> =
 		registerBlockWithoutItem("magical_snow_globe", ::MagicalSnowGlobeBlock)
 	val RESTURBED_MOB_SPAWNER: DeferredBlock<ResturbedMobSpawnerBlock> =
 		registerBlock("resturbed_mob_spawner", ::ResturbedMobSpawnerBlock)
+	val CREATIVE_HARVEST: DeferredBlock<CreativeHarvestBlock> =
+		registerBlock("creative_harvest", ::CreativeHarvestBlock)
 
 	// Crops
 
