@@ -365,7 +365,6 @@ class ModItemTagsProvider(
 		val RENDER_ENDER_PORCUPINE_WHILE_HOLDING = create("render_ender_porcupine_while_holding")
 
 		val INTERACT_WITH_FLAT_TRANSFER_NODES = create("interact_with_flat_transfer_nodes")
-		val REMOVE_FLAT_TRANSFER_NODES = create("remove_flat_transfer_nodes")
 
 		val PISTONS = common("pistons")
 		val CORPSE_PARTS = create("corpse_parts")
