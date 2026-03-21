@@ -1,0 +1,32 @@
+---
+title: World Interaction Upgrade
+id: excessive_utilities:world_interaction_upgrade
+related_items: [excessive_utilities:world_interaction_upgrade]
+type: item
+---
+
+**World Interaction Upgrades** can be placed inside [Item and Fluid Transfer Nodes](@excessive_utilities:transfer_nodes) to make them interact with the world in various ways.
+
+## Item Transfer Nodes
+
+If the Node is placed on nothing, it will pick up items from the ground and store them in its buffer.
+
+There are a number of `excessive_utilities:world_interaction_item` recipes, which take the following as "ingredients":
+
+- The blockstate the Node is placed on
+- The blockstates around that block
+- The blockstate behind that block
+
+On Cobblestone that's adjacent to Lava and Water sources, the Node will generate Cobblestone.
+
+On Soul Soil that's adjacent to Blue Ice and a Lava source, the Node will generate Basalt.
+
+On Stone that's adjacent to a Lava source with Water behind it, the Node will generate Stone.
+
+## Fluid Transfer Nodes
+
+If the Node is placed on a Water source block that has at least two other adjacent Water source blocks, the Transfer Node will continually fill itself with Water.
+
+This is the only default `excessive_utilities:world_interaction_fluid` recipe.
+
+<PrefabObtaining/>

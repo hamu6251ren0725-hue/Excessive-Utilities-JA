@@ -159,6 +159,10 @@ object ModItems : AaronItemRegistry() {
 			{ FlatTransferNodeItem(it, isItemNode = false) },
 			FlatTransferNodeItem.DEFAULT_PROPERTIES
 		)
+	val ITEM_FILTER: DeferredItem<ItemFilterItem> =
+		register("item_filter", ::ItemFilterItem, PROPERTIES_SINGLE_STACK)
+	val FLUID_FILTER: DeferredItem<FluidFilterItem> =
+		register("fluid_filter", ::FluidFilterItem, PROPERTIES_SINGLE_STACK)
 
 	// Block Items
 
@@ -189,10 +193,6 @@ object ModItems : AaronItemRegistry() {
 		basic("stack_upgrade")
 	val WORLD_INTERACTION_UPGRADE: DeferredItem<Item> =
 		basic("world_interaction_upgrade")
-	val ITEM_FILTER: DeferredItem<ItemFilterItem> =
-		register("item_filter", ::ItemFilterItem, PROPERTIES_SINGLE_STACK)
-	val FLUID_FILTER: DeferredItem<FluidFilterItem> =
-		register("fluid_filter", ::FluidFilterItem, PROPERTIES_SINGLE_STACK)
 	val BREADTH_FIRST_SEARCH_UPGRADE =
 		basic("breadth_first_search_upgrade")
 	val DEPTH_FIRST_SEARCH_UPGRADE =
