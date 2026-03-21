@@ -26,23 +26,21 @@ class FireAxeItem(properties: Properties) : AxeItem(OpiniumTier, properties) {
 		miningEntity: LivingEntity
 	): Boolean {
 		if (level is ServerLevel && state.isBlock(ModBlockTagsProvider.FIRE_AXE_MINEABLE)) {
-			val blockWalker = BlockWalker(
-				level = level,
-				walkType = WalkType.ALL_CARDINAL,
-				startPos = pos,
-				filter = { l, p, s -> s.isBlock(ModBlockTagsProvider.FIRE_AXE_MINEABLE) },
-				maxDistance = 100,
-				maxTotalBlocks = 10000,
-				onFinished = { walkedBlocks ->
-					for (log in walkedBlocks) {
-						if (log.block.state.isBlock(ModBlockTagsProvider.FIRE_AXE_MINEABLE)) {
-							level.destroyBlock(log.block.pos, true, miningEntity)
-						}
-					}
-				}
-			)
+			val blockWalker = BlockWalker.Builder(level)
+				.searchOffsets(WalkType.ALL_CARDINAL)
+				.startPos(pos)
+				.filter { l, p, s -> s.isBlock(ModBlockTagsProvider.FIRE_AXE_MINEABLE) }
+				.maxTotalBlocks(10000)
+				.maxDistance(100)
+				.build()
 
-			blockWalker.start(100)
+			val found = blockWalker.locateAllImmediately()
+
+			for (log in found) {
+				if (log.block.state.isBlock(ModBlockTagsProvider.FIRE_AXE_MINEABLE)) {
+					level.destroyBlock(log.block.pos, true, miningEntity)
+				}
+			}
 		}
 
 		return true
