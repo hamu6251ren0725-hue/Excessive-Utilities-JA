@@ -264,16 +264,8 @@ class EnderQuarryBlockEntity(
 			.withParameter(LootContextParams.ORIGIN, target.center)
 			.withParameter(LootContextParams.TOOL, tool)
 			.withParameter(LootContextParams.BLOCK_STATE, targetState)
-
-		val player = fakePlayer?.get()
-		if (player != null) {
-			lootParams.withParameter(LootContextParams.THIS_ENTITY, player)
-		}
-
-		val be = level.getBlockEntity(target)
-		if (be != null) {
-			lootParams.withParameter(LootContextParams.BLOCK_ENTITY, be)
-		}
+			.withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer?.get())
+			.withOptionalParameter(LootContextParams.BLOCK_ENTITY, level.getBlockEntity(target))
 
 		return targetState.getDrops(lootParams)
 	}
