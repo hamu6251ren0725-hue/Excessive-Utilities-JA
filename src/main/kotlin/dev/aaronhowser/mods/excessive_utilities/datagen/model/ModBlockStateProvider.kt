@@ -2353,7 +2353,7 @@ class ModBlockStateProvider(
 
 	private fun moonStoneOre() {
 		val ores = mapOf(
-			ModBlocks.MOON_STORE_ORE.get() to "stone",
+			ModBlocks.MOON_STONE_ORE.get() to "stone",
 			ModBlocks.DEEPSLATE_MOON_STONE_ORE.get() to "deepslate"
 		)
 
@@ -2393,7 +2393,7 @@ class ModBlockStateProvider(
 
 			getVariantBuilder(block)
 				.forAllStates {
-					val isVisible = it.getValue(MoonStoreOreBlock.VISIBLE)
+					val isVisible = it.getValue(MoonStoneOreBlock.VISIBLE)
 
 					val modelFile = if (isVisible) nightModel else dayModel
 

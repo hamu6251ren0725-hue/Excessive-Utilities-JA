@@ -48,7 +48,7 @@ class ModBlockLootTablesSubProvider(
 		)
 
 		val noDropSelfBlocks = setOf(
-			ModBlocks.MOON_STORE_ORE.get(),
+			ModBlocks.MOON_STONE_ORE.get(),
 			ModBlocks.DEEPSLATE_MOON_STONE_ORE.get(),
 			ModBlocks.CURSED_EARTH.get(),
 			ModBlocks.MAGICAL_SNOW_GLOBE.get(),
@@ -67,7 +67,7 @@ class ModBlockLootTablesSubProvider(
 		val fortune = enchantments.getOrThrow(Enchantments.FORTUNE)
 
 		add(
-			ModBlocks.MOON_STORE_ORE.get(),
+			ModBlocks.MOON_STONE_ORE.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

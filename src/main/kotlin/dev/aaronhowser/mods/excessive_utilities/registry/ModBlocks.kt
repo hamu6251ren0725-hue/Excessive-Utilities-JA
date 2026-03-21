@@ -30,23 +30,23 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("magical_wood", ::MagicalWoodBlock)
 	val ENDER_CORE: DeferredBlock<EnderCoreBlock> =
 		registerBlock("ender_core", ::EnderCoreBlock)
-	val MAGNUM_TORCH: DeferredBlock<MagnumTorchBlock> =
-		registerBlock("magnum_torch", ::MagnumTorchBlock)
-	val PEACEFUL_TABLE: DeferredBlock<PeacefulTableBlock> =
-		registerBlock("peaceful_table", ::PeacefulTableBlock)
 	val DEEP_DARK_PORTAL =
 		basicBlock("deep_dark_portal")
 	val LAST_MILLENNIUM_PORTAL =
 		basicBlock("last_millennium_portal")
-	val MOON_STORE_ORE: DeferredBlock<MoonStoreOreBlock> =
-		registerBlock("moon_store_ore") { MoonStoreOreBlock(Blocks.IRON_ORE) }
-	val DEEPSLATE_MOON_STONE_ORE: DeferredBlock<MoonStoreOreBlock> =
-		registerBlock("deepslate_moon_stone_ore") { MoonStoreOreBlock(Blocks.DEEPSLATE_IRON_ORE) }
+	val MOON_STONE_ORE: DeferredBlock<MoonStoneOreBlock> =
+		registerBlock("moon_stone_ore") { MoonStoneOreBlock(Blocks.IRON_ORE) }
+	val DEEPSLATE_MOON_STONE_ORE: DeferredBlock<MoonStoneOreBlock> =
+		registerBlock("deepslate_moon_stone_ore") { MoonStoneOreBlock(Blocks.DEEPSLATE_IRON_ORE) }
 
 	// Misc block entities
 
 	val SOUND_MUFFLER: DeferredBlock<SoundMufflerBlock> =
 		registerBlock("sound_muffler", ::SoundMufflerBlock)
+	val PEACEFUL_TABLE: DeferredBlock<PeacefulTableBlock> =
+		registerBlock("peaceful_table", ::PeacefulTableBlock)
+	val MAGNUM_TORCH: DeferredBlock<MagnumTorchBlock> =
+		registerBlock("magnum_torch", ::MagnumTorchBlock)
 	val CURSED_EARTH: DeferredBlock<CursedEarthBlock> =
 		registerBlock("cursed_earth", ::CursedEarthBlock)
 	val ENDER_COLLECTOR =

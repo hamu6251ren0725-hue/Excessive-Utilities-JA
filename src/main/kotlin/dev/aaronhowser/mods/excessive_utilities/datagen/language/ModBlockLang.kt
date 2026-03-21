@@ -55,7 +55,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.SCANNER, "Scanner")
 			addBlock(ModBlocks.WIRELESS_FE_BATTERY, "Wireless FE Battery")
 			addBlock(ModBlocks.WIRELESS_FE_TRANSMITTER, "Wireless FE Transmitter")
-			addBlock(ModBlocks.MOON_STORE_ORE, "Moon Store Ore")
+			addBlock(ModBlocks.MOON_STONE_ORE, "Moon Stone Ore")
 			addBlock(ModBlocks.DEEPSLATE_MOON_STONE_ORE, "Deepslate Moon Stone Ore")
 			addBlock(ModBlocks.ENDER_QUARRY_UPGRADE_BASE, "Ender Quarry Upgrade Base")
 			addBlock(ModBlocks.ENDER_QUARRY_FORTUNE_UPGRADE, "Ender Quarry Fortune I Upgrade")

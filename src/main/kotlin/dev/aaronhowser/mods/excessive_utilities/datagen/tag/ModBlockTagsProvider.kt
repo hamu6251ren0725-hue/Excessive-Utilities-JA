@@ -35,7 +35,7 @@ class ModBlockTagsProvider(
 				ModBlocks.MAGICAL_SNOW_GLOBE,
 				ModBlocks.RESTURBED_MOB_SPAWNER,
 				ModBlocks.SCANNER,
-				ModBlocks.MOON_STORE_ORE,
+				ModBlocks.MOON_STONE_ORE,
 				ModBlocks.DEEPSLATE_MOON_STONE_ORE,
 				ModBlocks.REDSTONE_LANTERN,
 				ModBlocks.MECHANICAL_MINER,
