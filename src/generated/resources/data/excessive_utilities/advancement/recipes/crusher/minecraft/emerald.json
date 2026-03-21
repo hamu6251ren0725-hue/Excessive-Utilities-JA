@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/quartz"
+        "recipe": "excessive_utilities:crusher/minecraft/emerald"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/quartz"
+      "excessive_utilities:crusher/minecraft/emerald"
     ]
   }
 }

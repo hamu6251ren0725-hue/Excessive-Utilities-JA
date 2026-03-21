@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/lapis_lazuli"
+        "recipe": "excessive_utilities:crusher/minecraft/coal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/lapis_lazuli"
+      "excessive_utilities:crusher/minecraft/coal"
     ]
   }
 }

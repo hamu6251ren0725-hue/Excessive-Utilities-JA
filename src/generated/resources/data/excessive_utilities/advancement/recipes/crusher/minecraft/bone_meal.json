@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/glowstone_dust"
+        "recipe": "excessive_utilities:crusher/minecraft/bone_meal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/glowstone_dust"
+      "excessive_utilities:crusher/minecraft/bone_meal"
     ]
   }
 }

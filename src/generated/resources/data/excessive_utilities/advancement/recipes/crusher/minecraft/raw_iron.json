@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/coal"
+        "recipe": "excessive_utilities:crusher/minecraft/raw_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/coal"
+      "excessive_utilities:crusher/minecraft/raw_iron"
     ]
   }
 }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/diamond"
+        "recipe": "excessive_utilities:crusher/minecraft/lapis_lazuli"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/diamond"
+      "excessive_utilities:crusher/minecraft/lapis_lazuli"
     ]
   }
 }

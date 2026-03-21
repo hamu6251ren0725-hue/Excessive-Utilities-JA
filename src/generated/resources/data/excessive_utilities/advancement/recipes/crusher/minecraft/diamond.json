@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/bone_meal"
+        "recipe": "excessive_utilities:crusher/minecraft/diamond"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/bone_meal"
+      "excessive_utilities:crusher/minecraft/diamond"
     ]
   }
 }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:crusher/gravel"
+        "recipe": "excessive_utilities:crusher/minecraft/redstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:crusher/gravel"
+      "excessive_utilities:crusher/minecraft/redstone"
     ]
   }
 }

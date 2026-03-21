@@ -26,6 +26,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeOutput
@@ -2123,16 +2124,18 @@ class ModRecipeProvider(
 	private fun buildCrusherRecipes(recipeOutput: RecipeOutput) {
 		fun recipe(
 			ingredient: Ingredient,
-			primary: ItemStack,
-			secondary: ItemStack = ItemStack.EMPTY,
+			primaryOutput: ItemStack,
+			secondaryOutput: ItemStack = ItemStack.EMPTY,
 			secondaryChance: Float = 0f,
 			name: String = ""
 		) {
-			val builder = CrusherRecipeBuilder(ingredient, primary, secondary, secondaryChance)
+			val builder = CrusherRecipeBuilder(ingredient, primaryOutput, secondaryOutput, secondaryChance)
 			if (name.isNotEmpty()) {
 				builder.save(recipeOutput, modLoc(name))
 			} else {
-				builder.save(recipeOutput)
+				val itemId = BuiltInRegistries.ITEM.getKey(primaryOutput.item)
+				val location = modLoc("${itemId.namespace}/${itemId.path}")
+				builder.save(recipeOutput, location)
 			}
 		}
 
