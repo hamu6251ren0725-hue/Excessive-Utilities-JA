@@ -1,5 +1,5 @@
 newmtl base
-map_Kd excessive_utilities:block/spikes/iron_base
+map_Kd excessive_utilities:block/spike/iron_base
 
 newmtl side
-map_Kd excessive_utilities:block/spikes/iron_side
+map_Kd excessive_utilities:block/spike/iron_side

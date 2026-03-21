@@ -1,5 +1,5 @@
 newmtl base
-map_Kd excessive_utilities:block/spikes/netherite_base
+map_Kd excessive_utilities:block/spike/netherite_base
 
 newmtl side
-map_Kd excessive_utilities:block/spikes/netherite_side
+map_Kd excessive_utilities:block/spike/netherite_side
