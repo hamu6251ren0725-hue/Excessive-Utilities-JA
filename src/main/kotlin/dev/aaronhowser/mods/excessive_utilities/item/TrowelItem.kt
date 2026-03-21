@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.BlockTags
@@ -28,7 +29,7 @@ class TrowelItem(properties: Properties) : ShovelItem(Tiers.IRON, properties) {
 			if (!tool.isItem(ModItems.TROWEL)) return
 
 			val minedBlock = event.state
-			if (!minedBlock.isBlock(BlockTags.MINEABLE_WITH_SHOVEL)) return
+			if (!minedBlock.isBlock(ModBlockTagsProvider.TROWEL_MINEABLE)) return
 
 			val pos = event.pos.center
 			val level = event.level
