@@ -56,6 +56,8 @@ class HeatingCoilItem(properties: Properties) : Item(properties) {
 		}
 
 		fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
+			if (tintIndex != 1) return 0xFFFFFFFF.toInt()
+
 			val energy = stack.getOrDefault(ModDataComponents.ENERGY, 0)
 			val maxEnergy = ServerConfig.CONFIG.heatingCoilMaxEnergy.get()
 
