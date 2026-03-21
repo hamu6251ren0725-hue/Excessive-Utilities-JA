@@ -259,6 +259,10 @@ class ModBlockTagsProvider(
 			)
 
 		tag(CREATIVE_HARVEST_BLACKLIST)
+			.add(
+				ModBlocks.CREATIVE_HARVEST
+			)
+
 		tag(ENDER_QUARRY_BLACKLIST)
 			.add(
 				Blocks.DIRT,
