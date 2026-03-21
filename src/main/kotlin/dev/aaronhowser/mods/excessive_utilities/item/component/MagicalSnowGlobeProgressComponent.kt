@@ -56,18 +56,18 @@ data class MagicalSnowGlobeProgressComponent(
 		val DEFAULT: MagicalSnowGlobeProgressComponent =
 			MagicalSnowGlobeProgressComponent(
 				mapOf(
-					BiomeTags.IS_END to false,
 					BiomeTags.IS_FOREST to false,
 					BiomeTags.IS_HILL to false,
 					BiomeTags.IS_JUNGLE to false,
 					Tags.Biomes.IS_MAGICAL to false,
 					BiomeTags.IS_MOUNTAIN to false,
-					BiomeTags.IS_NETHER to false,
 					BiomeTags.IS_OCEAN to false,
 					Tags.Biomes.IS_PLAINS to false,
 					Tags.Biomes.IS_SANDY to false,
 					Tags.Biomes.IS_SNOWY to false,
-					Tags.Biomes.IS_SWAMP to false
+					Tags.Biomes.IS_SWAMP to false,
+					BiomeTags.IS_END to false,
+					BiomeTags.IS_NETHER to false,
 				)
 			)
 
