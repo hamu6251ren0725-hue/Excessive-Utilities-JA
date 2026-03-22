@@ -175,7 +175,7 @@ object CommonEvents {
 			ModBlockEntityTypes.PINK_GENERATOR.get(),
 			ModBlockEntityTypes.POTION_GENERATOR.get(),
 			ModBlockEntityTypes.SLIMY_GENERATOR.get(),
-			ModBlockEntityTypes.SURVIVAL_GENERATOR.get(),
+			ModBlockEntityTypes.SURVIVALIST_GENERATOR.get(),
 			ModBlockEntityTypes.DEATH_GENERATOR.get(),
 			ModBlockEntityTypes.RAINBOW_GENERATOR.get()
 		)

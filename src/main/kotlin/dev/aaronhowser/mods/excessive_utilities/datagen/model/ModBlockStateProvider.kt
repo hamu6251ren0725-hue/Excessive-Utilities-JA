@@ -2715,7 +2715,7 @@ class ModBlockStateProvider(
 		makeGenerator(ModBlocks.OVERCLOCKED_GENERATOR.get(), "overclocked")
 		makeGenerator(ModBlocks.HEATED_REDSTONE_GENERATOR.get(), "heated_redstone")
 		makeGenerator(ModBlocks.SLIMY_GENERATOR.get(), "slimy")
-		makeGenerator(ModBlocks.SURVIVAL_GENERATOR.get(), "survival")
+		makeGenerator(ModBlocks.SURVIVALIST_GENERATOR.get(), "survival")
 	}
 
 	private fun makeGenerator(

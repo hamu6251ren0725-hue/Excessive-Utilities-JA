@@ -93,7 +93,7 @@ class ModBlockTagsProvider(
 				ModBlocks.TRANSFER_FILTER,
 				ModBlocks.TRANSFER_PIPE_FILTER,
 				ModBlocks.CREATIVE_ENERGY_SOURCE,
-				ModBlocks.SURVIVAL_GENERATOR,
+				ModBlocks.SURVIVALIST_GENERATOR,
 				ModBlocks.FURNACE_GENERATOR,
 				ModBlocks.MAGMATIC_GENERATOR,
 				ModBlocks.ENDER_GENERATOR,

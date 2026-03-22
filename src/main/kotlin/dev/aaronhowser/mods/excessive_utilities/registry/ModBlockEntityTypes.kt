@@ -113,8 +113,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 			ModBlocks.CREATIVE_DRUM
 		)
 
-	val SURVIVAL_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
-		register("survival_generator", FurnaceFuelGeneratorBlockEntity::survival, ModBlocks.SURVIVAL_GENERATOR)
+	val SURVIVALIST_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
+		register("survivalist_generator", FurnaceFuelGeneratorBlockEntity::survival, ModBlocks.SURVIVALIST_GENERATOR)
 	val FURNACE_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
 		register("furnace_generator", FurnaceFuelGeneratorBlockEntity::furnace, ModBlocks.FURNACE_GENERATOR)
 	val OVERCLOCKED_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =

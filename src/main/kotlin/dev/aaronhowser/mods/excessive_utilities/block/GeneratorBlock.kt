@@ -150,7 +150,7 @@ class GeneratorBlock(
 		fun getColors(): Map<Block, Int> {
 			return mapOf(
 				ModBlocks.FURNACE_GENERATOR.get() to 0xFFFFFF,
-				ModBlocks.SURVIVAL_GENERATOR.get() to 0xFFFFFF,
+				ModBlocks.SURVIVALIST_GENERATOR.get() to 0xFFFFFF,
 				ModBlocks.CULINARY_GENERATOR.get() to 0xFFFFFF,
 				ModBlocks.POTION_GENERATOR.get() to 0x5411B1,
 				ModBlocks.EXPLOSIVE_GENERATOR.get() to 14369818,

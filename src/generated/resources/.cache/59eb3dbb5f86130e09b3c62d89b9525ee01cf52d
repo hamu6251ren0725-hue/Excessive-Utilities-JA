@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-21T10:11:37.646737	Loot Tables
+// 1.21.1	2026-03-22T05:08:58.2330142	Loot Tables
 d31df4f9b468081e14a6755a2facd5cb7bded7d3 data/excessive_utilities/loot_table/blocks/advanced_filing_cabinet.json
 b055a9a7538aafe8d17289edbaab51c7759d0a94 data/excessive_utilities/loot_table/blocks/angel_block.json
 ac31ab7f157f056f8d68ab88ed82665e96def45d data/excessive_utilities/loot_table/blocks/antenna.json
@@ -403,7 +403,7 @@ a74608b65b7e4e3ccb84a0ddd6fed776205040aa data/excessive_utilities/loot_table/blo
 6e0c35fff59dc52c93e3a08b36ed514b19350023 data/excessive_utilities/loot_table/blocks/stoneburnt.json
 3ae865935d175b59ff4ec0c1c29a935d59eb210b data/excessive_utilities/loot_table/blocks/stone_drum.json
 7c7015858a400889edb8de60b0f51911f70cc692 data/excessive_utilities/loot_table/blocks/stone_spike.json
-89a1d18bf57a0cf61400ca0ab5f101360266b2fa data/excessive_utilities/loot_table/blocks/survival_generator.json
+318aa4fae34fcfc0dfa5ed0af66b34d62caaca53 data/excessive_utilities/loot_table/blocks/survivalist_generator.json
 3e87815b876e1cf40c7a1f1a22076d97fb8755be data/excessive_utilities/loot_table/blocks/swirling_glass.json
 4ac24a25c0a9d3c58c26bdaa3fcfc25feaf4ca69 data/excessive_utilities/loot_table/blocks/terraformer.json
 b0acdaefc18a2a60ca2cee307fd126be9855da9a data/excessive_utilities/loot_table/blocks/thickened_glass.json

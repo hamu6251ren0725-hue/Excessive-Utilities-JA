@@ -113,7 +113,7 @@ class ModRecipeProvider(
 				'5' to ModItems.RESONATING_REDSTONE_CRYSTAL.asIngredient(),
 				'6' to ModBlocks.HEATED_REDSTONE_GENERATOR.asIngredient(),
 				'7' to ModBlocks.SLIMY_GENERATOR.asIngredient(),
-				'8' to ModBlocks.SURVIVAL_GENERATOR.asIngredient(),
+				'8' to ModBlocks.SURVIVALIST_GENERATOR.asIngredient(),
 				'9' to ModBlocks.EXPLOSIVE_GENERATOR.asIngredient()
 			)
 		).save(recipeOutput)
@@ -724,7 +724,7 @@ class ModRecipeProvider(
 		).save(recipeOutput)
 
 		shapedRecipe(
-			ModBlocks.SURVIVAL_GENERATOR,
+			ModBlocks.SURVIVALIST_GENERATOR,
 			"CCC,CIC,RFR",
 			mapOf(
 				'C' to Tags.Items.COBBLESTONES_NORMAL.asIngredient(),

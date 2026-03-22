@@ -66,7 +66,7 @@ class FurnaceFuelGeneratorBlockEntity(
 		)
 
 		fun survival(pos: BlockPos, state: BlockState) = FurnaceFuelGeneratorBlockEntity(
-			ModBlockEntityTypes.SURVIVAL_GENERATOR.get(),
+			ModBlockEntityTypes.SURVIVALIST_GENERATOR.get(),
 			FurnaceFuelGeneratorType.SURVIVAL,
 			pos,
 			state

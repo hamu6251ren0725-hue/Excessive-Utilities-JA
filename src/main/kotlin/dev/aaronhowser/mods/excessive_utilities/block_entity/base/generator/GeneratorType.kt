@@ -15,7 +15,7 @@ enum class GeneratorType {
 	PINK,
 	POTION,
 	SLIMY,
-	SURVIVAL,
+	SURVIVALIST,
 	DEATH,
 	RAINBOW
 

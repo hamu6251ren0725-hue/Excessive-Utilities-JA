@@ -19,7 +19,7 @@ enum class FurnaceFuelGeneratorType(
 	),
 	SURVIVAL(
 		"survival",
-		GeneratorType.SURVIVAL,
+		GeneratorType.SURVIVALIST,
 		ServerConfig.CONFIG.survivalistGeneratorBurnTimeMultiplier,
 		ServerConfig.CONFIG.survivalistGeneratorFePerTick
 	),
