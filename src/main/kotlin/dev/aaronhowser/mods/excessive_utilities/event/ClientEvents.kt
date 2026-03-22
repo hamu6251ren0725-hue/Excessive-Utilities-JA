@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.event
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.block_entity.DrumBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.SoundMufflerBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.client.render.GridPowerGuiRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.RingRechargeGuiRenderer
@@ -12,13 +13,7 @@ import dev.aaronhowser.mods.excessive_utilities.client.render.entity.MagicalBoom
 import dev.aaronhowser.mods.excessive_utilities.client.render.layer.AngelRingWingsLayer
 import dev.aaronhowser.mods.excessive_utilities.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.ClientKeyHandler
-import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
-import dev.aaronhowser.mods.excessive_utilities.item.EntityLassoItem
-import dev.aaronhowser.mods.excessive_utilities.item.HeatingCoilItem
-import dev.aaronhowser.mods.excessive_utilities.item.MagicalBoomerangItem
-import dev.aaronhowser.mods.excessive_utilities.item.SunCrystalItem
-import dev.aaronhowser.mods.excessive_utilities.item.UnstableIngotItem
-import dev.aaronhowser.mods.excessive_utilities.item.WateringCanItem
+import dev.aaronhowser.mods.excessive_utilities.item.*
 import dev.aaronhowser.mods.excessive_utilities.registry.*
 import net.minecraft.client.renderer.ItemBlockRenderTypes
 import net.minecraft.client.renderer.RenderType
@@ -212,6 +207,17 @@ object ClientEvents {
 				ModBlocks.getLapisCaelestis(color).get()
 			)
 		}
+
+		event.register(
+			DrumBlockEntity::getColor,
+			ModBlocks.STONE_DRUM.get(),
+			ModBlocks.IRON_DRUM.get(),
+			ModBlocks.REINFORCED_LARGE_DRUM.get(),
+			ModBlocks.DEMONICALLY_GARGANTUAN_DRUM.get(),
+			ModBlocks.BEDROCKIUM_DRUM.get(),
+			ModBlocks.CREATIVE_DRUM.get()
+		)
+
 	}
 
 	@SubscribeEvent

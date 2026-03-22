@@ -10,8 +10,10 @@ import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponentMap
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions
 import net.neoforged.neoforge.fluids.SimpleFluidContent
 import net.neoforged.neoforge.fluids.capability.IFluidHandler
 import java.util.function.IntSupplier
@@ -64,6 +66,20 @@ class DrumBlockEntity(
 	companion object {
 		fun getFluidCapability(blockEntity: DrumBlockEntity, direction: Direction?): IFluidHandler {
 			return blockEntity.tank
+		}
+
+		fun getColor(
+			state: BlockState,
+			level: BlockAndTintGetter?,
+			pos: BlockPos?,
+			tintIndex: Int
+		): Int {
+			if (tintIndex != 1 || level == null || pos == null) return 0xFFFFFFFF.toInt()
+			val blockEntity = level.getBlockEntity(pos) as? DrumBlockEntity ?: return 0xFFFFFFFF.toInt()
+
+			val fluid = blockEntity.tank.fluid
+			if (fluid.isEmpty) return 0xFFFFFFFF.toInt()
+			return IClientFluidTypeExtensions.of(fluid.fluid).getTintColor(fluid)
 		}
 	}
 
