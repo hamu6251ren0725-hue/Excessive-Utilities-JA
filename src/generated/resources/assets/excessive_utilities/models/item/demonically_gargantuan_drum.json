@@ -1,5 +1,5 @@
 {
-  "parent": "excessive_utilities:item/demonically_gargantuan_drum",
+  "parent": "excessive_utilities:block/demonically_gargantuan_drum",
   "display": {
     "firstperson_lefthand": {
       "rotation": [

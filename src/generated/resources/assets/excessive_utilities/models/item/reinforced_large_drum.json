@@ -1,5 +1,5 @@
 {
-  "parent": "excessive_utilities:item/reinforced_large_drum",
+  "parent": "excessive_utilities:block/reinforced_large_drum",
   "display": {
     "firstperson_lefthand": {
       "rotation": [

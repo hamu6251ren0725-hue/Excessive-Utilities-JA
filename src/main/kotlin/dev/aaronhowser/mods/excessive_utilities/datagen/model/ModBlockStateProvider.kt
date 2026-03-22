@@ -1009,7 +1009,7 @@ class ModBlockStateProvider(
 			val blockModel = models().getExistingFile(modLoc("block/$name"))
 			simpleBlock(drum, blockModel)
 
-			val itemModel = itemModels()
+			itemModels()
 				.withExistingParent(name, modLoc("block/$name"))
 				.transforms {
 					transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) {
@@ -1053,8 +1053,6 @@ class ModBlockStateProvider(
 						scale(0.5f, 0.5f, 0.5f)
 					}
 				}
-
-			simpleBlockItem(drum, itemModel)
 		}
 	}
 

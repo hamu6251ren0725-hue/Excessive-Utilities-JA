@@ -1,5 +1,5 @@
 {
-  "parent": "excessive_utilities:item/bedrockium_drum",
+  "parent": "excessive_utilities:block/bedrockium_drum",
   "display": {
     "firstperson_lefthand": {
       "rotation": [

@@ -1,5 +1,5 @@
 {
-  "parent": "excessive_utilities:item/stone_drum",
+  "parent": "excessive_utilities:block/stone_drum",
   "display": {
     "firstperson_lefthand": {
       "rotation": [
