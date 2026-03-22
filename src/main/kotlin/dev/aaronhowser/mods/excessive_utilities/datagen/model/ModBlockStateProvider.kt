@@ -72,6 +72,7 @@ class ModBlockStateProvider(
 		redstoneLantern()
 		redstoneClock()
 		spikes()
+		drums()
 //		transferPipes()
 //		transferNodes()
 		enderLily()
@@ -991,6 +992,24 @@ class ModBlockStateProvider(
 		specific(ModBlocks.FLUID_RETRIEVAL_NODE.get(), "block/transfer_node/retrieval/fluid")
 		specific(ModBlocks.ENERGY_RETRIEVAL_NODE.get(), "block/transfer_node/retrieval/energy")
 
+	}
+
+	private fun drums() {
+		val drums = listOf(
+			ModBlocks.STONE_DRUM.get(),
+			ModBlocks.IRON_DRUM.get(),
+			ModBlocks.REINFORCED_LARGE_DRUM.get(),
+			ModBlocks.DEMONICALLY_GARGANTUAN_DRUM.get(),
+			ModBlocks.BEDROCKIUM_DRUM.get(),
+			ModBlocks.CREATIVE_DRUM.get()
+		)
+
+		for (drum in drums) {
+			val name = name(drum)
+			val model = models().getExistingFile(modLoc("block/$name"))
+			simpleBlock(drum, model)
+			simpleBlockItem(drum, model)
+		}
 	}
 
 	private fun spikes() {
