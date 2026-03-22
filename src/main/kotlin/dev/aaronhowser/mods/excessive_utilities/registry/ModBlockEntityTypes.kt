@@ -105,7 +105,12 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register(
 			"drum",
 			::DrumBlockEntity,
-			ModBlocks.STONE_DRUM, ModBlocks.IRON_DRUM, ModBlocks.REINFORCED_LARGE_DRUM, ModBlocks.DEMONICALLY_GARGANTUAN_DRUM, ModBlocks.CREATIVE_DRUM
+			ModBlocks.STONE_DRUM,
+			ModBlocks.IRON_DRUM,
+			ModBlocks.REINFORCED_LARGE_DRUM,
+			ModBlocks.DEMONICALLY_GARGANTUAN_DRUM,
+			ModBlocks.BEDROCKIUM_DRUM,
+			ModBlocks.CREATIVE_DRUM
 		)
 
 	val SURVIVAL_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<FurnaceFuelGeneratorBlockEntity>> =
