@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.Gene
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.RainbowGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.handler.rainbow_generator.RainbowGeneratorHandler
-import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
@@ -146,27 +145,6 @@ class GeneratorBlock(
 	companion object {
 		val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
 		val LIT: BooleanProperty = BlockStateProperties.LIT
-
-		fun getColors(): Map<Block, Int> {
-			return mapOf(
-				ModBlocks.FURNACE_GENERATOR.get() to 0xFFFFFF,
-				ModBlocks.SURVIVALIST_GENERATOR.get() to 0xFFFFFF,
-				ModBlocks.CULINARY_GENERATOR.get() to 0xFFFFFF,
-				ModBlocks.POTION_GENERATOR.get() to 0x5411B1,
-				ModBlocks.EXPLOSIVE_GENERATOR.get() to 14369818,
-				ModBlocks.MAGMATIC_GENERATOR.get() to 0xDB441A,
-				ModBlocks.PINK_GENERATOR.get() to 0xFF4550,
-				ModBlocks.NETHER_STAR_GENERATOR.get() to 0xFFFFFF,
-				ModBlocks.ENDER_GENERATOR.get() to 0x258474,
-				ModBlocks.HEATED_REDSTONE_GENERATOR.get() to 0xAA4E03,
-				ModBlocks.OVERCLOCKED_GENERATOR.get() to 0x1B0FB0,
-				ModBlocks.HALITOSIS_GENERATOR.get() to 0xA77AA7,
-				ModBlocks.FROSTY_GENERATOR.get() to 0x4E6C9F,
-				ModBlocks.DEATH_GENERATOR.get() to 0xD8CD9C,
-				ModBlocks.DISENCHANTMENT_GENERATOR.get() to 0x3C3056,
-				ModBlocks.SLIMY_GENERATOR.get() to 0xFFFFFF
-			)
-		}
 	}
 
 }
