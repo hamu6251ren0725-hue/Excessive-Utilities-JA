@@ -2234,11 +2234,6 @@ class ModBlockStateProvider(
 
 					fb.texture(texture)
 					fb.cullface(dir)
-
-					when (dir) {
-						Direction.UP, Direction.DOWN -> fb.uvs(4f, 4f, 8f, 8f)
-						else -> fb.uvs(6f, 0f, 10f, 16f)
-					}
 				}
 			}
 

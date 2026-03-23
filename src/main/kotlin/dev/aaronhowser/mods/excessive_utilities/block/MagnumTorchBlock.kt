@@ -22,7 +22,7 @@ class MagnumTorchBlock : Block(Properties.ofFullCopy(Blocks.OAK_PLANKS)), Entity
 	}
 
 	companion object {
-		val SHAPE: VoxelShape = box(4.0, 0.0, 4.0, 10.0, 16.0, 10.0)
+		val SHAPE: VoxelShape = box(6.0, 0.0, 6.0, 10.0, 16.0, 10.0)
 	}
 
 }
