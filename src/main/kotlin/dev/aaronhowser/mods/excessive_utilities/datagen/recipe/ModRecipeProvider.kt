@@ -458,7 +458,7 @@ class ModRecipeProvider(
 		).save(recipeOutput)
 
 		shapedRecipe(
-			ModBlocks.THICKENED_GLASS_BORDERED,
+			ModBlocks.EDGED_GLASS,
 			4,
 			"GG,GG",
 			mapOf(
@@ -467,11 +467,11 @@ class ModRecipeProvider(
 		).save(recipeOutput)
 
 		shapedRecipe(
-			ModBlocks.THICKENED_GLASS_PATTERNED,
+			ModBlocks.PATTERNED_GLASS,
 			4,
 			"GG,GG",
 			mapOf(
-				'G' to ModBlocks.THICKENED_GLASS_BORDERED.asIngredient()
+				'G' to ModBlocks.EDGED_GLASS.asIngredient()
 			)
 		).save(recipeOutput)
 

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "G": {
-      "item": "excessive_utilities:thickened_glass"
+      "item": "excessive_utilities:edged_glass"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
   ],
   "result": {
     "count": 4,
-    "id": "excessive_utilities:thickened_glass_bordered"
+    "id": "excessive_utilities:patterned_glass"
   }
 }

@@ -166,8 +166,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.INEFFABLE_GLASS, "Ineffable Glass")
 			addBlock(ModBlocks.DARK_INEFFABLE_GLASS, "Ineffable Glass (Dark)")
 			addBlock(ModBlocks.INVERTED_INEFFABLE_GLASS, "Ineffable Glass (Inverted)")
-			addBlock(ModBlocks.THICKENED_GLASS_BORDERED, "Thickened Glass (Bordered)")
-			addBlock(ModBlocks.THICKENED_GLASS_PATTERNED, "Thickened Glass (Patterned)")
+			addBlock(ModBlocks.PATTERNED_GLASS, "Patterned Glass")
 			addBlock(ModBlocks.REDSTONE_GLASS, "Redstone Glass")
 
 			for (color in DyeColor.entries) {

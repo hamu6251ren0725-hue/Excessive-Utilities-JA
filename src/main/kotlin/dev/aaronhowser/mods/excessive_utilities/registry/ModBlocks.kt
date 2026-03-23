@@ -423,10 +423,8 @@ object ModBlocks : AaronBlockRegistry() {
 		basicGlassBlock("swirling_glass")
 	val THICKENED_GLASS =
 		basicGlassBlock("thickened_glass")
-	val THICKENED_GLASS_BORDERED =
-		basicGlassBlock("thickened_glass_bordered")
-	val THICKENED_GLASS_PATTERNED =
-		basicGlassBlock("thickened_glass_patterned")
+	val PATTERNED_GLASS =
+		basicGlassBlock("patterned_glass")
 	val REDSTONE_GLASS =
 		basicGlassBlock("redstone_glass")
 	val ETHEREAL_GLASS: DeferredBlock<SemiPermeableGlassBlock> =
