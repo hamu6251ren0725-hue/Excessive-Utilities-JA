@@ -455,7 +455,7 @@ object ModBlocks : AaronBlockRegistry() {
 	fun getCompressedGravel(level: Int): DeferredBlock<out CompressedBlock> = COMPRESSED_GRAVELS[level - 1]
 
 	private fun compressedBlocks(baseName: String, baseBlock: Block): List<DeferredBlock<CompressedBlock>> {
-		return List(9) { i ->
+		return List(16) { i ->
 			val level = i + 1
 
 			val baseDestroyTime = baseBlock.defaultDestroyTime()
