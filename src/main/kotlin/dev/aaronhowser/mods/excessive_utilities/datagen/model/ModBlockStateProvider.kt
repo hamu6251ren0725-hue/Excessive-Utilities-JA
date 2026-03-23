@@ -84,7 +84,7 @@ class ModBlockStateProvider(
 		terraformerBlocks()
 		antenna()
 		mechanicalBlocks()
-//		rainbowSlabs()
+		rainbowSlabs()
 	}
 
 	private fun rainbowSlabs() {
