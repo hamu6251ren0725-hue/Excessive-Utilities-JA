@@ -1,8 +1,8 @@
 {
   "parent": "block/block",
   "textures": {
-    "base": "excessive_utilities:textures/spike/iron_base",
-    "side": "excessive_utilities:textures/spike/iron_side",
+    "base": "excessive_utilities:textures/spike/iron/base",
+    "side": "excessive_utilities:textures/spike/iron/side",
     "particle": "#base"
   },
   "elements": [

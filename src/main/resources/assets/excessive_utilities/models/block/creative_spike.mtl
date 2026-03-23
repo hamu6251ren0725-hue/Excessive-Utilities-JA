@@ -1,5 +1,5 @@
 newmtl base
-map_Kd excessive_utilities:block/spike/creative_base
+map_Kd excessive_utilities:block/spike/creative/base
 
 newmtl side
-map_Kd excessive_utilities:block/spike/creative_side
+map_Kd excessive_utilities:block/spike/creative/side
