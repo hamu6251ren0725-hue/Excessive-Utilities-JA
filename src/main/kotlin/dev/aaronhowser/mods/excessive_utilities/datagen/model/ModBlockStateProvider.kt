@@ -22,7 +22,6 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ModelBuilder
 import net.neoforged.neoforge.common.data.ExistingFileHelper
-import net.neoforged.neoforge.registries.DeferredBlock
 
 class ModBlockStateProvider(
 	output: PackOutput,
@@ -105,7 +104,7 @@ class ModBlockStateProvider(
 				val block = b.get()
 				val name = name(block)
 
-				val level = i + 1
+//				val level = i + 1
 //				val overlay = modLoc("block/compressed/$level")
 
 				val model = models()

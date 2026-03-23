@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.registries.Registries
-import net.minecraft.tags.BlockTags
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.ShovelItem
