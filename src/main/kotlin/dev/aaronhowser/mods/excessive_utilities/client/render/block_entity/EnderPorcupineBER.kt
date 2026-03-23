@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.client.render.AaronRenderTypes
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.RGBA
 import dev.aaronhowser.mods.excessive_utilities.block_entity.EnderPorcupineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.client.render.WandRenderer
 import dev.aaronhowser.mods.excessive_utilities.config.ClientConfig
@@ -36,10 +37,14 @@ class EnderPorcupineBER(
 
 
 		val targetColor = ClientConfig.CONFIG.enderPorcupineCurrentTargetColor.get()
-		val targetR = ((targetColor shr 16) and 0xFF) / 255f
-		val targetG = ((targetColor shr 8) and 0xFF) / 255f
-		val targetB = (targetColor and 0xFF) / 255f
-		val targetA = ((targetColor shr 24) and 0xFF) / 255f
+
+		val targetRgba = RGBA.fromInt(targetColor)
+		val (trInt, tgInt, tbInt, taInt) = targetRgba
+
+		val targetR = trInt / 255f
+		val targetG = tgInt / 255f
+		val targetB = tbInt / 255f
+		val targetA = taInt / 255f
 
 		WandRenderer.renderCubeWireframe(
 			poseStack,
@@ -53,10 +58,14 @@ class EnderPorcupineBER(
 		val maxOffset = blockEntity.maximumOffset
 
 		val searchVolumeColor = ClientConfig.CONFIG.enderPorcupineSearchVolumeColor.get()
-		val fullR = ((searchVolumeColor shr 16) and 0xFF) / 255f
-		val fullG = ((searchVolumeColor shr 8) and 0xFF) / 255f
-		val fullB = (searchVolumeColor and 0xFF) / 255f
-		val fullA = ((searchVolumeColor shr 24) and 0xFF) / 255f
+
+		val fullRgba = RGBA.fromInt(searchVolumeColor)
+		val (frInt, fgInt, fbInt, faInt) = fullRgba
+
+		val fullR = frInt / 255f
+		val fullG = fgInt / 255f
+		val fullB = fbInt / 255f
+		val fullA = faInt / 255f
 
 		WandRenderer.renderCubeWireframe(
 			poseStack,
