@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronDsls.element
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.face
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.transform
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.transforms
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDyeName
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.*
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
@@ -1469,23 +1470,13 @@ class ModBlockStateProvider(
 		)
 
 		for ((name, getter) in map) {
-			val texture = modLoc("block/colored/$name")
 			for (color in DyeColor.entries) {
+				val colorName = color.getDyeName()
+				val texture = modLoc("block/colored/$colorName/$name")
+
 				val block = getter(color).get()
 				val model = models()
-					.withExistingParent(name(block), mcLoc("block/block"))
-					.texture("all", texture)
-					.texture("particle", texture)
-					.element {
-						from(0f, 0f, 0f)
-						to(16f, 16f, 16f)
-						allFaces { dir, fb ->
-							fb.texture("#all")
-							fb.cullface(dir)
-							fb.uvs(0f, 0f, 16f, 16f)
-							fb.tintindex(0)
-						}
-					}
+					.cubeAll(name(block), texture)
 
 				simpleBlockWithItem(block, model)
 			}
@@ -1494,29 +1485,16 @@ class ModBlockStateProvider(
 		for (color in DyeColor.entries) {
 			val block = ModBlocks.getColoredRedstoneLamp(color).get()
 			val name = name(block)
+			val dyeName = color.getDyeName()
 
-			val textureOff = modLoc("block/colored/redstone_lamp")
-			val textureOn = modLoc("block/colored/redstone_lamp_on")
+			val textureOff = modLoc("block/colored/$dyeName/redstone_lamp")
+			val textureOn = modLoc("block/colored/$dyeName/redstone_lamp_on")
 
 			val modelOff = models()
-				.withExistingParent(name, mcLoc("block/block"))
-				.texture("all", textureOff)
-				.texture("particle", textureOff)
-				.element {
-					from(0f, 0f, 0f)
-					to(16f, 16f, 16f)
-					allFaces { dir, fb ->
-						fb.texture("#all")
-						fb.cullface(dir)
-						fb.uvs(0f, 0f, 16f, 16f)
-						fb.tintindex(0)
-					}
-				}
+				.cubeAll(name + "_off", textureOff)
 
 			val modelOn = models()
-				.withExistingParent(name + "_on", modLoc("block/$name"))
-				.texture("all", textureOn)
-				.texture("particle", textureOn)
+				.cubeAll(name, textureOn)
 
 			getVariantBuilder(block)
 				.forAllStates {

@@ -1,10 +1,10 @@
 {
   "variants": {
     "lit=false": {
-      "model": "excessive_utilities:block/colored_redstone_lamp_orange"
+      "model": "excessive_utilities:block/colored_redstone_lamp_orange_off"
     },
     "lit=true": {
-      "model": "excessive_utilities:block/colored_redstone_lamp_orange_on"
+      "model": "excessive_utilities:block/colored_redstone_lamp_orange"
     }
   }
 }
