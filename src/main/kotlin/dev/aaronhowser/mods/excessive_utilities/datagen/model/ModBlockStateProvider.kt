@@ -36,7 +36,7 @@ class ModBlockStateProvider(
 		athenaBlocks()
 		slightlyLargerChest()
 		miniChest()
-//		generators()
+		generators()
 		machineBlock()
 		enderQuarry()
 		enderMarker()
