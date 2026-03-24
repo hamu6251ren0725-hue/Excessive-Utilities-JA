@@ -87,6 +87,19 @@ class ModBlockStateProvider(
 		mechanicalBlocks()
 		rainbowSlabs()
 		compressedBlocks()
+		indexer()
+	}
+
+	private fun indexer() {
+		val block = ModBlocks.INDEXER.get()
+
+		val front = modLoc("block/indexer/front")
+		val side = modLoc("block/indexer/side")
+
+		val model = models()
+			.cube(name(block), front, side, side, side, side, side)
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun compressedBlocks() {
