@@ -52,6 +52,11 @@ class PaintbrushItem(properties: Properties) : Item(properties) {
 					.component(ModDataComponents.COLOR, DyeColor.WHITE)
 			}
 
+		fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
+			if (tintIndex != 1) return 0xFFFFFFFF.toInt()
+			return stack.getOrDefault(ModDataComponents.COLOR, DyeColor.WHITE).textureDiffuseColor
+		}
+
 		private fun setBrushColor(blockState: BlockState, brushStack: ItemStack): Boolean {
 			for (dyeColor in DyeColor.entries) {
 				val tag = TagKey.create(

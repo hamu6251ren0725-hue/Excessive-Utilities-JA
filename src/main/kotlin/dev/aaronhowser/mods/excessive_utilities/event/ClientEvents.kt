@@ -20,7 +20,6 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.player.PlayerRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.DyeColor
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -149,19 +148,7 @@ object ClientEvents {
 			ModItems.UNSTABLE_INGOT
 		)
 
-		event.register(
-			{ stack, tintIndex ->
-				if (tintIndex == 1) {
-					stack.getOrDefault(
-						ModDataComponents.COLOR,
-						DyeColor.WHITE
-					).textureDiffuseColor
-				} else {
-					0xFFFFFFFF.toInt()
-				}
-			},
-			ModItems.PAINTBRUSH.get()
-		)
+		event.register(PaintbrushItem::getItemColor, ModItems.PAINTBRUSH.get())
 
 		event.register(
 			DrumBlockEntity::getColor,
