@@ -32,6 +32,7 @@ import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.tags.BlockTags
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.util.Unit
@@ -678,7 +679,7 @@ class ModRecipeProvider(
 			"DBD,DRD,DBD",
 			mapOf(
 				'D' to ModItems.BEDROCKIUM_INGOT.asIngredient(),
-				'B' to ModBlocks.BEDROCKIUM_DRUM.asIngredient(),
+				'B' to ItemTags.STONE_BUTTONS.asIngredient(),
 				'R' to ModBlocks.DEMONICALLY_GARGANTUAN_DRUM.asIngredient()
 			)
 		).save(recipeOutput)

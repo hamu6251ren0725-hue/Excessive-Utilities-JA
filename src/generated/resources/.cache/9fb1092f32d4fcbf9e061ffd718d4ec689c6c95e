@@ -1,4 +1,4 @@
-// 1.21.1	2026-03-23T13:52:32.9199725	Recipes
+// 1.21.1	2026-03-24T10:34:27.6500337	Recipes
 848f7fcdb4fa78474939b93f0c43703d650abf43 data/excessive_utilities/advancement/recipes/building_blocks/thickened_glass.json
 5544a3880f9cc21b24f3bbd7a0e3125679de74dc data/excessive_utilities/advancement/recipes/crusher/allium_to_magenta_dye.json
 03553dc68b381cde601be45b74fc8784e96887ab data/excessive_utilities/advancement/recipes/crusher/azure_bluet_to_light_gray_dye.json
@@ -654,7 +654,7 @@ fc00bfc0ffa237369c4c888cd6d3fd9321ab58fc data/excessive_utilities/recipe/angel_r
 504d757e48f470503c88d265286ca6dd7bcf5f47 data/excessive_utilities/recipe/angel_ring_conversion_invisible.json
 a98f6cc2af9824408e8a6e3237b526dc4aa7b217 data/excessive_utilities/recipe/antenna.json
 f79fa15c0263c3a3196ec5507f0576c29418c691 data/excessive_utilities/recipe/bag_of_holding.json
-042432ef079eb93e116f1fb0d38e0f2e2ef743b5 data/excessive_utilities/recipe/bedrockium_drum.json
+c3727479fca3cb120cbf9f26b719626a74962aeb data/excessive_utilities/recipe/bedrockium_drum.json
 ffe1724abf6e2ab846749499d128dd67276ad839 data/excessive_utilities/recipe/bedrockium_drum_empty.json
 5d2cc7ae610f6ec13c7c2c663100abcc6c838e79 data/excessive_utilities/recipe/bedrockium_ingot_from_block_of_bedrockium.json
 20c2a227bec49951e782824df06d4cb14d51dda6 data/excessive_utilities/recipe/biome_marker.json
