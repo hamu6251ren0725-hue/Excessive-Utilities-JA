@@ -32,7 +32,6 @@ import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.tags.BlockTags
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.util.Unit
@@ -1761,42 +1760,53 @@ class ModRecipeProvider(
 		).save(recipeOutput, modLoc("watering_can_repair"))
 
 		fun packed(
-			packed: ItemLike,
-			unpacked: ItemLike
+			bigger: ItemLike,
+			smaller: ItemLike
 		) {
-			val packedName = packed.asItem().builtInRegistryHolder().key().location().path
-			val unpackedName = unpacked.asItem().builtInRegistryHolder().key().location().path
+			val biggerName = bigger.asItem().builtInRegistryHolder().key().location().path
+			val smallerName = smaller.asItem().builtInRegistryHolder().key().location().path
 
 			shapedRecipe(
-				unpacked,
+				bigger,
 				"PPP,PPP,PPP",
-				mapOf('P' to packed.asIngredient())
-			).save(recipeOutput, modLoc("${unpackedName}_from_${packedName}"))
+				mapOf('P' to smaller.asIngredient())
+			).save(recipeOutput, modLoc("${biggerName}_from_${smallerName}"))
 
 			shapelessRecipe(
-				packed,
-				listOf(unpacked.asIngredient())
-			).save(recipeOutput, modLoc("${packedName}_from_${unpackedName}"))
+				smaller,
+				9,
+				listOf(bigger.asIngredient())
+			).save(recipeOutput, modLoc("${smallerName}_from_${biggerName}"))
 		}
 
 		packed(
+			ModBlocks.BLOCK_OF_DEMON_METAL,
 			ModItems.DEMON_INGOT,
-			ModBlocks.BLOCK_OF_DEMON_METAL
 		)
 
 		packed(
+			ModItems.DEMON_INGOT,
+			ModItems.DEMON_NUGGET,
+		)
+
+		packed(
+			ModBlocks.BLOCK_OF_ENCHANTED_METAL,
 			ModItems.ENCHANTED_INGOT,
-			ModBlocks.BLOCK_OF_ENCHANTED_METAL
+		)
+
+		packed(
+			ModBlocks.BLOCK_OF_EVIL_INFUSED_IRON,
+			ModItems.EVIL_INFUSED_IRON_INGOT,
 		)
 
 		packed(
 			ModItems.EVIL_INFUSED_IRON_INGOT,
-			ModBlocks.BLOCK_OF_EVIL_INFUSED_IRON
+			ModItems.EVIL_INFUSED_IRON_NUGGET
 		)
 
 		packed(
+			ModBlocks.BLOCK_OF_BEDROCKIUM,
 			ModItems.BEDROCKIUM_INGOT,
-			ModBlocks.BLOCK_OF_BEDROCKIUM
 		)
 
 		shapelessRecipe(
