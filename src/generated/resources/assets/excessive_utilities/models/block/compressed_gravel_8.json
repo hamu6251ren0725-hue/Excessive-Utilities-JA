@@ -78,7 +78,7 @@
       ]
     }
   ],
-  "render_type": "minecraft:translucent",
+  "render_type": "minecraft:cutout",
   "textures": {
     "overlay": "excessive_utilities:block/compressed/8",
     "particle": "minecraft:block/gravel",

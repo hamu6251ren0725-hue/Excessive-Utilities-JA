@@ -127,7 +127,7 @@ class ModBlockStateProvider(
 					.texture("texture", originalBlockTexture)
 					.texture("particle", originalBlockTexture)
 					.texture("overlay", overlay)
-					.renderType(RenderType.translucent().name)
+					.renderType(RenderType.cutout().name)
 
 					.element {
 						from(0f, 0f, 0f)
