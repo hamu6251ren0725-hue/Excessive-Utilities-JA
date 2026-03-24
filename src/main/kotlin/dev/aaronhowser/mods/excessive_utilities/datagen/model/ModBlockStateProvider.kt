@@ -3109,6 +3109,8 @@ class ModBlockStateProvider(
 			ModBlocks.DARK_INEFFABLE_GLASS.get(),
 			ModBlocks.ETHEREAL_GLASS.get(),
 			ModBlocks.INVERTED_ETHEREAL_GLASS.get(),
+			ModBlocks.OBSIDIAN_GLASS.get(),
+			ModBlocks.REINFORCED_DARK_GLASS.get()
 		)
 
 		val cutout = listOf(
