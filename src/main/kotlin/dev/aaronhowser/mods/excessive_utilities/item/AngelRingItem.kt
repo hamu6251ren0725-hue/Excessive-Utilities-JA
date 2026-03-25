@@ -213,9 +213,10 @@ class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 		BAT("bat")
 		;
 
-		val langKey = "tooltip.excessive_utilities.angel_ring.type.$id"
-		override fun getSerializedName(): String = id
+		val langKey: String = "tooltip.excessive_utilities.angel_ring.type.$id"
+		val textureLocation: ResourceLocation = ExcessiveUtilities.modResource("textures/entity/angel_wing/$id.png")
 
+		override fun getSerializedName(): String = id
 		fun getStack(): ItemStack = ModItems.ANGEL_RING.withComponent(ModDataComponents.ANGEL_RING_TYPE.get(), this)
 
 		companion object {

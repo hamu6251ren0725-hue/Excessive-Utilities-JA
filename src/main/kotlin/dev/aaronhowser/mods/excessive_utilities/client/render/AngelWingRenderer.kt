@@ -40,7 +40,7 @@ class AngelWingRenderer : ICurioRenderer {
 
 		val parentModel = renderLayerParent.model as? HumanoidModel<*> ?: return
 
-		val texture = ExcessiveUtilities.modResource("textures/entity/angel_wing/${wingType.id}.png")
+		val texture = wingType.textureLocation
 		val consumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(texture))
 
 		val flying = !entity.onGround()
