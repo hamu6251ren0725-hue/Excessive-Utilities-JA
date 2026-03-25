@@ -41,39 +41,6 @@ class ChickenWingRingItem(properties: Properties) : Item(properties), ICurioItem
 		tick(slotContext.entity(), stack)
 	}
 
-	private fun tick(entity: Entity, stack: ItemStack) {
-		if (entity is ServerPlayer) {
-			addGpConsumer(entity, stack)
-		}
-
-		if (entity is Player && canPlayerUse(entity)) {
-			val charge = stack.getOrDefault(ModDataComponents.CHARGE.get(), 0)
-			if (charge <= 0) return
-
-			stack.set(ModDataComponents.CHARGE.get(), charge - 1)
-
-			val movement = entity.deltaMovement
-			val dy = movement.y
-			if (dy >= 0) return
-
-			val maxFallSpeed = ServerConfig.CONFIG.chickenWingRingFallSpeed.get()
-			val newDy = maxOf(dy, -maxFallSpeed)
-
-			entity.deltaMovement = Vec3(movement.x, newDy, movement.z)
-			entity.resetFallDistance()
-		} else {
-			val maxCharge = ServerConfig.CONFIG.chickenWingRingDurationTicks.get()
-			val currentCharge = stack.getOrDefault(ModDataComponents.CHARGE.get(), 0)
-			if (currentCharge >= maxCharge) return
-
-			val rechargeTime = ServerConfig.CONFIG.chickenWingRingRechargeTicks.get()
-			val chargePerTick = maxCharge.toDouble() / rechargeTime
-
-			val newCharge = (currentCharge + chargePerTick).toInt().coerceAtMost(maxCharge)
-			stack.set(ModDataComponents.CHARGE.get(), newCharge)
-		}
-	}
-
 	companion object {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
@@ -88,7 +55,50 @@ class ChickenWingRingItem(properties: Properties) : Item(properties), ICurioItem
 					&& player.deltaMovement.y < 0
 		}
 
-		fun addGpConsumer(player: ServerPlayer, ringStack: ItemStack): GridPowerContribution.HeldItem {
+		private fun tick(entity: Entity, stack: ItemStack) {
+			if (entity is ServerPlayer) {
+				addGpConsumer(entity, stack)
+			}
+
+			if (entity is Player && canPlayerUse(entity)) {
+				val movement = entity.deltaMovement
+				val dy = movement.y
+				if (dy >= 0) return
+
+				val drainSuccessful = drainCharge(stack)
+				if (!drainSuccessful) return
+
+				val maxFallSpeed = ServerConfig.CONFIG.chickenWingRingFallSpeed.get()
+				val newDy = maxOf(dy, -maxFallSpeed)
+
+				entity.deltaMovement = Vec3(movement.x, newDy, movement.z)
+				entity.resetFallDistance()
+			} else {
+				recharge(stack)
+			}
+		}
+
+		private fun drainCharge(stack: ItemStack): Boolean {
+			val charge = stack.getOrDefault(ModDataComponents.CHARGE.get(), 0)
+			if (charge <= 0) return false
+
+			stack.set(ModDataComponents.CHARGE.get(), charge - 1)
+			return true
+		}
+
+		private fun recharge(stack: ItemStack) {
+			val maxCharge = ServerConfig.CONFIG.chickenWingRingDurationTicks.get()
+			val currentCharge = stack.getOrDefault(ModDataComponents.CHARGE.get(), 0)
+			if (currentCharge >= maxCharge) return
+
+			val rechargeTime = ServerConfig.CONFIG.chickenWingRingRechargeTicks.get()
+			val chargePerTick = maxCharge.toDouble() / rechargeTime
+
+			val newCharge = (currentCharge + chargePerTick).toInt().coerceAtMost(maxCharge)
+			stack.set(ModDataComponents.CHARGE.get(), newCharge)
+		}
+
+		private fun addGpConsumer(player: ServerPlayer, ringStack: ItemStack): GridPowerContribution.HeldItem {
 			val handler = GridPowerHandler.get(player.serverLevel()).getGrid(player)
 
 			val currentConsumers = handler.getConsumers()
