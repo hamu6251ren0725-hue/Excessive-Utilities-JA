@@ -230,9 +230,26 @@ class ModBlockStateProvider(
 				val enabled = it.getValue(EnderCollectorBlock.POWERED)
 				val model = if (enabled) modelDisabled else modelEnabled
 
+				val facing = it.getValue(EnderCollectorBlock.FACING)
+				val yRot = when (facing) {
+					Direction.NORTH -> 0
+					Direction.EAST -> 90
+					Direction.SOUTH -> 180
+					Direction.WEST -> 270
+					else -> 0
+				}
+
+				val xRot = when (facing.axis) {
+					Direction.Axis.Y -> 0
+					Direction.Axis.X -> 90
+					Direction.Axis.Z -> 90
+				}
+
 				ConfiguredModel
 					.builder()
 					.modelFile(model)
+					.rotationX(xRot)
+					.rotationY(yRot)
 					.build()
 			}
 
