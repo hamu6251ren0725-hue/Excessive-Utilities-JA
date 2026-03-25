@@ -106,90 +106,55 @@ class PaintbrushItem(properties: Properties) : Item(properties) {
 				return true
 			}
 
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_STONES)) {
-				val newState = ModBlocks.getColoredStone(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
+			val newState = when {
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_STONES)
+					-> ModBlocks.getColoredStone(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_COBBLESTONES) ->
+					ModBlocks.getColoredCobblestone(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_STONE_BRICKS) ->
+					ModBlocks.getColoredStoneBricks(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_BRICKS) ->
+					ModBlocks.getColoredBricks(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_COAL_BLOCKS) ->
+					ModBlocks.getColoredCoalBlock(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_LAPIS_BLOCKS) ->
+					ModBlocks.getColoredLapisBlock(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_PLANKS) ->
+					ModBlocks.getColoredPlanks(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_OBSIDIANS) ->
+					ModBlocks.getColoredObsidian(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_QUARTZES) ->
+					ModBlocks.getColoredQuartz(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_GLOWSTONES) ->
+					ModBlocks.getColoredGlowstone(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_REDSTONE_BLOCKS) ->
+					ModBlocks.getColoredRedstoneBlock(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_REDSTONE_LAMPS) ->
+					ModBlocks.getColoredRedstoneLamp(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_SOUL_SANDS) ->
+					ModBlocks.getColoredSoulSand(color).defaultBlockState()
+
+				blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_LAPIS_CAELESTI) ->
+					ModBlocks.getLapisCaelestis(color).defaultBlockState()
+
+				else -> null
 			}
 
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_COBBLESTONES)) {
-				val newState = ModBlocks.getColoredCobblestone(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
+			if (newState == null) return false
 
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_STONE_BRICKS)) {
-				val newState = ModBlocks.getColoredStoneBricks(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_BRICKS)) {
-				val newState = ModBlocks.getColoredBricks(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_COAL_BLOCKS)) {
-				val newState = ModBlocks.getColoredCoalBlock(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_LAPIS_BLOCKS)) {
-				val newState = ModBlocks.getColoredLapisBlock(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_PLANKS)) {
-				val newState = ModBlocks.getColoredPlanks(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_OBSIDIANS)) {
-				val newState = ModBlocks.getColoredObsidian(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_QUARTZES)) {
-				val newState = ModBlocks.getColoredQuartz(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_GLOWSTONES)) {
-				val newState = ModBlocks.getColoredGlowstone(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_REDSTONE_BLOCKS)) {
-				val newState = ModBlocks.getColoredRedstoneBlock(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_REDSTONE_LAMPS)) {
-				val newState = ModBlocks.getColoredRedstoneLamp(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_SOUL_SANDS)) {
-				val newState = ModBlocks.getColoredSoulSand(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
-			if (blockState.isBlock(ModBlockTagsProvider.PAINTBRUSH_LAPIS_CAELESTI)) {
-				val newState = ModBlocks.getLapisCaelestis(color).defaultBlockState()
-				level.setBlockAndUpdate(pos, newState)
-				return true
-			}
-
+			level.setBlockAndUpdate(pos, newState)
 			return false
 		}
 	}
