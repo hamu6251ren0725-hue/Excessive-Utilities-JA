@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.excessive_utilities.client.render
 
 import com.mojang.blaze3d.vertex.PoseStack
+import com.mojang.blaze3d.vertex.VertexConsumer
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import net.minecraft.client.model.EntityModel
@@ -8,6 +10,7 @@ import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.RenderLayerParent
+import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
@@ -18,7 +21,7 @@ class AngelWingRenderer : ICurioRenderer {
 	override fun <T : LivingEntity, M : EntityModel<T?>> render(
 		stack: ItemStack,
 		slotContext: SlotContext,
-		matrixStack: PoseStack,
+		poseStack: PoseStack,
 		renderLayerParent: RenderLayerParent<T, M>,
 		renderTypeBuffer: MultiBufferSource,
 		light: Int,
@@ -37,6 +40,58 @@ class AngelWingRenderer : ICurioRenderer {
 		val texture = ExcessiveUtilities.modResource("textures/entity/angel_wings/${wingType.id}.png")
 		val consumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(texture))
 
+		poseStack.withPose {
+			parentModel.body.translateAndRotate(poseStack)
+
+			renderQuad(poseStack, consumer, light, isFlipped = false)
+			renderQuad(poseStack, consumer, light, isFlipped = true)
+		}
+	}
+
+	private fun renderQuad(
+		poseStack: PoseStack,
+		vertexConsumer: VertexConsumer,
+		packedLight: Int,
+		isFlipped: Boolean
+	) {
+		val pose = poseStack.last()
+
+		val minX = if (isFlipped) 0f else -1f
+		val maxX = if (isFlipped) -1f else 0f
+
+		val minY = -0.5f
+		val maxY = 0.5f
+
+		val minU = if (isFlipped) 0f else 1f
+		val maxU = if (isFlipped) 1f else 0f
+
+		vertexConsumer.addVertex(pose, minX, minY, 0f)
+			.setColor(255, 255, 255, 255)
+			.setUv(minU, 0f)
+			.setOverlay(OverlayTexture.NO_OVERLAY)
+			.setLight(packedLight)
+			.setNormal(pose, 0f, 0f, 1f)
+
+		vertexConsumer.addVertex(pose, minX, maxY, 0f)
+			.setColor(255, 255, 255, 255)
+			.setUv(minU, 1f)
+			.setOverlay(OverlayTexture.NO_OVERLAY)
+			.setLight(packedLight)
+			.setNormal(pose, 0f, 0f, 1f)
+
+		vertexConsumer.addVertex(pose, maxX, maxY, 0f)
+			.setColor(255, 255, 255, 255)
+			.setUv(maxU, 1f)
+			.setOverlay(OverlayTexture.NO_OVERLAY)
+			.setLight(packedLight)
+			.setNormal(pose, 0f, 0f, 1f)
+
+		vertexConsumer.addVertex(pose, maxX, minY, 0f)
+			.setColor(255, 255, 255, 255)
+			.setUv(maxU, 0f)
+			.setOverlay(OverlayTexture.NO_OVERLAY)
+			.setLight(packedLight)
+			.setNormal(pose, 0f, 0f, 1f)
 	}
 
 }
