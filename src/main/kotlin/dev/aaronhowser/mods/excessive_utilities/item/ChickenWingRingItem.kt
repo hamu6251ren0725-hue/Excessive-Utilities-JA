@@ -13,9 +13,11 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
+import top.theillusivec4.curios.api.SlotContext
+import top.theillusivec4.curios.api.type.capability.ICurioItem
 
 // Lasts 10 seconds, recharges in 5 seconds
-class ChickenWingRingItem(properties: Properties) : Item(properties) {
+class ChickenWingRingItem(properties: Properties) : Item(properties), ICurioItem {
 
 	override fun shouldCauseReequipAnimation(
 		oldStack: ItemStack,
@@ -32,7 +34,14 @@ class ChickenWingRingItem(properties: Properties) : Item(properties) {
 		slotId: Int,
 		isSelected: Boolean
 	) {
+		tick(entity, stack)
+	}
 
+	override fun curioTick(slotContext: SlotContext, stack: ItemStack) {
+		tick(slotContext.entity(), stack)
+	}
+
+	private fun tick(entity: Entity, stack: ItemStack) {
 		if (entity is ServerPlayer) {
 			addGpConsumer(entity, stack)
 		}
@@ -63,7 +72,6 @@ class ChickenWingRingItem(properties: Properties) : Item(properties) {
 			val newCharge = (currentCharge + chargePerTick).toInt().coerceAtMost(maxCharge)
 			stack.set(ModDataComponents.CHARGE.get(), newCharge)
 		}
-
 	}
 
 	companion object {
