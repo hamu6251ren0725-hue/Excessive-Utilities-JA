@@ -229,10 +229,10 @@
     }
   ],
   "textures": {
-    "antenna_top": "excessive_utilities:block/ender_collector/antenna_top_off",
+    "antenna_top": "excessive_utilities:block/ender_collector/antenna_top_on",
     "base_top": "excessive_utilities:block/ender_collector/base_top",
     "bottom": "excessive_utilities:block/ender_collector/bottom",
-    "particle": "excessive_utilities:block/ender_collector/side_off",
-    "side": "excessive_utilities:block/ender_collector/side_off"
+    "particle": "excessive_utilities:block/ender_collector/side_on",
+    "side": "excessive_utilities:block/ender_collector/side_on"
   }
 }

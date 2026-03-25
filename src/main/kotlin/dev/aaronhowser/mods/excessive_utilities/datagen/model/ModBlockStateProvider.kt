@@ -103,13 +103,13 @@ class ModBlockStateProvider(
 		val sideOff = modLoc("block/ender_collector/side_off")
 		val sideOn = modLoc("block/ender_collector/side_on")
 
-		val modelOff = models()
-			.withExistingParent(name + "_off", mcLoc("block/block"))
-			.texture("antenna_top", antennaTopOff)
+		val modelEnabled = models()
+			.withExistingParent(name, mcLoc("block/block"))
+			.texture("antenna_top", antennaTopOn)
 			.texture("base_top", baseTop)
-			.texture("side", sideOff)
+			.texture("side", sideOn)
 			.texture("bottom", bottom)
-			.particle(sideOff)
+			.particle(sideOn)
 
 			.element {
 				from(1f, 0f, 4f)
@@ -212,15 +212,15 @@ class ModBlockStateProvider(
 				}
 			}
 
-		val modelOn = models()
-			.withExistingParent(name + "_on", modLoc("block/$name" + "_off"))
+		val modelDisabled = models()
+			.withExistingParent(name + "_disabled", modLoc("block/$name"))
 			.texture("antenna_top", antennaTopOn)
 			.texture("side", sideOn)
 
 		getVariantBuilder(block)
 			.forAllStates {
 				val enabled = it.getValue(EnderCollectorBlock.ENABLED)
-				val model = if (enabled) modelOn else modelOff
+				val model = if (enabled) modelEnabled else modelDisabled
 
 				ConfiguredModel
 					.builder()
@@ -228,7 +228,7 @@ class ModBlockStateProvider(
 					.build()
 			}
 
-		simpleBlockItem(block, modelOn)
+		simpleBlockItem(block, modelEnabled)
 	}
 
 	private fun indexer() {
