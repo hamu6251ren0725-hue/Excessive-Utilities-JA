@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.client.render.bewlr
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer
@@ -49,36 +50,34 @@ class OpiniumCoreBEWLR : BlockEntityWithoutLevelRenderer(
 			packedOverlay: Int,
 			time: Float
 		) {
-			poseStack.pushPose()
+			poseStack.withPose {
+				poseStack.translate(0.5, 0.5, 0.5)
 
-			poseStack.translate(0.5, 0.5, 0.5)
+				val yRotPerTick = 4f
+				val yRot = Mth.wrapDegrees(time * yRotPerTick)
+				poseStack.mulPose(Axis.YP.rotationDegrees(yRot))
 
-			val yRotPerTick = 4f
-			val yRot = Mth.wrapDegrees(time * yRotPerTick)
-			poseStack.mulPose(Axis.YP.rotationDegrees(yRot))
+				val xRotPerTick = 2f
+				val xRot = Mth.wrapDegrees(time * xRotPerTick)
+				poseStack.mulPose(Axis.XP.rotationDegrees(xRot))
 
-			val xRotPerTick = 2f
-			val xRot = Mth.wrapDegrees(time * xRotPerTick)
-			poseStack.mulPose(Axis.XP.rotationDegrees(xRot))
+				val zRotPerTick = 1f
+				val zRot = Mth.wrapDegrees(time * zRotPerTick)
+				poseStack.mulPose(Axis.ZP.rotationDegrees(zRot))
 
-			val zRotPerTick = 1f
-			val zRot = Mth.wrapDegrees(time * zRotPerTick)
-			poseStack.mulPose(Axis.ZP.rotationDegrees(zRot))
+				poseStack.scale(0.5f, 0.5f, 0.5f)
 
-			poseStack.scale(0.5f, 0.5f, 0.5f)
-
-			ITEM_RENDERER.renderStatic(
-				innerStack,
-				displayContext,
-				packedLight,
-				packedOverlay,
-				poseStack,
-				buffer,
-				null,
-				0
-			)
-
-			poseStack.popPose()
+				ITEM_RENDERER.renderStatic(
+					innerStack,
+					displayContext,
+					packedLight,
+					packedOverlay,
+					poseStack,
+					buffer,
+					null,
+					0
+				)
+			}
 		}
 
 		private fun renderOuters(
@@ -90,43 +89,41 @@ class OpiniumCoreBEWLR : BlockEntityWithoutLevelRenderer(
 			packedOverlay: Int,
 			time: Float
 		) {
-			poseStack.pushPose()
+			poseStack.withPose {
+				poseStack.translate(0.5, 0.5, 0.5)
 
-			poseStack.translate(0.5, 0.5, 0.5)
+				val yRotPerTick = 2f
+				val yRot = Mth.wrapDegrees(time * yRotPerTick)
+				poseStack.mulPose(Axis.YP.rotationDegrees(yRot))
 
-			val yRotPerTick = 2f
-			val yRot = Mth.wrapDegrees(time * yRotPerTick)
-			poseStack.mulPose(Axis.YP.rotationDegrees(yRot))
+				val xRotPerTick = 2f
+				val xRot = Mth.wrapDegrees(time * xRotPerTick)
+				poseStack.mulPose(Axis.XP.rotationDegrees(xRot))
 
-			val xRotPerTick = 2f
-			val xRot = Mth.wrapDegrees(time * xRotPerTick)
-			poseStack.mulPose(Axis.XP.rotationDegrees(xRot))
+				val zRotPerTick = 1f
+				val zRot = Mth.wrapDegrees(time * zRotPerTick)
+				poseStack.mulPose(Axis.ZP.rotationDegrees(zRot))
 
-			val zRotPerTick = 1f
-			val zRot = Mth.wrapDegrees(time * zRotPerTick)
-			poseStack.mulPose(Axis.ZP.rotationDegrees(zRot))
+				poseStack.withPose {
+					poseStack.translate(0.3, 0.0, 0.0)
+					renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
+				}
 
-			poseStack.pushPose()
-			poseStack.translate(0.3, 0.0, 0.0)
-			renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
-			poseStack.popPose()
+				poseStack.withPose {
+					poseStack.translate(-0.3, 0.0, 0.0)
+					renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
+				}
 
-			poseStack.pushPose()
-			poseStack.translate(-0.3, 0.0, 0.0)
-			renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
-			poseStack.popPose()
+				poseStack.withPose {
+					poseStack.translate(0.0, 0.0, 0.3)
+					renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
+				}
 
-			poseStack.pushPose()
-			poseStack.translate(0.0, 0.0, 0.3)
-			renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
-			poseStack.popPose()
-
-			poseStack.pushPose()
-			poseStack.translate(0.0, 0.0, -0.3)
-			renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
-			poseStack.popPose()
-
-			poseStack.popPose()
+				poseStack.withPose {
+					poseStack.translate(0.0, 0.0, -0.3)
+					renderOuterShifted(outerStack, poseStack, buffer, displayContext, packedLight, packedOverlay)
+				}
+			}
 		}
 
 		private fun renderOuterShifted(
@@ -137,22 +134,20 @@ class OpiniumCoreBEWLR : BlockEntityWithoutLevelRenderer(
 			packedLight: Int,
 			packedOverlay: Int
 		) {
-			poseStack.pushPose()
+			poseStack.withPose {
+				poseStack.scale(0.25f, 0.25f, 0.25f)
 
-			poseStack.scale(0.25f, 0.25f, 0.25f)
-
-			ITEM_RENDERER.renderStatic(
-				outerStack,
-				displayContext,
-				packedLight,
-				packedOverlay,
-				poseStack,
-				buffer,
-				null,
-				0
-			)
-
-			poseStack.popPose()
+				ITEM_RENDERER.renderStatic(
+					outerStack,
+					displayContext,
+					packedLight,
+					packedOverlay,
+					poseStack,
+					buffer,
+					null,
+					0
+				)
+			}
 		}
 	}
 

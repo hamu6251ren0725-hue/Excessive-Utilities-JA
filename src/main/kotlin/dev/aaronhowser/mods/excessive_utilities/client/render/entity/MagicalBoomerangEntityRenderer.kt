@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.client.render.entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.excessive_utilities.entity.MagicalBoomerangEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -36,28 +37,21 @@ class MagicalBoomerangEntityRenderer(
 		val age = entity.tickCount + partialTick
 		val rotationDegrees = Mth.wrapDegrees(age * 20f)
 
-		poseStack.pushPose()
+		poseStack.withPose {
+			poseStack.mulPose(Axis.YP.rotationDegrees(rotationDegrees))
+			poseStack.mulPose(Axis.XP.rotationDegrees(90f))
 
-		poseStack.mulPose(
-			Axis.YP.rotationDegrees(rotationDegrees)
-		)
-
-		poseStack.mulPose(
-			Axis.XP.rotationDegrees(90f)
-		)
-
-		itemRenderer.renderStatic(
-			boomerangStack,
-			ItemDisplayContext.GROUND,
-			packedLight,
-			OverlayTexture.NO_OVERLAY,
-			poseStack,
-			bufferSource,
-			entity.level(),
-			entity.id
-		)
-
-		poseStack.popPose()
+			itemRenderer.renderStatic(
+				boomerangStack,
+				ItemDisplayContext.GROUND,
+				packedLight,
+				OverlayTexture.NO_OVERLAY,
+				poseStack,
+				bufferSource,
+				entity.level(),
+				entity.id
+			)
+		}
 	}
 
 	override fun getTextureLocation(entity: MagicalBoomerangEntity): ResourceLocation = TextureAtlas.LOCATION_BLOCKS

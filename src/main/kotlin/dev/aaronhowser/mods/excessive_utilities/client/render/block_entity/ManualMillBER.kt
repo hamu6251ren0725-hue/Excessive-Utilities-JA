@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.client.render.block_entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.excessive_utilities.block_entity.mill.ManualMillBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -29,24 +30,22 @@ class ManualMillBER(
 		val turnDegrees = Mth.rotLerp(partialTick, blockEntity.prevTurnDegrees, blockEntity.turnDegrees)
 		val itemRenderer = context.itemRenderer
 
-		poseStack.pushPose()
+		poseStack.withPose {
+			poseStack.translate(0.5, 0.4, 0.5)
 
-		poseStack.translate(0.5, 0.4, 0.5)
+			poseStack.mulPose(Axis.YP.rotationDegrees(turnDegrees))
+			poseStack.mulPose(Axis.XP.rotationDegrees(90f))
 
-		poseStack.mulPose(Axis.YP.rotationDegrees(turnDegrees))
-		poseStack.mulPose(Axis.XP.rotationDegrees(90f))
-
-		itemRenderer.renderStatic(
-			gearStack,
-			ItemDisplayContext.NONE,
-			packedLight,
-			packedOverlay,
-			poseStack,
-			bufferSource,
-			blockEntity.level,
-			0
-		)
-
-		poseStack.popPose()
+			itemRenderer.renderStatic(
+				gearStack,
+				ItemDisplayContext.NONE,
+				packedLight,
+				packedOverlay,
+				poseStack,
+				bufferSource,
+				blockEntity.level,
+				0
+			)
+		}
 	}
 }

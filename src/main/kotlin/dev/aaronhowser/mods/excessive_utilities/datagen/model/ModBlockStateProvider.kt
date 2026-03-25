@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronDsls.face
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.transform
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.transforms
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDyeName
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.particle
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block.*
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
@@ -98,7 +99,7 @@ class ModBlockStateProvider(
 
 		val model = models()
 			.cube(name(block), front, side, front, side, side, side)
-			.texture("particle", side)
+			.particle(side)
 
 		simpleBlockWithItem(block, model)
 	}
@@ -125,7 +126,7 @@ class ModBlockStateProvider(
 				val model = models()
 					.withExistingParent(name, mcLoc("block/block"))
 					.texture("texture", originalBlockTexture)
-					.texture("particle", originalBlockTexture)
+					.particle(originalBlockTexture)
 					.texture("overlay", overlay)
 					.renderType(RenderType.cutout().name)
 
@@ -169,7 +170,7 @@ class ModBlockStateProvider(
 			.texture("side", topSide)
 			.texture("top", actual)
 			.texture("bottom", center)
-			.texture("particle", actual)
+			.particle(actual)
 			.element {
 				from(0f, 8f, 0f)
 				to(16f, 16f, 16f)
@@ -190,7 +191,7 @@ class ModBlockStateProvider(
 			.texture("top", center)
 			.texture("side", bottomSide)
 			.texture("bottom", topSide)
-			.texture("particle", actual)
+			.particle(actual)
 			.element {
 				from(0f, 0f, 0f)
 				to(16f, 8f, 16f)
@@ -240,7 +241,7 @@ class ModBlockStateProvider(
 			.texture("base", base)
 			.texture("side", side)
 			.texture("top", top)
-			.texture("particle", side)
+			.particle(side)
 			.renderType(RenderType.cutout().name)
 
 			// Base
@@ -394,7 +395,7 @@ class ModBlockStateProvider(
 			.texture("front", modLoc("block/machine_block/side"))
 			.texture("bottom", modLoc("block/machine_block/bottom"))
 			.texture("overlay", modLoc("block/enchanter/face_off"))
-			.texture("particle", modLoc("block/enchanter/top"))
+			.particle(modLoc("block/enchanter/top"))
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -469,7 +470,7 @@ class ModBlockStateProvider(
 			.texture("top", modLoc("block/machine_block/top"))
 			.texture("bottom", modLoc("block/machine_block/bottom"))
 			.texture("overlay", modLoc("block/crusher/off"))
-			.texture("particle", modLoc("block/machine_block/side"))
+			.particle(modLoc("block/machine_block/side"))
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -533,7 +534,7 @@ class ModBlockStateProvider(
 		val model = models()
 			.withExistingParent(name(block), mcLoc("block/block"))
 			.texture("texture", modLoc("block/ender_porcupine"))
-			.texture("particle", modLoc("block/ender_porcupine"))
+			.particle(modLoc("block/ender_porcupine"))
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -668,7 +669,7 @@ class ModBlockStateProvider(
 		val coreModel = models()
 			.withExistingParent(name(block) + "_core", mcLoc("block/block"))
 			.texture("pipe", texture)
-			.texture("particle", texture)
+			.particle(texture)
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -685,7 +686,7 @@ class ModBlockStateProvider(
 		val armModel = models()
 			.withExistingParent(name(block) + "_arm", mcLoc("block/block"))
 			.texture("pipe", texture)
-			.texture("particle", texture)
+			.particle(texture)
 
 			.element {
 				from(6f, 6f, 0f)
@@ -960,7 +961,7 @@ class ModBlockStateProvider(
 				.texture("pipe", modLoc("block/transfer_pipe/pipe"))
 				.texture("node", nodeTexture)
 				.texture("back", modLoc("block/transfer_node/back"))
-				.texture("particle", nodeTexture)
+				.particle(nodeTexture)
 
 			val builder = getMultipartBuilder(block)
 
@@ -1251,7 +1252,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("side", side)
 			.texture("bottom", bottom)
-			.texture("particle", side)
+			.particle(side)
 
 			.element {
 				from(4f, 0f, 4f)
@@ -1304,7 +1305,7 @@ class ModBlockStateProvider(
 
 		val model = models()
 			.cubeTop(name(block), side, top)
-			.texture("particle", side)
+			.particle(side)
 
 		simpleBlockWithItem(block, model)
 	}
@@ -1317,7 +1318,7 @@ class ModBlockStateProvider(
 		val model = models()
 			.withExistingParent(name(block), mcLoc("block/block"))
 			.texture("texture", texture)
-			.texture("particle", texture)
+			.particle(texture)
 			.renderType(RenderType.translucent().name)
 
 			.element {
@@ -1361,7 +1362,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("side", side)
 			.texture("bottom", bottom)
-			.texture("particle", side)
+			.particle(side)
 
 			.element {
 				from(1f, 0f, 1f)
@@ -1442,7 +1443,7 @@ class ModBlockStateProvider(
 		models()
 			.withExistingParent("lapis_caelestis_template", mcLoc("block/block"))
 			.texture("all", modLoc("block/lapis_caelestis"))
-			.texture("particle", modLoc("block/lapis_caelestis"))
+			.particle(modLoc("block/lapis_caelestis"))
 
 			.element {
 				from(0f, 0f, 0f)
@@ -1548,7 +1549,7 @@ class ModBlockStateProvider(
 			.withExistingParent(name(block), mcLoc("block/block"))
 			.texture("side", side)
 			.texture("top", top)
-			.texture("particle", top)
+			.particle(top)
 
 			.element {
 				from(0f, 0f, 0f)
@@ -1613,7 +1614,7 @@ class ModBlockStateProvider(
 			.withExistingParent(name(block), mcLoc("block/block"))
 			.texture("side", side)
 			.texture("top", top)
-			.texture("particle", side)
+			.particle(side)
 
 			.element {
 				from(0f, 0f, 0f)
@@ -1642,7 +1643,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("base", base)
 			.texture("fan", fan)
-			.texture("particle", top)
+			.particle(top)
 			.renderType(RenderType.cutout().name)
 
 			// Top
@@ -1725,7 +1726,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("base", base)
 			.texture("fan", fan)
-			.texture("particle", top)
+			.particle(top)
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -1778,7 +1779,7 @@ class ModBlockStateProvider(
 			.texture("side", modLoc("block/mill/fire"))
 			.texture("base", modLoc("block/mill/base"))
 			.texture("fan", modLoc("block/mill/fan_spinning"))
-			.texture("particle", modLoc("block/mill/fire"))
+			.particle(modLoc("block/mill/fire"))
 			.renderType(RenderType.cutout().name)
 
 			// North
@@ -1894,7 +1895,7 @@ class ModBlockStateProvider(
 				.texture("side", side)
 				.texture("top", top)
 				.texture("base", base)
-				.texture("particle", side)
+				.particle(side)
 
 				.element {
 					from(0f, 0f, 0f)
@@ -1929,7 +1930,7 @@ class ModBlockStateProvider(
 			.texture("side", side)
 			.texture("front", front)
 			.texture("top", top)
-			.texture("particle", side)
+			.particle(side)
 
 			// Bottom half
 			.element {
@@ -2003,7 +2004,7 @@ class ModBlockStateProvider(
 			.texture("side", side)
 			.texture("front", front)
 			.texture("top", top)
-			.texture("particle", side)
+			.particle(side)
 
 			// Bottom half
 			.element {
@@ -2079,7 +2080,7 @@ class ModBlockStateProvider(
 			.texture("front", front)
 			.texture("top", top)
 			.texture("bottom", bottom)
-			.texture("particle", side)
+			.particle(side)
 
 			// Bottom half
 			.element {
@@ -2175,7 +2176,7 @@ class ModBlockStateProvider(
 				.texture("side", side)
 				.texture("top", top)
 				.texture("bottom", bottom)
-				.texture("particle", side)
+				.particle(side)
 
 				// Bottom half
 				.element {
@@ -2264,7 +2265,7 @@ class ModBlockStateProvider(
 			.texture("side", side)
 			.texture("top", top)
 			.texture("bottom", bottom)
-			.texture("particle", side)
+			.particle(side)
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -2292,7 +2293,7 @@ class ModBlockStateProvider(
 
 		val model = models()
 			.withExistingParent(name(block), "block/block")
-			.texture("particle", texture)
+			.particle(texture)
 			.texture("texture", texture)
 			.renderType(RenderType.cutout().name)
 
@@ -2371,7 +2372,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("bottom", bottom)
 			.texture("side", side)
-			.texture("particle", top)
+			.particle(top)
 
 			.element {
 				from(0f, 12f, 0f)
@@ -2467,7 +2468,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("bottom", bottom)
 			.texture("side", side)
-			.texture("particle", side)
+			.particle(side)
 
 			.element {
 				from(0f, 0f, 0f)
@@ -2503,7 +2504,7 @@ class ModBlockStateProvider(
 				.withExistingParent(name + "_night", mcLoc("block/block"))
 				.texture("stone", mcLoc("block/$baseTexture"))
 				.texture("overlay", modLoc("block/moon_stone_ore_overlay"))
-				.texture("particle", mcLoc("block/stone"))
+				.particle(mcLoc("block/stone"))
 				.renderType(RenderType.cutout().name)
 
 				.element {
@@ -2628,7 +2629,7 @@ class ModBlockStateProvider(
 			val model = models()
 				.withExistingParent(name(block), mcLoc("block/block"))
 				.texture("texture", texture)
-				.texture("particle", texture)
+				.particle(texture)
 				.element {
 					from(1f, 1f, 1f)
 					to(15f, 15f, 15f)
@@ -2651,7 +2652,7 @@ class ModBlockStateProvider(
 		val model = models()
 			.withExistingParent(name(block), "block/block")
 			.texture("texture", texture)
-			.texture("particle", texture)
+			.particle(texture)
 			.element {
 				from(7f, 0f, 7f)
 				to(9f, 13f, 9f)
@@ -2714,7 +2715,7 @@ class ModBlockStateProvider(
 			.texture("top", top)
 			.texture("bottom", bottom)
 			.texture("overlay", overlayOff)
-			.texture("particle", side)
+			.particle(side)
 			.renderType(RenderType.cutout().name)
 
 			.element {
@@ -2804,11 +2805,11 @@ class ModBlockStateProvider(
 
 		val modelOff = models()
 			.cube(name + "_off", top, top, frontOff, side, side, side)
-			.texture("particle", side)
+			.particle(side)
 
 		val modelOn = models()
 			.cube(name + "_on", top, top, frontOn, side, side, side)
-			.texture("particle", side)
+			.particle(side)
 
 		getVariantBuilder(generatorBlock)
 			.forAllStates {
@@ -2845,7 +2846,7 @@ class ModBlockStateProvider(
 		val model = models()
 			.withExistingParent(name, mcLoc("block/block"))
 			.texture("texture", texture)
-			.texture("particle", texture)
+			.particle(texture)
 
 			.element {
 				from(5f, 0f, 5f)

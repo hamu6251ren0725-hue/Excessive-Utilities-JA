@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.client.render.block_entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.aaron.client.render.RenderUtil
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.RainbowGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ClientConfig
@@ -35,20 +36,19 @@ class RainbowGeneratorBER(
 		val centerColor = getColorFromTime(time)
 		val outerColor = centerColor and 0x00FFFFFF
 
-		poseStack.pushPose()
-		poseStack.translate(0.5f, 0.5f, 0.5f)
+		poseStack.withPose {
+			poseStack.translate(0.5f, 0.5f, 0.5f)
 
-		RenderUtil.renderDragonRays(
-			poseStack = poseStack,
-			time = time,
-			bufferSource = bufferSource,
-			centerColor = centerColor,
-			outerColor = outerColor,
-			rayLength = length,
-			rayWidth = width
-		)
-
-		poseStack.popPose()
+			RenderUtil.renderDragonRays(
+				poseStack = poseStack,
+				time = time,
+				bufferSource = bufferSource,
+				centerColor = centerColor,
+				outerColor = outerColor,
+				rayLength = length,
+				rayWidth = width
+			)
+		}
 	}
 
 	private fun getColorFromTime(time: Float): Int {
