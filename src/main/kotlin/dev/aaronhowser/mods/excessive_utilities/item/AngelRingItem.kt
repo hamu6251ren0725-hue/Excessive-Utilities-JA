@@ -109,9 +109,22 @@ class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 				override fun isStillValid(): Boolean {
 					if (!player.isAlive || player.isRemoved) return false
 
-					val hasStack = player.inventory.contains { stack -> ItemStack.isSameItemSameComponents(stack, gpStack) }
+					var stillHasStack = false
 
-					if (!hasStack) {
+					if (ringStack == ItemStack.EMPTY) {
+						val wornCurios = CuriosApi.getCuriosInventory(player).getOrNull()?.equippedCurios
+						if (wornCurios != null) {
+							for (slot in 0 until wornCurios.slots) {
+								val stack = wornCurios.getStackInSlot(slot)
+								if (stack === ringStack) {
+									stillHasStack = true
+									break
+								}
+							}
+						}
+					}
+
+					if (!stillHasStack) {
 						val attribute = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT)
 						if (attribute != null && attribute.hasModifier(ATTRIBUTE_MODIFIER_NAME)) {
 							attribute.removeModifier(ATTRIBUTE_MODIFIER_NAME)
@@ -120,7 +133,7 @@ class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 						}
 					}
 
-					return hasStack
+					return stillHasStack
 				}
 
 				override fun getAmount(): Double {

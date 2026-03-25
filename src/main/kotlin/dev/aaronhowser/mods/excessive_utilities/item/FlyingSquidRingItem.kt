@@ -13,8 +13,10 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
+import top.theillusivec4.curios.api.CuriosApi
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.type.capability.ICurioItem
+import kotlin.jvm.optionals.getOrNull
 
 class FlyingSquidRingItem(properties: Properties) : Item(properties), ICurioItem {
 
@@ -110,9 +112,31 @@ class FlyingSquidRingItem(properties: Properties) : Item(properties), ICurioItem
 				override fun isStillValid(): Boolean {
 					if (!player.isAlive || player.isRemoved) return false
 
-					val hasStack = player.inventory.contains { stack -> ItemStack.isSameItemSameComponents(stack, gpStack) }
+					var stillHasStack = false
 
-					return hasStack
+					for (compartment in player.inventory.compartments) {
+						for (stack in compartment) {
+							if (stack === ringStack) {
+								stillHasStack = true
+								break
+							}
+						}
+					}
+
+					if (ringStack == ItemStack.EMPTY) {
+						val wornCurios = CuriosApi.getCuriosInventory(player).getOrNull()?.equippedCurios
+						if (wornCurios != null) {
+							for (slot in 0 until wornCurios.slots) {
+								val stack = wornCurios.getStackInSlot(slot)
+								if (stack === ringStack) {
+									stillHasStack = true
+									break
+								}
+							}
+						}
+					}
+
+					return stillHasStack
 				}
 
 				override fun getAmount(): Double {
