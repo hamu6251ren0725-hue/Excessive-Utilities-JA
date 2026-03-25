@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerContribution
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerHandler
+import dev.aaronhowser.mods.excessive_utilities.packet.server_to_client.UpdatePlayerWingPacket
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import io.netty.buffer.ByteBuf
@@ -15,7 +16,6 @@ import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.StringRepresentable
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.item.Item
@@ -23,26 +23,37 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.NeoForgeMod
+import top.theillusivec4.curios.api.SlotContext
+import top.theillusivec4.curios.api.type.capability.ICurioItem
 import java.util.*
 
 //TODO:
-// Types
 // Render on back
-class AngelRingItem(properties: Properties) : Item(properties) {
+class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 
-	override fun inventoryTick(
-		stack: ItemStack,
-		level: Level,
-		entity: Entity,
-		slotId: Int,
-		isSelected: Boolean
-	) {
-
+	override fun curioTick(slotContext: SlotContext, stack: ItemStack) {
+		val entity = slotContext.entity()
 		if (entity is ServerPlayer) {
 			addGpConsumer(entity, stack)
 			handleAttributeModifier(entity)
 		}
+	}
 
+	override fun onEquip(slotContext: SlotContext, prevStack: ItemStack, stack: ItemStack) {
+		val entity = slotContext.entity()
+		if (entity is ServerPlayer) {
+			val type = stack.get(ModDataComponents.ANGEL_RING_TYPE)
+			val packet = UpdatePlayerWingPacket(entity, type)
+			packet.messageAllPlayersTrackingEntityAndSelf(entity)
+		}
+	}
+
+	override fun onUnequip(slotContext: SlotContext?, newStack: ItemStack?, stack: ItemStack?) {
+		val entity = slotContext?.entity()
+		if (entity is ServerPlayer) {
+			val packet = UpdatePlayerWingPacket(entity, null)
+			packet.messageAllPlayersTrackingEntityAndSelf(entity)
+		}
 	}
 
 	override fun appendHoverText(

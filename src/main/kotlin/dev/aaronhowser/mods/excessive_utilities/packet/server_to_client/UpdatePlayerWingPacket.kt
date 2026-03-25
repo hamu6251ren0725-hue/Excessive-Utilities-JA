@@ -7,6 +7,7 @@ import io.netty.buffer.ByteBuf
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import java.util.*
 
@@ -14,6 +15,8 @@ class UpdatePlayerWingPacket(
 	val playerUuid: UUID,
 	val wingType: AngelRingItem.Type?
 ) : AaronPacket() {
+
+	constructor(player: Player, wingType: AngelRingItem.Type?) : this(player.uuid, wingType)
 
 	override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
 		return TYPE
