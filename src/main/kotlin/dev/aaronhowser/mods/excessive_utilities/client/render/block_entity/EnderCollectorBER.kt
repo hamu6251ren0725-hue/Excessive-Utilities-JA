@@ -31,14 +31,13 @@ class EnderCollectorBER(
 
 		val linesConsumer = bufferSource.getBuffer(AaronRenderTypes.LINES_THROUGH_WALL_RENDER_TYPE)
 
-
 		val radius = blockEntity.radius.toFloat()
-		val minX = pos.x - radius
-		val minY = pos.y - radius
-		val minZ = pos.z - radius
-		val maxX = pos.x + radius + 1
-		val maxY = pos.y + radius + 1
-		val maxZ = pos.z + radius + 1
+		val minX = -radius
+		val minY = -radius
+		val minZ = -radius
+		val maxX = radius + 1
+		val maxY = radius + 1
+		val maxZ = radius + 1
 
 		WandRenderer.renderCubeWireframe(
 			poseStack,
