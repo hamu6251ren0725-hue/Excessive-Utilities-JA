@@ -98,10 +98,10 @@ object ModDataGen {
 			ModBiomeTagsProvider(output, lookupProvider, existingFileHelper)
 		)
 
-//		generator.addProvider(
-//			event.includeServer(),
-//			ModCurioProvider(output, existingFileHelper, lookupProvider)
-//		)
+		generator.addProvider(
+			event.includeServer(),
+			ModCurioProvider(output, existingFileHelper, lookupProvider)
+		)
 
 		val languageProvider = ModLanguageProvider(output)
 
