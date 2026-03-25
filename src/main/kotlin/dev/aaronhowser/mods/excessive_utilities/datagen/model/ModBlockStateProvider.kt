@@ -214,8 +214,8 @@ class ModBlockStateProvider(
 
 		val modelDisabled = models()
 			.withExistingParent(name + "_disabled", modLoc("block/$name"))
-			.texture("antenna_top", antennaTopOn)
-			.texture("side", sideOn)
+			.texture("antenna_top", antennaTopOff)
+			.texture("side", sideOff)
 
 		getVariantBuilder(block)
 			.forAllStates {
