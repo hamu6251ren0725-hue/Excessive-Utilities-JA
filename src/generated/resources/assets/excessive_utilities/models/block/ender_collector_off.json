@@ -1,0 +1,238 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#base_top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        1,
+        0,
+        4
+      ],
+      "to": [
+        15,
+        2,
+        12
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#base_top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        4,
+        0,
+        1
+      ],
+      "to": [
+        12,
+        2,
+        15
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#base_top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        4,
+        2,
+        4
+      ],
+      "to": [
+        12,
+        4,
+        12
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#base_top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        5,
+        4,
+        5
+      ],
+      "to": [
+        11,
+        6,
+        11
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#base_top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        6,
+        6,
+        6
+      ],
+      "to": [
+        10,
+        16,
+        10
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#antenna_top"
+        },
+        "east": {
+          "texture": "#antenna_top"
+        },
+        "north": {
+          "texture": "#antenna_top"
+        },
+        "south": {
+          "texture": "#antenna_top"
+        },
+        "up": {
+          "texture": "#antenna_top"
+        },
+        "west": {
+          "texture": "#antenna_top"
+        }
+      },
+      "from": [
+        6,
+        10,
+        1
+      ],
+      "to": [
+        10,
+        14,
+        15
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#antenna_top"
+        },
+        "east": {
+          "texture": "#antenna_top"
+        },
+        "north": {
+          "texture": "#antenna_top"
+        },
+        "south": {
+          "texture": "#antenna_top"
+        },
+        "up": {
+          "texture": "#antenna_top"
+        },
+        "west": {
+          "texture": "#antenna_top"
+        }
+      },
+      "from": [
+        1,
+        10,
+        6
+      ],
+      "to": [
+        15,
+        14,
+        10
+      ]
+    }
+  ],
+  "textures": {
+    "antenna_top": "excessive_utilities:block/ender_collector/antenna_top_off",
+    "base_top": "excessive_utilities:block/ender_collector/base_top",
+    "bottom": "excessive_utilities:block/ender_collector/bottom",
+    "particle": "excessive_utilities:block/ender_collector/side_off",
+    "side": "excessive_utilities:block/ender_collector/side_off"
+  }
+}

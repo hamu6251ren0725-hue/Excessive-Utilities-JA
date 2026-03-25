@@ -89,6 +89,135 @@ class ModBlockStateProvider(
 		rainbowSlabs()
 		compressedBlocks()
 		indexer()
+		enderCollector()
+	}
+
+	private fun enderCollector() {
+		val block = ModBlocks.ENDER_COLLECTOR.get()
+		val name = name(block)
+
+		val antennaTopOff = modLoc("block/ender_collector/antenna_top_off")
+		val antennaTopOn = modLoc("block/ender_collector/antenna_top_on")
+		val baseTop = modLoc("block/ender_collector/base_top")
+		val bottom = modLoc("block/ender_collector/bottom")
+		val sideOff = modLoc("block/ender_collector/side_off")
+		val sideOn = modLoc("block/ender_collector/side_on")
+
+		val modelOff = models()
+			.withExistingParent(name + "_off", mcLoc("block/block"))
+			.texture("antenna_top", antennaTopOff)
+			.texture("base_top", baseTop)
+			.texture("side", sideOff)
+			.texture("bottom", bottom)
+			.particle(sideOff)
+
+			.element {
+				from(1f, 0f, 4f)
+				to(15f, 2f, 12f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#base_top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+
+					if (dir == Direction.DOWN) {
+						fb.cullface(dir)
+					}
+				}
+			}
+
+			.element {
+				from(4f, 0f, 1f)
+				to(12f, 2f, 15f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#base_top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+
+					if (dir == Direction.DOWN) {
+						fb.cullface(dir)
+					}
+				}
+			}
+
+			.element {
+				from(4f, 2f, 4f)
+				to(12f, 4f, 12f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#base_top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			.element {
+				from(5f, 4f, 5f)
+				to(11f, 6f, 11f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#base_top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			.element {
+				from(6f, 6f, 6f)
+				to(10f, 16f, 10f)
+
+				allFaces { dir, fb ->
+					val texture = when (dir) {
+						Direction.UP -> "#base_top"
+						Direction.DOWN -> "#bottom"
+						else -> "#side"
+					}
+
+					fb.texture(texture)
+				}
+			}
+
+			.element {
+				from(6f, 10f, 1f)
+				to(10f, 14f, 15f)
+
+				allFaces { _, fb ->
+					fb.texture("#antenna_top")
+				}
+			}
+
+			.element {
+				from(1f, 10f, 6f)
+				to(15f, 14f, 10f)
+
+				allFaces { _, fb ->
+					fb.texture("#antenna_top")
+				}
+			}
+
+		val modelOn = models()
+			.withExistingParent(name + "_on", modLoc("block/$name" + "_off"))
+			.texture("antenna_top", antennaTopOn)
+			.texture("side", sideOn)
+
+		simpleBlockWithItem(block, modelOn)
 	}
 
 	private fun indexer() {
