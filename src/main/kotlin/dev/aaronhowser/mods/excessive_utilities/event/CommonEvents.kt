@@ -410,4 +410,9 @@ object CommonEvents {
 		UnstableIngotItem.handleCraftEvent(event)
 	}
 
+	@SubscribeEvent
+	fun onStartTracking(event: PlayerEvent.StartTracking) {
+		AngelRingItem.handleTrackingEvent(event)
+	}
+
 }

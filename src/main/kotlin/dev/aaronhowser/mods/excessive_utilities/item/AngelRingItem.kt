@@ -18,14 +18,18 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.NeoForgeMod
+import net.neoforged.neoforge.event.entity.player.PlayerEvent
+import top.theillusivec4.curios.api.CuriosApi
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.type.capability.ICurioItem
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 //TODO:
 // Render on back
@@ -159,6 +163,30 @@ class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 					flightAttribute.removeModifier(ATTRIBUTE_MODIFIER_NAME)
 				}
 			}
+		}
+
+		fun handleTrackingEvent(event: PlayerEvent.StartTracking) {
+			val target = event.target as? Player ?: return
+			val tracker = event.entity as? ServerPlayer ?: return
+
+			val wornCurios = CuriosApi.getCuriosInventory(target).getOrNull()?.equippedCurios ?: return
+			var firstRingType: Type? = null
+
+			for (slot in 0 until wornCurios.slots) {
+				val stack = wornCurios.getStackInSlot(slot)
+				if (stack.isEmpty) continue
+
+				val type = stack.get(ModDataComponents.ANGEL_RING_TYPE)
+				if (type != null) {
+					firstRingType = type
+					break
+				}
+			}
+
+			if (firstRingType == null) return
+
+			val packet = UpdatePlayerWingPacket(target, firstRingType)
+			packet.messagePlayer(tracker)
 		}
 
 	}
