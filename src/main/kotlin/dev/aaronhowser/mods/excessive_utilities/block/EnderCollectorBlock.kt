@@ -33,7 +33,7 @@ class EnderCollectorBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
 			.setValue(POWERED, context.level.hasNeighborSignal(context.clickedPos))
-			.setValue(FACING, context.clickedFace.opposite)
+			.setValue(FACING, context.clickedFace)
 	}
 
 	override fun neighborChanged(state: BlockState, level: Level, pos: BlockPos, neighborBlock: Block, neighborPos: BlockPos, movedByPiston: Boolean) {
