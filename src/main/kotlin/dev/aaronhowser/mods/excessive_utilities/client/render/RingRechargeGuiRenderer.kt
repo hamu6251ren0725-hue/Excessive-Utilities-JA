@@ -11,6 +11,9 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.ItemStack
+import top.theillusivec4.curios.api.CuriosApi
+import kotlin.jvm.optionals.getOrNull
 
 object RingRechargeGuiRenderer {
 
@@ -20,12 +23,29 @@ object RingRechargeGuiRenderer {
 	fun render(guiGraphics: GuiGraphics, deltaTracker: DeltaTracker) {
 		val player = AaronClientUtil.localPlayer ?: return
 
-		val ringStack = player
-			.inventory
-			.compartments
-			.flatMap { it.toList() }
-			.firstOrNull { it.isItem(ModItems.RING_OF_THE_FLYING_SQUID) || it.isItem(ModItems.CHICKEN_WING_RING) }
-			?: return
+		var ringStack = ItemStack.EMPTY
+
+		for (compartment in player.inventory.compartments) {
+			for (stack in compartment) {
+				if (stack.isItem(ModItems.RING_OF_THE_FLYING_SQUID) || stack.isItem(ModItems.CHICKEN_WING_RING)) {
+					ringStack = stack
+					break
+				}
+			}
+		}
+
+		if (ringStack == ItemStack.EMPTY) {
+			val wornCurios = CuriosApi.getCuriosInventory(player).getOrNull()?.equippedCurios ?: return
+			for (slot in 0 until wornCurios.slots) {
+				val stack = wornCurios.getStackInSlot(slot)
+				if (stack.isItem(ModItems.RING_OF_THE_FLYING_SQUID) || stack.isItem(ModItems.CHICKEN_WING_RING)) {
+					ringStack = stack
+					break
+				}
+			}
+
+			if (ringStack == ItemStack.EMPTY) return
+		}
 
 		val maxCharge = when {
 			ringStack.isItem(ModItems.RING_OF_THE_FLYING_SQUID) -> ServerConfig.CONFIG.flyingSquidRingDurationTicks.get()
