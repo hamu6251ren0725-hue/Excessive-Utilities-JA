@@ -130,20 +130,21 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 
 		private fun handleAttributeModifier(player: ServerPlayer) {
 			val flightAttribute = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT) ?: return
+			val currentlyHasModifier = flightAttribute.hasModifier(ATTRIBUTE_MODIFIER_NAME)
 
 			val handler = GridPowerHandler.get(player.serverLevel()).getGrid(player)
 			if (!handler.isOverloaded()) {
-				if (!flightAttribute.hasModifier(ATTRIBUTE_MODIFIER_NAME)) {
-					flightAttribute.addTransientModifier(
-						AttributeModifier(
-							ATTRIBUTE_MODIFIER_NAME,
-							1.0,
-							AttributeModifier.Operation.ADD_VALUE
-						)
+				if (currentlyHasModifier) return
+
+				flightAttribute.addTransientModifier(
+					AttributeModifier(
+						ATTRIBUTE_MODIFIER_NAME,
+						1.0,
+						AttributeModifier.Operation.ADD_VALUE
 					)
-				}
+				)
 			} else {
-				if (flightAttribute.hasModifier(ATTRIBUTE_MODIFIER_NAME)) {
+				if (currentlyHasModifier) {
 					flightAttribute.removeModifier(ATTRIBUTE_MODIFIER_NAME)
 				}
 			}
