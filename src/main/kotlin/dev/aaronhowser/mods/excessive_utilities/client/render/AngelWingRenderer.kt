@@ -36,10 +36,11 @@ class AngelWingRenderer : ICurioRenderer {
 	) {
 		val entity = slotContext.entity
 		val wingType = AngelRingItem.PLAYER_WINGS[entity.uuid] ?: return
+		if (wingType == AngelRingItem.Type.INVISIBLE) return
 
 		val parentModel = renderLayerParent.model as? HumanoidModel<*> ?: return
 
-		val texture = ExcessiveUtilities.modResource("textures/entity/angel_wings/${wingType.id}.png")
+		val texture = ExcessiveUtilities.modResource("textures/entity/angel_wing/${wingType.id}.png")
 		val consumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(texture))
 
 		val flying = !entity.onGround()
