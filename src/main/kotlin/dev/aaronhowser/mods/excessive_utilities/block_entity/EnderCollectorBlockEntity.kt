@@ -38,6 +38,9 @@ class EnderCollectorBlockEntity(
 	}
 
 	private fun serverTick(level: ServerLevel) {
+		val powered = blockState.getValue(EnderCollectorBlock.POWERED)
+		if (powered) return
+
 		val itemHandler = getItemHandler(level) ?: return
 
 		val aabb = AABB(blockPos).inflate(radius)
@@ -71,8 +74,8 @@ class EnderCollectorBlockEntity(
 
 	private fun getItemHandler(level: ServerLevel): IItemHandler? {
 		val facing = blockState.getValue(EnderCollectorBlock.FACING)
-		val targetPos = worldPosition.relative(facing)
-		return level.getCapability(Capabilities.ItemHandler.BLOCK, targetPos, facing.opposite)
+		val targetPos = worldPosition.relative(facing.opposite)
+		return level.getCapability(Capabilities.ItemHandler.BLOCK, targetPos, facing)
 	}
 
 	companion object {

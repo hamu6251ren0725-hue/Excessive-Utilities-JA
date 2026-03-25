@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
 import dev.aaronhowser.mods.excessive_utilities.block_entity.EnderCollectorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
@@ -93,7 +93,7 @@ class EnderCollectorBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)), Ent
 			val blockEntity = level.getBlockEntity(pos)
 			if (blockEntity is EnderCollectorBlockEntity) {
 				blockEntity.cycleRadius(reverse = player.isSecondaryUseActive)
-				player.tell(blockEntity.radius.toString())
+				player.status(blockEntity.radius.toString())
 			}
 		}
 
