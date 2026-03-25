@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.NeoForgeMod
+import java.util.*
 
 //TODO:
 // Types
@@ -63,6 +64,8 @@ class AngelRingItem(properties: Properties) : Item(properties) {
 					.stacksTo(1)
 					.component(ModDataComponents.ANGEL_RING_TYPE, Type.INVISIBLE)
 			}
+
+		val PLAYER_WINGS: MutableMap<UUID, Type> = mutableMapOf()
 
 		val RING_TYPE: ResourceLocation = ExcessiveUtilities.modResource("ring_type")
 		fun hasEntityPredicate(
