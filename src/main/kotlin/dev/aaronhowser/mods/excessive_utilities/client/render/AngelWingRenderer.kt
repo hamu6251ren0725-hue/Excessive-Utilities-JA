@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.client.render
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
+import com.mojang.math.Axis
 import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.SlotContext
 import top.theillusivec4.curios.api.client.ICurioRenderer
+import kotlin.math.cos
 
 class AngelWingRenderer : ICurioRenderer {
 
@@ -40,11 +42,25 @@ class AngelWingRenderer : ICurioRenderer {
 		val texture = ExcessiveUtilities.modResource("textures/entity/angel_wings/${wingType.id}.png")
 		val consumer = renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(texture))
 
+		val flying = !entity.onGround()
+
+		val angleAmplitude = cos(ageInTicks / if (flying) 4 else 16) + 1
+		val angle = 25f + angleAmplitude * if (flying) 20 else 8
+
 		poseStack.withPose {
 			parentModel.body.translateAndRotate(poseStack)
+			poseStack.translate(0.0, 0.2, 0.0)
+			poseStack.mulPose(Axis.YP.rotationDegrees(90f))
 
-			renderQuad(poseStack, consumer, light, isFlipped = false)
-			renderQuad(poseStack, consumer, light, isFlipped = true)
+			poseStack.withPose {
+				poseStack.mulPose(Axis.YP.rotationDegrees(angle))
+				renderQuad(poseStack, consumer, light, isFlipped = false)
+			}
+
+			poseStack.withPose {
+				poseStack.mulPose(Axis.YP.rotationDegrees(-angle))
+				renderQuad(poseStack, consumer, light, isFlipped = true)
+			}
 		}
 	}
 
