@@ -111,15 +111,13 @@ class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 
 					var stillHasStack = false
 
-					if (ringStack == ItemStack.EMPTY) {
-						val wornCurios = CuriosApi.getCuriosInventory(player).getOrNull()?.equippedCurios
-						if (wornCurios != null) {
-							for (slot in 0 until wornCurios.slots) {
-								val stack = wornCurios.getStackInSlot(slot)
-								if (stack === ringStack) {
-									stillHasStack = true
-									break
-								}
+					val wornCurios = CuriosApi.getCuriosInventory(player).getOrNull()?.equippedCurios
+					if (wornCurios != null) {
+						for (slot in 0 until wornCurios.slots) {
+							val stack = wornCurios.getStackInSlot(slot)
+							if (stack === ringStack) {
+								stillHasStack = true
+								break
 							}
 						}
 					}
