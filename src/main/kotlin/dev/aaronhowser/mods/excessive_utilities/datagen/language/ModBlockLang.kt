@@ -213,11 +213,13 @@ object ModBlockLang {
 				}
 
 				val cobble = ModBlocks.getCompressedCobblestone(i)
+				val cobbledDeepslate = ModBlocks.getCompressedCobbledDeepslate(i)
 				val dirt = ModBlocks.getCompressedDirt(i)
 				val gravel = ModBlocks.getCompressedGravel(i)
 				val sand = ModBlocks.getCompressedSand(i)
 
 				addBlock(cobble, "$amount Compressed Cobblestone")
+				addBlock(cobbledDeepslate, "$amount Compressed Cobbled Deepslate")
 				addBlock(dirt, "$amount Compressed Dirt")
 				addBlock(gravel, "$amount Compressed Gravel")
 				addBlock(sand, "$amount Compressed Sand")

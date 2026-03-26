@@ -2738,6 +2738,7 @@ class ModRecipeProvider(
 	private fun buildCompressedBlockRecipes(recipeOutput: RecipeOutput) {
 		val types = mapOf(
 			"cobblestone" to ModBlocks.COMPRESSED_COBBLESTONES,
+			"cobbled_deepslate" to ModBlocks.COMPRESSED_COBBLED_DEEPSLATES,
 			"dirt" to ModBlocks.COMPRESSED_DIRTS,
 			"sand" to ModBlocks.COMPRESSED_SANDS,
 			"gravel" to ModBlocks.COMPRESSED_GRAVELS,
@@ -2813,6 +2814,18 @@ class ModRecipeProvider(
 			9,
 			listOf(ModBlocks.getCompressedSand(1).asIngredient())
 		).save(recipeOutput, modLoc("compressed_sand/to_sand"))
+
+		shapedRecipe(
+			ModBlocks.getCompressedCobbledDeepslate(1),
+			"CCC,CCC,CCC",
+			mapOf('C' to Tags.Items.COBBLESTONES_DEEPSLATE.asIngredient())
+		).save(recipeOutput, modLoc("compressed_cobbled_deepslate/from_cobbled_deepslate"))
+
+		shapelessRecipe(
+			Blocks.COBBLED_DEEPSLATE,
+			9,
+			listOf(ModBlocks.getCompressedCobbledDeepslate(1).asIngredient())
+		).save(recipeOutput, modLoc("compressed_cobbled_deepslate/to_cobbled_deepslate"))
 	}
 
 }

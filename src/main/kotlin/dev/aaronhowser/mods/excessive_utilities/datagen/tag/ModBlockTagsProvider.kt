@@ -168,6 +168,7 @@ class ModBlockTagsProvider(
 				ModBlocks.DARK_INEFFABLE_GLASS,
 			)
 			.add(*ModBlocks.COMPRESSED_COBBLESTONES.toTypedArray())
+			.add(*ModBlocks.COMPRESSED_COBBLED_DEEPSLATES.toTypedArray())
 			.add(*ModBlocks.COLORED_STONES.map { it.value }.toTypedArray())
 			.add(*ModBlocks.COLORED_COBBLESTONES.map { it.value }.toTypedArray())
 			.add(*ModBlocks.COLORED_STONE_BRICKS.map { it.value }.toTypedArray())

@@ -273,6 +273,7 @@ class ModBlockStateProvider(
 
 		val types = mapOf(
 			"cobblestone" to ModBlocks.COMPRESSED_COBBLESTONES,
+			"cobbled_deepslate" to ModBlocks.COMPRESSED_COBBLED_DEEPSLATES,
 			"dirt" to ModBlocks.COMPRESSED_DIRTS,
 			"sand" to ModBlocks.COMPRESSED_SANDS,
 			"gravel" to ModBlocks.COMPRESSED_GRAVELS,

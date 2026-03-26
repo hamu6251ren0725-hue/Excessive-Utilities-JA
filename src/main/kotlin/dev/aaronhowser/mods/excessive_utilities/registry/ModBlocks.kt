@@ -442,6 +442,8 @@ object ModBlocks : AaronBlockRegistry() {
 
 	val COMPRESSED_COBBLESTONES: List<DeferredBlock<CompressedBlock>> =
 		compressedBlocks("cobblestone", Blocks.COBBLESTONE)
+	val COMPRESSED_COBBLED_DEEPSLATES: List<DeferredBlock<CompressedBlock>> =
+		compressedBlocks("cobbled_deepslate", Blocks.COBBLED_DEEPSLATE)
 	val COMPRESSED_DIRTS: List<DeferredBlock<CompressedBlock>> =
 		compressedBlocks("dirt", Blocks.DIRT)
 	val COMPRESSED_SANDS: List<DeferredBlock<CompressedBlock>> =
@@ -450,6 +452,7 @@ object ModBlocks : AaronBlockRegistry() {
 		compressedBlocks("gravel", Blocks.GRAVEL)
 
 	fun getCompressedCobblestone(level: Int): DeferredBlock<out CompressedBlock> = COMPRESSED_COBBLESTONES[level - 1]
+	fun getCompressedCobbledDeepslate(level: Int): DeferredBlock<out CompressedBlock> = COMPRESSED_COBBLED_DEEPSLATES[level - 1]
 	fun getCompressedDirt(level: Int): DeferredBlock<out CompressedBlock> = COMPRESSED_DIRTS[level - 1]
 	fun getCompressedSand(level: Int): DeferredBlock<out CompressedBlock> = COMPRESSED_SANDS[level - 1]
 	fun getCompressedGravel(level: Int): DeferredBlock<out CompressedBlock> = COMPRESSED_GRAVELS[level - 1]
