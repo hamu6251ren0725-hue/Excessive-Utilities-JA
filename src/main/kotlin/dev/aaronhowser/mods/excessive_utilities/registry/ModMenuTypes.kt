@@ -43,7 +43,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 	override fun getMenuTypeRegistry(): DeferredRegister<MenuType<*>> = MENU_TYPE_REGISTRY
 
 	val FLAT_TRANSFER_NODE: DeferredHolder<MenuType<*>, MenuType<FlatTransferNodeMenu>> =
-		register("flat_transfer_node", ::FlatTransferNodeMenu)
+		register("flat_transfer_node") { IMenuTypeExtension.create(FlatTransferNodeMenu::fromNetwork) }
 	val ITEM_TRANSFER_NODE: DeferredHolder<MenuType<*>, MenuType<ItemTransferNodeMenu>> =
 		register("item_transfer_node", ::ItemTransferNodeMenu)
 	val FLUID_TRANSFER_NODE: DeferredHolder<MenuType<*>, MenuType<FluidTransferNodeMenu>> =

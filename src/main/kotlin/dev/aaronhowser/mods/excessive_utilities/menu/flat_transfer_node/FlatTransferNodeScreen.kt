@@ -12,10 +12,16 @@ class FlatTransferNodeScreen(
 	title: Component
 ) : BaseScreen<FlatTransferNodeMenu>(menu, playerInventory, title) {
 
-	override val background: ScreenBackground = BACKGROUND
+	override val background: ScreenBackground = if (menu.isItemNode()) ITEM_BACKGROUND else FLUID_BACKGROUND
+
+	override fun baseInit() {
+		titleLabelY -= 1
+		inventoryLabelY -= 1
+	}
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/flat_transfer_node.png"), 176, 166)
+		val FLUID_BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/fluid_flat_transfer_node.png"), 176, 166)
+		val ITEM_BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_flat_transfer_node.png"), 176, 166)
 	}
 
 }

@@ -272,7 +272,7 @@ class FlatTransferNodeEntity(
 
 			val node = getNodeAt(level, blockPos, direction) ?: return
 
-			player.openMenu(node)
+			player.openMenu(node) { it.writeInt(node.id) }
 
 			player.swing(player.usedItemHand, true)
 
