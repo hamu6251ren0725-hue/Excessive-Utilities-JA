@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.TransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.ItemTransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
@@ -43,12 +44,12 @@ class ItemTransferNodeMenu(
 	}
 
 	override fun addSlots() {
-		val filterSlot = FilteredSlot(filterContainer, 0, 153, 5) { it.isItem(ModItemTagsProvider.FILTERS) }
+		val filterSlot = FilteredSlot(filterContainer, 0, 153, 5) { it.isItem(ModItems.ITEM_FILTER) }
 		this.addSlot(filterSlot)
 
 		for (i in 0 until TransferNodeBlockEntity.UPGRADE_CONTAINER_SIZE) {
 			val x = 35 + i * 18
-			val y = 68
+			val y = 51
 
 			val slot = FilteredSlot(upgradesContainer, i, x, y) {
 				it.isItem(ModItemTagsProvider.TRANSFER_NODE_UPGRADES) || it.isItem(ModItemTagsProvider.RETRIEVAL_NODE_UPGRADES)
@@ -57,7 +58,7 @@ class ItemTransferNodeMenu(
 			this.addSlot(slot)
 		}
 
-		val bufferSlot = Slot(bufferContainer, 0, 80, 28)
+		val bufferSlot = Slot(bufferContainer, 0, 80, 25)
 		this.addSlot(bufferSlot)
 	}
 
