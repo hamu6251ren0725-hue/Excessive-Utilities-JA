@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.TransferNodeBl
 import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.FluidTransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.ItemTransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.Container
@@ -30,16 +31,16 @@ class FluidTransferNodeMenu(
 		checkContainerSize(upgradesContainer, TransferNodeBlockEntity.UPGRADE_CONTAINER_SIZE)
 
 		addSlots()
-		addPlayerInventorySlots(91)
+		addPlayerInventorySlots(108)
 	}
 
 	override fun addSlots() {
-		val filterSlot = FilteredSlot(filterContainer, 0, 8, 58) { it.isItem(ModItemTagsProvider.FILTERS) }
+		val filterSlot = FilteredSlot(filterContainer, 0, 153, 5) { it.isItem(ModItems.FLUID_FILTER) }
 		this.addSlot(filterSlot)
 
 		for (i in 0 until TransferNodeBlockEntity.UPGRADE_CONTAINER_SIZE) {
 			val x = 35 + i * 18
-			val y = 58
+			val y = 68
 
 			val slot = FilteredSlot(upgradesContainer, i, x, y) {
 				it.isItem(ModItemTagsProvider.TRANSFER_NODE_UPGRADES) || it.isItem(ModItemTagsProvider.RETRIEVAL_NODE_UPGRADES)

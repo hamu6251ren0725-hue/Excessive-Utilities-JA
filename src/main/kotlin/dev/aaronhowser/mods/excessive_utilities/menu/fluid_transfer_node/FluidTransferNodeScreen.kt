@@ -15,10 +15,11 @@ class FluidTransferNodeScreen(
 ) : BaseScreen<FluidTransferNodeMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
-	override val inventoryLabelOffsetY: Int = 8
+	override val inventoryLabelOffsetY: Int
+		get() = 22
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/fluid_transfer_node.png"), 176, 190)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/fluid_transfer_node.png"), 176, 166)
 	}
 
 }
