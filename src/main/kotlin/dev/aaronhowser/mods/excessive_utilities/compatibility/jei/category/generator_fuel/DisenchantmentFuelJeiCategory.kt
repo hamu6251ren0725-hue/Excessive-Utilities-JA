@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.DisenchantmentGeneratorBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -10,6 +9,7 @@ import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import mezz.jei.api.registration.IRecipeRegistration
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -22,7 +22,7 @@ class DisenchantmentFuelJeiCategory(
 	recipeType,
 	ModBlocks.DISENCHANTMENT_GENERATOR.get().name,
 	guiHelper.createDrawableItemLike(ModBlocks.DISENCHANTMENT_GENERATOR),
-	130,
+	100,
 	20
 ) {
 
@@ -47,29 +47,25 @@ class DisenchantmentFuelJeiCategory(
 
 	companion object {
 		fun getAllRecipes(level: Level, registration: IRecipeRegistration): List<Recipe> {
-			return registration.jeiHelpers
-				.ingredientManager
-				.allItemStacks
-				.asSequence()
-				.mapNotNull { stack ->
-					val power = DisenchantmentGeneratorBlockEntity.getPowerFromStack(level, stack)
-					if (stack.isItem(Items.ENCHANTED_BOOK)) {
-						println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-					}
+			val lookup = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+			val allEnchantments = lookup.listElements()
 
-					if (power <= 0) {
-						null
-					} else {
-						power to stack
+			val recipes = mutableListOf<Recipe>()
+
+			for (enchantment in allEnchantments) {
+				for (enchantLevel in 1..enchantment.value().maxLevel) {
+					val stack = ItemStack(Items.ENCHANTED_BOOK)
+					stack.enchant(enchantment, enchantLevel)
+
+					val power = DisenchantmentGeneratorBlockEntity.getPowerFromEnchantment(enchantment.value(), enchantLevel)
+
+					if (power > 0) {
+						recipes.add(Recipe(listOf(stack), power))
 					}
 				}
-				.groupBy(
-					keySelector = { it.first },
-					valueTransform = { it.second }
-				)
-				.map { (fe, stacks) -> Recipe(stacks, fe) }
-				.sortedByDescending(Recipe::totalFe)
-				.toList()
+			}
+
+			return recipes
 		}
 	}
 
