@@ -47,7 +47,6 @@ open class ItemAndFluidInputDataDrivenGeneratorBlockEntity(
 
 	override fun tryStartBurning(level: ServerLevel): Boolean {
 		if (burnTimeRemaining > 0) return false
-		val container = container ?: return false
 
 		val inputItemStack = container.getItem(GeneratorContainer.INPUT_SLOT)
 		val inputFluidStack = tank.fluid

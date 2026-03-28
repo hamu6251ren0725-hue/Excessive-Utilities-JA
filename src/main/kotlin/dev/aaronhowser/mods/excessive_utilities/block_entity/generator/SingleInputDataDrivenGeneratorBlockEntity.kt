@@ -32,8 +32,6 @@ open class SingleInputDataDrivenGeneratorBlockEntity(
 
 	override fun tryStartBurning(level: ServerLevel): Boolean {
 		if (burnTimeRemaining > 0) return false
-		val container = container ?: return false
-
 		val inputStack = container.getItem(GeneratorContainer.INPUT_SLOT)
 		if (inputStack.isEmpty) return false
 

@@ -45,7 +45,7 @@ abstract class GeneratorBlockEntity(
 
 	protected open val energyStorage = EnergyStorage(1_000_000)
 
-	protected open val container: GeneratorContainer? =
+	protected open val container: GeneratorContainer =
 		object : GeneratorContainer(this@GeneratorBlockEntity, amountInputs = 1) {
 			override fun canPlaceInput(stack: ItemStack): Boolean = isValidInput(stack)
 			override fun canPlaceSecondaryInput(stack: ItemStack): Boolean = isValidSecondaryInput(stack)
@@ -53,7 +53,7 @@ abstract class GeneratorBlockEntity(
 		}
 
 	override fun getContainers(): List<Container> = listOfNotNull(container)
-	open fun getItemHandler(direction: Direction?): IItemHandlerModifiable? = container?.itemHandler
+	open fun getItemHandler(direction: Direction?): IItemHandlerModifiable? = container.itemHandler
 
 	protected open fun isValidInput(itemStack: ItemStack) = true
 	protected open fun isValidSecondaryInput(itemStack: ItemStack) = false
@@ -102,7 +102,7 @@ abstract class GeneratorBlockEntity(
 	protected open fun serverTick(level: ServerLevel) {
 		addToNetwork(level)
 
-		val speed = container?.getSpeed() ?: 1
+		val speed = container.getSpeed()
 		var success = false
 		for (i in 0 until speed) {
 			if (generatorTick(level)) success = true
@@ -173,7 +173,6 @@ abstract class GeneratorBlockEntity(
 	override fun getDisplayName(): Component = blockState.block.name
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		val container = container ?: return null
 		return SingleItemGeneratorMenu(containerId, playerInventory, container, containerData)
 	}
 
@@ -184,11 +183,7 @@ abstract class GeneratorBlockEntity(
 		tag.putInt(FE_PER_TICK_NBT, fePerTick)
 		tag.saveEnergy(STORED_ENERGY_NBT, energyStorage, registries)
 		tag.putUuidIfNotNull(OWNER_UUID_NBT, ownerUuid)
-
-		val container = container
-		if (container != null) {
-			tag.saveItems(container, registries)
-		}
+		tag.saveItems(container, registries)
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -198,11 +193,7 @@ abstract class GeneratorBlockEntity(
 		fePerTick = tag.getInt(FE_PER_TICK_NBT)
 		ownerUuid = tag.getUuidOrNull(OWNER_UUID_NBT)
 		tag.loadEnergy(STORED_ENERGY_NBT, energyStorage, registries)
-
-		val container = container
-		if (container != null) {
-			tag.loadItems(container, registries)
-		}
+		tag.loadItems(container, registries)
 	}
 
 	companion object {

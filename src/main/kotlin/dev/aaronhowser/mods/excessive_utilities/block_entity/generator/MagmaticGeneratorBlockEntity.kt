@@ -57,8 +57,7 @@ class MagmaticGeneratorBlockEntity(
 		return true
 	}
 
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		val container = container ?: return null
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
 		return SingleFluidGeneratorMenu(containerId, playerInventory, container, containerData)
 	}
 

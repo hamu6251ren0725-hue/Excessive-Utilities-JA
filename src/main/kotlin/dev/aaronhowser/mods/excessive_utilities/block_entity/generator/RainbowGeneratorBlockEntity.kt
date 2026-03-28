@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity.generator
 
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorContainer
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.generator.GeneratorType
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.handler.rainbow_generator.RainbowGeneratorHandler
@@ -23,7 +22,6 @@ class RainbowGeneratorBlockEntity(
 
 	override val energyStorage: EnergyStorage = EnergyStorage(1_000_000_000)
 
-	override val container: GeneratorContainer? = null
 	override fun getItemHandler(direction: Direction?): IItemHandlerModifiable? = null
 	override fun isValidInput(itemStack: ItemStack): Boolean = false
 	override fun isValidUpgrade(itemStack: ItemStack): Boolean = false
