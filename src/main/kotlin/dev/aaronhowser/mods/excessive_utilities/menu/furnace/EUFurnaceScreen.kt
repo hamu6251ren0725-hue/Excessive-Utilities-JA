@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.menu.BaseScreen
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block_entity.EUFurnaceBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.menu.components.EnergyBar
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
@@ -25,7 +26,7 @@ class EUFurnaceScreen(
 		energyBar = EnergyBar(
 			x = leftPos + 7,
 			y = topPos + 14,
-			maxGetter = { EUFurnaceBlockEntity.MAX_ENERGY },
+			maxGetter = { SimpleMachineBlockEntity.MAX_ENERGY },
 			currentGetter = { menu.getCurrentEnergy() },
 			font = font
 		)
