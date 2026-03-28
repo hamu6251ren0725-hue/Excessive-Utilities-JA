@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.excessive_utilities.block_entity.QedBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.client.render.RenderUtil
 import dev.aaronhowser.mods.excessive_utilities.client.render.WandRenderer
+import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.client.renderer.MultiBufferSource
@@ -29,7 +30,7 @@ class QedBER(
 
 		val linesConsumer = bufferSource.getBuffer(RenderType.lines())
 
-		val radius = 9f
+		val radius = ServerConfig.CONFIG.qedRadius.get().toFloat()
 		val minX = -radius
 		val minY = -radius
 		val minZ = -radius

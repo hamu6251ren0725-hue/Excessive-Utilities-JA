@@ -110,6 +110,8 @@ class ServerConfig(
 	lateinit var cursedEarthMaxSpawnedMobs: ModConfigSpec.IntValue
 	lateinit var cursedEarthCheckRadius: ModConfigSpec.DoubleValue
 
+	lateinit var qedRadius: ModConfigSpec.IntValue
+
 	lateinit var furnaceFePerTick: ModConfigSpec.IntValue
 	lateinit var furnaceTicksPerRecipe: ModConfigSpec.IntValue
 
@@ -148,6 +150,10 @@ class ServerConfig(
 					.comment("The amount of FE per tick that Wireless FE Transmitters will transmit.")
 					.defineInRange("wirelessFeTransmitterRate", 80, 1, Int.MAX_VALUE)
 			}
+
+			qedRadius = builder
+				.comment("The radius that the QED looks for Ender-Flux Crystals")
+				.defineInRange("qedRadius", 4, 1, Int.MAX_VALUE)
 
 			enderQuarry()
 			quantumQuarry()

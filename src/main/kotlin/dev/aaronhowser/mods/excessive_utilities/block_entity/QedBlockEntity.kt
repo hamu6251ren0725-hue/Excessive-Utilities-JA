@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.ContainerContainer
+import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
@@ -145,7 +146,7 @@ class QedBlockEntity(
 	}
 
 	fun updateNearbyCrystals(level: ServerLevel) {
-		val radius = 9
+		val radius = ServerConfig.CONFIG.qedRadius.get()
 		val blocks = BlockPos.betweenClosed(
 			blockPos.offset(-radius, -radius, -radius),
 			blockPos.offset(radius, radius, radius)
