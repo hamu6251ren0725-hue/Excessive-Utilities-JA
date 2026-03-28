@@ -7,12 +7,14 @@ import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.Crush
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.EnchanterJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.QedJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.ResonatorJeiCategory
+import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.ItemAndFluidFuelJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.MagmaticFuelJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.SingleItemFuelJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.ResonatorRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
@@ -40,6 +42,7 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCatalyst(ModBlocks.RESONATOR, RESONATOR)
 
 		SingleItemFuelJeiCategory.registerCatalysts(registration)
+		ItemAndFluidFuelJeiCategory.registerCatalysts(registration)
 		registration.addRecipeCatalyst(ModBlocks.MAGMATIC_GENERATOR, MAGMATIC_FUELS)
 	}
 
@@ -52,6 +55,7 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCategories(CrusherJeiCategory(CRUSHER, guiHelper))
 
 		SingleItemFuelJeiCategory.registerCategory(registration)
+		ItemAndFluidFuelJeiCategory.registerCategory(registration)
 		registration.addRecipeCategories(MagmaticFuelJeiCategory(MAGMATIC_FUELS, guiHelper))
 	}
 
@@ -73,6 +77,7 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipes(RESONATOR, resonatorRecipes)
 
 		SingleItemFuelJeiCategory.registerRecipes(level, registration)
+		ItemAndFluidFuelJeiCategory.registerRecipes(level, registration)
 
 		val magmaticRecipes = MagmaticFuelRecipe.getAllRecipes(level.recipeManager)
 		registration.addRecipes(MAGMATIC_FUELS, magmaticRecipes)
@@ -86,6 +91,7 @@ class ModJeiPlugin : IModPlugin {
 		val QED: RecipeType<RecipeHolder<QedRecipe>> = makeRecipeType("qed")
 		val RESONATOR: RecipeType<RecipeHolder<ResonatorRecipe>> = makeRecipeType("resonator")
 
+		val MAGMATIC_FUELS: RecipeType<RecipeHolder<MagmaticFuelRecipe>> = makeRecipeType("generator_fuel/magmatic")
 		val SINGLE_ITEM_FUELS: Map<SingleItemFuelRecipe.GeneratorType, RecipeType<RecipeHolder<SingleItemFuelRecipe>>> =
 			buildMap {
 				for (type in SingleItemFuelRecipe.GeneratorType.entries) {
@@ -93,7 +99,13 @@ class ModJeiPlugin : IModPlugin {
 					set(type, makeRecipeType(name))
 				}
 			}
-		val MAGMATIC_FUELS: RecipeType<RecipeHolder<MagmaticFuelRecipe>> = makeRecipeType("generator_fuel/magmatic")
+		val ITEM_AND_FLUID_FUELS: Map<ItemAndFluidFuelRecipe.GeneratorType, RecipeType<RecipeHolder<ItemAndFluidFuelRecipe>>> =
+			buildMap {
+				for (type in ItemAndFluidFuelRecipe.GeneratorType.entries) {
+					val name = "generator_fuel/item_and_fluid_fuel/${type.id}"
+					set(type, makeRecipeType(name))
+				}
+			}
 
 		private fun <T : Recipe<*>> makeRecipeType(id: String): RecipeType<RecipeHolder<T>> {
 			return RecipeType.create(ExcessiveUtilities.MOD_ID, id, RecipeHolder::class.java).cast()

@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeTypes
 import io.netty.buffer.ByteBuf
@@ -15,6 +17,7 @@ import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.fluids.FluidStack
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient
+import net.neoforged.neoforge.registries.DeferredBlock
 
 class ItemAndFluidFuelRecipe(
 	val generatorType: GeneratorType,
@@ -84,10 +87,11 @@ class ItemAndFluidFuelRecipe(
 	}
 
 	enum class GeneratorType(
-		val id: String
+		val id: String,
+		val deferredBlock: DeferredBlock<GeneratorBlock>
 	) : StringRepresentable {
-		SLIMY("slimy"),
-		HEATED_REDSTONE("heated_redstone"),
+		SLIMY("slimy", ModBlocks.SLIMY_GENERATOR),
+		HEATED_REDSTONE("heated_redstone", ModBlocks.HEATED_REDSTONE_GENERATOR),
 		;
 
 		override fun getSerializedName(): String = id
