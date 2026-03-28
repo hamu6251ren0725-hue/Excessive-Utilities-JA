@@ -24,6 +24,9 @@
     "excessive_utilities:pseudo_round_robin_upgrade",
     "excessive_utilities:ender_transmitter",
     "excessive_utilities:ender_receiver",
-    "excessive_utilities:precision_shears"
+    "excessive_utilities:precision_shears",
+    "excessive_utilities:sonar_goggles",
+    "excessive_utilities:kikoku",
+    "excessive_utilities:lux_saber"
   ]
 }

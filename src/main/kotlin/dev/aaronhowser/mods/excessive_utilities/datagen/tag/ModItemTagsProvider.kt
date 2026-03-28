@@ -306,7 +306,10 @@ class ModItemTagsProvider(
 				ModItems.PSEUDO_ROUND_ROBIN_UPGRADE,
 				ModItems.ENDER_TRANSMITTER,
 				ModItems.ENDER_RECEIVER,
-				ModItems.PRECISION_SHEARS
+				ModItems.PRECISION_SHEARS,
+				ModItems.SONAR_GOGGLES,
+				ModItems.KIKOKU,
+				ModItems.LUX_SABER
 			)
 
 		tag(RENDER_ENDER_PORCUPINE_WHILE_HOLDING)
