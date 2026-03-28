@@ -14,25 +14,25 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.fluids.FluidStack
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient
 
-class SingleFluidFuelRecipe(
+class MagmaticFuelRecipe(
 	val fluidIngredient: SizedFluidIngredient,
 	fePerTick: Int,
 	duration: Int
-) : GeneratorFuelRecipe<SingleFluidFuelRecipe.Input>(fePerTick, duration) {
+) : GeneratorFuelRecipe<MagmaticFuelRecipe.Input>(fePerTick, duration) {
 
 	override fun matches(input: Input, level: Level): Boolean {
 		val fluidStack = input.getFluid()
 		return fluidIngredient.test(fluidStack)
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> = ModRecipeSerializers.SINGLE_FLUID_FUEL.get()
+	override fun getSerializer(): RecipeSerializer<*> = ModRecipeSerializers.MAGMATIC_FUEL.get()
 	override fun getType(): RecipeType<*> = ModRecipeTypes.SINGLE_FLUID_FUEL.get()
 
 	companion object {
 		fun getRecipe(
 			level: Level,
 			fluidStack: FluidStack
-		): SingleFluidFuelRecipe? {
+		): MagmaticFuelRecipe? {
 			val input = Input(fluidStack)
 			return getAllRecipes(level.recipeManager)
 				.firstOrNull { it.value.matches(input, level) }
@@ -41,7 +41,7 @@ class SingleFluidFuelRecipe(
 
 		fun getAllRecipes(
 			recipeManager: RecipeManager
-		): List<RecipeHolder<SingleFluidFuelRecipe>> {
+		): List<RecipeHolder<MagmaticFuelRecipe>> {
 			return recipeManager.getAllRecipesFor(ModRecipeTypes.SINGLE_FLUID_FUEL.get())
 		}
 	}
@@ -54,32 +54,32 @@ class SingleFluidFuelRecipe(
 		fun getFluid(): FluidStack = fluidStack
 	}
 
-	class Serializer : RecipeSerializer<SingleFluidFuelRecipe> {
-		override fun codec(): MapCodec<SingleFluidFuelRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SingleFluidFuelRecipe> = STREAM_CODEC
+	class Serializer : RecipeSerializer<MagmaticFuelRecipe> {
+		override fun codec(): MapCodec<MagmaticFuelRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, MagmaticFuelRecipe> = STREAM_CODEC
 
 		companion object {
-			val CODEC: MapCodec<SingleFluidFuelRecipe> =
+			val CODEC: MapCodec<MagmaticFuelRecipe> =
 				RecordCodecBuilder.mapCodec { instance ->
 					instance.group(
 						SizedFluidIngredient.FLAT_CODEC
 							.fieldOf("ingredient")
-							.forGetter(SingleFluidFuelRecipe::fluidIngredient),
+							.forGetter(MagmaticFuelRecipe::fluidIngredient),
 						Codec.INT
 							.fieldOf("fe_per_tick")
-							.forGetter(SingleFluidFuelRecipe::fePerTick),
+							.forGetter(MagmaticFuelRecipe::fePerTick),
 						Codec.INT
 							.fieldOf("duration")
-							.forGetter(SingleFluidFuelRecipe::duration)
-					).apply(instance, ::SingleFluidFuelRecipe)
+							.forGetter(MagmaticFuelRecipe::duration)
+					).apply(instance, ::MagmaticFuelRecipe)
 				}
 
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SingleFluidFuelRecipe> =
+			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, MagmaticFuelRecipe> =
 				StreamCodec.composite(
-					SizedFluidIngredient.STREAM_CODEC, SingleFluidFuelRecipe::fluidIngredient,
-					ByteBufCodecs.VAR_INT, SingleFluidFuelRecipe::fePerTick,
-					ByteBufCodecs.VAR_INT, SingleFluidFuelRecipe::duration,
-					::SingleFluidFuelRecipe
+					SizedFluidIngredient.STREAM_CODEC, MagmaticFuelRecipe::fluidIngredient,
+					ByteBufCodecs.VAR_INT, MagmaticFuelRecipe::fePerTick,
+					ByteBufCodecs.VAR_INT, MagmaticFuelRecipe::duration,
+					::MagmaticFuelRecipe
 				)
 		}
 	}

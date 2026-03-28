@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.registry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.*
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.Recipe
@@ -34,7 +34,7 @@ object ModRecipeTypes {
 	// Generator fuels
 	val SINGLE_ITEM_FUEL: DeferredHolder<RecipeType<*>, RecipeType<SingleItemFuelRecipe>> =
 		registerRecipeType("single_item_fuel")
-	val SINGLE_FLUID_FUEL: DeferredHolder<RecipeType<*>, RecipeType<SingleFluidFuelRecipe>> =
+	val SINGLE_FLUID_FUEL: DeferredHolder<RecipeType<*>, RecipeType<MagmaticFuelRecipe>> =
 		registerRecipeType("single_fluid_fuel")
 	val ITEM_AND_FLUID_FUEL: DeferredHolder<RecipeType<*>, RecipeType<ItemAndFluidFuelRecipe>> =
 		registerRecipeType("item_and_fluid_fuel")

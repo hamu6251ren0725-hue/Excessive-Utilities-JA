@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedDivisionRe
 import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedUnstableRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.*
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.ItemAndFluidFuelRecipe
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.RecipeSerializer
@@ -44,8 +44,8 @@ object ModRecipeSerializers {
 	// Generator fuels
 	val SINGLE_ITEM_FUEL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("single_item_fuel", SingleItemFuelRecipe::Serializer)
-	val SINGLE_FLUID_FUEL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-		registerRecipeSerializer("single_fluid_fuel", SingleFluidFuelRecipe::Serializer)
+	val MAGMATIC_FUEL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
+		registerRecipeSerializer("magmatic_fuel", MagmaticFuelRecipe::Serializer)
 	val ITEM_AND_FLUID_FUEL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("item_and_fluid_fuel", ItemAndFluidFuelRecipe::Serializer)
 

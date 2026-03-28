@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.gene
 
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.ModJeiPlugin
-import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleFluidFuelRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.MagmaticFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
@@ -23,9 +23,9 @@ import kotlin.collections.iterator
 
 class SingleFluidFuelJeiCategory(
 	generatorBlock: GeneratorBlock,
-	recipeType: RecipeType<RecipeHolder<SingleFluidFuelRecipe>>,
+	recipeType: RecipeType<RecipeHolder<MagmaticFuelRecipe>>,
 	guiHelper: IGuiHelper
-) : AbstractRecipeCategory<RecipeHolder<SingleFluidFuelRecipe>>(
+) : AbstractRecipeCategory<RecipeHolder<MagmaticFuelRecipe>>(
 	recipeType,
 	generatorBlock.name,
 	guiHelper.createDrawableItemLike(generatorBlock),
@@ -33,7 +33,7 @@ class SingleFluidFuelJeiCategory(
 	40
 ) {
 
-	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<SingleFluidFuelRecipe>, focuses: IFocusGroup) {
+	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<MagmaticFuelRecipe>, focuses: IFocusGroup) {
 		val recipe = recipe.value
 
 		val inputSlot = builder.addInputSlot(9, 9)
@@ -47,7 +47,7 @@ class SingleFluidFuelJeiCategory(
 		}
 	}
 
-	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: RecipeHolder<SingleFluidFuelRecipe>, focuses: IFocusGroup) {
+	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: RecipeHolder<MagmaticFuelRecipe>, focuses: IFocusGroup) {
 		val recipe = recipe.value
 
 		val fePerTick = recipe.fePerTick
@@ -75,7 +75,7 @@ class SingleFluidFuelJeiCategory(
 
 	}
 
-	override fun getRegistryName(recipe: RecipeHolder<SingleFluidFuelRecipe>): ResourceLocation = recipe.id()
+	override fun getRegistryName(recipe: RecipeHolder<MagmaticFuelRecipe>): ResourceLocation = recipe.id()
 
 	companion object {
 		fun registerCategory(registration: IRecipeCategoryRegistration) {
