@@ -91,8 +91,12 @@ abstract class SimpleMachineBlockEntity(
 	override fun serverTick(level: ServerLevel) {
 		super.serverTick(level)
 
+		val amountSpeedUpgrades = container.getItem(UPGRADE_SLOT).count
 
-		updateBlockState(level)
+		for (i in 0..amountSpeedUpgrades) {
+			tryCraft(level)
+			updateBlockState(level)
+		}
 	}
 
 	protected fun updateBlockState(level: ServerLevel) {
