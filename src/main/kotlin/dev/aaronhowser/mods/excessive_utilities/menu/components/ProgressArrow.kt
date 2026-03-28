@@ -14,7 +14,7 @@ class ProgressArrow(
 	val font: Font,
 	val percentDoneFunction: () -> Float,
 	val shouldRenderProgress: () -> Boolean,
-	val onClickFunction: (Double, Double, Int) -> Unit
+	val onClickFunction: (Double, Double, Int) -> Unit = { _, _, _ -> }
 ) : AbstractWidget(
 	x, y,
 	RIGHT_WIDTH,

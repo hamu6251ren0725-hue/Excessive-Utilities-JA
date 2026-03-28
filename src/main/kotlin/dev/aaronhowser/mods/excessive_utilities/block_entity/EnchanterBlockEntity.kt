@@ -92,6 +92,7 @@ class EnchanterBlockEntity(
 		val recipe = getRecipe()?.value
 		if (recipe == null) {
 			progress = 0
+			maxProgress = 0
 			updateBlockState(isCrafting = false)
 			return
 		}

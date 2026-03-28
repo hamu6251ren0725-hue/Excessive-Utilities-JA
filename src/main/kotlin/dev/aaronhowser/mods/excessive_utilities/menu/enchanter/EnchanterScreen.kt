@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block_entity.EUFurnaceBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.menu.components.EnergyBar
+import dev.aaronhowser.mods.excessive_utilities.menu.components.ProgressArrow
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -18,6 +19,7 @@ class EnchanterScreen(
 	override val inventoryLabelOffsetY: Int = 4
 
 	private lateinit var energyBar: EnergyBar
+	private lateinit var progressArrow: ProgressArrow
 
 	override fun baseInit() {
 		super.baseInit()
@@ -28,6 +30,14 @@ class EnchanterScreen(
 			maxGetter = { EUFurnaceBlockEntity.MAX_ENERGY },
 			currentGetter = { menu.getCurrentEnergy() },
 			font = font
+		)
+
+		progressArrow = ProgressArrow(
+			x = leftPos + 83,
+			y = topPos + 43,
+			font = font,
+			percentDoneFunction = { menu.getProgress().toFloat() / menu.getMaxProgress() },
+			shouldRenderProgress = { menu.getProgress() > 0 }
 		)
 
 		addRenderableWidget(energyBar)
