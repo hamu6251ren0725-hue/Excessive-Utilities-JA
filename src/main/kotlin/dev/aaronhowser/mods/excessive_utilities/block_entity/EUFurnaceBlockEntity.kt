@@ -50,10 +50,4 @@ class EUFurnaceBlockEntity(
 			.getOrNull()
 	}
 
-	override fun getDisplayName(): Component = blockState.block.name
-
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return SimpleMachineMenu(containerId, playerInventory, container, containerData)
-	}
-
 }
