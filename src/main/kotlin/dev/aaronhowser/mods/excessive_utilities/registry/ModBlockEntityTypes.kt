@@ -141,8 +141,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("magmatic_generator", ::MagmaticGeneratorBlockEntity, ModBlocks.MAGMATIC_GENERATOR)
 	val POTION_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<PotionGeneratorBlockEntity>> =
 		register("potion_generator", ::PotionGeneratorBlockEntity, ModBlocks.POTION_GENERATOR)
-	val DISENCHANTMENT_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DisenchantmentGenerator>> =
-		register("disenchantment_generator", ::DisenchantmentGenerator, ModBlocks.DISENCHANTMENT_GENERATOR)
+	val DISENCHANTMENT_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DisenchantmentGeneratorBlockEntity>> =
+		register("disenchantment_generator", ::DisenchantmentGeneratorBlockEntity, ModBlocks.DISENCHANTMENT_GENERATOR)
 	val SLIMY_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<ItemAndFluidInputDataDrivenGeneratorBlockEntity>> =
 		register("slimy_generator", ItemAndFluidInputDataDrivenGeneratorBlockEntity::slimy, ModBlocks.SLIMY_GENERATOR)
 	val HEATED_REDSTONE_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<ItemAndFluidInputDataDrivenGeneratorBlockEntity>> =

@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState
 import kotlin.math.min
 import kotlin.math.sqrt
 
-class DisenchantmentGenerator(
+class DisenchantmentGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState,
 ) : GeneratorBlockEntity(ModBlockEntityTypes.DISENCHANTMENT_GENERATOR.get(), pos, blockState) {
