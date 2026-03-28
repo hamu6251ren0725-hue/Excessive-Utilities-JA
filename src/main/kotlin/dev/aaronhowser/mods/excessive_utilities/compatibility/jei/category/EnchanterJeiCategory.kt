@@ -19,7 +19,7 @@ class EnchanterJeiCategory(
 	recipeType,
 	ModBlocks.ENCHANTER.get().name,
 	guiHelper.createDrawableItemLike(ModBlocks.ENCHANTER),
-	110,
+	120,
 	40
 ) {
 
@@ -28,7 +28,7 @@ class EnchanterJeiCategory(
 
 		val leftInputSlot = builder.addInputSlot(9, 9)
 		val rightInputSlot = builder.addInputSlot(33, 9)
-		val outputSlot = builder.addOutputSlot(80, 9)
+		val outputSlot = builder.addOutputSlot(90, 9)
 
 		val inputs = recipe.leftIngredient.items.map { it.copyWithCount(recipe.leftCount) }
 		leftInputSlot
@@ -58,7 +58,7 @@ class EnchanterJeiCategory(
 		builder.addText(
 			Component.literal("${recipe.ticks} ticks"),
 			80, 12
-		).setPosition(60, 32).setColor(0xFF808080.toInt())
+		).setPosition(65, 32).setColor(0xFF808080.toInt())
 	}
 
 	override fun getRegistryName(recipe: RecipeHolder<EnchanterRecipe>): ResourceLocation = recipe.id

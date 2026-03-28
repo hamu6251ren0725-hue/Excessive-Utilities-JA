@@ -19,7 +19,7 @@ class ResonatorJeiCategory(
 	recipeType,
 	ModBlocks.RESONATOR.get().name,
 	guiHelper.createDrawableItemLike(ModBlocks.RESONATOR),
-	82,
+	94,
 	34
 ) {
 
@@ -27,7 +27,7 @@ class ResonatorJeiCategory(
 		val recipe = recipe.value()
 
 		val inputSlot = builder.addInputSlot(9, 9)
-		val outputSlot = builder.addOutputSlot(61, 9)
+		val outputSlot = builder.addOutputSlot(65, 9)
 
 		inputSlot
 			.addItemStacks(recipe.ingredient.items.toList())
