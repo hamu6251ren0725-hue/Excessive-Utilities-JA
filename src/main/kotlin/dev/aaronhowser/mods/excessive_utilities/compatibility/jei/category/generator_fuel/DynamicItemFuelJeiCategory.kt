@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel
 
+import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.CulinaryGeneratorBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.ModJeiPlugin
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
@@ -9,17 +11,21 @@ import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import mezz.jei.api.registration.IRecipeCategoryRegistration
+import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.runtime.IIngredientManager
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.Level
 
-class CulinaryFuelJeiCategory(
+// For fuels that aren't based on actual recipes, but based off some property of the itemstack
+class DynamicItemFuelJeiCategory(
+	generatorBlock: GeneratorBlock,
 	recipeType: RecipeType<Recipe>,
 	guiHelper: IGuiHelper
-) : AbstractRecipeCategory<CulinaryFuelJeiCategory.Recipe>(
+) : AbstractRecipeCategory<DynamicItemFuelJeiCategory.Recipe>(
 	recipeType,
-	ModBlocks.CULINARY_GENERATOR.get().name,
-	guiHelper.createDrawableItemLike(ModBlocks.CULINARY_GENERATOR),
+	generatorBlock.name,
+	guiHelper.createDrawableItemLike(generatorBlock),
 	120,
 	40
 ) {
@@ -31,7 +37,6 @@ class CulinaryFuelJeiCategory(
 		for (stack in recipe.stacks) {
 			itemInputSlot.addItemStack(stack)
 		}
-
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: Recipe, focuses: IFocusGroup) {
@@ -60,7 +65,26 @@ class CulinaryFuelJeiCategory(
 	}
 
 	companion object {
-		fun getAllRecipes(ingredientManager: IIngredientManager): List<Recipe> {
+		fun registerCategories(registration: IRecipeCategoryRegistration) {
+			val guiHelper = registration.jeiHelpers.guiHelper
+
+			registration.addRecipeCategories(
+				DynamicItemFuelJeiCategory(
+					ModBlocks.CULINARY_GENERATOR.get(),
+					ModJeiPlugin.CULINARY_FUELS,
+					guiHelper
+				)
+			)
+		}
+
+		fun registerRecipes(level: Level, registration: IRecipeRegistration) {
+			val ingredientManager = registration.jeiHelpers.ingredientManager
+
+			val culinaryRecipes = getCulinaryRecipes(ingredientManager)
+			registration.addRecipes(ModJeiPlugin.CULINARY_FUELS, culinaryRecipes)
+		}
+
+		private fun getCulinaryRecipes(ingredientManager: IIngredientManager): List<Recipe> {
 			return ingredientManager.allItemStacks
 				.asSequence()
 

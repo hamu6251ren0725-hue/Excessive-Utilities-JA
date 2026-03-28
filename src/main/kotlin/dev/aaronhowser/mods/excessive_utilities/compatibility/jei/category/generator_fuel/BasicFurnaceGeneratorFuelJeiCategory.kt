@@ -36,7 +36,7 @@ class BasicFurnaceGeneratorFuelJeiCategory(
 		}
 	}
 
-	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: CulinaryFuelJeiCategory.Recipe, focuses: IFocusGroup) {
+	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: Recipe, focuses: IFocusGroup) {
 		val fePerTick = recipe.fePerTick
 		val duration = recipe.duration
 		val totalFe = recipe.feTotal
