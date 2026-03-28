@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.excessive_utilities.compatibility.jei
+package dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category
 
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks

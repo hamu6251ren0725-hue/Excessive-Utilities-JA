@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.compatibility.jei
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.EnchanterJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
