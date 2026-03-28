@@ -67,8 +67,8 @@ class ProgressArrow(
 		const val TEXTURE_SIZE = 32
 
 		val TEXTURE = ExcessiveUtilities.modResource("arrow_right")
-		const val WIDTH = 24
-		const val HEIGHT = 17
+		const val WIDTH = 22
+		const val HEIGHT = 16
 	}
 
 }
