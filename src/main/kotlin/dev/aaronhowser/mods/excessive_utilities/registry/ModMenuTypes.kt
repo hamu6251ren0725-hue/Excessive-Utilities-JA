@@ -18,6 +18,8 @@ import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterScreen
+import dev.aaronhowser.mods.excessive_utilities.menu.item_fluid_generator.ItemFluidGeneratorMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.item_fluid_generator.ItemFluidGeneratorScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.item_transfer_node.ItemTransferNodeScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.qed.QedMenu
@@ -60,6 +62,8 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		register("single_item_generator", ::SingleItemGeneratorMenu)
 	val SINGLE_FLUID_GENERATOR: DeferredHolder<MenuType<*>, MenuType<SingleFluidGeneratorMenu>> =
 		register("single_fluid_generator", ::SingleFluidGeneratorMenu)
+	val ITEM_FLUID_GENERATOR: DeferredHolder<MenuType<*>, MenuType<ItemFluidGeneratorMenu>> =
+		register("item_fluid_generator", ::ItemFluidGeneratorMenu)
 	val QED: DeferredHolder<MenuType<*>, MenuType<QedMenu>> =
 		register("qed", ::QedMenu)
 	val FURNACE: DeferredHolder<MenuType<*>, MenuType<EUFurnaceMenu>> =
@@ -82,6 +86,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		event.register(RESONATOR.get(), ::ResonatorScreen)
 		event.register(SINGLE_ITEM_GENERATOR.get(), ::SingleItemGeneratorScreen)
 		event.register(SINGLE_FLUID_GENERATOR.get(), ::SingleFluidGeneratorScreen)
+		event.register(ITEM_FLUID_GENERATOR.get(), ::ItemFluidGeneratorScreen)
 		event.register(QED.get(), ::QedScreen)
 		event.register(FURNACE.get(), ::EUFurnaceScreen)
 		event.register(ITEM_FILTER.get(), ::ItemFilterScreen)
