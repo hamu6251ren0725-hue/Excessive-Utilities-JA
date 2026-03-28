@@ -29,7 +29,7 @@ class EnderFluxCrystalBlock : Block(Properties.ofFullCopy(Blocks.OBSIDIAN)) {
 
 	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
-			.setValue(FACING, context.nearestLookingDirection.opposite)
+			.setValue(FACING, context.clickedFace)
 	}
 
 	//TODO: Rotate the shape based on the facing direction
