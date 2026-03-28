@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeTypes
 import io.netty.buffer.ByteBuf
@@ -13,6 +15,7 @@ import net.minecraft.util.StringRepresentable
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
+import net.neoforged.neoforge.registries.DeferredBlock
 
 class SingleItemFuelRecipe(
 	val generatorType: GeneratorType,
@@ -56,15 +59,16 @@ class SingleItemFuelRecipe(
 	}
 
 	enum class GeneratorType(
-		val id: String
+		val id: String,
+		val deferredBlock: DeferredBlock<GeneratorBlock>
 	) : StringRepresentable {
-		ENDER("ender"),
-		EXPLOSIVE("explosive"),
-		PINK("pink"),
-		NETHER_STAR("nether_star"),
-		FROSTY("frosty"),
-		HALITOSIS("halitosis"),
-		DEATH("death")
+		ENDER("ender", ModBlocks.ENDER_GENERATOR),
+		EXPLOSIVE("explosive", ModBlocks.EXPLOSIVE_GENERATOR),
+		PINK("pink", ModBlocks.PINK_GENERATOR),
+		NETHER_STAR("nether_star", ModBlocks.NETHER_STAR_GENERATOR),
+		FROSTY("frosty", ModBlocks.FROSTY_GENERATOR),
+		HALITOSIS("halitosis", ModBlocks.HALITOSIS_GENERATOR),
+		DEATH("death", ModBlocks.DEATH_GENERATOR)
 		;
 
 		override fun getSerializedName(): String = id

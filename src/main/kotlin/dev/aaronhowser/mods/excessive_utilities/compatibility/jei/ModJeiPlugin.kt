@@ -7,10 +7,12 @@ import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.Crush
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.EnchanterJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.QedJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.ResonatorJeiCategory
+import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.SingleItemFuelJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.ResonatorRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel.SingleItemFuelRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
@@ -34,6 +36,8 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCatalyst(ModBlocks.ENCHANTER, ENCHANTER)
 		registration.addRecipeCatalyst(ModBlocks.QED, QED)
 		registration.addRecipeCatalyst(ModBlocks.RESONATOR, RESONATOR)
+
+		SingleItemFuelJeiCategory.registerCatalysts(registration)
 	}
 
 	override fun registerCategories(registration: IRecipeCategoryRegistration) {
@@ -43,6 +47,8 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCategories(ResonatorJeiCategory(RESONATOR, guiHelper))
 		registration.addRecipeCategories(QedJeiCategory(QED, guiHelper))
 		registration.addRecipeCategories(CrusherJeiCategory(CRUSHER, guiHelper))
+
+		SingleItemFuelJeiCategory.registerCategory(registration)
 	}
 
 	override fun registerRecipes(registration: IRecipeRegistration) {
@@ -61,6 +67,8 @@ class ModJeiPlugin : IModPlugin {
 
 		val resonatorRecipes = ResonatorRecipe.getAllRecipes(level.recipeManager)
 		registration.addRecipes(RESONATOR, resonatorRecipes)
+
+		SingleItemFuelJeiCategory.registerRecipes(level, registration)
 	}
 
 	companion object {
@@ -70,6 +78,14 @@ class ModJeiPlugin : IModPlugin {
 		val ENCHANTER: RecipeType<RecipeHolder<EnchanterRecipe>> = makeRecipeType("enchanter")
 		val QED: RecipeType<RecipeHolder<QedRecipe>> = makeRecipeType("qed")
 		val RESONATOR: RecipeType<RecipeHolder<ResonatorRecipe>> = makeRecipeType("resonator")
+
+		val SINGLE_ITEM_FUELS: Map<SingleItemFuelRecipe.GeneratorType, RecipeType<RecipeHolder<SingleItemFuelRecipe>>> =
+			buildMap {
+				for (type in SingleItemFuelRecipe.GeneratorType.entries) {
+					val name = "single_item_fuel/${type.id}"
+					set(type, makeRecipeType(name))
+				}
+			}
 
 		private fun <T : Recipe<*>> makeRecipeType(id: String): RecipeType<RecipeHolder<T>> {
 			return RecipeType.create(ExcessiveUtilities.MOD_ID, id, RecipeHolder::class.java).cast()
