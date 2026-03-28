@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.compatibility.jei
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.cast
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.EnchanterJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.ResonatorJeiCategory
@@ -48,9 +49,7 @@ class ModJeiPlugin : IModPlugin {
 	override fun registerRecipes(registration: IRecipeRegistration) {
 		val level = AaronClientUtil.localLevel ?: return
 
-		val enchanterRecipes = EnchanterRecipe
-			.getAllRecipes(level.recipeManager)
-			.map(RecipeHolder<EnchanterRecipe>::value)
+		val enchanterRecipes = EnchanterRecipe.getAllRecipes(level.recipeManager)
 		registration.addRecipes(ENCHANTER, enchanterRecipes)
 
 //		val crusherRecipes = CrusherRecipe
@@ -63,22 +62,20 @@ class ModJeiPlugin : IModPlugin {
 //			.map(RecipeHolder<QedRecipe>::value)
 //		registration.addRecipes(QED, qedRecipes)
 
-		val resonatorRecipes = ResonatorRecipe
-			.getAllRecipes(level.recipeManager)
-			.map(RecipeHolder<ResonatorRecipe>::value)
+		val resonatorRecipes = ResonatorRecipe.getAllRecipes(level.recipeManager)
 		registration.addRecipes(RESONATOR, resonatorRecipes)
 	}
 
 	companion object {
 		val ID = ExcessiveUtilities.modResource("jei_plugin")
 
-		val CRUSHER: RecipeType<CrusherRecipe> = makeRecipeType("crusher", CrusherRecipe::class.java)
-		val ENCHANTER: RecipeType<EnchanterRecipe> = makeRecipeType("enchanter", EnchanterRecipe::class.java)
-		val QED: RecipeType<QedRecipe> = makeRecipeType("qed", QedRecipe::class.java)
-		val RESONATOR: RecipeType<ResonatorRecipe> = makeRecipeType("resonator", ResonatorRecipe::class.java)
+		val CRUSHER: RecipeType<RecipeHolder<CrusherRecipe>> = makeRecipeType("crusher")
+		val ENCHANTER: RecipeType<RecipeHolder<EnchanterRecipe>> = makeRecipeType("enchanter")
+		val QED: RecipeType<RecipeHolder<QedRecipe>> = makeRecipeType("qed")
+		val RESONATOR: RecipeType<RecipeHolder<ResonatorRecipe>> = makeRecipeType("resonator")
 
-		private fun <T : Recipe<*>> makeRecipeType(id: String, clazz: Class<out T>): RecipeType<T> {
-			return RecipeType.create<T>(ExcessiveUtilities.MOD_ID, id, clazz)
+		private fun <T : Recipe<*>> makeRecipeType(id: String): RecipeType<RecipeHolder<T>> {
+			return RecipeType.create(ExcessiveUtilities.MOD_ID, id, RecipeHolder::class.java).cast()
 		}
 	}
 

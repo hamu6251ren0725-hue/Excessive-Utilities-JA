@@ -12,12 +12,13 @@ import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
+import net.minecraft.world.item.crafting.RecipeHolder
 import java.text.DecimalFormat
 
 class ResonatorJeiCategory(
-	recipeType: RecipeType<ResonatorRecipe>,
+	recipeType: RecipeType<RecipeHolder<ResonatorRecipe>>,
 	guiHelper: IGuiHelper
-) : AbstractRecipeCategory<ResonatorRecipe>(
+) : AbstractRecipeCategory<RecipeHolder<ResonatorRecipe>>(
 	recipeType,
 	ModBlocks.RESONATOR.get().name,
 	guiHelper.createDrawableItemLike(ModBlocks.RESONATOR),
@@ -27,7 +28,9 @@ class ResonatorJeiCategory(
 
 	private val slot: IDrawableStatic = guiHelper.slotDrawable
 
-	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: ResonatorRecipe, focuses: IFocusGroup) {
+	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<ResonatorRecipe>, focuses: IFocusGroup) {
+		val recipe = recipe.value()
+
 		val inputSlot = builder.addInputSlot(9, 9)
 		val outputSlot = builder.addOutputSlot(61, 9)
 
@@ -35,7 +38,9 @@ class ResonatorJeiCategory(
 		outputSlot.addItemStack(recipe.result)
 	}
 
-	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: ResonatorRecipe, focuses: IFocusGroup) {
+	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: RecipeHolder<ResonatorRecipe>, focuses: IFocusGroup) {
+		val recipe = recipe.value()
+
 		builder.addRecipeArrow().setPosition(32, 9)
 
 		val gpCost = DecimalFormat("#,##0.##").format(recipe.gpCost)
@@ -46,7 +51,7 @@ class ResonatorJeiCategory(
 		).setPosition(32, 0).setColor(0xFF808080.toInt())
 	}
 
-	override fun draw(recipe: ResonatorRecipe, recipeSlotsView: IRecipeSlotsView, guiGraphics: GuiGraphics, mouseX: Double, mouseY: Double) {
+	override fun draw(recipe: RecipeHolder<ResonatorRecipe>, recipeSlotsView: IRecipeSlotsView, guiGraphics: GuiGraphics, mouseX: Double, mouseY: Double) {
 		slot.draw(guiGraphics, 8, 8)
 		slot.draw(guiGraphics, 60, 8)
 	}

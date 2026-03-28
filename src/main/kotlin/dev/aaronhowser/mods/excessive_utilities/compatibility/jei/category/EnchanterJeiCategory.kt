@@ -12,11 +12,13 @@ import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.crafting.RecipeHolder
 
 class EnchanterJeiCategory(
-	recipeType: RecipeType<EnchanterRecipe>,
+	recipeType: RecipeType<RecipeHolder<EnchanterRecipe>>,
 	guiHelper: IGuiHelper
-) : AbstractRecipeCategory<EnchanterRecipe>(
+) : AbstractRecipeCategory<RecipeHolder<EnchanterRecipe>>(
 	recipeType,
 	ModBlocks.ENCHANTER.get().name,
 	guiHelper.createDrawableItemLike(ModBlocks.ENCHANTER),
@@ -26,7 +28,9 @@ class EnchanterJeiCategory(
 
 	private val slot: IDrawableStatic = guiHelper.slotDrawable
 
-	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: EnchanterRecipe, focuses: IFocusGroup) {
+	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<EnchanterRecipe>, focuses: IFocusGroup) {
+		val recipe = recipe.value()
+
 		val leftInputSlot = builder.addInputSlot(9, 9)
 		val rightInputSlot = builder.addInputSlot(33, 9)
 		val outputSlot = builder.addOutputSlot(80, 9)
@@ -40,7 +44,9 @@ class EnchanterJeiCategory(
 		outputSlot.addItemStack(recipe.output)
 	}
 
-	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: EnchanterRecipe, focuses: IFocusGroup) {
+	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: RecipeHolder<EnchanterRecipe>, focuses: IFocusGroup) {
+		val recipe = recipe.value()
+
 		builder.addRecipeArrow().setPosition(55, 9)
 
 		builder.addText(
@@ -54,10 +60,12 @@ class EnchanterJeiCategory(
 		).setPosition(60, 32).setColor(0xFF808080.toInt())
 	}
 
-	override fun draw(recipe: EnchanterRecipe, recipeSlotsView: IRecipeSlotsView, guiGraphics: GuiGraphics, mouseX: Double, mouseY: Double) {
+	override fun draw(recipe: RecipeHolder<EnchanterRecipe>, recipeSlotsView: IRecipeSlotsView, guiGraphics: GuiGraphics, mouseX: Double, mouseY: Double) {
 		slot.draw(guiGraphics, 8, 8)
 		slot.draw(guiGraphics, 32, 8)
 		slot.draw(guiGraphics, 79, 8)
 	}
+
+	override fun getRegistryName(recipe: RecipeHolder<EnchanterRecipe>): ResourceLocation = recipe.id
 
 }
