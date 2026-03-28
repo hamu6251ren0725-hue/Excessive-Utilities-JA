@@ -31,8 +31,6 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
-//TODO:
-// Render on back
 class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 
 	override fun curioTick(slotContext: SlotContext, stack: ItemStack) {
