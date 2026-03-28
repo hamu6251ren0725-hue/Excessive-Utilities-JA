@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.menu.BaseScreen
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.menu.components.EnergyBar
+import dev.aaronhowser.mods.excessive_utilities.menu.components.ProgressArrow
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -17,6 +18,7 @@ class SimpleMachineScreen(
 	override val inventoryLabelOffsetY: Int = 12
 
 	private lateinit var energyBar: EnergyBar
+	private lateinit var progressArrow: ProgressArrow
 
 	override fun baseInit() {
 		super.baseInit()
@@ -29,7 +31,16 @@ class SimpleMachineScreen(
 			font = font
 		)
 
+		progressArrow = ProgressArrow(
+			x = leftPos + 84,
+			y = topPos + 41,
+			font = font,
+			percentDoneFunction = { menu.getProgress().toFloat() / menu.getMaxProgress() },
+			shouldRenderProgress = { menu.getProgress() > 0 }
+		)
+
 		addRenderableWidget(energyBar)
+		addRenderableWidget(progressArrow)
 	}
 
 	companion object {
