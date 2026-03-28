@@ -16,7 +16,8 @@ class EnchanterScreen(
 ) : BaseScreen<EnchanterMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
-	override val inventoryLabelOffsetY: Int = 4
+	override val inventoryLabelOffsetY: Int
+		get() = 12
 
 	private lateinit var energyBar: EnergyBar
 	private lateinit var progressArrow: ProgressArrow
@@ -26,15 +27,15 @@ class EnchanterScreen(
 
 		energyBar = EnergyBar(
 			x = leftPos + 7,
-			y = topPos + 14,
-			maxGetter = { EUFurnaceBlockEntity.MAX_ENERGY },
+			y = topPos + 21,
+			maxGetter = { menu.getMaxEnergy() },
 			currentGetter = { menu.getCurrentEnergy() },
 			font = font
 		)
 
 		progressArrow = ProgressArrow(
-			x = leftPos + 83,
-			y = topPos + 43,
+			x = leftPos + 95,
+			y = topPos + 41,
 			font = font,
 			texture = PROGRESS_ARROW_TEXTURE,
 			percentDoneFunction = { menu.getProgress().toFloat() / menu.getMaxProgress() },

@@ -29,7 +29,7 @@ class ProgressArrow(
 
 		pGuiGraphics.blitSprite(
 			texture,
-			TEXTURE_SIZE, TEXTURE_SIZE,
+			WIDTH, HEIGHT,
 			0, 0,
 			this.x,
 			this.y,
