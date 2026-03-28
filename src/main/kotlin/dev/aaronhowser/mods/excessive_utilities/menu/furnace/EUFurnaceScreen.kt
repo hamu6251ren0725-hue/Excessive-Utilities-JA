@@ -16,7 +16,7 @@ class EUFurnaceScreen(
 ) : BaseScreen<EUFurnaceMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
-	override val inventoryLabelOffsetY: Int = 4
+	override val inventoryLabelOffsetY: Int = 12
 
 	private lateinit var energyBar: EnergyBar
 
@@ -25,7 +25,7 @@ class EUFurnaceScreen(
 
 		energyBar = EnergyBar(
 			x = leftPos + 7,
-			y = topPos + 14,
+			y = topPos + 21,
 			maxGetter = { SimpleMachineBlockEntity.MAX_ENERGY },
 			currentGetter = { menu.getCurrentEnergy() },
 			font = font

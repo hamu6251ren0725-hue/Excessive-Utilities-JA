@@ -39,13 +39,13 @@ class EUFurnaceMenu(
 
 		addSlots()
 		addDataSlots(furnaceContainerData)
-		addPlayerInventorySlots(90)
+		addPlayerInventorySlots(98)
 	}
 
 	override fun addSlots() {
-		val inputSlot = Slot(furnaceContainer, SimpleMachineBlockEntity.INPUT_SLOT, 63, 42)
-		val outputSlot = OutputSlot(furnaceContainer, SimpleMachineBlockEntity.OUTPUT_SLOT, 110, 42)
-		val upgradeSlot = FilteredSlot(furnaceContainer, SimpleMachineBlockEntity.UPGRADE_SLOT, 26, 54) {
+		val inputSlot = Slot(furnaceContainer, SimpleMachineBlockEntity.INPUT_SLOT, 62, 41)
+		val outputSlot = OutputSlot(furnaceContainer, SimpleMachineBlockEntity.OUTPUT_SLOT, 116, 41)
+		val upgradeSlot = FilteredSlot(furnaceContainer, SimpleMachineBlockEntity.UPGRADE_SLOT, 153, 5) {
 			it.isItem(ModItemTagsProvider.SPEED_UPGRADES)
 		}
 
