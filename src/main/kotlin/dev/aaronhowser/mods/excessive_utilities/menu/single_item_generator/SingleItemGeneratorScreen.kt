@@ -21,8 +21,8 @@ class SingleItemGeneratorScreen(
 		super.baseInit()
 
 		energyBar = EnergyBar(
-			x = leftPos + 151,
-			y = topPos + 15,
+			x = leftPos + 114,
+			y = topPos + 18,
 			maxGetter = { menu.getMaxEnergy() },
 			currentGetter = { menu.getCurrentEnergy() },
 			font = font

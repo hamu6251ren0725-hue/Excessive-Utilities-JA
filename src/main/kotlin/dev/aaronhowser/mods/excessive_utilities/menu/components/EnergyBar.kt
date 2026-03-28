@@ -32,13 +32,13 @@ class EnergyBar(
 
 		pGuiGraphics.blitSprite(
 			TEXTURE,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE,
+			WIDTH,
+			HEIGHT,
 			0,
 			energyTotalHeight - energyCurrentHeight,
 			x,
 			y + energyTotalHeight - energyCurrentHeight,
-			TEXTURE_SIZE,
+			WIDTH,
 			energyCurrentHeight
 		)
 
