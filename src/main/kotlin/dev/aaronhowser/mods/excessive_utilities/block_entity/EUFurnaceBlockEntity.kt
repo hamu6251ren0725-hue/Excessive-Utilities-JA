@@ -3,13 +3,10 @@ package dev.aaronhowser.mods.excessive_utilities.block_entity
 import dev.aaronhowser.mods.excessive_utilities.block.EUFurnaceBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
-import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -21,7 +18,6 @@ import net.minecraft.world.item.crafting.SmeltingRecipe
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.Property
-import net.neoforged.neoforge.energy.IEnergyStorage
 import kotlin.jvm.optionals.getOrNull
 
 class EUFurnaceBlockEntity(
@@ -37,15 +33,6 @@ class EUFurnaceBlockEntity(
 		return level.recipeManager
 			.getRecipeFor(RecipeType.SMELTING, SingleRecipeInput(stack), level)
 			.isPresent
-	}
-
-	override fun getGpUsage(): Double {
-		val level = level ?: return 0.0
-		val hasRecipe = getRecipe(level) != null
-		if (!hasRecipe) return 0.0
-
-		val amountUpgrades = container.getItem(UPGRADE_SLOT).count
-		return SpeedUpgradeItem.getGpCost(amountUpgrades)
 	}
 
 	override fun getFePerTick(recipe: RecipeHolder<SmeltingRecipe>): Int {
@@ -67,24 +54,6 @@ class EUFurnaceBlockEntity(
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
 		return EUFurnaceMenu(containerId, playerInventory, container, containerData)
-	}
-
-	companion object {
-
-		fun tick(
-			level: Level,
-			blockPos: BlockPos,
-			blockState: BlockState,
-			blockEntity: EUFurnaceBlockEntity
-		) {
-			if (level is ServerLevel) {
-				blockEntity.serverTick(level)
-			}
-		}
-
-		fun getEnergyCapability(transmitter: EUFurnaceBlockEntity, direction: Direction?): IEnergyStorage {
-			return transmitter.energyStorage
-		}
 	}
 
 }

@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveEnergy
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.Property
 import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.items.IItemHandlerModifiable
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 import net.neoforged.neoforge.items.wrapper.RangedWrapper
@@ -85,6 +87,15 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 				}
 			}
 		}
+
+	override fun getGpUsage(): Double {
+		val level = level ?: return 0.0
+		val hasRecipe = getRecipe(level) != null
+		if (!hasRecipe) return 0.0
+
+		val amountUpgrades = container.getItem(UPGRADE_SLOT).count
+		return SpeedUpgradeItem.getGpCost(amountUpgrades)
+	}
 
 	abstract val litProperty: Property<Boolean>
 	abstract fun isValidInput(stack: ItemStack): Boolean
@@ -198,6 +209,21 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 		const val ENERGY_NBT = "Energy"
 
 		const val MAX_ENERGY = 128_000
+
+		fun tick(
+			level: Level,
+			blockPos: BlockPos,
+			blockState: BlockState,
+			blockEntity: SimpleMachineBlockEntity<*>
+		) {
+			if (level is ServerLevel) {
+				blockEntity.serverTick(level)
+			}
+		}
+
+		fun getEnergyCapability(machine: SimpleMachineBlockEntity<*>, direction: Direction?): IEnergyStorage {
+			return machine.energyStorage
+		}
 	}
 
 }
