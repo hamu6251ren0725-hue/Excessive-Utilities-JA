@@ -30,6 +30,11 @@ class ModDataMapProvider(
 				NetherLavaDunkConversion(ModItems.BLOCK_OF_DEMON_METAL.getDefaultInstance()),
 				false
 			)
+			.add(
+				Tags.Items.NUGGETS_GOLD,
+				NetherLavaDunkConversion(ModItems.DEMON_NUGGET.getDefaultInstance()),
+				false
+			)
 
 		builder(ReversingHoeConversion.DATA_MAP)
 			.add(
