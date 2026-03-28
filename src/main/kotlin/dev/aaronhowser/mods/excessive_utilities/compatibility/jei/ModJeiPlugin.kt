@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.Crush
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.EnchanterJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.QedJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.ResonatorJeiCategory
+import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.MagmaticFuelJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.SingleItemFuelJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
@@ -39,6 +40,7 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCatalyst(ModBlocks.RESONATOR, RESONATOR)
 
 		SingleItemFuelJeiCategory.registerCatalysts(registration)
+		registration.addRecipeCatalyst(ModBlocks.MAGMATIC_GENERATOR, MAGMATIC_FUELS)
 	}
 
 	override fun registerCategories(registration: IRecipeCategoryRegistration) {
@@ -50,6 +52,7 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCategories(CrusherJeiCategory(CRUSHER, guiHelper))
 
 		SingleItemFuelJeiCategory.registerCategory(registration)
+		registration.addRecipeCategories(MagmaticFuelJeiCategory(MAGMATIC_FUELS, guiHelper))
 	}
 
 	override fun registerRecipes(registration: IRecipeRegistration) {
@@ -70,6 +73,9 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipes(RESONATOR, resonatorRecipes)
 
 		SingleItemFuelJeiCategory.registerRecipes(level, registration)
+
+		val magmaticRecipes = MagmaticFuelRecipe.getAllRecipes(level.recipeManager)
+		registration.addRecipes(MAGMATIC_FUELS, magmaticRecipes)
 	}
 
 	companion object {
@@ -87,6 +93,7 @@ class ModJeiPlugin : IModPlugin {
 					set(type, makeRecipeType(name))
 				}
 			}
+		val MAGMATIC_FUELS: RecipeType<RecipeHolder<MagmaticFuelRecipe>> = makeRecipeType("generator_fuel/magmatic")
 
 		private fun <T : Recipe<*>> makeRecipeType(id: String): RecipeType<RecipeHolder<T>> {
 			return RecipeType.create(ExcessiveUtilities.MOD_ID, id, RecipeHolder::class.java).cast()
