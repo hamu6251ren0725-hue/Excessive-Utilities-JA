@@ -156,7 +156,7 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 		maxProgress = recipeDuration
 
 		val amountSpeedUpgrades = container.getItem(UPGRADE_SLOT).count
-		progress += amountSpeedUpgrades
+		progress += amountSpeedUpgrades + 1
 
 		while (progress >= recipeDuration) {
 			progress -= recipeDuration
@@ -167,8 +167,18 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 			val stackInOutput = container.getItem(OUTPUT_SLOT)
 			if (stackInOutput.isEmpty) {
 				container.setItem(OUTPUT_SLOT, newOutput)
-			} else if (stackInOutput.isItem(newOutput.item)) {
-				stackInOutput.grow(newOutput.count)
+			} else {
+				if (!ItemStack.isSameItemSameComponents(stackInOutput, newOutput)) {
+					break
+				}
+
+				val amountCanBeAdded = stackInOutput.maxStackSize - stackInOutput.count
+				if (amountCanBeAdded <= 0) {
+					break
+				}
+
+				val toAdd = newOutput.count.coerceAtMost(amountCanBeAdded)
+				stackInOutput.grow(toAdd)
 			}
 
 			stackInInput.shrink(1)

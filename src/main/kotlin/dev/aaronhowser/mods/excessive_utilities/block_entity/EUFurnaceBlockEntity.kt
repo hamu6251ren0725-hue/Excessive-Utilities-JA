@@ -3,13 +3,8 @@ package dev.aaronhowser.mods.excessive_utilities.block_entity
 import dev.aaronhowser.mods.excessive_utilities.block.EUFurnaceBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
-import dev.aaronhowser.mods.excessive_utilities.menu.simple_machine.SimpleMachineMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
-import net.minecraft.network.chat.Component
-import net.minecraft.world.entity.player.Inventory
-import net.minecraft.world.entity.player.Player
-import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeType
@@ -43,11 +38,29 @@ class EUFurnaceBlockEntity(
 		return ServerConfig.CONFIG.furnaceTicksPerRecipe.get()
 	}
 
+	private var recipeCache: RecipeHolder<SmeltingRecipe>? = null
 	override fun getRecipe(level: Level): RecipeHolder<SmeltingRecipe>? {
 		val input = SingleRecipeInput(container.getItem(INPUT_SLOT))
-		return level.recipeManager
+
+		val cache = recipeCache
+		if (cache != null) {
+			if (cache.value.matches(input, level)) {
+				return cache
+			} else {
+				recipeCache = null
+			}
+		}
+
+		val recipe = level.recipeManager
 			.getRecipeFor(RecipeType.SMELTING, input, level)
 			.getOrNull()
+
+		if (recipe == null) {
+			return null
+		}
+
+		recipeCache = recipe
+		return recipe
 	}
 
 }
