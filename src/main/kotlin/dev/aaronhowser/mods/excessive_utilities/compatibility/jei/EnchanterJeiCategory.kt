@@ -7,12 +7,11 @@ import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
-import net.minecraft.world.item.crafting.RecipeHolder
 
 class EnchanterJeiCategory(
-	recipeType: RecipeType<RecipeHolder<EnchanterRecipe>>,
+	recipeType: RecipeType<EnchanterRecipe>,
 	guiHelper: IGuiHelper
-) : AbstractRecipeCategory<RecipeHolder<EnchanterRecipe>>(
+) : AbstractRecipeCategory<EnchanterRecipe>(
 	recipeType,
 	ModBlocks.ENCHANTER.get().name,
 	guiHelper.createDrawableItemLike(ModBlocks.ENCHANTER),
@@ -20,7 +19,7 @@ class EnchanterJeiCategory(
 	50
 ) {
 
-	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<EnchanterRecipe>, focuses: IFocusGroup) {
+	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: EnchanterRecipe, focuses: IFocusGroup) {
 		TODO("Not yet implemented")
 	}
 
