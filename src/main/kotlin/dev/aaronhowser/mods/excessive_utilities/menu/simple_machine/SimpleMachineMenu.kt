@@ -1,10 +1,9 @@
-package dev.aaronhowser.mods.excessive_utilities.menu.furnace
+package dev.aaronhowser.mods.excessive_utilities.menu.simple_machine
 
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
-import dev.aaronhowser.mods.excessive_utilities.block_entity.EUFurnaceBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
@@ -17,13 +16,12 @@ import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
 
-//TODO: Progress arrow
-class EUFurnaceMenu(
+class SimpleMachineMenu(
 	containerId: Int,
 	playerInventory: Inventory,
-	val furnaceContainer: Container,
-	val furnaceContainerData: ContainerData
-) : MenuWithInventory(ModMenuTypes.FURNACE.get(), containerId, playerInventory) {
+	val machineContainer: Container,
+	val machineContainerData: ContainerData
+) : MenuWithInventory(ModMenuTypes.SIMPLE_MACHINE.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
 			this(
@@ -34,18 +32,18 @@ class EUFurnaceMenu(
 			)
 
 	init {
-		checkContainerSize(furnaceContainer, SimpleMachineBlockEntity.CONTAINER_SIZE)
-		checkContainerDataCount(furnaceContainerData, SimpleMachineBlockEntity.CONTAINER_DATA_SIZE)
+		checkContainerSize(machineContainer, SimpleMachineBlockEntity.CONTAINER_SIZE)
+		checkContainerDataCount(machineContainerData, SimpleMachineBlockEntity.CONTAINER_DATA_SIZE)
 
 		addSlots()
-		addDataSlots(furnaceContainerData)
+		addDataSlots(machineContainerData)
 		addPlayerInventorySlots(98)
 	}
 
 	override fun addSlots() {
-		val inputSlot = Slot(furnaceContainer, SimpleMachineBlockEntity.INPUT_SLOT, 62, 41)
-		val outputSlot = OutputSlot(furnaceContainer, SimpleMachineBlockEntity.OUTPUT_SLOT, 116, 41)
-		val upgradeSlot = FilteredSlot(furnaceContainer, SimpleMachineBlockEntity.UPGRADE_SLOT, 153, 5) {
+		val inputSlot = Slot(machineContainer, SimpleMachineBlockEntity.INPUT_SLOT, 62, 41)
+		val outputSlot = OutputSlot(machineContainer, SimpleMachineBlockEntity.OUTPUT_SLOT, 116, 41)
+		val upgradeSlot = FilteredSlot(machineContainer, SimpleMachineBlockEntity.UPGRADE_SLOT, 153, 5) {
 			it.isItem(ModItemTagsProvider.SPEED_UPGRADES)
 		}
 
@@ -54,14 +52,16 @@ class EUFurnaceMenu(
 		addSlot(upgradeSlot)
 	}
 
-	fun getCurrentEnergy(): Int = furnaceContainerData.get(SimpleMachineBlockEntity.CURRENT_ENERGY_DATA_INDEX)
-	fun getProgress(): Int = furnaceContainerData.get(SimpleMachineBlockEntity.PROGRESS_DATA_INDEX)
+	fun getCurrentEnergy(): Int = machineContainerData.get(SimpleMachineBlockEntity.CURRENT_ENERGY_DATA_INDEX)
+	fun getMaxEnergy(): Int = machineContainerData.get(SimpleMachineBlockEntity.MAX_ENERGY_DATA_INDEX)
+	fun getProgress(): Int = machineContainerData.get(SimpleMachineBlockEntity.PROGRESS_DATA_INDEX)
+	fun getMaxProgress(): Int = machineContainerData.get(SimpleMachineBlockEntity.MAX_PROGRESS_DATA_INDEX)
 
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {
 		return ItemStack.EMPTY
 	}
 
 	override fun stillValid(player: Player): Boolean {
-		return furnaceContainer.stillValid(player)
+		return machineContainer.stillValid(player)
 	}
 }

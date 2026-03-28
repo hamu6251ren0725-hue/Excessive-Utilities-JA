@@ -14,8 +14,8 @@ import dev.aaronhowser.mods.excessive_utilities.menu.fluid_filter_menu.FluidFilt
 import dev.aaronhowser.mods.excessive_utilities.menu.fluid_filter_menu.FluidFilterScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.fluid_transfer_node.FluidTransferNodeMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.fluid_transfer_node.FluidTransferNodeScreen
-import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
-import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceScreen
+import dev.aaronhowser.mods.excessive_utilities.menu.simple_machine.SimpleMachineMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.simple_machine.SimpleMachineScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterScreen
 import dev.aaronhowser.mods.excessive_utilities.menu.item_fluid_generator.ItemFluidGeneratorMenu
@@ -66,8 +66,8 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		register("item_fluid_generator", ::ItemFluidGeneratorMenu)
 	val QED: DeferredHolder<MenuType<*>, MenuType<QedMenu>> =
 		register("qed", ::QedMenu)
-	val FURNACE: DeferredHolder<MenuType<*>, MenuType<EUFurnaceMenu>> =
-		register("furnace", ::EUFurnaceMenu)
+	val SIMPLE_MACHINE: DeferredHolder<MenuType<*>, MenuType<SimpleMachineMenu>> =
+		register("simple_machine", ::SimpleMachineMenu)
 	val ITEM_FILTER: DeferredHolder<MenuType<*>, MenuType<ItemFilterMenu>> =
 		register("item_filter") { IMenuTypeExtension.create(::ItemFilterMenu) }
 	val FLUID_FILTER: DeferredHolder<MenuType<*>, MenuType<FluidFilterMenu>> =
@@ -88,7 +88,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		event.register(SINGLE_FLUID_GENERATOR.get(), ::SingleFluidGeneratorScreen)
 		event.register(ITEM_FLUID_GENERATOR.get(), ::ItemFluidGeneratorScreen)
 		event.register(QED.get(), ::QedScreen)
-		event.register(FURNACE.get(), ::EUFurnaceScreen)
+		event.register(SIMPLE_MACHINE.get(), ::SimpleMachineScreen)
 		event.register(ITEM_FILTER.get(), ::ItemFilterScreen)
 		event.register(FLUID_FILTER.get(), ::FluidFilterScreen)
 		event.register(ENDER_PORCUPINE.get(), ::EnderPorcupineScreen)

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.block_entity
 import dev.aaronhowser.mods.excessive_utilities.block.EUFurnaceBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
-import dev.aaronhowser.mods.excessive_utilities.menu.furnace.EUFurnaceMenu
+import dev.aaronhowser.mods.excessive_utilities.menu.simple_machine.SimpleMachineMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -53,7 +53,7 @@ class EUFurnaceBlockEntity(
 	override fun getDisplayName(): Component = blockState.block.name
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return EUFurnaceMenu(containerId, playerInventory, container, containerData)
+		return SimpleMachineMenu(containerId, playerInventory, container, containerData)
 	}
 
 }

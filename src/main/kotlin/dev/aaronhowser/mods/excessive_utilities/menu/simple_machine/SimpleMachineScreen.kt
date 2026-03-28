@@ -1,19 +1,17 @@
-package dev.aaronhowser.mods.excessive_utilities.menu.furnace
+package dev.aaronhowser.mods.excessive_utilities.menu.simple_machine
 
 import dev.aaronhowser.mods.aaron.menu.BaseScreen
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
-import dev.aaronhowser.mods.excessive_utilities.block_entity.EUFurnaceBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.menu.components.EnergyBar
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-class EUFurnaceScreen(
-	menu: EUFurnaceMenu,
+class SimpleMachineScreen(
+	menu: SimpleMachineMenu,
 	playerInventory: Inventory,
 	title: Component
-) : BaseScreen<EUFurnaceMenu>(menu, playerInventory, title) {
+) : BaseScreen<SimpleMachineMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
 	override val inventoryLabelOffsetY: Int = 12
@@ -26,7 +24,7 @@ class EUFurnaceScreen(
 		energyBar = EnergyBar(
 			x = leftPos + 7,
 			y = topPos + 21,
-			maxGetter = { SimpleMachineBlockEntity.MAX_ENERGY },
+			maxGetter = { menu.getMaxEnergy() },
 			currentGetter = { menu.getCurrentEnergy() },
 			font = font
 		)
@@ -35,7 +33,7 @@ class EUFurnaceScreen(
 	}
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/furnace.png"), 176, 180)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/simple_machine.png"), 176, 180)
 	}
 
 }

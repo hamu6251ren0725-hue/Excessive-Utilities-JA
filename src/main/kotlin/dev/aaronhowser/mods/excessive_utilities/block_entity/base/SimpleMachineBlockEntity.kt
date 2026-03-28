@@ -58,7 +58,9 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 			override fun get(index: Int): Int {
 				return when (index) {
 					CURRENT_ENERGY_DATA_INDEX -> energyStorage.energyStored
+					MAX_ENERGY_DATA_INDEX -> energyStorage.maxEnergyStored
 					PROGRESS_DATA_INDEX -> progress
+					MAX_PROGRESS_DATA_INDEX -> maxProgress
 					else -> -1
 				}
 			}
@@ -201,9 +203,11 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 		const val OUTPUT_SLOT = 1
 		const val UPGRADE_SLOT = 2
 
-		const val CONTAINER_DATA_SIZE = 2
+		const val CONTAINER_DATA_SIZE = 4
 		const val CURRENT_ENERGY_DATA_INDEX = 0
-		const val PROGRESS_DATA_INDEX = 1
+		const val MAX_ENERGY_DATA_INDEX = 1
+		const val PROGRESS_DATA_INDEX = 2
+		const val MAX_PROGRESS_DATA_INDEX = 3
 
 		const val PROGRESS_NBT = "Progress"
 		const val ENERGY_NBT = "Energy"
