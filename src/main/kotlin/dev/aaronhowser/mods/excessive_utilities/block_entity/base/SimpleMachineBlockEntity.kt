@@ -16,6 +16,10 @@ import net.minecraft.world.Container
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeHolder
+import net.minecraft.world.item.crafting.SingleRecipeInput
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.Property
@@ -24,7 +28,7 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 import net.neoforged.neoforge.items.wrapper.RangedWrapper
 
-abstract class SimpleMachineBlockEntity(
+abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 	type: BlockEntityType<*>,
 	pos: BlockPos,
 	blockState: BlockState
@@ -84,24 +88,79 @@ abstract class SimpleMachineBlockEntity(
 
 	abstract val litProperty: Property<Boolean>
 	abstract fun isValidInput(stack: ItemStack): Boolean
-	abstract fun tryCraft(level: ServerLevel)
+	abstract fun getRecipe(level: Level): RecipeHolder<T>?
 
 	protected var progress = 0
+		set(value) {
+			if (field != value) {
+				field = value
+				setChanged()
+			}
+		}
+
+	protected var maxProgress: Int = 0
+		set(value) {
+			if (field != value) {
+				field = value
+				setChanged()
+			}
+		}
 
 	override fun serverTick(level: ServerLevel) {
 		super.serverTick(level)
+		stepCraft(level)
+		updateBlockState(level)
+	}
+
+	protected var didWorkLastTick = false
+
+	protected open fun stepCraft(level: ServerLevel) {
+		didWorkLastTick = false
+
+		val recipe = getRecipe(level)
+		if (recipe == null) {
+			progress = 0
+			maxProgress = 0
+			return
+		}
+
+		val feRequired = getFePerTick(recipe)
+		if (energyStorage.energyStored < feRequired) {
+			return
+		}
+
+		didWorkLastTick = true
+
+		val recipeDuration = getRecipeDuration(recipe)
+		maxProgress = recipeDuration
 
 		val amountSpeedUpgrades = container.getItem(UPGRADE_SLOT).count
+		progress += amountSpeedUpgrades
 
-		for (i in 0..amountSpeedUpgrades) {
-			tryCraft(level)
-			updateBlockState(level)
+		while (progress >= recipeDuration) {
+			progress -= recipeDuration
+
+			val stackInInput = container.getItem(INPUT_SLOT)
+			val newOutput = recipe.value.assemble(SingleRecipeInput(stackInInput), level.registryAccess())
+
+			val stackInOutput = container.getItem(OUTPUT_SLOT)
+			if (stackInOutput.isEmpty) {
+				container.setItem(OUTPUT_SLOT, newOutput)
+			} else if (stackInOutput.isItem(newOutput.item)) {
+				stackInOutput.grow(newOutput.count)
+			}
+
+			stackInInput.shrink(1)
+			energyStorage.extractEnergy(feRequired, false)
 		}
 	}
 
+	protected abstract fun getFePerTick(recipe: RecipeHolder<T>): Int
+	protected abstract fun getRecipeDuration(recipe: RecipeHolder<T>): Int
+
 	protected fun updateBlockState(level: ServerLevel) {
 		val wasLit = blockState.getValue(litProperty)
-		val shouldBeLit = progress > 0
+		val shouldBeLit = didWorkLastTick
 
 		if (wasLit != shouldBeLit) {
 			val newState = blockState.setValue(litProperty, shouldBeLit)

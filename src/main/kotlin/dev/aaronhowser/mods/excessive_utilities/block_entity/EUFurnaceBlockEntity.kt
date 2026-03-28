@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.block_entity
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.block.EUFurnaceBlock
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.SimpleMachineBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
@@ -28,7 +27,7 @@ import kotlin.jvm.optionals.getOrNull
 class EUFurnaceBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : SimpleMachineBlockEntity(ModBlockEntityTypes.FURNACE.get(), pos, blockState) {
+) : SimpleMachineBlockEntity<SmeltingRecipe>(ModBlockEntityTypes.FURNACE.get(), pos, blockState) {
 
 	override val litProperty: Property<Boolean> = EUFurnaceBlock.LIT
 
@@ -49,44 +48,15 @@ class EUFurnaceBlockEntity(
 		return SpeedUpgradeItem.getGpCost(amountUpgrades)
 	}
 
-	override fun tryCraft(level: ServerLevel) {
-		val recipe = getRecipe(level)
-		if (recipe == null) {
-			progress = 0
-			level.setBlockAndUpdate(blockPos, blockState.setValue(EUFurnaceBlock.LIT, false))
-			return
-		}
-
-		val feRequired = ServerConfig.CONFIG.furnaceGeneratorFePerTick.get()
-		if (energyStorage.energyStored < feRequired) {
-			level.setBlockAndUpdate(blockPos, blockState.setValue(EUFurnaceBlock.LIT, false))
-			return
-		}
-
-		val amountUpgrades = container.getItem(UPGRADE_SLOT).count
-		progress += amountUpgrades
-
-		val maxProgress = ServerConfig.CONFIG.furnaceTicksPerRecipe.get()
-
-		if (progress >= maxProgress) {
-			val inputStack = container.getItem(INPUT_SLOT)
-			val newOutput = recipe.value.assemble(SingleRecipeInput(inputStack), level.registryAccess())
-
-			val stackInOutput = container.getItem(OUTPUT_SLOT)
-			if (stackInOutput.isEmpty) {
-				container.setItem(OUTPUT_SLOT, newOutput)
-			} else if (stackInOutput.isItem(newOutput.item)) {
-				stackInOutput.grow(newOutput.count)
-			}
-
-			inputStack.shrink(1)
-			energyStorage.extractEnergy(feRequired, false)
-
-			progress = 0
-		}
+	override fun getFePerTick(recipe: RecipeHolder<SmeltingRecipe>): Int {
+		return ServerConfig.CONFIG.furnaceGeneratorFePerTick.get()
 	}
 
-	private fun getRecipe(level: Level): RecipeHolder<SmeltingRecipe>? {
+	override fun getRecipeDuration(recipe: RecipeHolder<SmeltingRecipe>): Int {
+		return ServerConfig.CONFIG.furnaceTicksPerRecipe.get()
+	}
+
+	override fun getRecipe(level: Level): RecipeHolder<SmeltingRecipe>? {
 		val input = SingleRecipeInput(container.getItem(INPUT_SLOT))
 		return level.recipeManager
 			.getRecipeFor(RecipeType.SMELTING, input, level)
