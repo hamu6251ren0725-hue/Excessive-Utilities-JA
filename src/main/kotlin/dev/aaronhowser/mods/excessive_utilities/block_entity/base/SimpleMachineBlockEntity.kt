@@ -157,6 +157,9 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 			return
 		}
 
+		val canFit = canOutputFit(level, recipe)
+		if (!canFit) return
+
 		didWorkLastTick = true
 
 		val recipeDuration = getRecipeDuration(recipe)
@@ -190,6 +193,19 @@ abstract class SimpleMachineBlockEntity<T : Recipe<SingleRecipeInput>>(
 			stackInInput.shrink(1)
 			energyStorage.extractEnergy(feRequired, false)
 		}
+	}
+
+	protected fun canOutputFit(level: ServerLevel, recipe: RecipeHolder<T>): Boolean {
+		val stackInOutput = container.getItem(OUTPUT_SLOT)
+		if (stackInOutput.isEmpty) return true
+
+		val amountCanBeAdded = stackInOutput.maxStackSize - stackInOutput.count
+		if (amountCanBeAdded <= 0) return false
+
+		val newOutput = recipe.value.getResultItem(level.registryAccess())
+		if (!ItemStack.isSameItemSameComponents(stackInOutput, newOutput)) return false
+
+		return newOutput.count <= amountCanBeAdded
 	}
 
 	protected fun updateBlockState(level: ServerLevel) {
