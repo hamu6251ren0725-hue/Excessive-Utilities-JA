@@ -73,31 +73,38 @@ class QedBlockEntity(
 			return
 		}
 
+		if (!canOutputFit(level, recipe)) return
+
 		maxProgress = recipe.crystalTicks
 		progress += amountNearbyCrystals
 
 		while (progress >= maxProgress) {
 			val input = getRecipeInput()
+			val newOutput = recipe.assemble(input, level.registryAccess())
 
-			if (!recipe.matches(input, level)) {
-				progress = 0
-				return
-			}
-
-			progress -= maxProgress
-
-			val output = recipe.assemble(input, level.registryAccess())
-			val currentOutput = container.getItem(OUTPUT_SLOT)
-
-			if (currentOutput.isEmpty) {
-				container.setItem(OUTPUT_SLOT, output)
+			val stackInOutput = container.getItem(OUTPUT_SLOT)
+			if (stackInOutput.isEmpty) {
+				container.setItem(OUTPUT_SLOT, newOutput)
 			} else {
-				currentOutput.grow(output.count)
+				if (!ItemStack.isSameItemSameComponents(stackInOutput, newOutput)) {
+					break
+				}
+
+				val amountCanBeAdded = stackInOutput.maxStackSize - stackInOutput.count
+				if (amountCanBeAdded <= 0) {
+					break
+				}
+
+				val toAdd = newOutput.count.coerceAtMost(amountCanBeAdded)
+				stackInOutput.grow(toAdd)
 			}
 
 			for (i in 0 until 9) {
-				container.removeItem(i, 1)
+				val inputStack = container.getItem(i)
+				inputStack.shrink(1)
 			}
+
+			progress -= maxProgress
 		}
 	}
 
@@ -118,6 +125,19 @@ class QedBlockEntity(
 
 		recipeCache = recipe
 		return recipe
+	}
+
+	private fun canOutputFit(level: ServerLevel, recipe: QedRecipe): Boolean {
+		val stackInOutput = container.getItem(OUTPUT_SLOT)
+		if (stackInOutput.isEmpty) return true
+
+		val amountCanBeAdded = stackInOutput.maxStackSize - stackInOutput.count
+		if (amountCanBeAdded <= 0) return false
+
+		val newOutput = recipe.getResultItem(level.registryAccess())
+		if (!ItemStack.isSameItemSameComponents(stackInOutput, newOutput)) return false
+
+		return newOutput.count <= amountCanBeAdded
 	}
 
 	private fun getRecipeInput(): CraftingInput {
