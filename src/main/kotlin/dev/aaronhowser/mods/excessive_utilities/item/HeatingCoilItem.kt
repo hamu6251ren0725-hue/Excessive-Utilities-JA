@@ -3,8 +3,10 @@ package dev.aaronhowser.mods.excessive_utilities.item
 import dev.aaronhowser.mods.aaron.misc.ARGB
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
+import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.crafting.RecipeType
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.energy.ComponentEnergyStorage
@@ -33,6 +35,17 @@ class HeatingCoilItem(properties: Properties) : Item(properties) {
 	override fun isBarVisible(stack: ItemStack): Boolean = true
 	override fun getMaxDamage(stack: ItemStack): Int = ServerConfig.CONFIG.heatingCoilMaxEnergy.get()
 	override fun getDamage(stack: ItemStack): Int = getMaxDamage(stack) - stack.getOrDefault(ModDataComponents.ENERGY, 0)
+
+	override fun appendHoverText(
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
+	) {
+		val energy = stack.getOrDefault(ModDataComponents.ENERGY, 0)
+		val maxEnergy = ServerConfig.CONFIG.heatingCoilMaxEnergy.get()
+		tooltipComponents += Component.literal("Energy: $energy / $maxEnergy FE")
+	}
 
 	companion object {
 		val DEFAULT_PROPERTIES: () -> Properties =

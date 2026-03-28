@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
@@ -73,6 +74,18 @@ object ModCreativeModeTabs {
 						for (type in AngelRingItem.Type.entries) {
 							output.accept(type.getStack())
 						}
+
+						continue
+					}
+
+					if (item == ModItems.HEATING_COIL.get()) {
+						output.accept(item)
+						output.accept(
+							item.withComponent(
+								ModDataComponents.ENERGY.get(),
+								ServerConfig.CONFIG.heatingCoilMaxEnergy.get()
+							)
+						)
 
 						continue
 					}
