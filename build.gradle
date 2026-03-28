@@ -141,17 +141,23 @@ repositories {
 		}
 	}
 
-	maven { url 'https://maven.blamejared.com' }
-
 	maven { url "https://maven.sinytra.org" }
+
+	maven {
+		name = "Jared's maven"
+		url = "https://maven.blamejared.com/"
+	}
 
 }
 
 dependencies {
 	implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
 
-	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+//	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+//	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+
+	compileOnly("mezz.jei:jei-1.21.1-neoforge-api:${jei_version}")
+	runtimeOnly("mezz.jei:jei-1.21.1-neoforge:${jei_version}")
 
 	compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
 	runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
