@@ -37,7 +37,7 @@ class QedMenu(
 		addPlayerInventorySlots(98)
 	}
 
-	fun getCurrentProgress(): Int = qedContainerData.get(QedBlockEntity.CURRENT_PROGRESS_DATA_INDEX)
+	fun getProgress(): Int = qedContainerData.get(QedBlockEntity.CURRENT_PROGRESS_DATA_INDEX)
 	fun getMaxProgress(): Int = qedContainerData.get(QedBlockEntity.MAX_PROGRESS_DATA_INDEX)
 	fun getAmountNearbyCrystals(): Int = qedContainerData.get(QedBlockEntity.AMOUNT_NEARBY_CRYSTALS_DATA_INDEX)
 
