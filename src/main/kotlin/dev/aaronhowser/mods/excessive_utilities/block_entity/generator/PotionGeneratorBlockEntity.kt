@@ -26,7 +26,7 @@ class PotionGeneratorBlockEntity(
 	override val generatorType: GeneratorType = GeneratorType.POTION
 
 	override fun tryStartBurning(level: ServerLevel): Boolean {
-		if (burnTimeRemaining > 0 || container == null) return false
+		if (burnTimeRemaining > 0) return false
 
 		val inputStack = container.getItem(GeneratorContainer.INPUT_SLOT)
 		if (inputStack.isEmpty) return false
@@ -60,7 +60,20 @@ class PotionGeneratorBlockEntity(
 				?: return -1
 
 			val steps = calculateBrewingSteps(level, potion)
+			return getPowerFromSteps(steps)
+		}
+
+		fun getPowerFromSteps(steps: Int): Int {
 			return 100 * Mth.ceil(4.0.pow(steps))
+		}
+
+		fun getBrewingSteps(level: Level, itemStack: ItemStack): Int {
+			val potion = itemStack.get(DataComponents.POTION_CONTENTS)
+				?.potion
+				?.getOrNull()
+				?: return -1
+
+			return calculateBrewingSteps(level, potion)
 		}
 
 		tailrec fun calculateBrewingSteps(
