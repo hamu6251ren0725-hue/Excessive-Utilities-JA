@@ -13,7 +13,6 @@ import dev.aaronhowser.mods.excessive_utilities.block_entity.base.ContainerConta
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.GpDrainBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.item.SpeedUpgradeItem
-import dev.aaronhowser.mods.excessive_utilities.menu.enchanter.EnchanterMenu
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
@@ -164,13 +163,11 @@ class CrusherBlockEntity(
 
 		val cache = recipeCache
 		if (cache != null) {
-			if (cache.value
-					.matches(
-						SingleRecipeInput(input),
-						level
-					)
-			) {
+			val recipeInput = SingleRecipeInput(input)
+			if (cache.value.matches(recipeInput, level)) {
 				return cache
+			} else {
+				recipeCache = null
 			}
 		}
 
@@ -202,6 +199,7 @@ class CrusherBlockEntity(
 
 	override fun getDisplayName(): Component = blockState.block.name
 
+	//TODO: Need a menu
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
 		return null
 	}
