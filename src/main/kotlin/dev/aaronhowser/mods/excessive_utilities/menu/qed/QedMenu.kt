@@ -8,6 +8,8 @@ import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
 
@@ -15,6 +17,7 @@ class QedMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	val qedContainer: Container,
+	val qedContainerData: ContainerData
 ) : MenuWithInventory(ModMenuTypes.QED.get(), containerId, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) :
@@ -22,14 +25,21 @@ class QedMenu(
 				containerId,
 				playerInventory,
 				SimpleContainer(QedBlockEntity.CONTAINER_SIZE),
+				SimpleContainerData(QedBlockEntity.CONTAINER_DATA_SIZE)
 			)
 
 	init {
 		checkContainerSize(qedContainer, QedBlockEntity.CONTAINER_SIZE)
+		checkContainerDataCount(qedContainerData, QedBlockEntity.CONTAINER_DATA_SIZE)
 
 		addSlots()
+		addDataSlots(qedContainerData)
 		addPlayerInventorySlots(98)
 	}
+
+	fun getCurrentProgress(): Int = qedContainerData.get(QedBlockEntity.CURRENT_PROGRESS_DATA_INDEX)
+	fun getMaxProgress(): Int = qedContainerData.get(QedBlockEntity.MAX_PROGRESS_DATA_INDEX)
+	fun getAmountNearbyCrystals(): Int = qedContainerData.get(QedBlockEntity.AMOUNT_NEARBY_CRYSTALS_DATA_INDEX)
 
 	override fun addSlots() {
 		val outputSlot = OutputSlot(qedContainer, QedBlockEntity.OUTPUT_SLOT, 124, 41)

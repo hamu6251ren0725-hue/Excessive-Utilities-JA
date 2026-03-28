@@ -20,6 +20,7 @@ import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.level.Level
@@ -59,7 +60,12 @@ class QedBlockEntity(
 		progress += amountNearbyCrystals
 
 		while (progress >= recipe.crystalTicks) {
-			val input = CraftingInput.of(3, 3, container.items.subList(0, 9))
+			val input = CraftingInput.of(
+				3,
+				3,
+				container.items.subList(0, 9)
+			)
+
 			if (!recipe.matches(input, level)) {
 				progress = 0
 				return
@@ -69,6 +75,7 @@ class QedBlockEntity(
 
 			val output = recipe.assemble(input, level.registryAccess())
 			val currentOutput = container.getItem(OUTPUT_SLOT)
+
 			if (currentOutput.isEmpty) {
 				container.setItem(OUTPUT_SLOT, output)
 			} else {
@@ -112,12 +119,30 @@ class QedBlockEntity(
 		this.amountNearbyCrystals = count
 	}
 
+	private val containerData =
+		object : ContainerData {
+			override fun getCount(): Int = CONTAINER_DATA_SIZE
+
+			override fun get(index: Int): Int {
+				return when (index) {
+					CURRENT_PROGRESS_DATA_INDEX -> progress
+					MAX_PROGRESS_DATA_INDEX -> 1
+					AMOUNT_NEARBY_CRYSTALS_DATA_INDEX -> amountNearbyCrystals
+					else -> 0
+				}
+			}
+
+			override fun set(index: Int, value: Int) {
+				// No-Op
+			}
+		}
+
 	override fun getDisplayName(): Component {
 		return blockState.block.name
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return QedMenu(containerId, playerInventory, container)
+		return QedMenu(containerId, playerInventory, container, containerData)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -137,6 +162,11 @@ class QedBlockEntity(
 	companion object {
 		const val OUTPUT_SLOT = 9
 		const val CONTAINER_SIZE = 10
+
+		const val CONTAINER_DATA_SIZE = 3
+		const val CURRENT_PROGRESS_DATA_INDEX = 0
+		const val MAX_PROGRESS_DATA_INDEX = 1
+		const val AMOUNT_NEARBY_CRYSTALS_DATA_INDEX = 2
 
 		const val PROGRESS_NBT = "Progress"
 
