@@ -15,5 +15,5 @@ object OpiniumTier : Tier {
 	override fun getAttackDamageBonus(): Float = Tiers.NETHERITE.attackDamageBonus
 	override fun getIncorrectBlocksForDrops(): TagKey<Block> = Tiers.NETHERITE.incorrectBlocksForDrops
 	override fun getEnchantmentValue(): Int = Mth.ceil(Tiers.NETHERITE.enchantmentValue * 1.5)
-	override fun getRepairIngredient(): Ingredient = OpiniumCoreContentsComponent.getDefaultTiers().last().getStack().asIngredient()
+	override fun getRepairIngredient(): Ingredient = OpiniumCoreContentsComponent.DEFAULT_TIERS.last().getStack().asIngredient()
 }

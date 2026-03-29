@@ -66,8 +66,8 @@ data class OpiniumCoreContentsComponent(
 				::OpiniumCoreContentsComponent
 			)
 
-		fun getDefaultTiers(): List<OpiniumCoreContentsComponent> {
-			return listOf(
+		val DEFAULT_TIERS: List<OpiniumCoreContentsComponent> by lazy {
+			listOf(
 				OpiniumCoreContentsComponent(
 					Items.IRON_BLOCK.defaultInstance,
 					ModItems.RED_COAL.getDefaultInstance(),

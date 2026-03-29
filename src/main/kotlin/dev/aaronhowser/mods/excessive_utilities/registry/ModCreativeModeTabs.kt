@@ -47,7 +47,7 @@ object ModCreativeModeTabs {
 
 				for (item in regularItems) {
 					if (item == ModItems.OPINIUM_CORE.get()) {
-						for (tier in OpiniumCoreContentsComponent.getDefaultTiers()) {
+						for (tier in OpiniumCoreContentsComponent.DEFAULT_TIERS) {
 							output.accept(tier.getStack())
 						}
 
