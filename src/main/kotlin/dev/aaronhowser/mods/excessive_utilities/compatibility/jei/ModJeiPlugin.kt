@@ -8,10 +8,15 @@ import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.Encha
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.QedJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.ResonatorJeiCategory
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.category.generator_fuel.*
+import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.extension.ShapedRecipeExtension
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.subtype.AngelRingSubtypeInterpreter
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.subtype.DivisionCoreSubtypeInterpreter
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.subtype.LassoSubtypeInterpreter
 import dev.aaronhowser.mods.excessive_utilities.compatibility.jei.subtype.OpiniumCoreSubtypeInterpreter
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.DamageGlassCutterRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.KeepPaintbrushRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedDivisionRecipe
+import dev.aaronhowser.mods.excessive_utilities.recipe.crafting.ShapedUnstableRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.CrusherRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.EnchanterRecipe
 import dev.aaronhowser.mods.excessive_utilities.recipe.machine.QedRecipe
@@ -25,10 +30,7 @@ import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.constants.RecipeTypes
 import mezz.jei.api.recipe.RecipeType
-import mezz.jei.api.registration.IRecipeCatalystRegistration
-import mezz.jei.api.registration.IRecipeCategoryRegistration
-import mezz.jei.api.registration.IRecipeRegistration
-import mezz.jei.api.registration.ISubtypeRegistration
+import mezz.jei.api.registration.*
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
@@ -104,6 +106,15 @@ class ModJeiPlugin : IModPlugin {
 
 		val disenchantmentRecipes = DisenchantmentFuelJeiCategory.getAllRecipes(level, registration)
 		registration.addRecipes(DISENCHANTMENT_FUELS, disenchantmentRecipes)
+	}
+
+	override fun registerVanillaCategoryExtensions(registration: IVanillaCategoryExtensionRegistration) {
+		val craftingCategory = registration.craftingCategory
+
+		craftingCategory.addExtension(KeepPaintbrushRecipe::class.java, ShapedRecipeExtension())
+		craftingCategory.addExtension(ShapedDivisionRecipe::class.java, ShapedRecipeExtension())
+		craftingCategory.addExtension(ShapedUnstableRecipe::class.java, ShapedRecipeExtension())
+		craftingCategory.addExtension(DamageGlassCutterRecipe::class.java, ShapedRecipeExtension())
 	}
 
 	override fun registerItemSubtypes(registration: ISubtypeRegistration) {
