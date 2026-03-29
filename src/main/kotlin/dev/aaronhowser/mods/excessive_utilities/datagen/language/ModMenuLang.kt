@@ -24,6 +24,8 @@ object ModMenuLang {
 	const val TICKS = "message.excessive_utilities.ticks"
 	const val GP = "tooltip.excessive_utilities.gp"
 	const val GP_COST = "tooltip.excessive_utilities.gp_cost"
+	const val INFINITE_USES = "tooltip.excessive_utilities.infinite_uses"
+	const val REMAINING_USES = "tooltip.excessive_utilities.remaining_uses"
 
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
@@ -44,6 +46,8 @@ object ModMenuLang {
 			add(FE, "%s FE")
 			add(GP, "%s GP")
 			add(GP_COST, "GP Cost: %s")
+			add(INFINITE_USES, "Infinite Uses")
+			add(REMAINING_USES, "Remaining Uses: %d")
 
 			add(AngelRingItem.Type.INVISIBLE.langKey, "Invisible")
 			add(AngelRingItem.Type.FEATHER.langKey, "Feather")

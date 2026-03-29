@@ -9,6 +9,8 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModItemLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMessageLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
@@ -78,13 +80,13 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 		tooltipFlag: TooltipFlag
 	) {
 		if (isInverted(stack)) {
-			tooltipComponents += Component.literal("Infinite uses")
+			tooltipComponents += ModMenuLang.INFINITE_USES.toComponent()
 			return
 		}
 
 		val remainingUses = stack.getOrDefault(ModDataComponents.REMAINING_USES, 0)
 
-		tooltipComponents += Component.literal("$remainingUses Uses Remaining")
+		tooltipComponents += ModMenuLang.REMAINING_USES.toComponent(remainingUses)
 	}
 
 	override fun isBarVisible(stack: ItemStack): Boolean {
@@ -147,11 +149,11 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			val messages = mutableListOf<Component>()
 
 			if (!level.getBiome(enchantingTablePos).isHolder(Tags.Biomes.IS_OVERWORLD)) {
-				messages += Component.literal("You can only activate the Division Sigil in the Overworld!")
+				messages += ModMessageLang.DIVISION_OVERWORLD_ONLY.toComponent()
 			}
 
 			if (!level.canSeeSky(enchantingTablePos)) {
-				messages += Component.literal("The Enchanting Table must be able to see the sky.")
+				messages += ModMessageLang.DIVISION_SEE_SKY.toComponent()
 			}
 
 			for (dx in -1..1) for (dz in -1..1) {
@@ -161,8 +163,8 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 				val checkState = level.getBlockState(checkPos)
 
 				if (!checkState.isBlock(Blocks.REDSTONE_WIRE)) {
-					messages += Component.literal("You must have Redstone surrounding the Enchanting Table.")
-					messages += Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+					messages += ModMessageLang.DIVISION_REDSTONE.toComponent()
+					messages += ModMessageLang.DIVISION_REDSTONE_AT.toComponent(checkPos.x, checkPos.y, checkPos.z)
 					return ResultWithMessage(false, messages)
 				}
 			}
@@ -172,23 +174,23 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 				val checkState = level.getBlockState(checkPos)
 
 				if (!checkState.isBlock(BlockTags.DIRT)) {
-					messages += Component.literal("You must have a 5x5 layer of Dirt under the Enchanting Table.")
-					messages += Component.literal("It's missing at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+					messages += ModMessageLang.DIVISION_DIRT.toComponent()
+					messages += ModMessageLang.DIVISION_DIRT_AT.toComponent(checkPos.x, checkPos.y, checkPos.z)
 					return ResultWithMessage(false, messages)
 				}
 			}
 
 			if (level.dayTime !in 17500..18500) {
-				messages += Component.literal("You can only activate the Division Sigil at midnight.")
+				messages += ModMessageLang.DIVISION_MIDNIGHT.toComponent()
 			}
 
 			if (level.getBrightness(LightLayer.BLOCK, enchantingTablePos.above()) > 7) {
-				messages += Component.literal("The Enchanting Table must be in darkness.")
+				messages += ModMessageLang.DIVISION_DARKNESS.toComponent()
 			}
 
 			if (messages.isEmpty()) {
-				messages += Component.literal("The Division Sigil is ready to be activated!")
-				messages += Component.literal("Kill a mob nearby the Enchanting Table.")
+				messages += ModMessageLang.DIVISION_READY_ONE.toComponent()
+				messages += ModMessageLang.DIVISION_READY_TWO.toComponent()
 			}
 
 			return ResultWithMessage(true, messages)
@@ -222,7 +224,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 			val messages = mutableListOf<Component>()
 
 			if (!level.getBiome(catalystPos).isHolder(Tags.Biomes.IS_END)) {
-				messages += Component.literal("You can only invert the Division Sigil in the End!")
+				messages += ModMessageLang.INVERSION_END_ONLY.toComponent()
 			}
 
 			val directions = Direction.Plane.HORIZONTAL
@@ -234,7 +236,7 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 				val itemHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, checkPos, null)
 				@Suppress("FoldInitializerAndIfToElvis", "RedundantSuppression")
 				if (itemHandler == null) {
-					messages += Component.literal("Yuo must have a Chest 5 blocks to the ${dir.getDirectionName()}.")
+					messages += ModMessageLang.INVERSION_MISSING_CHEST.toComponent(dir.getDirectionName())
 				}
 			}
 
@@ -263,11 +265,11 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 					val checkState = level.getBlockState(checkPos)
 
 					if (char == '◼' && !checkState.isBlock(Blocks.REDSTONE_WIRE)) {
-						messages += Component.literal("You are missing a Redstone at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+						messages += ModMessageLang.INVERSION_MISSING_REDSTONE.toComponent(checkPos.x, checkPos.y, checkPos.z)
 					}
 
 					if (char == '◻' && !checkState.isBlock(Blocks.TRIPWIRE)) {
-						messages += Component.literal("You are missing a String at ${checkPos.x}, ${checkPos.y}, ${checkPos.z}.")
+						messages += ModMessageLang.INVERSION_MISSING_STRING.toComponent(checkPos.x, checkPos.y, checkPos.z)
 					}
 
 					if (messages.isNotEmpty()) {
@@ -313,13 +315,13 @@ class DivisionSigilItem(properties: Properties) : Item(properties) {
 
 				val amountNeeded = 12
 				if (count < amountNeeded) {
-					messages += Component.literal("You need at least $amountNeeded items from the tag #${tag.location()} in the Chest to the ${dir.getDirectionName()}, but you only have $count.")
+					messages += ModMessageLang.INVERSION_MISSING_ITEMS.toComponent(amountNeeded, tag.location.toString(), dir.getDirectionName(), count)
 				}
 			}
 
 			if (messages.isEmpty()) {
-				messages += Component.literal("The Division Sigil is ready to be inverted!")
-				messages += Component.literal("Kill an Iron Golem near the Beacon to begin the ritual.")
+				messages += ModMessageLang.INVERSION_READY_ONE.toComponent()
+				messages += ModMessageLang.INVERSION_READY_TWO.toComponent()
 			}
 
 			return ResultWithMessage(true, messages)
