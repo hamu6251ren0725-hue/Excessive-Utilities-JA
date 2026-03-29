@@ -44,7 +44,7 @@ class ResonatorJeiCategory(
 
 		builder.addRecipeArrow().setPosition(32, 9)
 
-		val formattedGpCost = "%.2f".format(recipe.gpCost)
+		val formattedGpCost = DecimalFormat("#,##0.##").format(recipe.gpCost)
 
 		builder.addText(
 			ModMenuLang.GP.toComponent(formattedGpCost),
