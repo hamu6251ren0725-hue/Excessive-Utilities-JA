@@ -79,7 +79,7 @@ class ModRecipeProvider(
 	}
 
 	private fun buildOpiniumRecipes(recipeOutput: RecipeOutput) {
-		val cores = OpiniumCoreContentsComponent.DEFAULT_TIERS
+		val cores = OpiniumCoreContentsComponent.getDefaultTiers()
 
 		for ((i, core) in cores.withIndex()) {
 			val tierName = core.name.string.split(".").last()
