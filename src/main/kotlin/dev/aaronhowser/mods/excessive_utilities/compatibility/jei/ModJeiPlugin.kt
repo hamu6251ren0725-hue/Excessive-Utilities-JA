@@ -29,6 +29,7 @@ import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
+import net.neoforged.fml.ModList
 
 @JeiPlugin
 class ModJeiPlugin : IModPlugin {
@@ -107,7 +108,7 @@ class ModJeiPlugin : IModPlugin {
 	}
 
 	companion object {
-		val ID = ExcessiveUtilities.modResource("jei_plugin")
+		val ID: ResourceLocation = ResourceLocation.fromNamespaceAndPath(ExcessiveUtilities.MOD_ID, "jei_plugin")
 
 		val CRUSHER: RecipeType<RecipeHolder<CrusherRecipe>> = makeRecipeType("crusher")
 		val ENCHANTER: RecipeType<RecipeHolder<EnchanterRecipe>> = makeRecipeType("enchanter")
@@ -154,6 +155,8 @@ class ModJeiPlugin : IModPlugin {
 		private fun dynamicItemFuel(id: String): RecipeType<DynamicItemFuelJeiCategory.Recipe> {
 			return makeRecipeType("generator_fuel/dynamic_item_fuel/$id", DynamicItemFuelJeiCategory.Recipe::class.java)
 		}
+
+		private fun shouldLoad(): Boolean = !ModList.get().isLoaded("emi")
 	}
 
 }
