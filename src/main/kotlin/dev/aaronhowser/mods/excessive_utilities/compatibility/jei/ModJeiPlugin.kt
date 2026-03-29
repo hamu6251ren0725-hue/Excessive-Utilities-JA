@@ -117,6 +117,7 @@ class ModJeiPlugin : IModPlugin {
 		craftingCategory.addExtension(DamageGlassCutterRecipe::class.java, ShapedRecipeExtension())
 	}
 
+	//FIXME: For some reason I can't see higher-tier Opinium Core recipes?
 	override fun registerItemSubtypes(registration: ISubtypeRegistration) {
 		registration.registerSubtypeInterpreter(ModItems.OPINIUM_CORE.get(), OpiniumCoreSubtypeInterpreter)
 		registration.registerSubtypeInterpreter(ModItems.DIVISION_SIGIL.get(), DivisionCoreSubtypeInterpreter)
