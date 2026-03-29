@@ -23,6 +23,25 @@ data class OpiniumCoreContentsComponent(
 
 	fun getStack(): ItemStack = ModItems.OPINIUM_CORE.withComponent(ModDataComponents.OPINIUM_CORE_CONTENTS.get(), this)
 
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (other !is OpiniumCoreContentsComponent) return false
+
+		if (!ItemStack.isSameItemSameComponents(center, other.center)) return false
+		if (!ItemStack.isSameItemSameComponents(outer, other.outer)) return false
+
+		if (name != other.name) return false
+
+		return true
+	}
+
+	override fun hashCode(): Int {
+		var result = center.hashCode()
+		result = 31 * result + outer.hashCode()
+		result = 31 * result + name.hashCode()
+		return result
+	}
+
 	companion object {
 		val CODEC: Codec<OpiniumCoreContentsComponent> =
 			RecordCodecBuilder.create { instance ->
