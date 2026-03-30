@@ -7,8 +7,10 @@ import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsCo
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
+import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap
 import net.minecraft.ChatFormatting
 import net.minecraft.core.NonNullList
+import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -21,6 +23,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.component.ItemContainerContents
 import net.minecraft.world.level.Level
+import java.util.*
 
 class ItemFilterItem(properties: Properties) : Item(properties) {
 
@@ -193,18 +196,25 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun isSameComponentsWithoutDamage(leftStack: ItemStack, rightStack: ItemStack): Boolean {
+			if (leftStack.item != rightStack.item) return false
+
 			val leftPatch = leftStack.componentsPatch
 			val rightPatch = rightStack.componentsPatch
 
-			for ((type, value) in leftPatch.entrySet()) {
-				if (type == DataComponents.DAMAGE) continue
+			val leftMap = Reference2ObjectOpenHashMap<DataComponentType<*>, Optional<*>>()
+			val rightMap = Reference2ObjectOpenHashMap<DataComponentType<*>, Optional<*>>()
 
-				val rightValue = rightPatch.get(type)
-				if (rightValue == null) return false
-				if (value != rightValue) return false
+			for ((type, value) in leftPatch.entrySet()) {
+				if (type === DataComponents.DAMAGE) continue
+				leftMap[type] = value
 			}
 
-			return true
+			for ((type, value) in rightPatch.entrySet()) {
+				if (type === DataComponents.DAMAGE) continue
+				rightMap[type] = value
+			}
+
+			return leftMap == rightMap
 		}
 	}
 
