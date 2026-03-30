@@ -85,7 +85,7 @@ class QuantumQuarryScreen(
 						font,
 						component,
 						35,
-						60,
+						50,
 						4210752,
 						false
 					)
@@ -102,7 +102,7 @@ class QuantumQuarryScreen(
 			font,
 			Component.literal("$minedString mined"),
 			35,
-			50,
+			60,
 			4210752,
 			false
 		)
