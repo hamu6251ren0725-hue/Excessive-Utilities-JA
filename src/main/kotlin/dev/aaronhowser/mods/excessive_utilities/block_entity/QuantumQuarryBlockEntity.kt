@@ -22,6 +22,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Mth
 import net.minecraft.world.Container
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ChunkPos
@@ -50,7 +51,7 @@ class QuantumQuarryBlockEntity(
 
 	private val bufferContainer: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 27)
 	private val bufferItemHandler: ExtractOnlyInvWrapper = ExtractOnlyInvWrapper(bufferContainer)
-	private val upgradesContainer = ImprovedSimpleContainer(this, 3)
+	private val upgradesContainer = ImprovedSimpleContainer(this, UPGRADE_CONTAINER_SIZE)
 
 	override fun getContainers(): List<Container> = listOf(bufferContainer, upgradesContainer)
 
@@ -58,6 +59,7 @@ class QuantumQuarryBlockEntity(
 
 	private var targetChunk: ChunkPos? = null
 	private var targetBlockPos: BlockPos? = null
+	private var amountBlocksBroken: UInt = 0u
 
 	private fun getItemFilter(): ItemStack = upgradesContainer.getItem(ITEM_FILTER_SLOT_INDEX)
 	private fun getEnchantedBook(): ItemStack = upgradesContainer.getItem(ENCHANTED_BOOK_SLOT_INDEX)
@@ -138,6 +140,7 @@ class QuantumQuarryBlockEntity(
 
 		while (progressThroughBlock >= 1.0) {
 			progressThroughBlock -= 1.0
+			amountBlocksBroken++
 
 			val target = targetBlockPos ?: return
 			val drops = gatherDrops(miningDimensionLevel, target)
@@ -302,6 +305,41 @@ class QuantumQuarryBlockEntity(
 		setChunkForced(level, targetChunk, false)
 	}
 
+	private val containerData: ContainerData =
+		object : ContainerData {
+			override fun get(index: Int): Int {
+				return when (index) {
+					CURRENT_ENERGY_DATA_INDEX -> energyStorage.energyStored
+					TARGET_X_DATA_INDEX -> targetBlockPos?.x ?: 0
+					TARGET_Z_DATA_INDEX -> targetBlockPos?.z ?: 0
+					AMOUNT_BLOCKS_BROKEN_DATA_INDEX -> amountBlocksBroken.toInt()
+
+					BIOME_ID_DATA_INDEX -> {
+						val level = level
+						val targetPos = targetBlockPos
+						if (targetPos != null && level is ServerLevel) {
+							val miningDimLevel = level.server.getLevel(ModDimensionProvider.QUANTUM_QUARRY_LEVEL)
+							if (miningDimLevel != null) {
+								val biome = miningDimLevel.getBiome(targetPos)
+								val registry = miningDimLevel.registryAccess().registryOrThrow(Registries.BIOME)
+								return registry.getId(biome.value())
+							}
+						}
+
+						return 0
+					}
+
+					else -> 0
+				}
+			}
+
+			override fun set(index: Int, value: Int) {
+				// No need to implement since the client doesn't write to these
+			}
+
+			override fun getCount(): Int = CONTAINER_DATA_SIZE
+		}
+
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
@@ -316,6 +354,8 @@ class QuantumQuarryBlockEntity(
 		if (blockPos != null) {
 			tag.putLong(TARGET_BLOCK_POS_NBT, blockPos.asLong())
 		}
+
+		tag.putLong(AMOUNT_BLOCKS_BROKEN_NBT, amountBlocksBroken.toLong())
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -333,15 +373,28 @@ class QuantumQuarryBlockEntity(
 			targetBlockPos = BlockPos.of(blockPosLong)
 		}
 
+		amountBlocksBroken = tag.getLong(AMOUNT_BLOCKS_BROKEN_NBT).toUInt()
 	}
 
 	companion object {
 		const val TARGET_CHUNK_POS_NBT = "TargetChunkPos"
 		const val TARGET_BLOCK_POS_NBT = "TargetBlockPos"
 		const val STORED_ENERGY_NBT = "StoredEnergy"
+		const val AMOUNT_BLOCKS_BROKEN_NBT = "AmountBlocksBroken"
+
+		const val UPGRADE_CONTAINER_SIZE = 3
 		const val ITEM_FILTER_SLOT_INDEX = 0
 		const val ENCHANTED_BOOK_SLOT_INDEX = 1
 		const val BIOME_FILTER_SLOT_INDEX = 2
+
+		const val CONTAINER_DATA_SIZE = 7
+		const val CURRENT_ENERGY_DATA_INDEX = 0
+		const val TARGET_X_DATA_INDEX = 1
+		const val TARGET_Y_DATA_INDEX = 2
+		const val TARGET_Z_DATA_INDEX = 3
+		const val PROGRESS_DATA_INDEX = 4
+		const val AMOUNT_BLOCKS_BROKEN_DATA_INDEX = 5
+		const val BIOME_ID_DATA_INDEX = 6
 
 		fun tick(
 			level: Level,
