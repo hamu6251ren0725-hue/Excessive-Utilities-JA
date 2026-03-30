@@ -61,8 +61,8 @@ class QuantumQuarryMenu(
 	fun getTargetX(): Int = quarryContainerData.get(QuantumQuarryBlockEntity.TARGET_X_DATA_INDEX)
 	fun getTargetY(): Int = quarryContainerData.get(QuantumQuarryBlockEntity.TARGET_Y_DATA_INDEX)
 	fun getTargetZ(): Int = quarryContainerData.get(QuantumQuarryBlockEntity.TARGET_Z_DATA_INDEX)
-	fun getProgress(): Int = quarryContainerData.get(QuantumQuarryBlockEntity.PROGRESS_DATA_INDEX)
-	fun getAmountBlocksBroken(): UInt = quarryContainerData.get(QuantumQuarryBlockEntity.AMOUNT_BLOCKS_BROKEN_DATA_INDEX).toUInt()
+	fun getProgress(): Float = quarryContainerData.get(QuantumQuarryBlockEntity.PROGRESS_PERCENT_DATA_INDEX) / 100f
+	fun getAmountBlocksBroken(): Int = quarryContainerData.get(QuantumQuarryBlockEntity.AMOUNT_BLOCKS_BROKEN_DATA_INDEX)
 	fun getBiomeId(): Int = quarryContainerData.get(QuantumQuarryBlockEntity.BIOME_ID_DATA_INDEX)
 
 	override fun quickMoveStack(player: Player, index: Int): ItemStack {

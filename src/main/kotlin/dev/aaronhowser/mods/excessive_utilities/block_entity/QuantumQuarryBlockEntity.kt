@@ -65,7 +65,7 @@ class QuantumQuarryBlockEntity(
 
 	private var targetChunk: ChunkPos? = null
 	private var targetBlockPos: BlockPos? = null
-	private var amountBlocksBroken: UInt = 0u
+	private var amountBlocksBroken: Int = 0
 
 	private fun getItemFilter(): ItemStack = upgradesContainer.getItem(ITEM_FILTER_SLOT_INDEX)
 	private fun getEnchantedBook(): ItemStack = upgradesContainer.getItem(ENCHANTED_BOOK_SLOT_INDEX)
@@ -319,7 +319,7 @@ class QuantumQuarryBlockEntity(
 					TARGET_X_DATA_INDEX -> targetBlockPos?.x ?: 0
 					TARGET_Y_DATA_INDEX -> targetBlockPos?.y ?: 0
 					TARGET_Z_DATA_INDEX -> targetBlockPos?.z ?: 0
-					PROGRESS_DATA_INDEX -> Mth.floor(progressThroughBlock * 100)
+					PROGRESS_PERCENT_DATA_INDEX -> Mth.floor(progressThroughBlock * 100)
 					AMOUNT_BLOCKS_BROKEN_DATA_INDEX -> amountBlocksBroken.toInt()
 
 					BIOME_ID_DATA_INDEX -> {
@@ -363,7 +363,7 @@ class QuantumQuarryBlockEntity(
 			tag.putLong(TARGET_BLOCK_POS_NBT, blockPos.asLong())
 		}
 
-		tag.putLong(AMOUNT_BLOCKS_BROKEN_NBT, amountBlocksBroken.toLong())
+		tag.putInt(AMOUNT_BLOCKS_BROKEN_NBT, amountBlocksBroken)
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
@@ -381,7 +381,7 @@ class QuantumQuarryBlockEntity(
 			targetBlockPos = BlockPos.of(blockPosLong)
 		}
 
-		amountBlocksBroken = tag.getLong(AMOUNT_BLOCKS_BROKEN_NBT).toUInt()
+		amountBlocksBroken = tag.getInt(AMOUNT_BLOCKS_BROKEN_NBT)
 	}
 
 	override fun getDisplayName(): Component = blockState.block.name
@@ -406,7 +406,7 @@ class QuantumQuarryBlockEntity(
 		const val TARGET_X_DATA_INDEX = 1
 		const val TARGET_Y_DATA_INDEX = 2
 		const val TARGET_Z_DATA_INDEX = 3
-		const val PROGRESS_DATA_INDEX = 4
+		const val PROGRESS_PERCENT_DATA_INDEX = 4
 		const val AMOUNT_BLOCKS_BROKEN_DATA_INDEX = 5
 		const val BIOME_ID_DATA_INDEX = 6
 
