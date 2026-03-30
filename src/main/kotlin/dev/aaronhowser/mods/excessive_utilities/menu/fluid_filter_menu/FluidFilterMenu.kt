@@ -45,7 +45,7 @@ class FluidFilterMenu(
 		}
 
 		addSlots()
-		addPlayerInventorySlots(91)
+		addPlayerInventorySlots(141)
 	}
 
 	private fun getFilterStack(): ItemStack = playerInventory.player.getItemInHand(hand)
@@ -58,8 +58,8 @@ class FluidFilterMenu(
 
 	override fun addSlots() {
 		for (i in 0 until FluidFilterItem.CONTAINER_SIZE) {
-			val x = 8 + (i % 4) * 18
-			val y = 8 + (i / 4) * 18
+			val x = 53 + (i % 4) * 18
+			val y = 29 + (i / 4) * 18
 
 			val slot = object : SlotItemHandler(filterItems, i, x, y) {
 				override fun mayPlace(stack: ItemStack): Boolean = FluidUtil.getFluidContained(stack).isPresent

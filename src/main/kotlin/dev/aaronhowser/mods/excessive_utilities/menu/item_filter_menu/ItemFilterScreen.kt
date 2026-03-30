@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsCo
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-//TODO: Texture and move buttons around
 class ItemFilterScreen(
 	menu: ItemFilterMenu,
 	playerInventory: Inventory,
@@ -17,6 +16,7 @@ class ItemFilterScreen(
 ) : BaseScreen<ItemFilterMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
+	override val inventoryLabelOffsetY: Int = 73
 
 	private lateinit var invertButton: ChangingTextButton
 	private lateinit var useTagsButton: ChangingTextButton
@@ -29,7 +29,7 @@ class ItemFilterScreen(
 		val buttonWidth = 120
 
 		invertButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5,
 			width = buttonWidth,
 			height = 20,
@@ -41,7 +41,7 @@ class ItemFilterScreen(
 		)
 
 		useTagsButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5 + 20 + 5,
 			width = buttonWidth,
 			height = 20,
@@ -53,7 +53,7 @@ class ItemFilterScreen(
 		)
 
 		ignoreDamageButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5 + (20 + 5) * 2,
 			width = buttonWidth,
 			height = 20,
@@ -65,7 +65,7 @@ class ItemFilterScreen(
 		)
 
 		ignoreAllComponentsButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5 + (20 + 5) * 3,
 			width = buttonWidth,
 			height = 20,
@@ -83,7 +83,7 @@ class ItemFilterScreen(
 	}
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_transfer_node.png"), 176, 173)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_filter.png"), 176, 241)
 	}
 
 }

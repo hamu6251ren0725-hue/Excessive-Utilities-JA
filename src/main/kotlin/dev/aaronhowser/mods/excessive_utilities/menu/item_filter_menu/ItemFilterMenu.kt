@@ -44,7 +44,7 @@ class ItemFilterMenu(
 		}
 
 		addSlots()
-		addPlayerInventorySlots(91)
+		addPlayerInventorySlots(159)
 	}
 
 	private fun getFilterStack(): ItemStack = playerInventory.player.getItemInHand(hand)
@@ -58,8 +58,8 @@ class ItemFilterMenu(
 
 	override fun addSlots() {
 		for (i in 0 until ItemFilterItem.CONTAINER_SIZE) {
-			val x = 8 + (i % 4) * 18
-			val y = 8 + (i / 4) * 18
+			val x = 53 + (i % 4) * 18
+			val y = 29 + (i / 4) * 18
 
 			val slot = object : SlotItemHandler(filterItems, i, x, y) {
 				override fun mayPlace(stack: ItemStack): Boolean = true

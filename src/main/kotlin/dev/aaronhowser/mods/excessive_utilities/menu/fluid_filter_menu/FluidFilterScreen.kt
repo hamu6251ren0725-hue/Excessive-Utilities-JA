@@ -17,6 +17,7 @@ class FluidFilterScreen(
 ) : BaseScreen<FluidFilterMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
+	override val inventoryLabelOffsetY: Int = 73
 
 	private lateinit var invertButton: ChangingTextButton
 	private lateinit var useTagsButton: ChangingTextButton
@@ -28,7 +29,7 @@ class FluidFilterScreen(
 		val buttonWidth = 120
 
 		invertButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5,
 			width = buttonWidth,
 			height = 20,
@@ -40,7 +41,7 @@ class FluidFilterScreen(
 		)
 
 		useTagsButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5 + 20 + 5,
 			width = buttonWidth,
 			height = 20,
@@ -52,7 +53,7 @@ class FluidFilterScreen(
 		)
 
 		ignoreAllComponentsButton = ChangingTextButton(
-			x = rightPos - buttonWidth - 5,
+			x = leftPos - buttonWidth,
 			y = topPos + 5 + (20 + 5) * 2,
 			width = buttonWidth,
 			height = 20,
@@ -69,7 +70,7 @@ class FluidFilterScreen(
 	}
 
 	companion object {
-		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_transfer_node.png"), 176, 173)
+		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/fluid_filter.png"), 176, 223)
 	}
 
 }
