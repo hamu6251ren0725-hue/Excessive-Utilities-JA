@@ -104,6 +104,9 @@ class QuantumQuarryBlockEntity(
 		pushOutItems(quarryLevel)
 		if (!bufferContainer.isEmpty) return
 
+		val hasSignal = actuatorPositions.any { pos -> quarryLevel.hasNeighborSignal(pos) }
+		if (hasSignal) return
+
 		if (targetChunk == null || targetBlockPos == null) {
 			targetNewChunk(miningDimensionLevel)
 		}
