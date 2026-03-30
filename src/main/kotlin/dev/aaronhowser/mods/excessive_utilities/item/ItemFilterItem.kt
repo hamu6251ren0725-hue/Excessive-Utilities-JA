@@ -131,6 +131,10 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 			return list
 		}
 
+		fun filterItems(filterStack: ItemStack, items: List<ItemStack>): List<ItemStack> {
+			return items.filter { passesFilter(filterStack, it) }
+		}
+
 		fun passesFilter(filterStack: ItemStack, checkedStack: ItemStack): Boolean {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return false
 

@@ -13,6 +13,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.ContainerContainer
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModDimensionProvider
+import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
 import dev.aaronhowser.mods.excessive_utilities.menu.quantum_quarry.QuantumQuarryMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
@@ -219,7 +220,12 @@ class QuantumQuarryBlockEntity(
 			.withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer?.get())
 			.withOptionalParameter(LootContextParams.BLOCK_ENTITY, miningDimensionLevel.getBlockEntity(target))
 
-		return targetState.getDrops(lootParams)
+		val unfilteredDrops = targetState.getDrops(lootParams)
+
+		val itemFilter = getItemFilter()
+		if (itemFilter.isEmpty) return unfilteredDrops
+
+		return ItemFilterItem.filterItems(itemFilter, unfilteredDrops)
 	}
 
 	private fun canQuarryMineBlock(miningDimensionLevel: ServerLevel, blockPos: BlockPos): Boolean {
