@@ -36,19 +36,19 @@ class QuantumQuarryMenu(
 
 		addSlots()
 		addDataSlots(quarryContainerData)
-		addPlayerInventorySlots(98)
+		addPlayerInventorySlots(116)
 	}
 
 	override fun addSlots() {
-		val filterSlot = FilteredSlot(upgradesContainer, QuantumQuarryBlockEntity.ITEM_FILTER_SLOT_INDEX, 0, 0) {
+		val filterSlot = FilteredSlot(upgradesContainer, QuantumQuarryBlockEntity.ITEM_FILTER_SLOT_INDEX, 10, 24) {
 			it.isItem(ModItems.ITEM_FILTER)
 		}
 
-		val enchantedBookSlot = FilteredSlot(upgradesContainer, QuantumQuarryBlockEntity.ENCHANTED_BOOK_SLOT_INDEX, 0, 16) {
+		val enchantedBookSlot = FilteredSlot(upgradesContainer, QuantumQuarryBlockEntity.ENCHANTED_BOOK_SLOT_INDEX, 10, 42) {
 			it.isItem(Items.ENCHANTED_BOOK)
 		}
 
-		val biomeFilterSlot = FilteredSlot(upgradesContainer, QuantumQuarryBlockEntity.BIOME_FILTER_SLOT_INDEX, 0, 32) {
+		val biomeFilterSlot = FilteredSlot(upgradesContainer, QuantumQuarryBlockEntity.BIOME_FILTER_SLOT_INDEX, 10, 60) {
 			it.isItem(ModItems.BIOME_MARKER)
 		}
 

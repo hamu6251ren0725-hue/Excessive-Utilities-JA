@@ -14,7 +14,7 @@ class QuantumQuarryScreen(
 ) : BaseScreen<QuantumQuarryMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
-	override val inventoryLabelOffsetY: Int = 12
+	override val inventoryLabelOffsetY: Int = 30
 
 	private lateinit var energyBar: EnergyBar
 
@@ -22,7 +22,7 @@ class QuantumQuarryScreen(
 		super.baseInit()
 
 		energyBar = EnergyBar(
-			x = leftPos + 7,
+			x = leftPos + 149,
 			y = topPos + 21,
 			maxGetter = { 1_000_000 },
 			currentGetter = { menu.getCurrentEnergy() },
