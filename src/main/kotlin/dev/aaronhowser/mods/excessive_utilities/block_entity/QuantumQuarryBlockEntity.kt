@@ -311,7 +311,9 @@ class QuantumQuarryBlockEntity(
 				return when (index) {
 					CURRENT_ENERGY_DATA_INDEX -> energyStorage.energyStored
 					TARGET_X_DATA_INDEX -> targetBlockPos?.x ?: 0
+					TARGET_Y_DATA_INDEX -> targetBlockPos?.y ?: 0
 					TARGET_Z_DATA_INDEX -> targetBlockPos?.z ?: 0
+					PROGRESS_DATA_INDEX -> Mth.floor(progressThroughBlock * 100)
 					AMOUNT_BLOCKS_BROKEN_DATA_INDEX -> amountBlocksBroken.toInt()
 
 					BIOME_ID_DATA_INDEX -> {
