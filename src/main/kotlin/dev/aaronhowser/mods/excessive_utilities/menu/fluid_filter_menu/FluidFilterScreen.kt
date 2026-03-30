@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
+import net.minecraft.client.gui.components.Button
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -17,11 +18,11 @@ class FluidFilterScreen(
 ) : BaseScreen<FluidFilterMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
-	override val inventoryLabelOffsetY: Int = 73
+	override val inventoryLabelOffsetY: Int = 55
 
-	private lateinit var invertButton: ChangingTextButton
-	private lateinit var useTagsButton: ChangingTextButton
-	private lateinit var ignoreAllComponentsButton: ChangingTextButton
+	private lateinit var invertButton: Button
+	private lateinit var useTagsButton: Button
+	private lateinit var ignoreAllComponentsButton: Button
 
 	override fun baseInit() {
 		super.baseInit()
