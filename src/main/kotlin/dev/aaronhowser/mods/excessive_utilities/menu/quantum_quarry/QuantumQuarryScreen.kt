@@ -97,7 +97,7 @@ class QuantumQuarryScreen(
 		val amountMined = menu.getAmountBlocksBroken()
 		val progress = menu.getProgress()
 
-		val minedString = DecimalFormat("#,##0,##").format(amountMined + progress)
+		val minedString = DecimalFormat("#,##0.##").format(amountMined + progress)
 
 		guiGraphics.drawString(
 			font,
