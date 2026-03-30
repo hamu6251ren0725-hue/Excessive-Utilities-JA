@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
+import kotlin.jvm.optionals.getOrNull
 
 class QuantumQuarryScreen(
 	menu: QuantumQuarryMenu,
@@ -90,11 +91,12 @@ class QuantumQuarryScreen(
 			val biomeId = menu.getBiomeId()
 			val biome = biomeRegistry.byId(biomeId)
 			if (biome != null) {
-				val biomeKey = biomeRegistry.getKey(biome)
+				val biomeKey = biomeRegistry.getResourceKey(biome).getOrNull()
 				if (biomeKey != null) {
+					val component = AaronClientUtil.getBiomeDisplay(biomeKey)
 					guiGraphics.drawString(
 						font,
-						Component.literal(biomeKey.toString()),
+						component,
 						35,
 						60,
 						4210752,
