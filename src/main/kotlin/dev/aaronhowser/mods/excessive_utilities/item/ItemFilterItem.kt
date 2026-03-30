@@ -198,18 +198,15 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		private fun isSameComponentsWithoutDamage(leftStack: ItemStack, rightStack: ItemStack): Boolean {
 			if (leftStack.item != rightStack.item) return false
 
-			val leftPatch = leftStack.componentsPatch
-			val rightPatch = rightStack.componentsPatch
-
 			val leftMap = Reference2ObjectOpenHashMap<DataComponentType<*>, Optional<*>>()
 			val rightMap = Reference2ObjectOpenHashMap<DataComponentType<*>, Optional<*>>()
 
-			for ((type, value) in leftPatch.entrySet()) {
+			for ((type, value) in leftStack.componentsPatch.entrySet()) {
 				if (type === DataComponents.DAMAGE) continue
 				leftMap[type] = value
 			}
 
-			for ((type, value) in rightPatch.entrySet()) {
+			for ((type, value) in rightStack.componentsPatch.entrySet()) {
 				if (type === DataComponents.DAMAGE) continue
 				rightMap[type] = value
 			}
