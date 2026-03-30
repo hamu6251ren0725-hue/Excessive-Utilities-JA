@@ -70,19 +70,6 @@ class QuantumQuarryScreen(
 			false
 		)
 
-		val progress = menu.getProgress()
-
-		val amountMined = "%,d".format(menu.getAmountBlocksBroken())
-
-		guiGraphics.drawString(
-			font,
-			Component.literal("$amountMined mined"),
-			35,
-			50,
-			4210752,
-			false
-		)
-
 		val biomeRegistry = AaronClientUtil.localLevel
 			?.registryAccess()
 			?.registryOrThrow(Registries.BIOME)
@@ -105,6 +92,20 @@ class QuantumQuarryScreen(
 				}
 			}
 		}
+
+		val amountMined = menu.getAmountBlocksBroken()
+		val progress = menu.getProgress()
+
+		val minedString = "%,.2f".format(amountMined + progress)
+
+		guiGraphics.drawString(
+			font,
+			Component.literal("$minedString mined"),
+			35,
+			50,
+			4210752,
+			false
+		)
 
 	}
 
