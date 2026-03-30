@@ -31,12 +31,30 @@ class ItemFilterScreen(
 
 		val buttonWidth = 120
 
-		invertButton = ChangingTextButton(
-			x = leftPos - buttonWidth,
-			y = topPos + 5,
-			width = buttonWidth,
+//		invertButton = ChangingTextButton(
+//			x = leftPos - buttonWidth,
+//			y = topPos + 5,
+//			width = buttonWidth,
+//			height = 20,
+//			messageGetter = { ItemFilterFlagsComponent.Flag.INVERTED.getMessage(menu.isInverted()) },
+//			onPress = {
+//				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_INVERTED_BUTTON_ID)
+//				packet.messageServer()
+//			}
+//		)
+
+		invertButton = ToggleSpriteButton(
+			x = leftPos + 5,
+			y = topPos + 20,
+			width = 20,
 			height = 20,
-			messageGetter = { ItemFilterFlagsComponent.Flag.INVERTED.getMessage(menu.isInverted()) },
+			font = font,
+			sprites = Pair(INVERT_ON, INVERT_OFF),
+			messages = Pair(
+				Component.literal("Inverted: ON"),
+				Component.literal("Inverted: OFF")
+			),
+			isOnGetter = { menu.isInverted() },
 			onPress = {
 				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_INVERTED_BUTTON_ID)
 				packet.messageServer()
@@ -48,40 +66,16 @@ class ItemFilterScreen(
 			y = topPos + 5 + 20 + 5,
 			width = buttonWidth,
 			height = 20,
-			messageGetter = { ItemFilterFlagsComponent.Flag.USE_TAGS.getMessage(menu.useTags()) },
+			messageGetter = { ItemFilterFlagsComponent.Flag.USE_TAGS.getMessage(menu.useTags()	) },
 			onPress = {
 				val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_USE_TAGS_BUTTON_ID)
 				packet.messageServer()
 			}
 		)
 
-//		ignoreDamageButton =
-//			ToggleStackButton(
-//				x = leftPos + 5,
-//				y = topPos + 5 + (20 + 5) * 2,
-//				font = font,
-//				width = 20,
-//				height = 20,
-//				itemStackGetter = {
-//					if (menu.ignoreDamage()) {
-//						Items.WOODEN_PICKAXE.withComponent(DataComponents.DAMAGE, 10)
-//					} else {
-//						Items.DIAMOND_PICKAXE.defaultInstance
-//					}
-//				},
-//				messageGetter = {
-//					ItemFilterFlagsComponent.Flag.IGNORE_DAMAGE.getMessage(menu.ignoreDamage())
-//				},
-//				isOnGetter = { menu.ignoreDamage() },
-//				onPress = {
-//					val packet = ClientClickedMenuButton(ItemFilterMenu.TOGGLE_IGNORE_DAMAGE_BUTTON_ID)
-//					packet.messageServer()
-//				}
-//			)
-
 		ignoreDamageButton = ToggleSpriteButton(
 			x = leftPos + 5,
-			y = topPos + 20,
+			y = topPos + 50,
 			width = 20,
 			height = 20,
 			font = font,
@@ -117,6 +111,16 @@ class ItemFilterScreen(
 
 	companion object {
 		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/item_filter.png"), 176, 241)
+
+		val INVERT_OFF = ScreenSprite(
+			ExcessiveUtilities.modResource("filter/invert_off"),
+			16, 16
+		)
+
+		val INVERT_ON = ScreenSprite(
+			ExcessiveUtilities.modResource("filter/invert_on"),
+			16, 16
+		)
 
 		val IGNORE_DAMAGE_OFF = ScreenSprite(
 			ExcessiveUtilities.modResource("filter/ignore_damage_off"),
