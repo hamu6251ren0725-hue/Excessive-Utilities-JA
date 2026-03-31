@@ -258,6 +258,10 @@ unifiedPublishing {
 			}
 
 			optional {
+				curseforge = modrinth = "athena"
+			}
+
+			optional {
 				curseforge = modrinth = "oracle-index"
 			}
 		}
