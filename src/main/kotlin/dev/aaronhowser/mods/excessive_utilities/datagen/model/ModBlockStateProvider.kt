@@ -90,6 +90,22 @@ class ModBlockStateProvider(
 		compressedBlocks()
 		indexer()
 		enderCollector()
+		enderThermicPump()
+	}
+
+	private fun enderThermicPump() {
+		val block = ModBlocks.ENDER_THERMIC_PUMP.get()
+		val name = name(block)
+
+		val top = modLoc("block/ender_thermic_pump/top")
+		val side = modLoc("block/ender_thermic_pump/side")
+		val bottom = modLoc("block/ender_thermic_pump/bottom")
+
+		val model = models()
+			.cubeBottomTop(name, side, bottom, top)
+			.particle(side)
+
+		simpleBlockWithItem(block, model)
 	}
 
 	private fun enderCollector() {
