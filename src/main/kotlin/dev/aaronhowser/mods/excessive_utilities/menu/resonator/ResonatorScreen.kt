@@ -44,7 +44,7 @@ class ResonatorScreen(
 			font,
 			ModMenuLang.GP.toComponent(gpUsage),
 			71,
-			22,
+			20,
 			4210752,
 			false
 		)
