@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
 import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
-import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
 import net.minecraft.core.Holder
@@ -60,8 +60,8 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		uuid("thrown_boomerang")
 	val BIOME: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Biome>>> =
 		register("biome", Biome.CODEC, ByteBufCodecs.holderRegistry(Registries.BIOME))
-	val ITEM_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<ItemFilterFlagsComponent>> =
-		register("item_filter_flags", ItemFilterFlagsComponent.CODEC, ItemFilterFlagsComponent.STREAM_CODEC)
+	val ITEM_FILTER: DeferredHolder<DataComponentType<*>, DataComponentType<ItemFilterComponent>> =
+		register("item_filter", ItemFilterComponent.CODEC, ItemFilterComponent.STREAM_CODEC)
 	val FLUID_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<FluidFilterFlagsComponent>> =
 		register("fluid_filter_flags", FluidFilterFlagsComponent.CODEC, FluidFilterFlagsComponent.STREAM_CODEC)
 	val FREQUENCY: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =

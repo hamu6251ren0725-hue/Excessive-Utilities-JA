@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
-import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterComponent
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -28,7 +28,7 @@ class ItemFilterMenu(
 	) : this(containerId, playerInventory, data.readEnum(InteractionHand::class.java))
 
 	private val filterItems =
-		object : ItemStackHandler(ItemFilterItem.CONTAINER_SIZE) {
+		object : ItemStackHandler(ItemFilterComponent.CONTAINER_SIZE) {
 			override fun onContentsChanged(slot: Int) {
 				val stackThere = getStackInSlot(slot)
 				val filterStack = getFilterStack()
@@ -38,7 +38,7 @@ class ItemFilterMenu(
 
 	init {
 		val filterStack = getFilterStack()
-		for (i in 0 until ItemFilterItem.CONTAINER_SIZE) {
+		for (i in 0 until ItemFilterComponent.CONTAINER_SIZE) {
 			val ghostStack = ItemFilterItem.getGhostStack(filterStack, i)
 			filterItems.setStackInSlot(i, ghostStack)
 		}
@@ -49,7 +49,7 @@ class ItemFilterMenu(
 
 	private fun getFilterStack(): ItemStack = playerInventory.player.getItemInHand(hand)
 
-	private fun getFlagComponent(): ItemFilterFlagsComponent = ItemFilterItem.getFlagComponent(getFilterStack())
+	private fun getFlagComponent(): ItemFilterComponent = ItemFilterItem.getFilterComponent(getFilterStack())
 
 	fun isInverted(): Boolean = getFlagComponent().isInverted
 	fun useTags(): Boolean = getFlagComponent().useTags
@@ -57,7 +57,7 @@ class ItemFilterMenu(
 	fun ignoreAllComponents(): Boolean = getFlagComponent().ignoreAllComponents
 
 	override fun addSlots() {
-		for (i in 0 until ItemFilterItem.CONTAINER_SIZE) {
+		for (i in 0 until ItemFilterComponent.CONTAINER_SIZE) {
 			val x = 53 + (i % 4) * 18
 			val y = 29 + (i / 4) * 18
 
@@ -84,14 +84,14 @@ class ItemFilterMenu(
 		val filterStack = getFilterStack()
 
 		val toggledFlag = when (buttonId) {
-			TOGGLE_INVERTED_BUTTON_ID -> ItemFilterFlagsComponent.Flag.INVERTED
-			TOGGLE_USE_TAGS_BUTTON_ID -> ItemFilterFlagsComponent.Flag.USE_TAGS
-			TOGGLE_IGNORE_DAMAGE_BUTTON_ID -> ItemFilterFlagsComponent.Flag.IGNORE_DAMAGE
-			TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID -> ItemFilterFlagsComponent.Flag.IGNORE_ALL_COMPONENTS
+			TOGGLE_INVERTED_BUTTON_ID -> ItemFilterComponent.Flag.INVERTED
+			TOGGLE_USE_TAGS_BUTTON_ID -> ItemFilterComponent.Flag.USE_TAGS
+			TOGGLE_IGNORE_DAMAGE_BUTTON_ID -> ItemFilterComponent.Flag.IGNORE_DAMAGE
+			TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID -> ItemFilterComponent.Flag.IGNORE_ALL_COMPONENTS
 			else -> return
 		}
 
-		val flags = getFlagComponent().flagList.toMutableList()
+		val flags = getFlagComponent().flags.toMutableList()
 
 		if (toggledFlag in flags) {
 			flags.remove(toggledFlag)

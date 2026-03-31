@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.item
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterFlagsComponent
+import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterComponent
 import dev.aaronhowser.mods.excessive_utilities.menu.item_filter_menu.ItemFilterMenu
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
@@ -52,8 +52,8 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		tooltipComponents: MutableList<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val flagComponent = getFlagComponent(stack)
-		for (flag in flagComponent.flagList) {
+		val flagComponent = getFilterComponent(stack)
+		for (flag in flagComponent.flags) {
 			val component = flag.getMessage(true).withStyle(ChatFormatting.BLUE)
 			tooltipComponents.add(component)
 		}
@@ -87,51 +87,38 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
-		const val CONTAINER_SIZE = 16
-
-		fun setFlags(filterStack: ItemStack, flags: List<ItemFilterFlagsComponent.Flag>) {
-			if (flags.isEmpty()) {
-				filterStack.remove(ModDataComponents.ITEM_FILTER_FLAGS)
-				return
-			}
-
-			val flagComponent = ItemFilterFlagsComponent(flags)
-			filterStack.set(ModDataComponents.ITEM_FILTER_FLAGS, flagComponent)
+		fun setFlags(filterStack: ItemStack, flags: List<ItemFilterComponent.Flag>) {
+			val currentComponent = getFilterComponent(filterStack)
+			val newComponent = currentComponent.withFlags(flags)
+			filterStack.set(ModDataComponents.ITEM_FILTER, newComponent)
 		}
 
-		fun getFlagComponent(filterStack: ItemStack): ItemFilterFlagsComponent {
-			return filterStack.getOrDefault(ModDataComponents.ITEM_FILTER_FLAGS, ItemFilterFlagsComponent())
+		fun getFilterComponent(filterStack: ItemStack): ItemFilterComponent {
+			return filterStack.getOrDefault(ModDataComponents.ITEM_FILTER, ItemFilterComponent())
 		}
 
 		fun getGhostStack(filterStack: ItemStack, slot: Int): ItemStack {
-			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return ItemStack.EMPTY
-			if (slot !in 0 until CONTAINER_SIZE) return ItemStack.EMPTY
-
-			val filterItems = getFilterItems(filterStack)
-			return filterItems[slot]
+			val component = getFilterComponent(filterStack)
+			return component.getItem(slot)
 		}
 
 		fun placeGhostInSlot(filterStack: ItemStack, slot: Int, stackToPlace: ItemStack) {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return
-			if (slot !in 0 until CONTAINER_SIZE) return
+			if (slot !in 0 until ItemFilterComponent.CONTAINER_SIZE) return
 
-			val filterItems = getFilterItems(filterStack)
+			val currentComponent = getFilterComponent(filterStack)
+			val filterItems = currentComponent.getItems()
 			filterItems[slot] = stackToPlace.copyWithCount(1)
 
-			val isEmpty = filterItems.all(ItemStack::isEmpty)
-			if (isEmpty) {
-				filterStack.remove(DataComponents.CONTAINER)
-			} else {
-				val newComponent = ItemContainerContents.fromItems(filterItems)
-				filterStack.set(DataComponents.CONTAINER, newComponent)
-			}
+			val newContents = ItemContainerContents.fromItems(filterItems)
+
+			val newComponent = currentComponent.withItems(newContents)
+			filterStack.set(ModDataComponents.ITEM_FILTER, newComponent)
 		}
 
 		fun getFilterItems(filterStack: ItemStack): NonNullList<ItemStack> {
-			val list = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY)
-			val container = filterStack.get(DataComponents.CONTAINER) ?: return list
-			container.copyInto(list)
-			return list
+			val component = getFilterComponent(filterStack)
+			return component.getItems()
 		}
 
 		fun filterItems(filterStack: ItemStack, items: List<ItemStack>): List<ItemStack> {
@@ -141,7 +128,7 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 		fun passesFilter(filterStack: ItemStack, checkedStack: ItemStack): Boolean {
 			if (!filterStack.isItem(ModItems.ITEM_FILTER)) return false
 
-			val flags = getFlagComponent(filterStack)
+			val flags = getFilterComponent(filterStack)
 
 			val isInverted = flags.isInverted
 			val ignoreDamage = flags.ignoreDamage
@@ -150,7 +137,7 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 
 			if (checkedStack.isEmpty) return isInverted
 
-			val container = filterStack.get(DataComponents.CONTAINER) ?: return isInverted
+			val container = flags.itemContents
 
 			for (slot in 0 until container.slots) {
 				val stackInFilter = container.getStackInSlot(slot)
