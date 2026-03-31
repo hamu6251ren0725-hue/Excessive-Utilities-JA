@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.registry
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.item.AngelRingItem
-import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
+import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.ItemFilterComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.item.component.OpiniumCoreContentsComponent
@@ -62,8 +62,8 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		register("biome", Biome.CODEC, ByteBufCodecs.holderRegistry(Registries.BIOME))
 	val ITEM_FILTER: DeferredHolder<DataComponentType<*>, DataComponentType<ItemFilterComponent>> =
 		register("item_filter", ItemFilterComponent.CODEC, ItemFilterComponent.STREAM_CODEC)
-	val FLUID_FILTER_FLAGS: DeferredHolder<DataComponentType<*>, DataComponentType<FluidFilterFlagsComponent>> =
-		register("fluid_filter_flags", FluidFilterFlagsComponent.CODEC, FluidFilterFlagsComponent.STREAM_CODEC)
+	val FLUID_FILTER: DeferredHolder<DataComponentType<*>, DataComponentType<FluidFilterComponent>> =
+		register("fluid_filter", FluidFilterComponent.CODEC, FluidFilterComponent.STREAM_CODEC)
 	val FREQUENCY: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
 		int("frequency")
 	val COLOR: DeferredHolder<DataComponentType<*>, DataComponentType<DyeColor>> =

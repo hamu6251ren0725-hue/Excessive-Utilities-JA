@@ -4,7 +4,8 @@ import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.item.FluidFilterItem
-import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterFlagsComponent
+import dev.aaronhowser.mods.excessive_utilities.item.ItemFilterItem
+import dev.aaronhowser.mods.excessive_utilities.item.component.FluidFilterComponent
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import dev.aaronhowser.mods.excessive_utilities.registry.ModMenuTypes
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -29,18 +30,19 @@ class FluidFilterMenu(
 	) : this(containerId, playerInventory, data.readEnum(InteractionHand::class.java))
 
 	private val filterItems =
-		object : ItemStackHandler(FluidFilterItem.CONTAINER_SIZE) {
+		object : ItemStackHandler(FluidFilterComponent.CONTAINER_SIZE) {
 			override fun onContentsChanged(slot: Int) {
 				val stackThere = getStackInSlot(slot)
 				val filterStack = getFilterStack()
-				FluidFilterItem.placeGhostInSlot(filterStack, slot, stackThere)
+				FluidFilterItem.setStack(filterStack, slot, stackThere)
 			}
 		}
 
 	init {
 		val filterStack = getFilterStack()
-		for (i in 0 until FluidFilterItem.CONTAINER_SIZE) {
-			val ghostStack = FluidFilterItem.getGhostStack(filterStack, i)
+		val container = FluidFilterItem.getFilterItems(filterStack)
+		for (i in 0 until container.size) {
+			val ghostStack = container[i]
 			filterItems.setStackInSlot(i, ghostStack)
 		}
 
@@ -50,14 +52,14 @@ class FluidFilterMenu(
 
 	private fun getFilterStack(): ItemStack = playerInventory.player.getItemInHand(hand)
 
-	private fun getFlagComponent(): FluidFilterFlagsComponent = FluidFilterItem.getFlagComponent(getFilterStack())
+	private fun getFlagComponent(): FluidFilterComponent = FluidFilterItem.getFilterComponent(getFilterStack())
 
 	fun isInverted(): Boolean = getFlagComponent().isInverted
 	fun useTags(): Boolean = getFlagComponent().useTags
 	fun ignoreAllComponents(): Boolean = getFlagComponent().ignoreAllComponents
 
 	override fun addSlots() {
-		for (i in 0 until FluidFilterItem.CONTAINER_SIZE) {
+		for (i in 0 until FluidFilterComponent.CONTAINER_SIZE) {
 			val x = 53 + (i % 4) * 18
 			val y = 29 + (i / 4) * 18
 
@@ -84,13 +86,13 @@ class FluidFilterMenu(
 		val filterStack = getFilterStack()
 
 		val toggledFlag = when (buttonId) {
-			TOGGLE_INVERTED_BUTTON_ID -> FluidFilterFlagsComponent.Flag.INVERTED
-			TOGGLE_USE_TAGS_BUTTON_ID -> FluidFilterFlagsComponent.Flag.USE_TAGS
-			TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID -> FluidFilterFlagsComponent.Flag.IGNORE_ALL_COMPONENTS
+			TOGGLE_INVERTED_BUTTON_ID -> FluidFilterComponent.Flag.INVERTED
+			TOGGLE_USE_TAGS_BUTTON_ID -> FluidFilterComponent.Flag.USE_TAGS
+			TOGGLE_IGNORE_ALL_COMPONENTS_BUTTON_ID -> FluidFilterComponent.Flag.IGNORE_ALL_COMPONENTS
 			else -> return
 		}
 
-		val flags = getFlagComponent().flagList.toMutableList()
+		val flags = getFlagComponent().flags.toMutableList()
 
 		if (toggledFlag in flags) {
 			flags.remove(toggledFlag)
