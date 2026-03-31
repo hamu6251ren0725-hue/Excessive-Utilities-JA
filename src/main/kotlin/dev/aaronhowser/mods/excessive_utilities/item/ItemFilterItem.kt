@@ -96,7 +96,7 @@ class ItemFilterItem(properties: Properties) : Item(properties) {
 			if (slot !in 0 until ItemFilterComponent.CONTAINER_SIZE) return false
 
 			val currentComponent = getFilterComponent(filterStack)
-			val newComponent = currentComponent.getWithSetItem(slot, stackToPlace) ?: return false
+			val newComponent = currentComponent.withSetItem(slot, stackToPlace)
 
 			filterStack.set(ModDataComponents.ITEM_FILTER, newComponent)
 			return true

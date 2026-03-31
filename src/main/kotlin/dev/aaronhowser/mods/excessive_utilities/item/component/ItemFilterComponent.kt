@@ -27,10 +27,10 @@ data class ItemFilterComponent(
 	val flags: List<Flag>
 ) {
 
-	val isInverted = Flag.INVERTED in flags
-	val useTags = Flag.USE_TAGS in flags
-	val ignoreDamage = Flag.IGNORE_DAMAGE in flags
-	val ignoreAllComponents = Flag.IGNORE_ALL_COMPONENTS in flags
+	val isInverted: Boolean = Flag.INVERTED in flags
+	val useTags: Boolean = Flag.USE_TAGS in flags
+	val ignoreDamage: Boolean = Flag.IGNORE_DAMAGE in flags
+	val ignoreAllComponents: Boolean = Flag.IGNORE_ALL_COMPONENTS in flags
 
 	constructor() : this(ItemContainerContents.EMPTY, emptyList())
 
@@ -45,15 +45,17 @@ data class ItemFilterComponent(
 
 	fun getItem(index: Int): ItemStack {
 		if (index !in 0 until CONTAINER_SIZE) return ItemStack.EMPTY
-		return getItems()[index]
+		return itemContents.getStackInSlot(index)
 	}
 
-	fun getWithSetItem(index: Int, itemStack: ItemStack): ItemFilterComponent? {
-		if (index !in 0 until CONTAINER_SIZE) return null
+	fun withSetItem(index: Int, itemStack: ItemStack): ItemFilterComponent {
+		if (index !in 0 until CONTAINER_SIZE) return this
 
-		val newItems = getItems()
-		newItems[index] = itemStack
-		return copy(itemContents = ItemContainerContents.fromItems(newItems))
+		val newList = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY)
+		itemContents.copyInto(newList)
+		newList[index] = itemStack
+
+		return copy(itemContents = ItemContainerContents.fromItems(newList))
 	}
 
 	private val cache: MutableMap<CacheKey, Boolean> = mutableMapOf()
