@@ -13,6 +13,7 @@ class ResonatorScreen(
 ) : BaseScreen<ResonatorMenu>(menu, playerInventory, title) {
 
 	override val background: ScreenBackground = BACKGROUND
+	override val inventoryLabelOffsetY: Int = 4
 
 	companion object {
 		val BACKGROUND = ScreenBackground(ExcessiveUtilities.modResource("textures/gui/resonator.png"), 176, 172)

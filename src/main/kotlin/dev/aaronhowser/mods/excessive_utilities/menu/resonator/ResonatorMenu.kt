@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.menu.resonator
 
 import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
+import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.block_entity.ResonatorBlockEntity
@@ -40,12 +41,10 @@ class ResonatorMenu(
 	}
 
 	override fun addSlots() {
-		val inputSlot = Slot(resonatorContainer, ResonatorBlockEntity.INPUT_SLOT, 57, 42)
-		val outputSlot = OutputSlot(resonatorContainer, ResonatorBlockEntity.OUTPUT_SLOT, 104, 42)
-		val upgradeSlot = object : Slot(resonatorContainer, ResonatorBlockEntity.UPGRADE_SLOT, 152, 42) {
-			override fun mayPlace(stack: ItemStack): Boolean {
-				return stack.isItem(ModItemTagsProvider.SPEED_UPGRADES)
-			}
+		val inputSlot = Slot(resonatorContainer, ResonatorBlockEntity.INPUT_SLOT, 51, 38)
+		val outputSlot = OutputSlot(resonatorContainer, ResonatorBlockEntity.OUTPUT_SLOT, 105, 37)
+		val upgradeSlot = FilteredSlot(resonatorContainer, ResonatorBlockEntity.UPGRADE_SLOT, 153, 5) {
+			it.isItem(ModItemTagsProvider.SPEED_UPGRADES)
 		}
 
 		this.addSlot(inputSlot)
