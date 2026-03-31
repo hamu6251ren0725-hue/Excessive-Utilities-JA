@@ -27,11 +27,17 @@ class ItemFilterScreen(
 	override fun baseInit() {
 		super.baseInit()
 
-		val buttonWidth = 120
+		val buttonY = topPos + 110
+		val middleX = leftPos + background.width / 2
+
+		val buttonWidth = 20
+		val buttonSpacing = 10
+
+		var buttonX = middleX - (buttonSpacing / 2) - buttonWidth - buttonSpacing - buttonWidth
 
 		invertButton = ToggleSpriteButton(
-			x = leftPos + 5,
-			y = topPos + 20,
+			x = buttonX,
+			y = buttonY,
 			width = 20,
 			height = 20,
 			font = font,
@@ -47,9 +53,11 @@ class ItemFilterScreen(
 			}
 		)
 
+		buttonX += buttonWidth + buttonSpacing
+
 		useTagsButton = ToggleSpriteButton(
-			x = leftPos + 5,
-			y = topPos + 70,
+			x = buttonX,
+			y = buttonY,
 			width = 20,
 			height = 20,
 			font = font,
@@ -65,9 +73,11 @@ class ItemFilterScreen(
 			}
 		)
 
+		buttonX += buttonWidth + buttonSpacing
+
 		ignoreDamageButton = ToggleSpriteButton(
-			x = leftPos + 5,
-			y = topPos + 50,
+			x = buttonX,
+			y = buttonY,
 			width = 20,
 			height = 20,
 			font = font,
@@ -83,9 +93,11 @@ class ItemFilterScreen(
 			}
 		)
 
+		buttonX += buttonWidth + buttonSpacing
+
 		ignoreAllComponentsButton = ToggleSpriteButton(
-			x = leftPos + 5,
-			y = topPos + 110,
+			x = buttonX,
+			y = buttonY,
 			width = 20,
 			height = 20,
 			font = font,
