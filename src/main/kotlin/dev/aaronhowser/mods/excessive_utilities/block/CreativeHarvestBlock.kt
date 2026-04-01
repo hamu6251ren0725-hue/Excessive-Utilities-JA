@@ -1,18 +1,12 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.excessive_utilities.block_entity.CreativeHarvestBlockEntity
-import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMessageLang
-import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -42,21 +36,14 @@ class CreativeHarvestBlock : Block(Properties.ofFullCopy(Blocks.STONE)), EntityB
 		hitResult: BlockHitResult
 	): ItemInteractionResult {
 		val stackInHand = player.getItemInHand(hand)
+		val be = level.getBlockEntity(pos)
 
-		val item = stackInHand.item
-		val state = (item as? BlockItem)?.block?.defaultBlockState()
-
-		if (level.isServerSide
-			&& state != null
-			&& !state.isBlock(ModBlockTagsProvider.CREATIVE_HARVEST_BLACKLIST)
-		) {
-			val be = level.getBlockEntity(pos)
-
-			if (be is CreativeHarvestBlockEntity) {
-				be.mimicBlockState = state
-				val component = ModMessageLang.SET_CREATIVE_HARVEST.toComponent(stackInHand.hoverName)
-				player.tell(component)
-				return ItemInteractionResult.SUCCESS
+		if (level.isServerSide && be is CreativeHarvestBlockEntity) {
+			val success = be.setMimic(stackInHand)
+			return if (success) {
+				ItemInteractionResult.SUCCESS
+			} else {
+				ItemInteractionResult.FAIL
 			}
 		}
 
