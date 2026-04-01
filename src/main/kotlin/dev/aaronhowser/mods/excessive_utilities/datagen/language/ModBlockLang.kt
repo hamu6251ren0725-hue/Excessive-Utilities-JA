@@ -75,6 +75,7 @@ object ModBlockLang {
 			addBlock(ModBlocks.IRON_DRUM, "Iron Drum")
 			addBlock(ModBlocks.REINFORCED_LARGE_DRUM, "Reinforced Large Drum")
 			addBlock(ModBlocks.DEMONICALLY_GARGANTUAN_DRUM, "Demonically Gargantuan Drum")
+			addBlock(ModBlocks.BEDROCKIUM_DRUM, "Bedrockium Drum")
 			addBlock(ModBlocks.CREATIVE_DRUM, "Creative Drum")
 			addBlock(ModBlocks.CREATIVE_CHEST, "Creative Chest")
 			addBlock(ModBlocks.TRASH_CAN, "Trash Can")

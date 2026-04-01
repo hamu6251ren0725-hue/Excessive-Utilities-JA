@@ -4,4 +4,10 @@ Initial release! Expect bugs, please report them at [the issue tracker](https://
 
 # 1.0.1
 
+### Changed
+
 - The Creative Harvest now displays what it's mimicking (#5)
+
+### Fixed
+
+- Bedrockium Drum localized (#5)
