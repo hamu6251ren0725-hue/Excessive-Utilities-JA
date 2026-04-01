@@ -219,6 +219,7 @@ object ClientEvents {
 		event.registerBlockEntityRenderer(ModBlockEntityTypes.ENDER_PORCUPINE.get(), ::EnderPorcupineBER)
 		event.registerBlockEntityRenderer(ModBlockEntityTypes.ENDER_COLLECTOR.get(), ::EnderCollectorBER)
 		event.registerBlockEntityRenderer(ModBlockEntityTypes.QED.get(), ::QedBER)
+		event.registerBlockEntityRenderer(ModBlockEntityTypes.CREATIVE_HARVEST.get(), ::CreativeHarvestBER)
 	}
 
 	@SubscribeEvent
