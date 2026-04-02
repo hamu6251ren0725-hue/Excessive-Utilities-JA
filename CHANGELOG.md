@@ -11,6 +11,7 @@ Initial release! Expect bugs, please report them at [the issue tracker](https://
 	- No longer a variable-strength light source like I thought it was supposed to be, now it emits a variable-strength redstone signal (#7)
 	- Updated model
 	- It makes a sound when it cycles
+- New textures for the Generators and colored blocks
 
 ### Fixed
 
