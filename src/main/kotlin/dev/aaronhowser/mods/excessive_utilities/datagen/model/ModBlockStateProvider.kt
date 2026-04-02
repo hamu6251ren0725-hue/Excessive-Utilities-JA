@@ -19,11 +19,13 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.CropBlock
 import net.minecraft.world.level.block.CrossCollisionBlock
 import net.minecraft.world.level.block.RedstoneLampBlock
+import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ModelBuilder
 import net.neoforged.neoforge.common.data.ExistingFileHelper
+import org.joml.Vector3f
 
 class ModBlockStateProvider(
 	output: PackOutput,
@@ -1435,48 +1437,83 @@ class ModBlockStateProvider(
 					}
 				}
 
-				.element {
-					from(0.9f, 0.9f, 0.9f)
-					to(15.1f, 15.1f, 15.1f)
+			val height = 7
+			val width = if (i <= 9) 5f else 9f
 
-					emissivity(15, 0)
+			val pixelX = when (i) {
+				0, 5, 10, 13 -> 0f
+				1, 6 -> 6f
+				2, 7 -> 12f
+				3, 8 -> 18f
+				4, 9 -> 24f
+				11, 14 -> 10f
+				else -> 20f
+			}
 
-					allFaces { dir, fb ->
-						fb.texture("#numbers")
+			val pixelY = when (i) {
+				in 0..4 -> 0f
+				in 5..9 -> 8f
+				in 10..12 -> 16f
+				else -> 24f
+			}
 
-						val height = 7
-						val width = 9
+			val uMin = pixelX / 32f
+			val vMin = pixelY / 32f
+			val uMax = (pixelX + width) / 32f
+			val vMax = (pixelY + height) / 32f
 
-						val u1 = when (i) {
-							0, 5, 10, 13 -> 0f
-							1, 6 -> 6f
-							2, 7 -> 12f
-							3, 8 -> 18f
-							4, 9 -> 24f
-							11, 14 -> 10f
-							else -> 20f
-						}
+			val xMin = (16f - width) / 2f
+			val xMax = (16f + width) / 2f
+			val yMin = (16f - height) / 2f
+			val yMax = (16f + height) / 2f
 
-						val v1 = when (i) {
-							in 0..4 -> 0f
-							in 5..9 -> 8f
-							in 10..12 -> 16f
-							else -> 24f
-						}
+			fun addFace(dir: Direction, from: Vector3f, to: Vector3f) {
+				model.element {
+					from(from.x, from.y, from.z)
+					to(to.x, to.y, to.z)
 
-						val u2 = u1 + width
-						val v2 = v1 + height
-
-						// Because the textures are 32x32
-
-						val normalizedU1 = u1 * 0.5f
-						val normalizedV1 = v1 * 0.5f
-						val normalizedU2 = u2 * 0.5f
-						val normalizedV2 = v2 * 0.5f
-
-						fb.uvs(normalizedU1, normalizedV1, normalizedU2, normalizedV2)
+					face(dir) {
+						texture("#numbers")
+						uvs(uMin, vMin, uMax, vMax)
 					}
 				}
+			}
+
+			addFace(
+				Direction.SOUTH,
+				Vector3f(xMin, yMin, 15.99f),
+				Vector3f(xMax, yMax, 16f)
+			)
+
+			addFace(
+				Direction.NORTH,
+				Vector3f(xMin, yMin, 0f),
+				Vector3f(xMax, yMax, 0.01f)
+			)
+
+			addFace(
+				Direction.EAST,
+				Vector3f(15.99f, yMin, xMin),
+				Vector3f(16f, yMax, xMax)
+			)
+
+			addFace(
+				Direction.WEST,
+				Vector3f(0f, yMin, xMin),
+				Vector3f(0.01f, yMax, xMax)
+			)
+
+			addFace(
+				Direction.UP,
+				Vector3f(xMin, 15.99f, yMin),
+				Vector3f(xMax, 16f, yMax)
+			)
+
+			addFace(
+				Direction.DOWN,
+				Vector3f(xMin, 0f, yMin),
+				Vector3f(xMax, 0.01f, yMax)
+			)
 
 			models += model
 		}
