@@ -1,7 +1,11 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
+import net.minecraft.util.Mth
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
@@ -39,6 +43,11 @@ class RedstoneLanternBlock : Block(
 			if (oldPower <= 0) 15 else oldPower - 1
 		} else {
 			if (oldPower >= 15) 0 else oldPower + 1
+		}
+
+		if (level.isServerSide) {
+			val pitch = Mth.lerp(newPower / 15f, 0.5f, 1.0f)
+			level.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3f, pitch)
 		}
 
 		level.setBlockAndUpdate(pos, state.setValue(POWER, newPower))
