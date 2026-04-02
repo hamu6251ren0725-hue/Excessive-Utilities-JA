@@ -14,7 +14,7 @@ Initial release! Expect bugs, please report them at [the issue tracker](https://
 - New textures for the Generators and colored blocks
 - Updated many recipes to use data component predicates
 - Magical Snow Globe
-	- Improved tooltip
+	- Improved tooltip (#5)
     - Now it only requires visiting 7 of the biomes instead of all
 
 ### Fixed

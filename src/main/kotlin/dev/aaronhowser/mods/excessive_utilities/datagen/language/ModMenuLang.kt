@@ -42,8 +42,10 @@ object ModMenuLang {
 	const val IGNORE_ALL_COMPONENTS_ON = "tooltip.excessive_utilities.item_filter.ignore_all_components_on"
 	const val IGNORE_ALL_COMPONENTS_OFF = "tooltip.excessive_utilities.item_filter.ignore_all_components_off"
 
-	const val SNOW_GLOBE_TOOLTIP = "tooltip.excessive_utilities.magical_snow_globe"
+	const val SNOW_GLOBE_TOOLTIP_1 = "tooltip.excessive_utilities.magical_snow_globe_1"
+	const val SNOW_GLOBE_TOOLTIP_2 = "tooltip.excessive_utilities.magical_snow_globe_2"
 	const val SNOW_GLOBE_INSTRUCTIONS = "tooltip.excessive_utilities.magical_snow_globe_instructions"
+	const val SNOW_GLOBE_READY = "tooltip.excessive_utilities.magical_snow_globe_ready"
 
 	fun add(provider: ModLanguageProvider) {
 		provider.apply {
@@ -101,6 +103,11 @@ object ModMenuLang {
 			add(biomeTagLangKey(Tags.Biomes.IS_SWAMP), "Swamp")
 			add(biomeTagLangKey(BiomeTags.IS_END), "End")
 			add(biomeTagLangKey(BiomeTags.IS_NETHER), "Nether")
+
+			add(SNOW_GLOBE_TOOLTIP_1, "An entire world contained within a small glass globe.")
+			add(SNOW_GLOBE_TOOLTIP_2, "Perhaps our universe is not so different?")
+			add(SNOW_GLOBE_INSTRUCTIONS, "To activate this globe, take it to any %d of the following biome types:")
+			add(SNOW_GLOBE_READY, "The Snow Globe has gathered enough information about our world.")
 		}
 	}
 

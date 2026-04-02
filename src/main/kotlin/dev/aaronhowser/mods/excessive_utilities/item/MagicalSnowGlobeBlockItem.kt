@@ -1,9 +1,14 @@
 package dev.aaronhowser.mods.excessive_utilities.item
 
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toGrayComponent
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import dev.aaronhowser.mods.excessive_utilities.item.component.MagicalSnowGlobeProgressComponent
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.Style
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
@@ -45,10 +50,29 @@ class MagicalSnowGlobeBlockItem(properties: Properties) : BlockItem(ModBlocks.MA
 	) {
 		val progress = stack.get(ModDataComponents.MAGICAL_SNOW_GLOBE_PROGRESS) ?: return
 
-		for ((biomeTag, found) in progress.biomes) {
-			val component = Component.literal(" - ${biomeTag.location}: ${if (found) "Found" else "Not Found"}")
-			tooltipComponents.add(component)
+		tooltipComponents += ModMenuLang.SNOW_GLOBE_TOOLTIP_1.toComponent().withStyle(ChatFormatting.AQUA)
+		tooltipComponents += ModMenuLang.SNOW_GLOBE_TOOLTIP_2.toComponent().withStyle(ChatFormatting.AQUA)
+
+		if (progress.isComplete) {
+			tooltipComponents += ModMenuLang.SNOW_GLOBE_READY.toGrayComponent()
+		} else {
+			tooltipComponents += ModMenuLang.SNOW_GLOBE_INSTRUCTIONS.toGrayComponent(progress.amountRequired)
+
+			for ((biomeTag, found) in progress.biomes) {
+				val name = ModMenuLang.biomeTagLangKey(biomeTag).toComponent()
+
+				if (found) {
+					name.withStyle(Style.EMPTY.withColor(ChatFormatting.DARK_BLUE).withStrikethrough(true))
+				} else {
+					name.withStyle(Style.EMPTY.withColor(ChatFormatting.BLUE))
+				}
+
+				val component = Component.literal("- ").append(name)
+
+				tooltipComponents += component
+			}
 		}
+
 	}
 
 	companion object {
