@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.excessive_utilities.block_entity.CreativeHarvestBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel

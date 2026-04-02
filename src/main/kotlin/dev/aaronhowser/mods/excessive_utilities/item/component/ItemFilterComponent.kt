@@ -80,7 +80,7 @@ data class ItemFilterComponent(
 			// Allow for nested Item Filters
 			// If it passes the nested Filter, return true (unless the outer Filter is inverted)
 			if (stackInFilter.isItem(ModItems.ITEM_FILTER)) {
-				val passesNestedFilter = ItemFilterItem.Companion.passesFilter(stackInFilter, checkedStack)
+				val passesNestedFilter = ItemFilterItem.passesFilter(stackInFilter, checkedStack)
 				return passesNestedFilter != isInverted
 			}
 
