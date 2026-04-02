@@ -15,7 +15,8 @@ Initial release! Expect bugs, please report them at [the issue tracker](https://
 - Updated many recipes to use data component predicates
 - Magical Snow Globe
 	- Improved tooltip (#5)
-    - Now it only requires visiting 7 of the biomes instead of all
+	- Now it only requires visiting 7 of the biomes instead of all
+- The Magnum Torch now gives off light (#4)
 
 ### Fixed
 
