@@ -28,6 +28,7 @@ import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModDataComponents
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentPredicate
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
@@ -80,6 +81,16 @@ class ModRecipeProvider(
 
 	private fun buildOpiniumRecipes(recipeOutput: RecipeOutput) {
 		val cores = OpiniumCoreContentsComponent.getDefaultTiers()
+		val opiniumCore = ModItems.OPINIUM_CORE.get()
+
+		fun ingredient(component: OpiniumCoreContentsComponent): Ingredient {
+			val predicate = DataComponentPredicate
+				.builder()
+				.expect(ModDataComponents.OPINIUM_CORE_CONTENTS.get(), component)
+				.build()
+
+			return opiniumCore.asIngredient(predicate)
+		}
 
 		for ((i, core) in cores.withIndex()) {
 			val tierName = core.name.string.split(".").last()
@@ -87,7 +98,7 @@ class ModRecipeProvider(
 
 			if (i == 0) {
 				shapedRecipe(
-					ModItems.OPINIUM_CORE,
+					opiniumCore,
 					" R ,RIR, R ",
 					mapOf(
 						'R' to ModItems.RED_COAL.asIngredient(),
@@ -98,29 +109,30 @@ class ModRecipeProvider(
 				continue
 			}
 
-			val inputCoreStack = cores[i - 1].getStack()
-			val outputCoreStack = core.getStack()
+			val inputComponent = cores[i - 1]
+			val outputComponent = core
 
 			val (inner, outer) = core
 
 			shapedRecipe(
-				outputCoreStack,
+				outputComponent.getStack(),
 				" O ,ABA, O ",
 				mapOf(
-					'O' to inputCoreStack.asIngredient(),
+					'O' to ingredient(inputComponent),
 					'A' to outer.asIngredient(),
 					'B' to inner.asIngredient()
 				)
 			).save(recipeOutput, modLoc(recipeName))
 		}
 
-		val perfectOpiniumCore = cores.last().getStack()
+		val perfectOpiniumCore = cores.last()
+		val perfectIngredient = ingredient(perfectOpiniumCore)
 
 		shapedRecipe(
 			ModItems.KIKOKU,
 			"O,O,S",
 			mapOf(
-				'O' to perfectOpiniumCore.asIngredient(),
+				'O' to perfectIngredient,
 				'S' to Tags.Items.RODS_WOODEN.asIngredient()
 			)
 		).save(recipeOutput)
@@ -129,7 +141,7 @@ class ModRecipeProvider(
 			ModItems.COMPOUND_BOW,
 			" OS,I S, OS",
 			mapOf(
-				'O' to perfectOpiniumCore.asIngredient(),
+				'O' to perfectIngredient,
 				'I' to Tags.Items.INGOTS_IRON.asIngredient(),
 				'S' to Tags.Items.STRINGS.asIngredient()
 			)
@@ -139,7 +151,7 @@ class ModRecipeProvider(
 			ModItems.FIRE_AXE,
 			"OO,OS, S",
 			mapOf(
-				'O' to perfectOpiniumCore.asIngredient(),
+				'O' to perfectIngredient,
 				'S' to Tags.Items.RODS_WOODEN.asIngredient()
 			)
 		).save(recipeOutput)
