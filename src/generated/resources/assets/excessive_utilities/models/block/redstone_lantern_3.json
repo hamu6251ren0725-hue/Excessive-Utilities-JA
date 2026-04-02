@@ -103,6 +103,77 @@
         15,
         15
       ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#numbers",
+          "uv": [
+            9.0,
+            0.0,
+            13.5,
+            3.5
+          ]
+        },
+        "east": {
+          "texture": "#numbers",
+          "uv": [
+            9.0,
+            0.0,
+            13.5,
+            3.5
+          ]
+        },
+        "north": {
+          "texture": "#numbers",
+          "uv": [
+            9.0,
+            0.0,
+            13.5,
+            3.5
+          ]
+        },
+        "south": {
+          "texture": "#numbers",
+          "uv": [
+            9.0,
+            0.0,
+            13.5,
+            3.5
+          ]
+        },
+        "up": {
+          "texture": "#numbers",
+          "uv": [
+            9.0,
+            0.0,
+            13.5,
+            3.5
+          ]
+        },
+        "west": {
+          "texture": "#numbers",
+          "uv": [
+            9.0,
+            0.0,
+            13.5,
+            3.5
+          ]
+        }
+      },
+      "from": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "neoforge_data": {
+        "block_light": 15
+      },
+      "to": [
+        15.1,
+        15.1,
+        15.1
+      ]
     }
   ],
   "render_type": "minecraft:cutout",
