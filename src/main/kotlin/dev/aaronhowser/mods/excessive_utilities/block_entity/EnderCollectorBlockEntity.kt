@@ -5,6 +5,8 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.excessive_utilities.block.EnderCollectorBlock
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -80,9 +82,22 @@ class EnderCollectorBlockEntity(
 		return level.getCapability(Capabilities.ItemHandler.BLOCK, targetPos, facing)
 	}
 
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+
+		tag.putDouble(RADIUS_NBT, radius)
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+
+		radius = tag.getDouble(RADIUS_NBT)
+	}
+
 	companion object {
 		const val MIN_RADIUS = 0.5
 		const val MAX_RADIUS = 4.0
+		const val RADIUS_NBT = "Radius"
 
 		fun tick(
 			level: Level,

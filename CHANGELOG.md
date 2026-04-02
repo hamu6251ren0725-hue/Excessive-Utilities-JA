@@ -17,3 +17,4 @@ Initial release! Expect bugs, please report them at [the issue tracker](https://
 ### Fixed
 
 - Bedrockium Drum localized (#5)
+- Ender Collector wasn't saving to NBT, and therefore also wasn't syncing its radius to client
