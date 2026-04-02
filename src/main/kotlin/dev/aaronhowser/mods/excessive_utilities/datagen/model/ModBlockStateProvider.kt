@@ -1460,15 +1460,45 @@ class ModBlockStateProvider(
 			val v1 = pixelY / 2f
 			val v2 = (pixelY + height) / 2f
 
-			model.element {
-				from(8 - width / 2, 15.1f, 8 - height / 2f)
-				to(8 + width / 2, 15.1f, 8 + height / 2f)
+			for (dir in Direction.entries) {
+				val from = when (dir) {
+					Direction.UP -> floatArrayOf(8 - width / 2f, 15.1f, 8 - height / 2f)
+					Direction.DOWN -> floatArrayOf(8 - width / 2f, 0.9f, 8 - height / 2f)
+					Direction.NORTH -> floatArrayOf(8 - width / 2f, 8 - height / 2f, 0.9f)
+					Direction.SOUTH -> floatArrayOf(8 - width / 2f, 8 - height / 2f, 15.1f)
+					Direction.WEST -> floatArrayOf(0.9f, 8 - height / 2f, 8 - width / 2f)
+					Direction.EAST -> floatArrayOf(15.1f, 8 - height / 2f, 8 - width / 2f)
+				}
 
-				face(Direction.UP) {
-					texture("#numbers")
-					uvs(u1, v1, u2, v2)
+				val to = when (dir) {
+					Direction.UP -> floatArrayOf(8 + width / 2f, 15.1f, 8 + height / 2f)
+					Direction.DOWN -> floatArrayOf(8 + width / 2f, 0.9f, 8 + height / 2f)
+					Direction.NORTH -> floatArrayOf(8 + width / 2f, 8 + height / 2f, 0.9f)
+					Direction.SOUTH -> floatArrayOf(8 + width / 2f, 8 + height / 2f, 15.1f)
+					Direction.WEST -> floatArrayOf(0.9f, 8 + height / 2f, 8 + width / 2f)
+					Direction.EAST -> floatArrayOf(15.1f, 8 + height / 2f, 8 + width / 2f)
+				}
+
+				model.element {
+					from(from[0], from[1], from[2])
+					to(to[0], to[1], to[2])
+
+					face(dir) {
+						texture("#numbers")
+						uvs(u1, v1, u2, v2)
+					}
 				}
 			}
+
+//			model.element {
+//				from(8 - width / 2, 15.1f, 8 - height / 2f)
+//				to(8 + width / 2, 15.1f, 8 + height / 2f)
+//
+//				face(Direction.UP) {
+//					texture("#numbers")
+//					uvs(u1, v1, u2, v2)
+//				}
+//			}
 
 			models += model
 		}
