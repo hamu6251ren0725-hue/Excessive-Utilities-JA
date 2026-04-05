@@ -10,6 +10,7 @@ class ClientConfig(
 
 	lateinit var generatorParticleDensity: ModConfigSpec.DoubleValue
 	lateinit var soundMufflerRadius: ModConfigSpec.DoubleValue
+	lateinit var athenaTooltip: ModConfigSpec.BooleanValue
 
 	lateinit var rainbowGeneratorTimeFactor: ModConfigSpec.DoubleValue
 	lateinit var rainbowGeneratorRayWidth: ModConfigSpec.DoubleValue
@@ -31,6 +32,10 @@ class ClientConfig(
 		soundMufflerRadius = builder
 			.comment("The radius in blocks that sound mufflers will affect")
 			.defineInRange("soundMufflerRadius", 8.0, 0.0, Double.MAX_VALUE)
+
+		athenaTooltip = builder
+			.comment("Whether to show the tooltip about Athena compatibility on items that are compatible with Athena")
+			.define("athenaTooltip", true)
 
 		builder.section("rainbow_generator") {
 			rainbowGeneratorTimeFactor = builder

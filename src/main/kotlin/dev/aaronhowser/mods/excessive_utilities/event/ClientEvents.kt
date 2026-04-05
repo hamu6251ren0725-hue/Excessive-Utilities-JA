@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.event
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block_entity.DrumBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.SoundMufflerBlockEntity
@@ -12,10 +13,15 @@ import dev.aaronhowser.mods.excessive_utilities.client.render.bewlr.OpiniumCoreB
 import dev.aaronhowser.mods.excessive_utilities.client.render.block_entity.*
 import dev.aaronhowser.mods.excessive_utilities.client.render.entity.FlatTransferNodeEntityRenderer
 import dev.aaronhowser.mods.excessive_utilities.client.render.entity.MagicalBoomerangEntityRenderer
+import dev.aaronhowser.mods.excessive_utilities.config.ClientConfig
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import dev.aaronhowser.mods.excessive_utilities.datagen.model.ModItemModelProvider
+import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.excessive_utilities.handler.key_handler.ClientKeyHandler
 import dev.aaronhowser.mods.excessive_utilities.item.*
 import dev.aaronhowser.mods.excessive_utilities.registry.*
+import net.minecraft.ChatFormatting
 import net.minecraft.client.renderer.ItemBlockRenderTypes
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.item.ItemProperties
@@ -245,6 +251,14 @@ object ClientEvents {
 	@SubscribeEvent
 	fun onItemTooltip(event: ItemTooltipEvent) {
 		UnstableIngotItem.handleTooltip(event)
+
+		if (
+			!ExcessiveUtilities.IS_ATHENA_LOADED
+			&& ClientConfig.CONFIG.athenaTooltip.get()
+			&& event.itemStack.isItem(ModItemTagsProvider.ATHENA_COMPATIBLE)
+		) {
+			event.toolTip += ModMenuLang.ATHENA_COMPATIBLE.toComponent().withStyle(ChatFormatting.DARK_GRAY)
+		}
 	}
 
 	@SubscribeEvent

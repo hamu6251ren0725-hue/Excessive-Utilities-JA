@@ -769,6 +769,7 @@
   "tooltip.excessive_utilities.angel_ring.type.feather": "Feather",
   "tooltip.excessive_utilities.angel_ring.type.gold": "Gold",
   "tooltip.excessive_utilities.angel_ring.type.invisible": "Invisible",
+  "tooltip.excessive_utilities.athena_compatible": "Install Athena for connected textures!",
   "tooltip.excessive_utilities.broken": "Broken",
   "tooltip.excessive_utilities.current_offset": "Current Offset: (%d, %d, %d)",
   "tooltip.excessive_utilities.gp": "%s GP",

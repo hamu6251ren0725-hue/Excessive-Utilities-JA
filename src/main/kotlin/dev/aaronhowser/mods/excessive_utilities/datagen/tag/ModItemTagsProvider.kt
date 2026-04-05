@@ -370,6 +370,44 @@ class ModItemTagsProvider(
 				ModItems.CHICKEN_WING_RING,
 				ModItems.RING_OF_THE_FLYING_SQUID
 			)
+
+		tag(ATHENA_COMPATIBLE)
+			.add(
+				ModBlocks.BLOCK_OF_EVIL_INFUSED_IRON.asItem(),
+				ModBlocks.MAGICAL_PLANKS.asItem(),
+				ModBlocks.QUARTZBURNT.asItem(),
+				ModBlocks.STONEBURNT.asItem(),
+				ModBlocks.BORDER_STONE.asItem(),
+				ModBlocks.CROSSED_STONE.asItem(),
+				ModBlocks.ENDER_INFUSED_OBSIDIAN.asItem(),
+				ModBlocks.POLISHED_STONE.asItem(),
+				ModBlocks.ENDER_SAND_ALLOY.asItem(),
+				ModBlocks.GRAVEL_ROAD.asItem(),
+				ModBlocks.GRAVEL_BRICKS.asItem(),
+				ModBlocks.FROSTED_STONE.asItem(),
+				ModBlocks.EMINENCE_STONE.asItem(),
+				ModBlocks.RAINBOW_STONE.asItem(),
+				ModBlocks.DIAGONAL_WOOD.asItem(),
+				ModBlocks.EDGED_STONE_BRICKS.asItem(),
+				ModBlocks.INEFFABLE_GLASS.asItem(),
+				ModBlocks.INVERTED_INEFFABLE_GLASS.asItem(),
+				ModBlocks.DARK_INEFFABLE_GLASS.asItem(),
+				ModBlocks.ETHEREAL_GLASS.asItem(),
+				ModBlocks.INVERTED_ETHEREAL_GLASS.asItem(),
+				ModBlocks.OBSIDIAN_GLASS.asItem(),
+				ModBlocks.REINFORCED_DARK_GLASS.asItem(),
+				ModBlocks.GLOWING_GLASS.asItem(),
+				ModBlocks.THICKENED_GLASS.asItem(),
+				ModBlocks.EDGED_GLASS.asItem(),
+				ModBlocks.SWIRLING_GLASS.asItem(),
+				ModBlocks.HEART_GLASS.asItem(),
+				ModBlocks.GLASS_BRICKS.asItem(),
+				ModBlocks.CARVED_GLASS.asItem(),
+				ModBlocks.GOLDEN_EDGED_GLASS.asItem(),
+				ModBlocks.BLOCK_OF_UNSTABLE_INGOT.asItem(),
+				ModBlocks.PATTERNED_GLASS.asItem(),
+				ModBlocks.REDSTONE_GLASS.asItem(),
+			)
 	}
 
 	companion object {
@@ -407,6 +445,7 @@ class ModItemTagsProvider(
 		val SPICES_OF_AIR = create("spices_of_air")
 
 		val RING_CURIO = curio("ring")
+		val ATHENA_COMPATIBLE = curio("athena_compatible")
 	}
 
 }

@@ -1,5 +1,9 @@
 # 1.0.1
 
+### Added
+
+- Athena-compatible blocks now have a tooltip if you don't have it installed (which can be disabled in the client config)
+
 ### Changed
 
 - The Creative Harvest now displays what it's mimicking (#5)
