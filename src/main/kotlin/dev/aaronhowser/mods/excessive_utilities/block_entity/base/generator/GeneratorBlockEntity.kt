@@ -44,6 +44,7 @@ abstract class GeneratorBlockEntity(
 	var ownerUuid: UUID? = null
 
 	protected open val energyStorage = EnergyStorage(1_000_000)
+	open fun getEnergyCapability(direction: Direction?): IEnergyStorage = energyStorage
 
 	protected open val container: GeneratorContainer =
 		object : GeneratorContainer(this@GeneratorBlockEntity, amountInputs = 1) {
@@ -220,9 +221,6 @@ abstract class GeneratorBlockEntity(
 			}
 		}
 
-		fun getEnergyCapability(transmitter: GeneratorBlockEntity, direction: Direction?): IEnergyStorage {
-			return transmitter.energyStorage
-		}
 	}
 
 }
