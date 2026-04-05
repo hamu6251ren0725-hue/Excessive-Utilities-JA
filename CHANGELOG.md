@@ -1,7 +1,3 @@
-# 1.0.0
-
-Initial release! Expect bugs, please report them at [the issue tracker](https://github.com/Berry-Club/Excessive-Utilities/issues)
-
 # 1.0.1
 
 ### Changed
@@ -17,9 +13,14 @@ Initial release! Expect bugs, please report them at [the issue tracker](https://
 	- Improved tooltip (#5)
 	- Now it only requires visiting 7 of the biomes instead of all
 - The Magnum Torch now gives off light (#4)
+- Fixed the color of the Nether Star Generator's particles from white to "bistre"
 
 ### Fixed
 
 - Bedrockium Drum localized (#5)
 - Ender Collector wasn't saving to NBT, and therefore also wasn't syncing its radius to client
 - Fixed Quantum Quarry recipe requiring a Machine Block instead of a Magical Snow Globe
+
+# 1.0.0
+
+Initial release! Expect bugs, please report them at [the issue tracker](https://github.com/Berry-Club/Excessive-Utilities/issues)

@@ -48,7 +48,7 @@ class NetherStarGeneratorBlockEntity(
 		var particleCount = Mth.ceil(Math.PI * radius * radius) / 4
 		particleCount = Mth.ceil(particleCount * ClientConfig.CONFIG.generatorParticleDensity.get())
 
-		val particle = ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, -1)
+		val particle = ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF736156.toInt())
 
 		for (i in 0 until particleCount) {
 			val dx = level.random.nextRange(-radius, radius)
