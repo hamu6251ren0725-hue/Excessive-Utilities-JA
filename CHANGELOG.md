@@ -9,7 +9,7 @@
 - The Creative Harvest now displays what it's mimicking (#5)
 - Redstone Lantern
 	- No longer a variable-strength light source like I thought it was supposed to be, now it emits a variable-strength redstone signal (#7)
-	- Updated model
+	- Updated model so it has the visible numbers (but it needs a new texture that doesn't look like a Lamp)
 	- It makes a sound when it cycles
 - New textures for the Generators and colored blocks
 - Updated many recipes to use data component predicates
