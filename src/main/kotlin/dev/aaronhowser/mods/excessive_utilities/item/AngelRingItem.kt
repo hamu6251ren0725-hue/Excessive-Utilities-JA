@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.excessive_utilities.item
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.handler.grid_power.GridPowerContribution
@@ -223,7 +224,7 @@ class AngelRingItem(properties: Properties) : Item(properties), ICurioItem {
 
 		companion object {
 			val CODEC: Codec<Type> = StringRepresentable.fromValues { entries.toTypedArray() }
-			val STREAM_CODEC: StreamCodec<ByteBuf, Type> = ByteBufCodecs.fromCodec(CODEC)
+			val STREAM_CODEC: StreamCodec<ByteBuf, Type> = AaronExtraStreamCodecs.enumStreamCodec(Type::class.java)
 		}
 	}
 

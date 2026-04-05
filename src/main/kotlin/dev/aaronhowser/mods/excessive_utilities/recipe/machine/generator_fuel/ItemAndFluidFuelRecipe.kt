@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.excessive_utilities.recipe.machine.generator_fuel
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
 import dev.aaronhowser.mods.excessive_utilities.block.GeneratorBlock
 import dev.aaronhowser.mods.excessive_utilities.registry.ModBlocks
 import dev.aaronhowser.mods.excessive_utilities.registry.ModRecipeSerializers
@@ -98,7 +99,7 @@ class ItemAndFluidFuelRecipe(
 
 		companion object {
 			val CODEC: StringRepresentable.EnumCodec<GeneratorType> = StringRepresentable.fromEnum { entries.toTypedArray() }
-			val STREAM_CODEC: StreamCodec<ByteBuf, GeneratorType> = ByteBufCodecs.fromCodec(CODEC)
+			val STREAM_CODEC: StreamCodec<ByteBuf, GeneratorType> = AaronExtraStreamCodecs.enumStreamCodec(GeneratorType::class.java)
 		}
 	}
 

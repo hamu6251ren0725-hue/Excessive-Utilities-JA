@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isFluid
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
 import dev.aaronhowser.mods.excessive_utilities.datagen.language.ModMenuLang
 import dev.aaronhowser.mods.excessive_utilities.registry.ModItems
 import io.netty.buffer.ByteBuf
@@ -150,12 +151,8 @@ data class FluidFilterComponent(
 		}
 
 		companion object {
-			val CODEC: StringRepresentable.EnumCodec<Flag> =
-				StringRepresentable.fromEnum { entries.toTypedArray() }
-
-			val STREAM_CODEC: StreamCodec<ByteBuf, Flag> =
-				ByteBufCodecs.fromCodec(CODEC)
-
+			val CODEC: StringRepresentable.EnumCodec<Flag> = StringRepresentable.fromEnum { entries.toTypedArray() }
+			val STREAM_CODEC: StreamCodec<ByteBuf, Flag> = AaronExtraStreamCodecs.enumStreamCodec(Flag::class.java)
 		}
 	}
 
