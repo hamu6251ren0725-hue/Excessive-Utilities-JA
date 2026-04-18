@@ -3,9 +3,13 @@ package dev.aaronhowser.mods.excessive_utilities.handler
 import dev.aaronhowser.mods.aaron.misc.AaronUtil
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModDimensionProvider
+import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ChunkPos
@@ -15,6 +19,44 @@ import java.util.*
 class LastMillenniumHandler : SavedData() {
 
 	private val playerChunks: MutableMap<UUID, ChunkPos> = mutableMapOf()
+
+	fun teleportIntoDimension(entity: Entity, target: UUID) {
+		val level = entity.level() as? ServerLevel ?: return
+
+		val pData = entity.persistentData
+		val returnInfo = CompoundTag()
+		returnInfo.putString(FROM_DIM, level.dimension().location().toString())
+		returnInfo.putLong(FROM_POS, entity.blockPosition().asLong())
+		pData.put(PLAYER_RETURN_INFO, returnInfo)
+	}
+
+	private fun returnFromDimension(entity: Entity) {
+		val level = entity.level() as? ServerLevel ?: return
+
+		val pData = entity.persistentData
+		val returnInfo = pData.getCompound(PLAYER_RETURN_INFO)
+
+		val fromDimString = returnInfo.getString(FROM_DIM)
+		val fromPosLong = returnInfo.getLong(FROM_POS)
+
+		val fromDimKey = ResourceKey.create(
+			Registries.DIMENSION,
+			ResourceLocation.parse(fromDimString)
+		)
+
+		val fromPos = BlockPos.of(fromPosLong)
+
+		val targetLevel = level.server.getLevel(fromDimKey) ?: return
+		entity.teleportTo(
+			targetLevel,
+			fromPos.x + 0.5,
+			fromPos.y.toDouble(),
+			fromPos.z + 0.5,
+			emptySet(),
+			entity.yRot,
+			entity.xRot,
+		)
+	}
 
 	fun getChunk(entity: Entity): ChunkPos {
 		return getChunk(entity.uuid)
@@ -53,6 +95,10 @@ class LastMillenniumHandler : SavedData() {
 		const val CHUNK_LIST_NBT = "Chunks"
 		const val PLAYER_NBT = "Player"
 		const val CHUNK_NBT = "Chunk"
+
+		const val PLAYER_RETURN_INFO = "eu_tlm_return_info"
+		const val FROM_DIM = "from_dimension"
+		const val FROM_POS = "from_pos"
 
 		val STRUCTURE = ExcessiveUtilities.modResource("the_last_millennium")
 
