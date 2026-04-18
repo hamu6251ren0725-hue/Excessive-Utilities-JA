@@ -1,3 +1,9 @@
+# 1.2.1
+
+### Fixed
+
+- Increased the min Aaron requirement
+
 # 1.2.0
 
 ### Added
