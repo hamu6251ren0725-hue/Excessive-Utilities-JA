@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ChunkPos
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings
 import net.minecraft.world.level.saveddata.SavedData
 import java.util.*
 
@@ -28,6 +30,36 @@ class LastMillenniumHandler : SavedData() {
 		returnInfo.putString(FROM_DIM, level.dimension().location().toString())
 		returnInfo.putLong(FROM_POS, entity.blockPosition().asLong())
 		pData.put(PLAYER_RETURN_INFO, returnInfo)
+
+		val targetLevel = getLastMillenniumLevel(level)
+		val chunkPos = getChunk(target)
+
+		placeStructureIfNeeded(targetLevel, chunkPos)
+
+		val targetPos = chunkPos.getMiddleBlockPosition(64).bottomCenter
+
+		entity.teleportTo(
+			targetLevel,
+			targetPos.x,
+			targetPos.y,
+			targetPos.z,
+			emptySet(),
+			entity.yRot,
+			entity.xRot,
+		)
+	}
+
+	private fun placeStructureIfNeeded(tlmLevel: ServerLevel, chunkPos: ChunkPos) {
+		val structure = tlmLevel.structureManager.get(STRUCTURE).get()
+
+		structure.placeInWorld(
+			tlmLevel,
+			BlockPos.ZERO,
+			chunkPos.getMiddleBlockPosition(63),
+			StructurePlaceSettings(),
+			tlmLevel.random,
+			Block.UPDATE_ALL_IMMEDIATE
+		)
 	}
 
 	fun returnFromDimension(entity: Entity) {
