@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.excessive_utilities.handler
 
 import dev.aaronhowser.mods.aaron.misc.AaronUtil
+import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import dev.aaronhowser.mods.excessive_utilities.datagen.datapack.ModDimensionProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.ChunkPos
 import net.minecraft.world.level.saveddata.SavedData
 import java.util.*
@@ -12,6 +15,10 @@ import java.util.*
 class LastMillenniumHandler : SavedData() {
 
 	private val playerChunks: MutableMap<UUID, ChunkPos> = mutableMapOf()
+
+	fun getChunk(entity: Entity): ChunkPos {
+		return getChunk(entity.uuid)
+	}
 
 	fun getChunk(uuid: UUID): ChunkPos {
 		val existing = playerChunks[uuid]
@@ -47,6 +54,8 @@ class LastMillenniumHandler : SavedData() {
 		const val PLAYER_NBT = "Player"
 		const val CHUNK_NBT = "Chunk"
 
+		val STRUCTURE = ExcessiveUtilities.modResource("the_last_millennium")
+
 		private fun load(tag: CompoundTag, provider: HolderLookup.Provider): LastMillenniumHandler {
 			val data = LastMillenniumHandler()
 
@@ -73,6 +82,10 @@ class LastMillenniumHandler : SavedData() {
 			val factory = Factory(::LastMillenniumHandler, ::load)
 
 			return storage.computeIfAbsent(factory, SAVED_DATA_NAME)
+		}
+
+		fun getLastMillenniumLevel(level: ServerLevel): ServerLevel {
+			return level.server.getLevel(ModDimensionProvider.MILLENNIUM_LEVEL_KEY)!!
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.excessive_utilities.block
 
+import dev.aaronhowser.mods.excessive_utilities.handler.LastMillenniumHandler
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
@@ -7,11 +8,24 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.Portal
 import net.minecraft.world.level.portal.DimensionTransition
+import net.minecraft.world.phys.Vec3
 
 class LastMillenniumPortalBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)), Portal {
 
 	override fun getPortalDestination(level: ServerLevel, entity: Entity, pos: BlockPos): DimensionTransition? {
-		TODO("Not yet implemented")
+		val targetLevel = LastMillenniumHandler.getLastMillenniumLevel(level)
+		val chunkPos = LastMillenniumHandler.get(level).getChunk(entity)
+
+		val post = DimensionTransition.PLACE_PORTAL_TICKET
+		return DimensionTransition(
+			targetLevel,
+			chunkPos.getMiddleBlockPosition(64).bottomCenter,
+			Vec3.ZERO,
+			0f,
+			0f,
+			false,
+			post
+		)
 	}
 
 }
