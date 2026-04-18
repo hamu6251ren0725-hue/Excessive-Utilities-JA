@@ -30,7 +30,7 @@ class LastMillenniumHandler : SavedData() {
 		pData.put(PLAYER_RETURN_INFO, returnInfo)
 	}
 
-	private fun returnFromDimension(entity: Entity) {
+	fun returnFromDimension(entity: Entity) {
 		val level = entity.level() as? ServerLevel ?: return
 
 		val pData = entity.persistentData

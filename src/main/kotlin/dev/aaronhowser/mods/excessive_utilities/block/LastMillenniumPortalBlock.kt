@@ -10,13 +10,12 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.Portal
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.portal.DimensionTransition
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
 
-class LastMillenniumPortalBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)), Portal {
+class LastMillenniumPortalBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)) {
 
 	override fun useWithoutItem(
 		state: BlockState,
@@ -27,23 +26,18 @@ class LastMillenniumPortalBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)
 	): InteractionResult {
 		if (level !is ServerLevel) return InteractionResult.PASS
 
-		val destination = getPortalDestination(level, player, pos)
-		player.changeDimension(destination)
+		val handler = LastMillenniumHandler.get(level)
+
+		if (level.dimension() == ModDimensionProvider.MILLENNIUM_LEVEL_KEY) {
+			handler.returnFromDimension(player)
+		} else {
+			handler.teleportIntoDimension(player, player.uuid)
+		}
+
 		return InteractionResult.SUCCESS
 	}
 
-	override fun getPortalDestination(level: ServerLevel, entity: Entity, pos: BlockPos): DimensionTransition {
-		return if (level.dimension() == ModDimensionProvider.MILLENNIUM_LEVEL_KEY) {
-			getDestinationFromLastMillennium(level, entity)
-		} else {
-			getDestinationInLastMillennium(level, entity)
-		}
-	}
-
 	companion object {
-		private fun getDestinationFromLastMillennium(level: ServerLevel, entity: Entity): DimensionTransition {
-
-		}
 
 		private fun getDestinationInLastMillennium(level: ServerLevel, entity: Entity): DimensionTransition {
 			val targetLevel = LastMillenniumHandler.getLastMillenniumLevel(level)
