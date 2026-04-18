@@ -1,0 +1,98 @@
+package dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node
+
+import dev.aaronhowser.mods.excessive_utilities.block_entity.base.TransferNodeBlockEntity
+import dev.aaronhowser.mods.excessive_utilities.registry.ModBlockEntityTypes
+import net.minecraft.core.BlockPos
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.capabilities.Capabilities
+import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.energy.IEnergyStorage
+
+class EnergyTransferNodeBlockEntity(
+	pos: BlockPos,
+	blockState: BlockState
+) : TransferNodeBlockEntity(ModBlockEntityTypes.ENERGY_TRANSFER_NODE.get(), pos, blockState) {
+
+	private val bufferEnergyStorage: EnergyStorage = EnergyStorage(1_000_000)
+
+	private fun getParentEnergyStorage(level: ServerLevel): IEnergyStorage? {
+		return level.getCapability(Capabilities.EnergyStorage.BLOCK, placedOnPos, placedOnDirection.opposite)
+	}
+
+	override fun pullerTick(level: ServerLevel) {
+		pushIntoParent(level)
+
+		if (bufferEnergyStorage.energyStored > 0) {
+			ping.reset()
+			return
+		}
+
+		pullFromPingPos(level)
+
+		if (bufferEnergyStorage.energyStored <= 0) {
+			ping.march(level)
+		}
+	}
+
+	private fun pullFromPingPos(level: ServerLevel) {
+		val neighborStorages = getEnergyStorageAroundPing(level)
+		if (neighborStorages.isEmpty()) return
+
+		val amountThatCanFit = bufferEnergyStorage.maxEnergyStored - bufferEnergyStorage.energyStored
+		if (amountThatCanFit <= 0) return
+
+		val maxAmountToPull = if (hasStackUpgrade()) 64_000 else 1_000
+		val amountToExtract = maxAmountToPull.coerceAtMost(amountThatCanFit)
+
+		for (storage in neighborStorages) {
+			val simulated = storage.extractEnergy(amountToExtract, true)
+			if (simulated <= 0) continue
+
+			val actualExtracted = storage.extractEnergy(simulated, false)
+			if (actualExtracted <= 0) continue
+
+			bufferEnergyStorage.receiveEnergy(actualExtracted, false)
+			didWorkThisTick = true
+		}
+	}
+
+	private fun pushIntoParent(level: ServerLevel) {
+		val parentEnergyStorage = getParentEnergyStorage(level) ?: return
+
+		val energyToPush = bufferEnergyStorage.extractEnergy(bufferEnergyStorage.energyStored, true)
+		if (energyToPush <= 0) return
+
+		val actualAmountPushed = parentEnergyStorage.receiveEnergy(energyToPush, false)
+		if (!hasCreativeUpgrade()) {
+			bufferEnergyStorage.extractEnergy(actualAmountPushed, false)
+		}
+
+		didWorkThisTick = true
+	}
+
+	private fun getEnergyStorageAroundPing(level: ServerLevel): List<IEnergyStorage> {
+		val possibleDirections = ping.getNextDirections(level)
+		val pingPos = ping.currentPingPos
+
+		val handlers = mutableListOf<IEnergyStorage>()
+		for (dir in possibleDirections) {
+			val neighborPos = pingPos.relative(dir)
+			val handler = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, dir.opposite) ?: continue
+			handlers.add(handler)
+		}
+
+		return handlers
+	}
+
+	override fun pusherTick(level: ServerLevel) {
+		TODO("Not yet implemented")
+	}
+
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
+		TODO("Not yet implemented")
+	}
+}

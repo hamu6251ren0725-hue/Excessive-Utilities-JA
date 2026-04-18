@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
 import dev.aaronhowser.mods.excessive_utilities.block_entity.*
 import dev.aaronhowser.mods.excessive_utilities.block_entity.generator.*
 import dev.aaronhowser.mods.excessive_utilities.block_entity.mill.*
+import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.EnergyTransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.FluidTransferNodeBlockEntity
 import dev.aaronhowser.mods.excessive_utilities.block_entity.transfer_node.ItemTransferNodeBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
@@ -161,5 +162,7 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("item_transfer_node", ::ItemTransferNodeBlockEntity, ModBlocks.ITEM_TRANSFER_NODE, ModBlocks.ITEM_RETRIEVAL_NODE)
 	val FLUID_TRANSFER_NODE: DeferredHolder<BlockEntityType<*>, BlockEntityType<FluidTransferNodeBlockEntity>> =
 		register("fluid_transfer_node", ::FluidTransferNodeBlockEntity, ModBlocks.FLUID_TRANSFER_NODE, ModBlocks.FLUID_RETRIEVAL_NODE)
+	val ENERGY_TRANSFER_NODE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnergyTransferNodeBlockEntity>> =
+		register("energy_transfer_node", ::EnergyTransferNodeBlockEntity, ModBlocks.ENERGY_TRANSFER_NODE, ModBlocks.ENERGY_RETRIEVAL_NODE)
 
 }
