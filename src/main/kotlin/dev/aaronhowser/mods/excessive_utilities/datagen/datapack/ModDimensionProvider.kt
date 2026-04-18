@@ -49,9 +49,9 @@ object ModDimensionProvider {
 				1.0,
 				true,
 				true,
-				0,
-				256,
-				256,
+				-64,
+				384,
+				319,
 				BlockTags.INFINIBURN_OVERWORLD,
 				MILLENNIUM_RL,
 				1f,
@@ -102,21 +102,18 @@ object ModDimensionProvider {
 		)
 
 		val biomeLookup = context.lookup(Registries.BIOME)
-		val structureLookup = context.lookup(Registries.STRUCTURE_SET)
-		val placedFeatureLookup = context.lookup(Registries.PLACED_FEATURE)
+
+		val tlmSettings = FlatLevelGeneratorSettings(
+			Optional.empty(),
+			biomeLookup.getOrThrow(Biomes.PLAINS),
+			emptyList()
+		)
 
 		context.register(
 			MILLENNIUM_STEM_KEY,
 			LevelStem(
 				dimensionTypeLookup.getOrThrow(MILLENNIUM_DIM_TYPE_KEY),
-				FlatLevelSource(
-					FlatLevelGeneratorSettings.getDefault(biomeLookup, structureLookup, placedFeatureLookup)
-						.withBiomeAndLayers(
-							listOf(),
-							Optional.empty(),
-							biomeLookup.get(Biomes.PLAINS).get()
-						)
-				)
+				FlatLevelSource(tlmSettings)
 			)
 		)
 	}
