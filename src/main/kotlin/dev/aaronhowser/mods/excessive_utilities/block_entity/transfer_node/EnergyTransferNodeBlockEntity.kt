@@ -89,7 +89,65 @@ class EnergyTransferNodeBlockEntity(
 	}
 
 	override fun pusherTick(level: ServerLevel) {
-		TODO("Not yet implemented")
+		pullFromParent(level)
+
+		if (bufferEnergyStorage.energyStored <= 0) {
+			ping.reset()
+			return
+		}
+
+		val amountBefore = bufferEnergyStorage.energyStored
+		pushIntoPingPos(level)
+		val amountAfter = bufferEnergyStorage.energyStored
+
+		if (amountAfter == amountBefore) {
+			ping.march(level)
+		}
+	}
+
+	private fun pushIntoPingPos(level: ServerLevel) {
+		val possibleDirections = ping.getNextDirections(level)
+		val pingPos = ping.currentPingPos
+
+		var energyToPush = bufferEnergyStorage.extractEnergy(bufferEnergyStorage.energyStored, true)
+		if (energyToPush <= 0) return
+
+		for (dir in possibleDirections) {
+			val neighborPos = pingPos.relative(dir)
+			val handler = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, dir.opposite) ?: continue
+
+			val accepted = handler.receiveEnergy(energyToPush, false)
+			if (accepted <= 0) continue
+
+			if (!hasCreativeUpgrade()) {
+				bufferEnergyStorage.extractEnergy(accepted, false)
+			}
+
+			energyToPush -= accepted
+			didWorkThisTick = true
+
+			if (energyToPush <= 0) break
+		}
+	}
+
+	private fun pullFromParent(level: ServerLevel) {
+		val parentStorage = getParentEnergyStorage(level) ?: return
+
+		val amountThatCanFit = bufferEnergyStorage.maxEnergyStored - bufferEnergyStorage.energyStored
+		if (amountThatCanFit <= 0) return
+
+		val maxAmountToPull = if (hasStackUpgrade()) 64_000 else 1_000
+		val amountToExtract = maxAmountToPull.coerceAtMost(amountThatCanFit)
+		if (amountToExtract <= 0) return
+
+		val simulated = parentStorage.extractEnergy(amountToExtract, true)
+		if (simulated <= 0) return
+
+		val actualExtracted = parentStorage.extractEnergy(simulated, false)
+		if (actualExtracted <= 0) return
+
+		bufferEnergyStorage.receiveEnergy(actualExtracted, false)
+		didWorkThisTick = true
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
