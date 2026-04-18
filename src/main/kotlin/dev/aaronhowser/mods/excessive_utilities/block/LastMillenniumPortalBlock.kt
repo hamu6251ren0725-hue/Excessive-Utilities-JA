@@ -3,16 +3,35 @@ package dev.aaronhowser.mods.excessive_utilities.block
 import dev.aaronhowser.mods.excessive_utilities.handler.LastMillenniumHandler
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.Portal
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.portal.DimensionTransition
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
 
 class LastMillenniumPortalBlock : Block(Properties.ofFullCopy(Blocks.IRON_BLOCK)), Portal {
 
-	override fun getPortalDestination(level: ServerLevel, entity: Entity, pos: BlockPos): DimensionTransition? {
+	override fun useWithoutItem(
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		player: Player,
+		hitResult: BlockHitResult
+	): InteractionResult {
+		if (level !is ServerLevel) return InteractionResult.PASS
+
+		val destination = getPortalDestination(level, player, pos)
+		player.changeDimension(destination)
+		return InteractionResult.SUCCESS
+	}
+
+	override fun getPortalDestination(level: ServerLevel, entity: Entity, pos: BlockPos): DimensionTransition {
 		val targetLevel = LastMillenniumHandler.getLastMillenniumLevel(level)
 		val chunkPos = LastMillenniumHandler.get(level).getChunk(entity)
 
