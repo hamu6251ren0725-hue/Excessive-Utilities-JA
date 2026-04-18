@@ -71,6 +71,8 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 		register("ender_porcupine", ::EnderPorcupineBlockEntity, ModBlocks.ENDER_PORCUPINE)
 	val ENDER_COLLECTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnderCollectorBlockEntity>> =
 		register("ender_collector", ::EnderCollectorBlockEntity, ModBlocks.ENDER_COLLECTOR)
+	val LAST_MILLENNIUM_PORTAL: DeferredHolder<BlockEntityType<*>, BlockEntityType<LastMillenniumPortalBlockEntity>> =
+		register("last_millennium_portal", ::LastMillenniumPortalBlockEntity, ModBlocks.LAST_MILLENNIUM_PORTAL)
 
 	val ENDER_QUARRY_UPGRADE: DeferredHolder<BlockEntityType<*>, BlockEntityType<EnderQuarryUpgradeBlockEntity>> =
 		register(
