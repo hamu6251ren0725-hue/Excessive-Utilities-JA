@@ -45,7 +45,7 @@ class EnergyTransferNodeBlockEntity(
 		val amountThatCanFit = bufferEnergyStorage.maxEnergyStored - bufferEnergyStorage.energyStored
 		if (amountThatCanFit <= 0) return
 
-		val maxAmountToPull = if (hasStackUpgrade()) 64_000 else 1_000
+		val maxAmountToPull = getAmountPerTick()
 		val amountToExtract = maxAmountToPull.coerceAtMost(amountThatCanFit)
 
 		for (storage in neighborStorages) {
@@ -136,7 +136,7 @@ class EnergyTransferNodeBlockEntity(
 		val amountThatCanFit = bufferEnergyStorage.maxEnergyStored - bufferEnergyStorage.energyStored
 		if (amountThatCanFit <= 0) return
 
-		val maxAmountToPull = if (hasStackUpgrade()) 64_000 else 1_000
+		val maxAmountToPull = getAmountPerTick()
 		val amountToExtract = maxAmountToPull.coerceAtMost(amountThatCanFit)
 		if (amountToExtract <= 0) return
 
@@ -148,6 +148,10 @@ class EnergyTransferNodeBlockEntity(
 
 		bufferEnergyStorage.receiveEnergy(actualExtracted, false)
 		didWorkThisTick = true
+	}
+
+	private fun getAmountPerTick(): Int {
+		return if (hasStackUpgrade()) 192_000 else 3_000
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {

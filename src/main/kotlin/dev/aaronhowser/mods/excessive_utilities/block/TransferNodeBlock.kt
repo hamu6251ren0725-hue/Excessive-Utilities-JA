@@ -114,12 +114,11 @@ class TransferNodeBlock(
 		return InteractionResult.PASS
 	}
 
-	//TODO: Energy Transfer Nodes
 	override fun getBlockEntityType(): BlockEntityType<out GpDrainBlockEntity> {
 		return when (type) {
 			Type.ITEM -> ModBlockEntityTypes.ITEM_TRANSFER_NODE.get()
 			Type.FLUID -> ModBlockEntityTypes.FLUID_TRANSFER_NODE.get()
-			else -> error("NYI")
+			Type.ENERGY -> ModBlockEntityTypes.ENERGY_TRANSFER_NODE.get()
 		}
 	}
 
