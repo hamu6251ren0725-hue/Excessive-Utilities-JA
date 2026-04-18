@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.excessive_utilities.datagen.datapack
 
 import dev.aaronhowser.mods.excessive_utilities.ExcessiveUtilities
+import net.minecraft.core.HolderSet
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
@@ -104,7 +105,7 @@ object ModDimensionProvider {
 		val biomeLookup = context.lookup(Registries.BIOME)
 
 		val tlmSettings = FlatLevelGeneratorSettings(
-			Optional.empty(),
+			Optional.of(HolderSet.direct()),
 			biomeLookup.getOrThrow(Biomes.PLAINS),
 			emptyList()
 		)
