@@ -220,10 +220,10 @@ class EnderQuarryBlockEntity(
 	private fun actuallyMineBlock(level: ServerLevel, target: BlockPos) {
 		if (!canMineBlock(level, target)) return
 
+		val hasWorldHoleUpgrade = getUpgrades().contains(EnderQuarryUpgradeType.WORLD_HOLE)
+
 		val naturalDrops = gatherDrops(level, target)
 		val otherDrops = ItemCatcher.catchStacksDuring {
-			val hasWorldHoleUpgrade = getUpgrades().contains(EnderQuarryUpgradeType.WORLD_HOLE)
-
 			if (hasWorldHoleUpgrade) {
 				level.removeBlock(target, false)
 			} else {
@@ -236,7 +236,6 @@ class EnderQuarryBlockEntity(
 		for (drop in allDrops) {
 			bufferContainer.addItem(drop)
 		}
-
 	}
 
 	private fun gatherDrops(level: ServerLevel, target: BlockPos): List<ItemStack> {
