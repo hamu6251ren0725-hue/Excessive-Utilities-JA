@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.aaron.container.ExtractOnlyInvWrapper
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveEnergy
+import dev.aaronhowser.mods.aaron.misc.ItemCatcher
 import dev.aaronhowser.mods.excessive_utilities.block_entity.base.EnderQuarryUpgradeType
 import dev.aaronhowser.mods.excessive_utilities.config.ServerConfig
 import dev.aaronhowser.mods.excessive_utilities.datagen.tag.ModBlockTagsProvider
@@ -217,18 +218,23 @@ class EnderQuarryBlockEntity(
 	private fun actuallyMineBlock(level: ServerLevel, target: BlockPos) {
 		if (!canMineBlock(level, target)) return
 
-		val drops = gatherDrops(level, target)
-		for (drop in drops) {
+		val naturalDrops = gatherDrops(level, target)
+		val otherDrops = ItemCatcher.catchStacksDuring {
+			val hasWorldHoleUpgrade = getUpgrades().contains(EnderQuarryUpgradeType.WORLD_HOLE)
+
+			if (hasWorldHoleUpgrade) {
+				level.removeBlock(target, false)
+			} else {
+				level.setBlock(target, Blocks.DIRT.defaultBlockState(), Block.UPDATE_ALL)
+			}
+		}
+
+		val allDrops = naturalDrops + otherDrops
+
+		for (drop in allDrops) {
 			bufferContainer.addItem(drop)
 		}
 
-		val hasWorldHoleUpgrade = getUpgrades().contains(EnderQuarryUpgradeType.WORLD_HOLE)
-
-		if (hasWorldHoleUpgrade) {
-			level.removeBlock(target, false)
-		} else {
-			level.setBlock(target, Blocks.DIRT.defaultBlockState(), Block.UPDATE_ALL)
-		}
 	}
 
 	private fun gatherDrops(level: ServerLevel, target: BlockPos): List<ItemStack> {
@@ -284,7 +290,6 @@ class EnderQuarryBlockEntity(
 		val state = level.getBlockState(target)
 
 		if (state.isAir
-			|| state.hasBlockEntity()
 			|| (skipCobble && state.isBlock(Blocks.COBBLESTONE))
 			|| state.isBlock(ModBlockTagsProvider.ENDER_QUARRY_BLACKLIST)
 		) return false

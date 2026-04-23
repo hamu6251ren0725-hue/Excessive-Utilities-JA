@@ -7,6 +7,7 @@
 
 ### Changed
 
+- The Ender Quarry can now mine block entities, picking up their contents (#10)
 - Added the following to the block tag `#excessive_utilities:ender_quarry_blacklist` (#10)
 	- Water
     - Lava
