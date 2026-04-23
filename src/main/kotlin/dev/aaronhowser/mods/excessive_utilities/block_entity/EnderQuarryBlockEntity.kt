@@ -169,7 +169,8 @@ class EnderQuarryBlockEntity(
 	private fun progressMine(level: ServerLevel) {
 		if (level.hasNeighborSignal(blockPos)) return
 
-		confirmTarget(level) ?: return
+		val hasTarget = confirmTarget(level) != null
+		if (!hasTarget) return
 
 		var fePerBlock = ServerConfig.CONFIG.enderQuarryFePerBlock.get()
 		for (upgrade in getUpgrades()) {
@@ -179,6 +180,7 @@ class EnderQuarryBlockEntity(
 		if (energyStorage.energyStored < fePerBlock) return
 
 		var blocksPerTick = ServerConfig.CONFIG.enderQuarryBlocksPerTick.get()
+
 		when {
 			EnderQuarryUpgradeType.SPEED_ONE in getUpgrades() -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedOneSpeedMultiplier.get()
 			EnderQuarryUpgradeType.SPEED_TWO in getUpgrades() -> blocksPerTick *= ServerConfig.CONFIG.eqSpeedTwoSpeedMultiplier.get()
