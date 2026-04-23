@@ -17,6 +17,7 @@
     - `#logs`
     - `#flowers`
     - `#replaceable_by_trees`
+- Added a failsafe for leaving The Last Millennium if you don't have the return data in your persistent data
 
 # 1.2.1
 

@@ -74,6 +74,24 @@ class LastMillenniumHandler : SavedData() {
 		val level = entity.level() as? ServerLevel ?: return
 
 		val pData = entity.persistentData
+
+		if (!pData.contains(PLAYER_RETURN_INFO)) {
+			val targetLevel = level.server.overworld()
+			val spawnPos = targetLevel.sharedSpawnPos
+
+			entity.teleportTo(
+				targetLevel,
+				spawnPos.x + 0.5,
+				spawnPos.y.toDouble(),
+				spawnPos.z + 0.5,
+				emptySet(),
+				entity.yRot,
+				entity.xRot,
+			)
+
+			return
+		}
+
 		val returnInfo = pData.getCompound(PLAYER_RETURN_INFO)
 
 		val fromDimString = returnInfo.getString(FROM_DIM)
