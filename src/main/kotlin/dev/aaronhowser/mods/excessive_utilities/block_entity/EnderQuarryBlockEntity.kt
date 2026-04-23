@@ -525,19 +525,28 @@ class EnderQuarryBlockEntity(
 		val searchDistance = ServerConfig.CONFIG.enderQuarryMarkerSearchDistance.get()
 
 		// Skip this one, because that's where the quarry is
-		val directionToQuarry = Direction.fromDelta(blockPos.x - markerPos.x, 0, blockPos.z - markerPos.z) ?: return false
+		val directionToQuarry = Direction.fromDelta(
+			blockPos.x - markerPos.x,
+			0,
+			blockPos.z - markerPos.z
+		) ?: return false
+
 		val directions = Direction.Plane.HORIZONTAL.toMutableSet()
 		directions.remove(directionToQuarry)
 
 		val checkPos = markerPos.mutable()
-		for (i in 0 until searchDistance) {
-			for (dir in directions) {
+
+		for (i in 1..searchDistance) {
+			val directionIterator = directions.iterator()
+
+			while (directionIterator.hasNext()) {
+				val dir = directionIterator.next()
 				checkPos.set(markerPos).move(dir, i)
 
 				val checkState = level.getBlockState(checkPos)
 				if (checkState.isBlock(ModBlocks.ENDER_MARKER)) {
 					markers.add(checkPos.immutable())
-					directions.remove(dir)
+					directionIterator.remove()
 					break
 				}
 			}
