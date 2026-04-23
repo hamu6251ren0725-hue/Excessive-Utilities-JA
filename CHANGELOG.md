@@ -7,7 +7,15 @@
 
 ### Changed
 
-- Added Grass Blocks, Water, and Lava to the block tag `#excessive_utilities:ender_quarry_blacklist` (#10)
+- Added the following to the block tag `#excessive_utilities:ender_quarry_blacklist` (#10)
+	- Water
+    - Lava
+    - Grass Blocks
+    - Tall/Short Grass
+    - `#sand`
+    - `#leaves`
+    - `#logs`
+    - `#flowers`
 
 # 1.2.1
 

@@ -5,6 +5,12 @@
     "minecraft:bedrock",
     "minecraft:cobblestone",
     "minecraft:water",
-    "minecraft:lava"
+    "minecraft:lava",
+    "minecraft:tall_grass",
+    "minecraft:short_grass",
+    "#minecraft:leaves",
+    "#minecraft:flowers",
+    "#minecraft:logs",
+    "#minecraft:sand"
   ]
 }

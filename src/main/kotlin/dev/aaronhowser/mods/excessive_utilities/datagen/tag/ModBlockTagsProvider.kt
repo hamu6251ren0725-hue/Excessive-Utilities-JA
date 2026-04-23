@@ -277,7 +277,15 @@ class ModBlockTagsProvider(
 				Blocks.BEDROCK,
 				Blocks.COBBLESTONE,
 				Blocks.WATER,
-				Blocks.LAVA
+				Blocks.LAVA,
+				Blocks.TALL_GRASS,
+				Blocks.SHORT_GRASS
+			)
+			.addTags(
+				BlockTags.LEAVES,
+				BlockTags.FLOWERS,
+				BlockTags.LOGS,
+				BlockTags.SAND
 			)
 
 		tag(ENDER_QUARRY_PART)
