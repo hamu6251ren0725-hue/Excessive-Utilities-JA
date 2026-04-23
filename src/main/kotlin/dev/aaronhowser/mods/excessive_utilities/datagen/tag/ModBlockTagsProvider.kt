@@ -273,8 +273,11 @@ class ModBlockTagsProvider(
 		tag(ENDER_QUARRY_BLACKLIST)
 			.add(
 				Blocks.DIRT,
+				Blocks.GRASS_BLOCK,
 				Blocks.BEDROCK,
-				Blocks.COBBLESTONE
+				Blocks.COBBLESTONE,
+				Blocks.WATER,
+				Blocks.LAVA
 			)
 
 		tag(ENDER_QUARRY_PART)

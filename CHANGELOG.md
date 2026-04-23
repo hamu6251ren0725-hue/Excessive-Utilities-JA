@@ -2,7 +2,11 @@
 
 ### Fixed
 
-- Colored block recipes now output 7 instead of 1, to match the amount in the input
+- Colored block recipes now output 7 instead of 1, to match the amount in the input (#9)
+
+### Changed
+
+- Added Grass Blocks, Water, and Lava to the block tag `#excessive_utilities:ender_quarry_blacklist` (#10)
 
 # 1.2.1
 
