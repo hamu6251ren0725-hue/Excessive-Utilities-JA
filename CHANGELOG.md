@@ -13,9 +13,9 @@
     - Grass Blocks
     - Tall/Short Grass
     - `#sand`
-    - `#leaves`
     - `#logs`
     - `#flowers`
+    - `#replaceable_by_trees`
 
 # 1.2.1
 

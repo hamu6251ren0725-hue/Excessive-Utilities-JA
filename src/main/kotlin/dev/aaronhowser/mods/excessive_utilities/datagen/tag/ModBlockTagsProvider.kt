@@ -282,10 +282,10 @@ class ModBlockTagsProvider(
 				Blocks.SHORT_GRASS
 			)
 			.addTags(
-				BlockTags.LEAVES,
 				BlockTags.FLOWERS,
 				BlockTags.LOGS,
-				BlockTags.SAND
+				BlockTags.SAND,
+				BlockTags.REPLACEABLE_BY_TREES
 			)
 
 		tag(ENDER_QUARRY_PART)

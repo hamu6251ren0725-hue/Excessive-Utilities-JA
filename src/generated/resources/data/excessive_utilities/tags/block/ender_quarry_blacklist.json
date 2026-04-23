@@ -8,9 +8,9 @@
     "minecraft:lava",
     "minecraft:tall_grass",
     "minecraft:short_grass",
-    "#minecraft:leaves",
     "#minecraft:flowers",
     "#minecraft:logs",
-    "#minecraft:sand"
+    "#minecraft:sand",
+    "#minecraft:replaceable_by_trees"
   ]
 }
