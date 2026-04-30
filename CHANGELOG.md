@@ -1,3 +1,9 @@
+# 1.3.1
+
+### Fixed
+
+- Added recipes for Swirling Glass and the Portal to the Last Millennium
+
 # 1.3.0
 
 ### Fixed

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "excessive_utilities:thickened_glass"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GGG",
+    " G "
+  ],
+  "result": {
+    "count": 5,
+    "id": "excessive_utilities:swirling_glass"
+  }
+}

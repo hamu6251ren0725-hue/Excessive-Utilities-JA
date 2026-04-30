@@ -160,7 +160,7 @@ class ModRecipeProvider(
 				'S' to ModBlocks.EMINENCE_STONE.asIngredient(),
 				'C' to Items.CLOCK.asIngredient()
 			)
-		)
+		).save(recipeOutput)
 
 		shapedRecipe(
 			ModBlocks.SWIRLING_GLASS.toStack(5),
@@ -168,7 +168,7 @@ class ModRecipeProvider(
 			mapOf(
 				'G' to ModBlocks.THICKENED_GLASS.asIngredient()
 			)
-		)
+		).save(recipeOutput)
 
 		shapedRecipe(
 			ModItems.PAINTBRUSH,
